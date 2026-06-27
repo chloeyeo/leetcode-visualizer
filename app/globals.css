@@ -803,6 +803,8 @@ input:focus-visible,
 }
 .pg-trace { min-height: 200px; }
 .pg-codeview { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-lg); overflow-x: auto; font-family: ui-monospace, monospace; font-size: 13px; }
+.pg-editor-trace .pg-codeview { border: none; border-radius: 0; }
+.pg-editor-trace .viz-playback { padding: 12px 14px 14px; border-top: 1px solid var(--border); }
 .code-line { display: flex; gap: 12px; padding: 2px 12px; }
 .code-line.active { background: var(--state-current); box-shadow: inset 3px 0 0 var(--accent); }
 .code-ln { color: var(--text-faint); min-width: 22px; text-align: right; user-select: none; }

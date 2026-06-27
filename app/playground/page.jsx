@@ -95,6 +95,7 @@ function TraceMode() {
   const [statusMsg, setStatusMsg] = useState('');
   const [error, setError] = useState(null);
   const [stdout, setStdout] = useState('');
+  const [editing, setEditing] = useState(true);
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
@@ -110,7 +111,7 @@ function TraceMode() {
     if (d.type === 'status') setStatusMsg(d.msg);
     else if (d.type === 'result') {
       setTrace(d.trace || []); setError(d.error || null); setStdout(d.stdout || '');
-      setStatus('done'); setStatusMsg('');
+      setStatus('done'); setStatusMsg(''); setEditing(false);
     } else if (d.type === 'error') { setError(d.message); setStatus('error'); setStatusMsg(''); }
   });
 
@@ -120,6 +121,7 @@ function TraceMode() {
   const frame = trace.length ? trace[Math.min(player.step, trace.length - 1)] : null;
   const prevFrame = trace.length && player.step > 0 ? trace[player.step - 1] : null;
   const codeLines = useMemo(() => ranCode.replace(/\n$/, '').split('\n'), [ranCode]);
+  const traced = !editing && status === 'done' && !!frame;
 
   function run() {
     if (!worker.current) return;
@@ -132,26 +134,38 @@ function TraceMode() {
     <div className="pg-grid">
       <div className="pg-editor">
         <div className="pg-editor-head">
-          <span>main.py</span>
-          <button className="btn btn-primary pg-run" onClick={run} disabled={status === 'busy'}>
-            {status === 'busy' ? 'Running…' : '▶ Run'}
-          </button>
+          <span>main.py{traced ? ` · line ${frame.line}` : ''}</span>
+          {traced ? (
+            <button className="btn btn-ghost pg-run" onClick={() => setEditing(true)}>✎ Edit</button>
+          ) : (
+            <button className="btn btn-primary pg-run" onClick={run} disabled={status === 'busy'}>
+              {status === 'busy' ? 'Running…' : '▶ Run'}
+            </button>
+          )}
         </div>
-        <textarea className="pg-code-input" spellCheck={false} value={code}
-          onChange={(e) => setCode(e.target.value)} aria-label="Python code" />
+        {traced ? (
+          <div className="pg-editor-trace">
+            <CodeView lines={codeLines} active={frame.line} />
+            <VizControls player={player} />
+          </div>
+        ) : (
+          <textarea className="pg-code-input" spellCheck={false} value={code}
+            onChange={(e) => setCode(e.target.value)} aria-label="Python code" />
+        )}
       </div>
 
       <div className="pg-trace">
         {status === 'busy' && <p className="loading">{statusMsg || 'Working…'}</p>}
-        {status === 'idle' && (
-          <div className="pg-hint">Press <b>Run</b> to execute and step through your code. The first run downloads the Python runtime (a few seconds).</div>
+        {!traced && status === 'idle' && (
+          <div className="pg-hint">Press <b>Run</b> to execute. The code on the left highlights line-by-line; variables, call stack, data structures and output appear here. The first run downloads the Python runtime (a few seconds).</div>
+        )}
+        {!traced && status === 'done' && editing && (
+          <div className="pg-hint">Editing — press <b>Run</b> again to re-trace.</div>
         )}
         {status === 'error' && <div className="pg-error">⚠ {error}</div>}
 
-        {status === 'done' && trace.length > 0 && frame && (
+        {traced && (
           <>
-            <CodeView lines={codeLines} active={frame.line} />
-            <VizControls player={player} />
             <DataStructures locals={frame.locals} prevLocals={prevFrame ? prevFrame.locals : null} />
             <div className="pg-panels">
               <div className="pg-panel">
