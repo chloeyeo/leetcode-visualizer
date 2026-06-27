@@ -1,6 +1,9 @@
 import './globals.css';
 import Link from 'next/link';
 import { Space_Grotesk } from 'next/font/google';
+import ThemeToggle from '../components/ThemeToggle';
+
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
 
 const display = Space_Grotesk({
   subsets: ['latin'],
@@ -29,7 +32,10 @@ function BrandMark() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={display.variable}>
+    <html lang="en" className={display.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <header className="site-header">
           <div className="container header-inner">
@@ -43,6 +49,7 @@ export default function RootLayout({ children }) {
               <a className="ghost-link" href="https://leetcode.com/problemset/" target="_blank" rel="noreferrer">
                 LeetCode &#8599;
               </a>
+              <ThemeToggle />
             </nav>
           </div>
         </header>

@@ -28,8 +28,18 @@ def __ser(v):
         if len(v) <= 60 and all((e is None or isinstance(e, (bool, int, float, str))) for e in v):
             return {'t': 'list', 'v': [__short(e) for e in v]}
         return {'t': 'scalar', 'v': __short(v)}
+    if isinstance(v, (set, frozenset)):
+        if len(v) <= 60 and all((e is None or isinstance(e, (bool, int, float, str))) for e in v):
+            return {'t': 'set', 'v': sorted([__short(e) for e in v])}
+        return {'t': 'scalar', 'v': __short(v)}
     if isinstance(v, dict):
-        if len(v) <= 40 and all(isinstance(k, (str, int, float, bool)) for k in v.keys()):
+        keys_ok = all(isinstance(k, (str, int, float, bool)) for k in v.keys())
+        if keys_ok and 0 < len(v) <= 40 and all(isinstance(val, (list, tuple, set)) for val in v.values()):
+            adj = []
+            for k, val in v.items():
+                adj.append([__short(k), [__short(e) for e in list(val)[:20]]])
+            return {'t': 'graph', 'v': adj}
+        if len(v) <= 40 and keys_ok:
             return {'t': 'dict', 'v': [[__short(k), __short(val)] for k, val in v.items()]}
         return {'t': 'scalar', 'v': __short(v)}
     if hasattr(v, 'val') and hasattr(v, 'next'):

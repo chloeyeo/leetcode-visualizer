@@ -105,9 +105,69 @@ function TreeView({ root }) {
   );
 }
 
+function layoutGraph(adj) {
+  const set = new Set();
+  adj.forEach(([k, nbrs]) => { set.add(k); nbrs.forEach((n) => set.add(n)); });
+  const nodes = [...set];
+  const index = Object.fromEntries(nodes.map((n, i) => [n, i]));
+  const N = nodes.length;
+  const R = Math.max(54, N * 15);
+  const cx = R + 28;
+  const cy = R + 28;
+  const pos = nodes.map((n, i) => {
+    if (N === 1) return { n, x: cx, y: cy };
+    const ang = (2 * Math.PI * i) / N - Math.PI / 2;
+    return { n, x: cx + R * Math.cos(ang), y: cy + R * Math.sin(ang) };
+  });
+  const edges = [];
+  adj.forEach(([k, nbrs]) => nbrs.forEach((nb) => {
+    const a = index[k];
+    const b = index[nb];
+    if (a != null && b != null) edges.push([a, b]);
+  }));
+  return { pos, edges, W: 2 * R + 56, H: 2 * R + 56 };
+}
+
+const GRAPH_CUR_NAMES = ['node', 'cur', 'curr', 'current', 'u', 'v', 'x', 'start', 'vertex', 'nb', 'neighbor', 'neighbour'];
+
+// Infer which graph nodes are "visited" / "current" from the surrounding locals.
+function graphHighlight(locals, labels) {
+  const visited = new Set();
+  let current = null;
+  for (const [name, val] of Object.entries(locals)) {
+    if (!val) continue;
+    if (val.t === 'list' || val.t === 'set') {
+      val.v.forEach((e) => { if (labels.has(e)) visited.add(e); });
+    } else if (val.t === 'scalar' && GRAPH_CUR_NAMES.includes(name) && labels.has(val.v)) {
+      current = val.v;
+    }
+  }
+  return { visited, current };
+}
+
+function GraphView({ adj, visited, current }) {
+  if (!adj || !adj.length) return <span className="ds-null">empty</span>;
+  const { pos, edges, W, H } = layoutGraph(adj);
+  const cls = (label) => (label === current ? 'current' : visited && visited.has(label) ? 'visited' : '');
+  return (
+    <svg className="viz-graph ds-graph" viewBox={`0 0 ${W} ${H}`} style={{ maxWidth: Math.min(W, 360) }} role="img" aria-label="graph value">
+      {edges.map(([a, b], i) => {
+        const on = visited && visited.has(pos[a].n) && visited.has(pos[b].n);
+        return <line key={i} className={on ? 'on' : ''} x1={pos[a].x} y1={pos[a].y} x2={pos[b].x} y2={pos[b].y} />;
+      })}
+      {pos.map((p, i) => (
+        <g key={i}>
+          <circle cx={p.x} cy={p.y} r="16" className={cls(p.n)} />
+          <text x={p.x} y={p.y}>{p.n}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export function DataStructures({ locals, prevLocals }) {
   const entries = Object.entries(locals).filter(
-    ([, val]) => val && ['list', 'llist', 'tree', 'dict'].includes(val.t)
+    ([, val]) => val && ['list', 'set', 'llist', 'tree', 'graph', 'dict'].includes(val.t)
   );
   if (!entries.length) return null;
   return (
@@ -119,8 +179,22 @@ export function DataStructures({ locals, prevLocals }) {
           {val.t === 'list' && (
             <ArrayCells list={val.v} prev={prevLocals && prevLocals[name] && prevLocals[name].t === 'list' ? prevLocals[name].v : null} />
           )}
+          {val.t === 'set' && (
+            <div className="ds-cells">
+              {val.v.length === 0 && <span className="pg-muted">∅</span>}
+              {val.v.map((e, i) => (
+                <div key={i} className="ds-cell"><span className="ds-val">{e}</span></div>
+              ))}
+            </div>
+          )}
           {val.t === 'llist' && <LinkedCells vals={val.v} cyclic={val.cyclic} />}
           {val.t === 'tree' && <TreeView root={val.v} />}
+          {val.t === 'graph' && (() => {
+            const labels = new Set();
+            val.v.forEach(([k, nbrs]) => { labels.add(k); nbrs.forEach((n) => labels.add(n)); });
+            const { visited, current } = graphHighlight(locals, labels);
+            return <GraphView adj={val.v} visited={visited} current={current} />;
+          })()}
           {val.t === 'dict' && <DictChips entries={val.v} />}
         </div>
       ))}
@@ -133,10 +207,12 @@ export function VarTable({ locals }) {
   if (!entries.length) return <p className="pg-muted">No locals in scope.</p>;
   const fmt = (val) =>
     val.t === 'list' ? `[${val.v.join(', ')}]`
+      : val.t === 'set' ? `{${val.v.join(', ')}}`
       : val.t === 'dict' ? `{${val.v.map(([k, v]) => `${k}: ${v}`).join(', ')}}`
         : val.t === 'llist' ? `${val.v.join(' → ')}${val.cyclic ? ' → ⟲' : ' → null'}`
           : val.t === 'tree' ? '<tree>'
-            : val.v;
+            : val.t === 'graph' ? `{${val.v.map(([k, n]) => `${k}: [${n.join(', ')}]`).join(', ')}}`
+              : val.v;
   return (
     <table className="var-table">
       <tbody>

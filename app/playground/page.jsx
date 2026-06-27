@@ -65,8 +65,8 @@ export default function Playground() {
         <h1>Code Playground <span className="beta-tag">prototype</span></h1>
         <p>
           Write Python, run it in a sandboxed Web Worker, and watch the real execution —
-          arrays, trees, linked lists, local variables, and the call stack at every line.
-          Runs fully in your browser via Pyodide.
+          arrays, trees, linked lists, graphs, local variables, and the call stack at every
+          line. Runs fully in your browser via Pyodide.
         </p>
       </section>
 
@@ -77,9 +77,10 @@ export default function Playground() {
 
       {mode === 'trace' ? <TraceMode /> : <CompareMode />}
 
-      <p className="viz-disclaimer" style={{ marginTop: 20 }}>
+      <p className="viz-disclaimer pg-foot">
         Prototype · Python only · 4,000-step budget (infinite loops stop safely). Arrays,
-        dicts, linked lists and binary trees of primitives render live; complex objects show as text.
+        dicts, linked lists, binary trees and adjacency graphs of primitives render live;
+        complex objects show as text.
       </p>
     </div>
   );
@@ -95,7 +96,6 @@ function TraceMode() {
   const [error, setError] = useState(null);
   const [stdout, setStdout] = useState('');
 
-  // load starter code if arriving from a problem page (?problem=slug&title=...&id=...)
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     const slug = p.get('problem');
@@ -181,6 +181,7 @@ function CompareMode() {
   const [res, setRes] = useState({});
   const [busy, setBusy] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
+  const [editing, setEditing] = useState(true);
 
   const worker = useWorker((d) => {
     if (d.type === 'status') setStatusMsg(d.msg);
@@ -192,12 +193,24 @@ function CompareMode() {
   });
 
   const done = res.A && res.B;
-  useEffect(() => { if (busy && done) { setBusy(false); setStatusMsg(''); } /* eslint-disable-next-line */ }, [res, busy]);
+  useEffect(() => {
+    if (busy && done) { setBusy(false); setEditing(false); setStatusMsg(''); }
+    // eslint-disable-next-line
+  }, [res, busy]);
 
   const lenA = done ? res.A.trace.length : 0;
   const lenB = done ? res.B.trace.length : 0;
   const player = useStepPlayer(Math.max(lenA, lenB, 1));
   useEffect(() => { player.setStep(0); player.setPlaying(false); /* eslint-disable-next-line */ }, [lenA, lenB]);
+
+  const maxSteps = done ? Math.max(lenA, lenB, 1) : 1;
+  const fewer = done && lenA && lenB
+    ? (lenA > lenB ? { winner: 'Optimal', ratio: lenA / lenB } : { winner: 'Brute force', ratio: lenB / lenA })
+    : null;
+  const frameA = !editing && lenA ? res.A.trace[Math.min(player.step, lenA - 1)] : null;
+  const frameB = !editing && lenB ? res.B.trace[Math.min(player.step, lenB - 1)] : null;
+  const linesA = useMemo(() => ranA.replace(/\n$/, '').split('\n'), [ranA]);
+  const linesB = useMemo(() => ranB.replace(/\n$/, '').split('\n'), [ranB]);
 
   function run() {
     if (!worker.current) return;
@@ -207,30 +220,16 @@ function CompareMode() {
     worker.current.postMessage({ type: 'run', id: 'B', code: b });
   }
 
-  const maxSteps = done ? Math.max(lenA, lenB, 1) : 1;
-  const fewer = done && lenA && lenB
-    ? (lenA > lenB ? { winner: 'Optimal', ratio: lenA / lenB } : { winner: 'Brute force', ratio: lenB / lenA })
-    : null;
-  const frameA = done && lenA ? res.A.trace[Math.min(player.step, lenA - 1)] : null;
-  const frameB = done && lenB ? res.B.trace[Math.min(player.step, lenB - 1)] : null;
-  const linesA = useMemo(() => ranA.replace(/\n$/, '').split('\n'), [ranA]);
-  const linesB = useMemo(() => ranB.replace(/\n$/, '').split('\n'), [ranB]);
-
   return (
     <div>
-      <p className="section-note">
-        Run two solutions on the same input and step through both at once — see the gap
-        between O(n²) and O(n) in execution steps, line by line.
-      </p>
-      <div className="cmp-editors">
-        <CmpEditor title="Brute force" code={a} onChange={setA} />
-        <CmpEditor title="Optimal" code={b} onChange={setB} />
-      </div>
-      <button className="btn btn-primary" onClick={run} disabled={busy} style={{ marginTop: 14 }}>
-        {busy ? (statusMsg || 'Running…') : '▶ Run comparison'}
-      </button>
+      {editing && (
+        <p className="section-note">
+          Run two solutions on the same input and step through both at once — the same two
+          panels turn into a synchronized, line-by-line walkthrough.
+        </p>
+      )}
 
-      {done && (
+      {!editing && done && (
         <div className="cmp-results">
           <CmpBar label="Brute force" len={lenA} err={res.A.error} max={maxSteps} tone="hard" />
           <CmpBar label="Optimal" len={lenB} err={res.B.error} max={maxSteps} tone="easy" />
@@ -239,33 +238,46 @@ function CompareMode() {
               <b>{fewer.winner}</b> ran in <b>{fewer.ratio.toFixed(1)}×</b> fewer steps on this input.
             </p>
           )}
-
           <div className="cmp-step"><VizControls player={player} /></div>
-
-          <div className="cmp-traces">
-            <div className="cmp-col">
-              <h3>Brute force <small>{frameA ? `line ${frameA.line}` : 'done'}</small></h3>
-              <CodeView lines={linesA} active={frameA ? frameA.line : -1} />
-              {frameA && <DataStructures locals={frameA.locals} prevLocals={null} />}
-            </div>
-            <div className="cmp-col">
-              <h3>Optimal <small>{frameB ? `line ${frameB.line}` : 'done'}</small></h3>
-              <CodeView lines={linesB} active={frameB ? frameB.line : -1} />
-              {frameB && <DataStructures locals={frameB.locals} prevLocals={null} />}
-            </div>
-          </div>
         </div>
       )}
+
+      <div className="cmp-editors">
+        <ComparePane title="Brute force" editing={editing} code={a} onChange={setA}
+          lines={linesA} frame={frameA} />
+        <ComparePane title="Optimal" editing={editing} code={b} onChange={setB}
+          lines={linesB} frame={frameB} />
+      </div>
+
+      <div className="cmp-actions">
+        {editing ? (
+          <button className="btn btn-primary" onClick={run} disabled={busy}>
+            {busy ? (statusMsg || 'Running…') : '▶ Run comparison'}
+          </button>
+        ) : (
+          <button className="btn btn-ghost" onClick={() => setEditing(true)}>✎ Edit code</button>
+        )}
+      </div>
     </div>
   );
 }
 
-function CmpEditor({ title, code, onChange }) {
+function ComparePane({ title, editing, code, onChange, lines, frame }) {
   return (
-    <div className="pg-editor">
-      <div className="pg-editor-head"><span>{title}</span></div>
-      <textarea className="pg-code-input cmp-input" spellCheck={false} value={code}
-        onChange={(e) => onChange(e.target.value)} aria-label={`${title} code`} />
+    <div className="cmp-col">
+      <div className="cmp-col-head">
+        <span>{title}</span>
+        {!editing && <small>{frame ? `line ${frame.line}` : 'finished'}</small>}
+      </div>
+      {editing ? (
+        <textarea className="pg-code-input cmp-input" spellCheck={false} value={code}
+          onChange={(e) => onChange(e.target.value)} aria-label={`${title} code`} />
+      ) : (
+        <>
+          <CodeView lines={lines} active={frame ? frame.line : -1} />
+          {frame && <DataStructures locals={frame.locals} prevLocals={null} />}
+        </>
+      )}
     </div>
   );
 }
