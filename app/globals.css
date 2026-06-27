@@ -829,6 +829,73 @@ input:focus-visible,
 .pg-modes { margin-bottom: 18px; }
 .pg-foot { margin-top: var(--s5); }
 
+/* ---------- Interview coach ---------- */
+.iv-pick { cursor: pointer; text-align: left; width: 100%; font: inherit; }
+.iv-start { font-size: 13px; color: var(--accent); font-weight: 600; white-space: nowrap; }
+
+.iv-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.iv-bar-left, .iv-bar-right { display: flex; align-items: center; gap: 12px; }
+.iv-exit { background: none; border: none; color: var(--text-dim); font-size: 18px; cursor: pointer; }
+.iv-exit:hover { color: var(--text); }
+.iv-title { font-weight: 700; }
+.iv-timer { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 14px; }
+.iv-voice { background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-dim); border-radius: var(--r-sm); padding: 7px 12px; font-size: 13px; cursor: pointer; }
+.iv-voice.on { color: var(--text); border-color: var(--border-hover); }
+.iv-end { padding: 8px 16px; }
+
+.iv-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4); align-items: start; }
+.iv-left { display: flex; flex-direction: column; gap: 12px; }
+.iv-lc { font-size: 13px; }
+.iv-right { display: flex; flex-direction: column; gap: 14px; }
+
+.iv-phases { display: flex; flex-wrap: wrap; gap: 6px; }
+.iv-phase { font-size: 11px; padding: 3px 9px; border-radius: var(--r-pill); background: var(--bg-elev-2); color: var(--text-dim); border: 1px solid transparent; }
+.iv-phase.current { background: var(--state-current); color: var(--text); border-color: var(--accent); }
+.iv-phase.done { color: var(--easy); }
+
+.iv-objective { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px; font-size: 14px; }
+.iv-checklist { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.iv-checklist li { font-size: 13px; color: var(--text-dim); }
+.iv-checklist li.done { color: var(--easy); }
+
+.iv-transcript { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-md); padding: 12px 14px; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.iv-turn { display: flex; flex-direction: column; gap: 2px; }
+.iv-turn p { margin: 0; font-size: 14px; line-height: 1.5; }
+.iv-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); }
+.iv-turn.interviewer .iv-who { color: var(--accent); }
+.iv-turn.candidate .iv-who { color: var(--accent-2); }
+.iv-turn.candidate p { color: var(--text-dim); }
+
+.iv-talk { display: flex; flex-direction: column; gap: 8px; }
+.iv-mic { align-self: flex-start; background: var(--bg-elev-2); border: 1px solid var(--border); color: var(--text); border-radius: var(--r-pill); padding: 8px 16px; font-size: 14px; cursor: pointer; }
+.iv-mic.live { background: var(--state-current); border-color: var(--accent); }
+.iv-pending { width: 100%; min-height: 70px; resize: vertical; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text); padding: 10px 12px; font-size: 14px; line-height: 1.5; }
+.iv-done { align-self: flex-end; }
+
+/* Scorecard */
+.iv-scorecard { max-width: 760px; }
+.sc-head { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin: 10px 0 24px; flex-wrap: wrap; }
+.sc-head h1 { font-family: var(--font-display); margin: 0; font-size: 28px; }
+.sc-sub { color: var(--text-dim); font-size: 14px; margin: 6px 0 0; }
+.sc-grade { display: flex; flex-direction: column; align-items: center; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 12px 22px; }
+.sc-grade-letter { font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1; }
+.sc-grade-num { color: var(--text-dim); font-size: 13px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.sc-grade.g-A .sc-grade-letter, .sc-grade.g-B .sc-grade-letter { color: var(--easy); }
+.sc-grade.g-C .sc-grade-letter { color: var(--medium); }
+.sc-grade.g-D .sc-grade-letter, .sc-grade.g-F .sc-grade-letter { color: var(--hard); }
+.sc-dims { display: flex; flex-direction: column; gap: 16px; }
+.sc-dim-head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+.sc-dim-name { font-weight: 600; }
+.sc-dim-score { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.sc-bar { background: var(--bg-elev-2); border-radius: var(--r-pill); height: 8px; overflow: hidden; }
+.sc-bar-fill { height: 100%; background: var(--accent); border-radius: var(--r-pill); }
+.sc-evidence { margin: 8px 0 0; font-size: 13px; color: var(--text-dim); font-style: italic; }
+.sc-actions { margin-top: 28px; }
+.sc-actions h3 { font-size: 15px; margin: 0 0 8px; }
+.sc-actions ol { margin: 0; padding-left: 20px; color: var(--text-dim); font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 880px) { .iv-grid { grid-template-columns: 1fr; } }
+
 /* Data-structure view (state-diff highlight) */
 .pg-ds { margin-top: var(--s4); }
 .pg-ds h3 { font-size: 13px; color: var(--text-dim); margin: 0 0 10px; }

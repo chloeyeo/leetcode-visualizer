@@ -65,6 +65,9 @@ export default function ProblemPage({ params }) {
         >
           Open in Playground
         </Link>
+        <Link className="btn btn-ghost" href={`/interview/?problem=${q.slug}`}>
+          Practice interview
+        </Link>
       </div>
 
       <h2 className="section-title lead">Visualize the pattern</h2>

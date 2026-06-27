@@ -46,6 +46,7 @@ export default function RootLayout({ children }) {
             <nav className="header-nav">
               <Link className="ghost-link" href="/patterns">Patterns</Link>
               <Link className="ghost-link" href="/playground">Playground</Link>
+              <Link className="ghost-link" href="/interview">Interview</Link>
               <a className="ghost-link" href="https://leetcode.com/problemset/" target="_blank" rel="noreferrer">
                 LeetCode &#8599;
               </a>
