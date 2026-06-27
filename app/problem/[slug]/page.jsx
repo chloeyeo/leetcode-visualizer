@@ -59,6 +59,12 @@ export default function ProblemPage({ params }) {
         <a className="btn btn-primary" href={lcUrl} target="_blank" rel="noreferrer">
           Open on LeetCode &#8599;
         </a>
+        <Link
+          className="btn btn-ghost"
+          href={`/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}`}
+        >
+          Open in Playground
+        </Link>
       </div>
 
       <h2 className="section-title lead">Visualize the pattern</h2>
