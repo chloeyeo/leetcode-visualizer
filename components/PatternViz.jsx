@@ -16,6 +16,16 @@ export default function PatternViz({ tags = [] }) {
   if (!match) {
     return (
       <div className="viz-placeholder">
+        <svg className="ph-mark" viewBox="0 0 64 40" width="84" height="52" aria-hidden="true">
+          <line x1="14" y1="20" x2="32" y2="10" />
+          <line x1="14" y1="20" x2="32" y2="30" />
+          <line x1="32" y1="10" x2="50" y2="20" />
+          <line x1="32" y1="30" x2="50" y2="20" />
+          <circle cx="14" cy="20" r="5" />
+          <circle cx="32" cy="10" r="5" />
+          <circle cx="32" cy="30" r="5" />
+          <circle cx="50" cy="20" r="5" />
+        </svg>
         <p>
           No interactive visualizer matches this problem&apos;s tags yet. We currently
           animate {PATTERNS.length} patterns: {PATTERNS.map((p) => p.label).join(', ')}.

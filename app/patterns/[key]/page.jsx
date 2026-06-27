@@ -35,7 +35,7 @@ export default function PatternDetail({ params }) {
       <h2 className="section-title lead">Visualize the pattern</h2>
       <PatternPlayer keyName={p.key} />
 
-      <p className="section-note" style={{ marginTop: 22 }}>
+      <p className="section-note pattern-example">
         Example problem that uses it:{' '}
         <Link className="inline-link" href={`/problem/${p.example}`}>{p.example}</Link>
       </p>

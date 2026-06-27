@@ -38,7 +38,7 @@ export default function ProblemPage({ params }) {
       <Link className="back-link" href="/">&#8592; All problems</Link>
 
       <div className="detail-head">
-        <span className="num" style={{ fontSize: 18 }}>{q.id}.</span>
+        <span className="num">{q.id}.</span>
         <h1>{q.title}</h1>
       </div>
 
@@ -82,7 +82,11 @@ export default function ProblemPage({ params }) {
                 alt={`${q.title} video walkthrough`}
                 loading="lazy"
               />
-              <div className="play-badge"><span /></div>
+              <div className="play-badge">
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </div>
             </div>
             <div className="video-label">
               {v.title || `${q.title} — walkthrough`}

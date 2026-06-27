@@ -74,7 +74,7 @@ export default function HeapViz() {
           const { x, y } = pos(i);
           return (
             <g key={i}>
-              <circle cx={x} cy={y} r="20" className={cls(i)} />
+              <circle cx={x} cy={y} r="22" className={cls(i)} />
               <text x={x} y={y}>{v}</text>
             </g>
           );
