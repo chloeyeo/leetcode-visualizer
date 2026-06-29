@@ -261,5 +261,109 @@
     "constraints": "The input is a 32-bit signed integer. If reversing the integer causes it to go outside the 32-bit signed integer range [-2^31, 2^31 - 1], return 0.",
     "examples": "Input: 120, Output: 21. Input: -123, Output: -321. Input: 1534236469, Output: 0.",
     "starterCode": "def reverse_integer(x):\n    # Your code here\n    pass\n\nprint(reverse_integer(123)) # expected: 321\nprint(reverse_integer(-123)) # expected: -321\nprint(reverse_integer(120)) # expected: 21\nprint(reverse_integer(1534236469)) # expected: 0"
+  },
+  "string-to-integer-atoi": {
+    "draft": true,
+    "generated": true,
+    "goal": "Convert a given string into its integer representation. The conversion should follow specific rules to handle whitespace, signs, non-numeric characters, and potential overflow.",
+    "constraints": "Input string can contain leading/trailing whitespace, an optional sign (+ or -), digits, and other characters. Output must be clamped to the 32-bit signed integer range [-2^31, 2^31 - 1].",
+    "examples": "Input: \"-42\". Output: -42. Input: \"4193 with words\". Output: 4193. Input: \"words and 987\". Output: 0. Input: \"-91283472332\". Output: -2147483648 (clamped).",
+    "starterCode": "def string_to_integer(s):\n    # Your code here\n    pass\n\nprint(string_to_integer(\"42\")) # expected: 42\nprint(string_to_integer(\"   -42\")) # expected: -42\nprint(string_to_integer(\"4193 with words\")) # expected: 4193\nprint(string_to_integer(\"words and 987\")) # expected: 0\nprint(string_to_integer(\"-91283472332\")) # expected: -2147483648"
+  },
+  "palindrome-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given integer reads the same forwards and backward. Return true if it is a palindrome, and false otherwise.",
+    "constraints": "The input integer is within the range of a 32-bit signed integer. · Negative numbers are not palindromes.",
+    "examples": "Input: 121, Output: true. Input: -121, Output: false. Input: 10, Output: false.",
+    "starterCode": "def is_palindrome(x):\n    # Your code here\n    pass\n\nprint(is_palindrome(121)) # expected: true\nprint(is_palindrome(-121)) # expected: false\nprint(is_palindrome(10)) # expected: false"
+  },
+  "regular-expression-matching": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given text string matches a pattern that can include lowercase letters, '.', and '*'. The '.' matches any single character, and '*' matches zero or more of the preceding element.",
+    "constraints": "Both the text and pattern consist only of lowercase letters a-z, '.', and '*'. · The pattern will not start with '*'.",
+    "examples": "Input: text = \"aa\", pattern = \"a\" Output: false. Explanation: \"a\" only matches the first 'a' in \"aa\".\nInput: text = \"aa\", pattern = \"a*\" Output: true. Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes \"aa\".\nInput: text = \"ab\", pattern = \".*\" Output: true. Explanation: \".*\" means \"zero or more (*) of any character (.).",
+    "starterCode": "def isMatch(text: str, pattern: str) -> bool:\n    # Your code here\n    pass\n\nprint(isMatch(\"aa\", \"a*\")) # expected: true"
+  },
+  "container-with-most-water": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array representing the heights of vertical lines, find the maximum amount of water that can be contained between any two lines.",
+    "constraints": "Heights are non-negative integers · Array length is at least 2.",
+    "examples": "Input: [1,8,6,2,5,4,8,3,7]\nOutput: 49 (formed by lines at index 1 (height 8) and index 8 (height 7))",
+    "starterCode": "def maxArea(height):\n    # Your code here\n    pass\n\nprint(maxArea([1,8,6,2,5,4,8,3,7])) # expected: 49"
+  },
+  "integer-to-roman": {
+    "draft": true,
+    "generated": true,
+    "goal": "Convert a given integer into its Roman numeral representation. Return the Roman numeral as a string.",
+    "constraints": "1 <= num <= 3999",
+    "examples": "Input: 3. Output: \"III\". Input: 58. Output: \"LVIII\".",
+    "starterCode": "def intToRoman(num):\n    # Your code here\n    pass\n\nprint(intToRoman(3)) # expected: \"III\"\nprint(intToRoman(58)) # expected: \"LVIII\""
+  },
+  "roman-to-integer": {
+    "draft": true,
+    "generated": true,
+    "goal": "Convert a Roman numeral string into its equivalent integer value. Return the calculated integer.",
+    "constraints": "Input is guaranteed to be a valid Roman numeral string between 1 and 3999. · Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.",
+    "examples": "Input: 'III' -> Output: 3. Input: 'LVIII' -> Output: 58 (L=50, V=5, III=3). Input: 'MCMXCIV' -> Output: 1994 (M=1000, CM=900, XC=90, IV=4).",
+    "starterCode": "def romanToInt(s):\n    # Your code here\n    pass\n\nprint(romanToInt('MCMXCIV')) # expected: 1994"
+  },
+  "longest-common-prefix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings, find the longest string that is a prefix of every single string in the list. If no common prefix exists, return an empty string.",
+    "constraints": "The input list can contain between 1 and 200 strings. · Each string can have a length between 0 and 200 characters. · All strings consist of only lowercase English letters.",
+    "examples": "Input: [\"flower\",\"flow\",\"flight\"] Output: \"fl\" Input: [\"dog\",\"racecar\",\"car\"] Output: \"\"",
+    "starterCode": "def longestCommonPrefix(strs):\n    # Your code here\n    pass\n\nprint(longestCommonPrefix([\"flower\",\"flow\",\"flight\"])) # expected: \"fl\"\nprint(longestCommonPrefix([\"dog\",\"racecar\",\"car\"])) # expected: \"\""
+  },
+  "3sum-closest": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers `nums` and a target integer `target`, find three distinct numbers in `nums` whose sum is as close as possible to `target`. Return this sum.",
+    "constraints": "3 <= nums.length <= 3000 · -1000 <= nums[i] <= 1000 · -10^4 <= target <= 10^4",
+    "examples": "Input: nums = [-1, 2, 1, -4], target = 1. Output: 2. Explanation: The sum that's closest to the target is 2. (-1 + 2 + 1 = 2).",
+    "starterCode": "def threeSumClosest(nums, target):\n    # Your code here\n    pass\n\nprint(threeSumClosest([-1, 2, 1, -4], 1)) # expected: 2"
+  },
+  "letter-combinations-of-a-phone-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string of digits from '2' to '9', generate all possible letter combinations that these digits could represent on a standard phone keypad. Return these combinations as a list of strings.",
+    "constraints": "Input is a string containing only digits '2'-'9' · The input string can be empty.",
+    "examples": "Input: \"23\"\nOutput: [\"ad\", \"ae\", \"af\", \"bd\", \"be\", \"bf\", \"cd\", \"ce\", \"cf\"]",
+    "starterCode": "def letterCombinations(digits):\n    # Your code here\n    pass\n\nprint(letterCombinations(\"23\")) # expected: [\"ad\", \"ae\", \"af\", \"bd\", \"be\", \"bf\", \"cd\", \"ce\", \"cf\"]"
+  },
+  "4sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find all unique combinations of four numbers from a given array that add up to a specific target value. Return these combinations as a list of lists.",
+    "constraints": "The input array can contain duplicates · The order of numbers within a combination does not matter · The order of combinations in the output does not matter · The target value can be any integer.",
+    "examples": "Input: nums = [1,0,-1,0,-2,2], target = 0. Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]",
+    "starterCode": "def fourSum(nums, target):\n    # Your code here\n    pass\n\nprint(fourSum([1,0,-1,0,-2,2], 0)) # expected: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]"
+  },
+  "remove-nth-node-from-end-of-list": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given the head of a singly linked list and an integer 'n', remove the nth node from the end of the list and return its head.",
+    "constraints": "The number of nodes in the list is sz. 1 <= sz <= 30 · 0 <= Node.val <= 100 · 1 <= n <= sz",
+    "examples": "Input: head = [1,2,3,4,5], n = 2. Output: [1,2,3,5]. Explanation: The 2nd node from the end is 4. Removing it results in [1,2,3,5].",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef removeNthFromEnd(head, n):\n    # Your code here\n    pass\n\n# Helper function to create a linked list from a list\ndef create_linked_list(arr):\n    if not arr:\n        return None\n    head = ListNode(arr[0])\n    current = head\n    for val in arr[1:]:\n        current.next = ListNode(val)\n        current = current.next\n    return head\n\n# Helper function to convert a linked list to a list\ndef linked_list_to_list(head):\n    arr = []\n    current = head\n    while current:\n        arr.append(current.val)\n        current = current.next\n    return arr\n\nhead1 = create_linked_list([1,2,3,4,5])\nprint(linked_list_to_list(removeNthFromEnd(head1, 2))) # expected: [1, 2, 3, 5]"
+  },
+  "merge-k-sorted-lists": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of k sorted linked lists, merge them into a single sorted linked list. Return the head of the newly formed merged list.",
+    "constraints": "k is the number of linked lists · Each linked list is sorted in ascending order · The total number of nodes across all lists is between 0 and 10^4 · Node values are between -10^4 and 10^4",
+    "examples": "Input: lists = [[1,4,5],[1,3,4],[2,6]]\nOutput: [1,1,2,3,4,4,5,6]\nExplanation: The linked lists are:\n[ 1->4->5,\n  1->3->4,\n  2->6 ]\nAfter merging them into one sorted list:\n1->1->2->3->4->4->5->6",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef mergeKLists(lists):\n    # Your code here\n    pass\n\n# Helper function to create a linked list from a list\ndef create_linked_list(arr):\n    if not arr:\n        return None\n    head = ListNode(arr[0])\n    current = head\n    for val in arr[1:]:\n        current.next = ListNode(val)\n        current = current.next\n    return head\n\n# Helper function to convert a linked list to a list\ndef linked_list_to_list(head):\n    arr = []\n    current = head\n    while current:\n        arr.append(current.val)\n        current = current.next\n    return arr\n\nlist1 = create_linked_list([1,4,5])\nlist2 = create_linked_list([1,3,4])\nlist3 = create_linked_list([2,6])\ninput_lists = [list1, list2, list3]\n\nmerged_head = mergeKLists(input_lists)\nprint(linked_list_to_list(merged_head)) # expected: [1, 1, 2, 3, 4, 4, 5, 6]"
+  },
+  "swap-nodes-in-pairs": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given the head of a singly linked list, rearrange the nodes so that every adjacent pair of nodes is swapped. Return the head of the modified list.",
+    "constraints": "The number of nodes in the list is in the range [0, 100] · 0 <= Node.val <= 100",
+    "examples": "Input: head = [1,2,3,4]\nOutput: [2,1,4,3]\n\nInput: head = []\nOutput: []\n\nInput: head = [1]\nOutput: [1]",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef swapPairs(head):\n    # Your code here\n    pass\n\ndef list_to_linkedlist(arr):\n    if not arr:\n        return None\n    head = ListNode(arr[0])\n    current = head\n    for val in arr[1:]:\n        current.next = ListNode(val)\n        current = current.next\n    return head\n\ndef linkedlist_to_list(head):\n    arr = []\n    current = head\n    while current:\n        arr.append(current.val)\n        current = current.next\n    return arr\n\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([1,2,3,4])))) # expected: [2, 1, 4, 3]\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([])))) # expected: []\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([1])))) # expected: [1]"
   }
 }

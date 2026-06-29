@@ -50,7 +50,7 @@ const BRUTE = `def two_sum(nums, target):
             if nums[i] + nums[j] == target:
                 return [i, j]
 
-print(two_sum([2, 7, 11, 15, 1, 8], 9))
+print(two_sum([8, 3, 5, 7, 6, 2, 9, 1, 4, 11, 15], 26))
 `;
 
 const OPTIMAL = `def two_sum(nums, target):
@@ -60,7 +60,7 @@ const OPTIMAL = `def two_sum(nums, target):
             return [seen[target - x], i]
         seen[x] = i
 
-print(two_sum([2, 7, 11, 15, 1, 8], 9))
+print(two_sum([8, 3, 5, 7, 6, 2, 9, 1, 4, 11, 15], 26))
 `;
 
 function starterFor(title, id, slug) {
