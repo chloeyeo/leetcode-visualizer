@@ -53,13 +53,101 @@ function dfs(start) {
   return frames;
 }
 
-export default function GraphViz() {
+/* ---------- Grid flood-fill mode (number-of-islands) ---------- */
+const ISLAND_COLORS = ['var(--accent)', 'var(--accent-2)', 'var(--easy)', 'var(--medium)', 'var(--hard)'];
+
+function buildIslandFrames(grid) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const color = Array.from({ length: rows }, () => Array(cols).fill(0)); // 0 = unvisited, >0 = island id
+  const frames = [];
+  let islands = 0;
+  const inb = (r, c) => r >= 0 && r < rows && c >= 0 && c < cols;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (grid[r][c] === '1' && color[r][c] === 0) {
+        islands += 1;
+        color[r][c] = islands;
+        const stack = [[r, c]];
+        frames.push({ cur: [r, c], color: color.map((row) => [...row]), islands, note: `Unvisited land at (${r}, ${c}) — start island #${islands}.` });
+        while (stack.length) {
+          const [cr, cc] = stack.pop();
+          for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const nr = cr + dr;
+            const nc = cc + dc;
+            if (inb(nr, nc) && grid[nr][nc] === '1' && color[nr][nc] === 0) {
+              color[nr][nc] = islands;
+              stack.push([nr, nc]);
+              frames.push({ cur: [nr, nc], color: color.map((row) => [...row]), islands, note: `Flood-fill (${nr}, ${nc}) into island #${islands}.` });
+            }
+          }
+        }
+      }
+    }
+  }
+  frames.push({ cur: null, color: color.map((row) => [...row]), islands, done: true, note: `Done — ${islands} island${islands === 1 ? '' : 's'} found.` });
+  return frames;
+}
+
+function IslandsViz({ grid }) {
+  const frames = useMemo(() => buildIslandFrames(grid), [grid]);
+  const player = useStepPlayer(frames.length);
+  const frame = frames[Math.min(player.step, frames.length - 1)];
+  const cols = grid[0].length;
+
+  return (
+    <div className="viz">
+      <p className="viz-prompt">
+        Scan the grid; on each unvisited <b>land</b> cell, flood-fill its whole island
+        (up/down/left/right) and add one to the count.
+      </p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 44px)`, gap: 4, margin: '10px 0 14px' }}>
+        {grid.map((row, r) => row.map((cell, c) => {
+          const id = frame.color[r][c];
+          const isCur = frame.cur && frame.cur[0] === r && frame.cur[1] === c;
+          const bg = cell === '0' ? 'var(--bg-elev-2)' : id > 0 ? ISLAND_COLORS[(id - 1) % ISLAND_COLORS.length] : 'var(--state-visited)';
+          return (
+            <div
+              key={`${r}-${c}`}
+              style={{
+                height: 44, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 700, fontVariantNumeric: 'tabular-nums', background: bg,
+                color: cell === '0' ? 'var(--text-faint)' : 'var(--on-accent)',
+                outline: isCur ? '3px solid var(--text)' : 'none', transition: 'background 0.25s',
+              }}
+            >
+              {cell}
+            </div>
+          );
+        }))}
+      </div>
+
+      <div className="viz-out">
+        <span className="viz-out-label">Islands so far:</span>
+        <span className="pill current">{frame.islands}</span>
+      </div>
+
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className={frame.done ? 'viz-note done' : 'viz-note'}>{frame.note}</span>
+      </div>
+
+      <VizControls player={player} />
+
+      <p className="viz-disclaimer">Running flood-fill on this problem&apos;s own sample grid.</p>
+    </div>
+  );
+}
+
+export default function GraphViz({ input }) {
   const [mode, setMode] = useState('BFS');
   const frames = useMemo(() => (mode === 'BFS' ? bfs(0) : dfs(0)), [mode]);
   const player = useStepPlayer(frames.length);
   const { step } = player;
   const frame = frames[Math.min(step, frames.length - 1)];
   const order = frames.slice(0, step + 1).map((f) => f.node);
+
+  if (input && input.grid) return <IslandsViz grid={input.grid} />;
 
   function switchMode(m) {
     setMode(m);

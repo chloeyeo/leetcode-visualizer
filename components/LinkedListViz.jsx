@@ -1,40 +1,44 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useStepPlayer } from './useStepPlayer';
 import VizControls from './VizControls';
 
-const VALUES = [1, 2, 3, 4, 5];
+const DEFAULT_VALUES = [1, 2, 3, 4, 5];
 
-function buildFrames() {
-  const n = VALUES.length;
-  const link = VALUES.map((_, i) => (i < n - 1 ? i + 1 : null));
+function buildFrames(values) {
+  const n = values.length;
+  const link = values.map((_, i) => (i < n - 1 ? i + 1 : null));
   const frames = [];
   let prev = null;
   let curr = 0;
-  frames.push({ prev, curr, link: [...link], note: 'Start: prev = null, curr = head (1).' });
+  frames.push({ prev, curr, link: [...link], note: `Start: prev = null, curr = head (${values[0]}).` });
   while (curr !== null) {
     const next = link[curr];
     link[curr] = prev;
-    frames.push({ prev, curr, link: [...link], note: `Flip node ${VALUES[curr]}'s arrow to point at ${prev === null ? 'null' : VALUES[prev]}.` });
+    frames.push({ prev, curr, link: [...link], note: `Flip node ${values[curr]}'s arrow to point at ${prev === null ? 'null' : values[prev]}.` });
     prev = curr;
     curr = next;
     frames.push({
       prev, curr, link: [...link], done: curr === null,
-      note: curr === null ? `Done — the list is reversed. New head is ${VALUES[prev]}.` : `Advance: prev = ${VALUES[prev]}, curr = ${VALUES[curr]}.`,
+      note: curr === null ? `Done — the list is reversed. New head is ${values[prev]}.` : `Advance: prev = ${values[prev]}, curr = ${values[curr]}.`,
     });
   }
   return frames;
 }
 
-const FRAMES = buildFrames();
-
-export default function LinkedListViz() {
-  const player = useStepPlayer(FRAMES.length);
+/**
+ * Linked-list reversal visualizer.
+ * @param {object} [input] problem-specific data: { values:number[] }.
+ */
+export default function LinkedListViz({ input }) {
+  const values = input && Array.isArray(input.values) && input.values.length ? input.values : DEFAULT_VALUES;
+  const frames = useMemo(() => buildFrames(values), [values]);
+  const player = useStepPlayer(frames.length);
   const { step } = player;
-  const frame = FRAMES[Math.min(step, FRAMES.length - 1)];
+  const frame = frames[Math.min(step, frames.length - 1)];
   const { link, prev, curr } = frame;
-  const n = VALUES.length;
+  const n = values.length;
 
   function ptr(i) {
     if (i === prev) return 'prev';
@@ -55,7 +59,7 @@ export default function LinkedListViz() {
       </p>
 
       <div className="ll-row">
-        {VALUES.map((v, i) => (
+        {values.map((v, i) => (
           <Fragment key={i}>
             <div className="ll-col">
               <div className={`ll-ptr ${ptr(i) || ''}`}>{ptr(i)}</div>
@@ -77,7 +81,9 @@ export default function LinkedListViz() {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with sample data — not a solver for this exact problem.
+        {input
+          ? "Reversing this problem's own sample list, node by node."
+          : 'Illustrates the general pattern with sample data — not a solver for this exact problem.'}
       </p>
     </div>
   );

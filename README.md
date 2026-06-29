@@ -4,8 +4,11 @@ A free, static web app that lets you browse **every LeetCode problem**, search a
 the catalog, and open each problem with a one-click link to LeetCode plus a YouTube video
 hint (shown as a clickable thumbnail card). No backend, no database, no paid services.
 
-This is the **MVP** (full catalog + video cards). Interactive pattern visualizers are a
-planned later phase — each problem page already has a placeholder slot for them.
+Beyond the catalog, it now ships **interactive pattern visualizers** (~12 families), an
+in-browser **Pyodide code playground** (trace + compare modes), and an **AI mock-interview
+coach** with a swappable interviewer brain (free scripted stub, or bring-your-own-key
+Gemini / Claude / OpenAI-compatible), live speech-to-text, and a graded scorecard — all
+still a $0 static export. See [`docs/roadmap.md`](docs/roadmap.md) for what's next.
 
 ---
 
@@ -134,12 +137,19 @@ scripts/
 
 ## Roadmap
 
-- **Phase 1 (this MVP):** full catalog browse + per-problem video card with safe fallback.
-- **Phase 2:** real curated video IDs for the popular ~500 problems.
-- **Phase 3:** interactive **pattern visualizers** (~12 families: two-pointer, sliding
-  window, binary search, BST/graph traversal, DP grid, backtracking, etc.), shown in the
-  placeholder slot on each problem page based on its primary tag.
-- **Phase 4 (optional):** in-browser code playground, progress tracking.
+**Shipped:**
+
+- ✅ Full catalog browse + per-problem video card with safe fallback.
+- ✅ Interactive **pattern visualizers** (~12 families: two-pointer, sliding window, binary
+  search, BST/graph traversal, DP grid, backtracking, etc.), chosen per problem by tag.
+- ✅ In-browser **code playground** (Pyodide): trace a run line-by-line and compare two
+  solutions side-by-side.
+- ✅ **AI interview coach**: spoken mock interview, phase rail + checklist, swappable brain
+  (free stub / BYOK Gemini / Claude / OpenAI-compatible), graded scorecard.
+
+**Next** (full plan in [`docs/roadmap.md`](docs/roadmap.md)): curated videos for the top
+problems, a hosted paid tier (server-held key + paywall), and growth loops. The free
+scripted coach and BYOK Gemini free tier stay free.
 
 ---
 

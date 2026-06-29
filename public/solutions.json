@@ -1,0 +1,109 @@
+{
+  "_note": "Per-problem detail keyed by slug. aiSummary = our OWN re-written problem statement (never LeetCode's wording — algorithmic concepts aren't copyrightable, specific phrasing is). starterCode = a runnable Python blueprint (function signature + a sample call so it traces in the Playground). Optional viz = problem-specific visualizer config: { key, input } where key matches lib/patterns.js and input is passed to that visualizer (TwoPointerViz + BinarySearchViz are input-aware today). aiSummary fields are original drafts written for this app; replace/refine with your own ChatGPT/Gemini rewrites anytime — the UI reads this file as-is. Set draft:false once reviewed.",
+  "two-sum": {
+    "draft": true,
+    "aiSummary": "Given a list of integers `nums` and a target integer `target`, find the two distinct positions whose values add up to `target`, and return them as a pair of indices. Exactly one valid pair is guaranteed to exist, and you may use each element at most once. The order of the two indices in your answer doesn't matter.\n\nExample: nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
+    "starterCode": "def two_sum(nums, target):\n    # Return the indices of the two values that add up to target.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum([2, 7, 11, 15], 9))  # expected: [0, 1]\n"
+  },
+  "valid-palindrome": {
+    "draft": true,
+    "aiSummary": "Decide whether a string reads the same forwards and backwards once you ignore case and keep only alphanumeric characters (letters and digits). Return True if it qualifies as a palindrome under those rules, otherwise return False. An empty string (after filtering) counts as a palindrome.\n\nExamples: \"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 200,000 · s consists of printable ASCII characters.",
+    "starterCode": "def is_palindrome(s):\n    # Return True if s is a palindrome, ignoring case and non-alphanumeric chars.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # expected: True\n",
+    "viz": { "key": "two-pointers", "input": { "mode": "palindrome", "string": "A man, a plan, a canal: Panama" } }
+  },
+  "two-sum-ii-input-array-is-sorted": {
+    "draft": true,
+    "aiSummary": "You're given a 1-indexed array of integers `numbers` already sorted in non-decreasing order. Find the two positions whose values add up to `target` and return them as [index1, index2] using 1-based indexing (with index1 < index2). Exactly one solution exists, you can't reuse an element, and you must use only O(1) extra space.\n\nExample: numbers = [2, 7, 11, 15], target = 9 → [1, 2], since numbers[1] + numbers[2] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(numbers) ≤ 30,000 · -1000 ≤ numbers[i] ≤ 1000 · numbers is sorted ascending · exactly one valid pair.",
+    "starterCode": "def two_sum_sorted(numbers, target):\n    # numbers is sorted ascending. Return the 1-based indices of the pair.\n    # Aim for O(1) extra space (two-pointer technique).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum_sorted([2, 7, 11, 15], 9))  # expected: [1, 2]\n",
+    "viz": { "key": "two-pointers", "input": { "mode": "two-pointers", "array": [2, 7, 11, 15], "target": 9 } }
+  },
+  "binary-search": {
+    "draft": true,
+    "aiSummary": "Given a list `nums` sorted in ascending order and a value `target`, return the index of `target` if it's present, or -1 if it isn't. Your algorithm must run in O(log n) time.\n\nExamples: nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.\n\nConstraints: 1 ≤ len(nums) ≤ 10,000 · all values are unique · -10,000 ≤ nums[i], target ≤ 10,000 · nums is sorted ascending.",
+    "starterCode": "def search(nums, target):\n    # nums is sorted ascending. Return the index of target, or -1.\n    # Must run in O(log n).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(search([-1, 0, 3, 5, 9, 12], 9))  # expected: 4\n",
+    "viz": { "key": "binary-search", "input": { "array": [-1, 0, 3, 5, 9, 12], "target": 9 } }
+  },
+  "valid-anagram": {
+    "draft": true,
+    "aiSummary": "Given two strings `s` and `t`, decide whether `t` is an anagram of `s` — i.e. whether it uses exactly the same characters with the same frequencies, just reordered. Return True or False.\n\nExamples: s = \"anagram\", t = \"nagaram\" → True. s = \"rat\", t = \"car\" → False.\n\nConstraints: 1 ≤ len(s), len(t) ≤ 50,000 · s and t consist of lowercase English letters.",
+    "starterCode": "def is_anagram(s, t):\n    # Return True if t is a reordering of the same characters in s.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(is_anagram(\"anagram\", \"nagaram\"))  # expected: True\n"
+  },
+  "contains-duplicate": {
+    "draft": true,
+    "aiSummary": "Given an integer array `nums`, return True if any value appears at least twice, and False if every element is distinct.\n\nExamples: [1, 2, 3, 1] → True. [1, 2, 3, 4] → False.\n\nConstraints: 1 ≤ len(nums) ≤ 100,000 · -10^9 ≤ nums[i] ≤ 10^9.",
+    "starterCode": "def contains_duplicate(nums):\n    # Return True if any value repeats, else False.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(contains_duplicate([1, 2, 3, 1]))  # expected: True\n"
+  },
+  "best-time-to-buy-and-sell-stock": {
+    "draft": true,
+    "aiSummary": "You're given a list `prices` where prices[i] is the stock's price on day i. Pick one day to buy and a later day to sell so the profit is as large as possible, and return that maximum profit. If no profitable trade exists, return 0.\n\nExamples: prices = [7, 1, 5, 3, 6, 4] → 5 (buy at 1 on day 2, sell at 6 on day 5). prices = [7, 6, 4, 3, 1] → 0.\n\nConstraints: 1 ≤ len(prices) ≤ 100,000 · 0 ≤ prices[i] ≤ 10,000.",
+    "starterCode": "def max_profit(prices):\n    # One buy, one later sell. Return the best achievable profit (0 if none).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(max_profit([7, 1, 5, 3, 6, 4]))  # expected: 5\n"
+  },
+  "reverse-linked-list": {
+    "draft": true,
+    "aiSummary": "Given the head of a singly linked list, reverse it so the last node becomes the new head, and return that new head.\n\nExample: 1 → 2 → 3 → 4 → 5 becomes 5 → 4 → 3 → 2 → 1.\n\nConstraints: 0 ≤ number of nodes ≤ 5,000 · -5,000 ≤ node value ≤ 5,000 · an iterative and a recursive solution both work.",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef reverse_list(head):\n    # Return the head of the reversed list.\n    # Your code here\n    pass\n\n\n# Helpers so this runs and prints in the Playground\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(reverse_list(build([1, 2, 3, 4, 5]))))  # expected: [5, 4, 3, 2, 1]\n",
+    "viz": { "key": "linked-list", "input": { "values": [1, 2, 3, 4, 5] } }
+  },
+  "valid-parentheses": {
+    "draft": true,
+    "aiSummary": "Given a string `s` of only the bracket characters ()[]{}, decide whether they are balanced: every opening bracket is closed by one of the same type, in the correct order, with nothing left open. Return True or False.\n\nExamples: \"()[]{}\" → True. \"(]\" → False. \"([)]\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 10,000 · s contains only the six bracket characters.",
+    "starterCode": "def is_valid(s):\n    # Return True if the brackets in s are balanced (use a stack).\n    # Your code here\n    pass\n\n\nprint(is_valid(\"()[]{}\"))  # expected: True\n",
+    "viz": { "key": "stack", "input": { "mode": "brackets", "string": "()[]{}" } }
+  },
+  "merge-two-sorted-lists": {
+    "draft": true,
+    "aiSummary": "You're given the heads of two singly linked lists that are each sorted ascending. Splice their nodes into one sorted list and return its head.\n\nExample: 1→2→4 and 1→3→4 merge into 1→1→2→3→4→4.\n\nConstraints: 0 ≤ nodes in each list ≤ 50 · -100 ≤ node value ≤ 100 · both inputs sorted ascending.",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef merge_two_lists(l1, l2):\n    # Return the head of the merged sorted list.\n    # Your code here\n    pass\n\n\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(merge_two_lists(build([1, 2, 4]), build([1, 3, 4]))))  # expected: [1, 1, 2, 3, 4, 4]\n"
+  },
+  "number-of-islands": {
+    "draft": true,
+    "aiSummary": "You're given a 2-D grid whose cells are '1' (land) or '0' (water). Count the islands — maximal groups of land cells connected horizontally or vertically (not diagonally). Each connected group counts once.\n\nExample: a grid with one land cluster in the top-left and another in the bottom-right → 2.\n\nConstraints: 1 ≤ rows, cols ≤ 300 · each cell is '0' or '1'.",
+    "starterCode": "def num_islands(grid):\n    # grid is a list of lists of '1'/'0'. Return the number of islands.\n    # Your code here (flood-fill with DFS/BFS).\n    pass\n\n\ngrid = [\n    [\"1\", \"1\", \"0\", \"0\"],\n    [\"1\", \"0\", \"0\", \"1\"],\n    [\"0\", \"0\", \"1\", \"1\"],\n]\nprint(num_islands(grid))  # expected: 2\n",
+    "viz": { "key": "graph", "input": { "grid": [["1", "1", "0", "0"], ["1", "0", "0", "1"], ["0", "0", "1", "1"]] } }
+  },
+  "merge-intervals": {
+    "draft": true,
+    "aiSummary": "Given a list of intervals [start, end], merge every group of overlapping intervals and return the resulting non-overlapping list, sorted by start.\n\nExample: [[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]] (the first two overlap).\n\nConstraints: 1 ≤ number of intervals ≤ 10,000 · 0 ≤ start ≤ end ≤ 10,000.",
+    "starterCode": "def merge(intervals):\n    # Merge overlapping intervals; return the merged list (sort by start first).\n    # Your code here\n    pass\n\n\nprint(merge([[1, 3], [2, 6], [8, 10], [15, 18]]))  # expected: [[1, 6], [8, 10], [15, 18]]\n"
+  },
+  "lru-cache": {
+    "draft": true,
+    "aiSummary": "Design a cache with a fixed capacity that evicts the least-recently-used entry. get(key) returns the value or -1 if absent and marks it most-recently-used; put(key, value) inserts/updates and, if over capacity, drops the least-recently-used entry. Both should run in O(1) average time.\n\nExample: capacity 2 — put(1,1), put(2,2), get(1)→1, put(3,3) evicts key 2, get(2)→-1.\n\nConstraints: 1 ≤ capacity ≤ 3,000 · up to 2·10^5 calls.",
+    "starterCode": "class LRUCache:\n    def __init__(self, capacity):\n        self.capacity = capacity\n        # Your fields here (a dict + ordering structure).\n\n    def get(self, key):\n        # Return value or -1; mark key most-recently-used.\n        pass\n\n    def put(self, key, value):\n        # Insert/update; evict least-recently-used if over capacity.\n        pass\n\n\ncache = LRUCache(2)\ncache.put(1, 1)\ncache.put(2, 2)\nprint(cache.get(1))   # expected: 1\ncache.put(3, 3)       # evicts key 2\nprint(cache.get(2))   # expected: -1\n"
+  },
+  "maximum-subarray": {
+    "draft": true,
+    "aiSummary": "Given an integer array `nums`, find the contiguous subarray (at least one element) with the largest sum and return that sum.\n\nExample: [-2,1,-3,4,-1,2,1,-5,4] → 6 (the subarray [4,-1,2,1]).\n\nConstraints: 1 ≤ len(nums) ≤ 100,000 · -10,000 ≤ nums[i] ≤ 10,000. Kadane's algorithm solves it in O(n).",
+    "starterCode": "def max_sub_array(nums):\n    # Return the largest contiguous subarray sum (Kadane's algorithm).\n    # Your code here\n    pass\n\n\nprint(max_sub_array([-2, 1, -3, 4, -1, 2, 1, -5, 4]))  # expected: 6\n"
+  },
+  "climbing-stairs": {
+    "draft": true,
+    "aiSummary": "You're climbing a staircase with `n` steps and can take either 1 or 2 steps at a time. Return how many distinct ways you can reach the top.\n\nExample: n = 3 → 3 (1+1+1, 1+2, 2+1).\n\nConstraints: 1 ≤ n ≤ 45. It's the Fibonacci sequence in disguise.",
+    "starterCode": "def climb_stairs(n):\n    # Return the number of distinct ways to climb n steps (1 or 2 at a time).\n    # Your code here\n    pass\n\n\nprint(climb_stairs(3))  # expected: 3\n"
+  },
+  "product-of-array-except-self": {
+    "draft": true,
+    "aiSummary": "Given an integer array `nums`, return an array where each position holds the product of every other element (everything except nums[i]). Solve it without using division and in O(n) time.\n\nExample: [1,2,3,4] → [24,12,8,6].\n\nConstraints: 2 ≤ len(nums) ≤ 100,000 · the full product fits in a 32-bit integer · division is not allowed.",
+    "starterCode": "def product_except_self(nums):\n    # Return products of all other elements, no division, O(n) (prefix/suffix passes).\n    # Your code here\n    pass\n\n\nprint(product_except_self([1, 2, 3, 4]))  # expected: [24, 12, 8, 6]\n"
+  },
+  "group-anagrams": {
+    "draft": true,
+    "aiSummary": "Given a list of strings, group together the ones that are anagrams of each other (same letters in any order) and return the groups. The order of groups, and of words within a group, doesn't matter.\n\nExample: [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"] → [[\"eat\",\"tea\",\"ate\"],[\"tan\",\"nat\"],[\"bat\"]].\n\nConstraints: 1 ≤ list length ≤ 10,000 · 0 ≤ word length ≤ 100 · lowercase English letters.",
+    "starterCode": "def group_anagrams(strs):\n    # Group words that are anagrams of one another (key by sorted letters).\n    # Your code here\n    pass\n\n\nprint(group_anagrams([\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]))\n# expected (any order): [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]\n"
+  },
+  "3sum": {
+    "draft": true,
+    "aiSummary": "Given an integer array `nums`, return all unique triplets [a, b, c] whose values sum to zero. The same triplet must not appear twice in the output.\n\nExample: [-1,0,1,2,-1,-4] → [[-1,-1,2],[-1,0,1]].\n\nConstraints: 3 ≤ len(nums) ≤ 3,000 · -100,000 ≤ nums[i] ≤ 100,000. Sort, then sweep a two-pointer pair for each anchor.",
+    "starterCode": "def three_sum(nums):\n    # Return all unique triplets that sum to zero (sort + two pointers).\n    # Your code here\n    pass\n\n\nprint(three_sum([-1, 0, 1, 2, -1, -4]))  # expected: [[-1, -1, 2], [-1, 0, 1]]\n"
+  },
+  "longest-substring-without-repeating-characters": {
+    "draft": true,
+    "aiSummary": "Given a string `s`, return the length of the longest substring that contains no repeated character.\n\nExamples: \"abcabcbb\" → 3 (\"abc\"). \"bbbbb\" → 1. \"pwwkew\" → 3 (\"wke\").\n\nConstraints: 0 ≤ len(s) ≤ 50,000 · s is printable ASCII. A sliding window with a seen-set runs in O(n).",
+    "starterCode": "def length_of_longest_substring(s):\n    # Return the length of the longest substring with all-unique characters.\n    # Your code here (sliding window).\n    pass\n\n\nprint(length_of_longest_substring(\"abcabcbb\"))  # expected: 3\n"
+  },
+  "invert-binary-tree": {
+    "draft": true,
+    "aiSummary": "Given the root of a binary tree, swap every node's left and right child (mirror the whole tree) and return the root.\n\nExample (level order): [4,2,7,1,3,6,9] becomes [4,7,2,9,6,3,1].\n\nConstraints: 0 ≤ number of nodes ≤ 100 · -100 ≤ node value ≤ 100.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\n\ndef invert_tree(root):\n    # Mirror the tree: swap children at every node. Return root.\n    # Your code here\n    pass\n\n\ndef level_order(root):\n    out, q = [], [root]\n    while q:\n        node = q.pop(0)\n        if not node:\n            continue\n        out.append(node.val)\n        q.append(node.left)\n        q.append(node.right)\n    return out\n\n\nroot = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))\nprint(level_order(invert_tree(root)))  # expected: [4, 7, 2, 9, 6, 3, 1]\n"
+  }
+}

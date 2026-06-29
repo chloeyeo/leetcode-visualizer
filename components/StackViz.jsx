@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useStepPlayer } from './useStepPlayer';
 import VizControls from './VizControls';
 
@@ -24,10 +25,99 @@ function buildFrames() {
 
 const FRAMES = buildFrames();
 
-export default function StackViz() {
+/* ---------- Brackets mode (valid-parentheses) ---------- */
+const PAIRS = { ')': '(', ']': '[', '}': '{' };
+const OPENERS = new Set(['(', '[', '{']);
+
+function buildBracketFrames(s) {
+  const chars = [...s];
+  const frames = [];
+  const stack = [];
+  for (let i = 0; i < chars.length; i++) {
+    const c = chars[i];
+    if (OPENERS.has(c)) {
+      stack.push(i);
+      frames.push({ i, stack: [...stack], note: `'${c}' is an opener — push it onto the stack.` });
+    } else if (PAIRS[c]) {
+      const topIdx = stack[stack.length - 1];
+      if (stack.length && chars[topIdx] === PAIRS[c]) {
+        stack.pop();
+        frames.push({ i, matched: topIdx, stack: [...stack], note: `'${c}' matches the '${PAIRS[c]}' at index ${topIdx} — pop it.` });
+      } else {
+        frames.push({ i, stack: [...stack], done: true, fail: true, note: `'${c}' has no matching opener on top — NOT balanced.` });
+        return frames;
+      }
+    } else {
+      frames.push({ i, stack: [...stack], note: `'${c}' isn't a bracket — skip it.` });
+    }
+  }
+  frames.push({
+    i: chars.length, stack: [...stack], done: true, fail: stack.length > 0,
+    note: stack.length
+      ? `End of string with ${stack.length} unclosed opener(s) — NOT balanced.`
+      : 'End of string and the stack is empty — balanced! ✓',
+  });
+  return frames;
+}
+
+function BracketsViz({ s }) {
+  const chars = useMemo(() => [...s], [s]);
+  const frames = useMemo(() => buildBracketFrames(s), [s]);
+  const player = useStepPlayer(frames.length);
+  const frame = frames[Math.min(player.step, frames.length - 1)];
+
+  return (
+    <div className="viz">
+      <p className="viz-prompt">
+        Push every opening bracket; on a closer, the top of the stack must be its match.
+        An empty stack at the end ⇒ <b>balanced</b>.
+      </p>
+
+      <div className="viz-out-label">Input</div>
+      <div className="viz-track">
+        {chars.map((c, i) => (
+          <div className="viz-col" key={i}>
+            <div className={`viz-cell ${i === frame.i ? 'mid' : ''} ${frame.matched === i ? 'found' : ''} ${frame.stack.includes(i) ? 'active' : ''}`}>{c}</div>
+            <div className="viz-idx">{i}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="stk-wrap">
+        <span className="viz-out-label">Stack (open brackets), top →</span>
+        <div className="stk-row">
+          {frame.stack.length ? (
+            frame.stack.map((idx, k) => (
+              <div className={`stk-item${k === frame.stack.length - 1 ? ' top' : ''}`} key={k}>
+                <b>{chars[idx]}</b>
+                <small>i{idx}</small>
+              </div>
+            ))
+          ) : (
+            <span className="viz-empty">empty</span>
+          )}
+        </div>
+      </div>
+
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className={frame.done ? `viz-note done${frame.fail ? ' miss' : ''}` : 'viz-note'}>{frame.note}</span>
+      </div>
+
+      <VizControls player={player} />
+
+      <p className="viz-disclaimer">Running the stack technique on this problem&apos;s own sample input.</p>
+    </div>
+  );
+}
+
+export default function StackViz({ input }) {
   const player = useStepPlayer(FRAMES.length);
   const { step } = player;
   const frame = FRAMES[Math.min(step, FRAMES.length - 1)];
+
+  if (input && (input.string || input.mode === 'brackets')) {
+    return <BracketsViz s={input.string || '()[]{}'} />;
+  }
 
   return (
     <div className="viz">

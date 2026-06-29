@@ -1,6 +1,6 @@
 # AI Technical Interview Coach — Plan & Architecture
 
-Status: **planning** (no app code yet). Decisions locked: build a **stub interviewer first** (no real LLM), and **plan before building**. This document is the blueprint to build against.
+Status: **shipped (Phase A + B)**. The coach is live in the app — `components/InterviewSession.jsx`, `lib/interview.js`, `lib/interviewBrain.js` — with the scripted StubBrain (free, no key) and BYOK brains (Gemini / Claude / OpenAI-compatible) behind the swappable interface this doc describes, plus live STT, the phase rail + checklist, and a graded scorecard. This document is kept as the architecture reference; the **forward plan** (hosted paid tier, etc.) now lives in [`roadmap.md`](roadmap.md). Original blueprint preserved below.
 
 ---
 

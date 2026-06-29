@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PHASES, checklistFor, computeScorecard, starterCode } from '../lib/interview';
 import { createBrain } from '../lib/interviewBrain';
+import { useTraceWorker } from './useTraceWorker';
+import ProblemStatement from './ProblemStatement';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const BRAIN_LABELS = { stub: 'Stub', claude: 'Claude', gemini: 'Gemini', custom: 'Custom' };
@@ -41,31 +43,29 @@ export default function InterviewSession({ problem, onExit }) {
   const [grading, setGrading] = useState(false);
   const [settings, setSettings] = useState(loadSettings);
   const [showSettings, setShowSettings] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [focusMode, setFocusMode] = useState(false);
 
   const recRef = useRef(null);
-  const workerRef = useRef(null);
   const startedAt = useRef(Date.now());
   const transcriptEnd = useRef(null);
 
   const brain = useMemo(() => createBrain(settings), [settings]);
 
-  useEffect(() => {
-    const id = setInterval(() => setElapsed(Math.floor((Date.now() - startedAt.current) / 1000)), 1000);
-    return () => clearInterval(id);
-  }, []);
+  // Shared Pyodide worker (same bootstrap as the Playground).
+  const workerRef = useTraceWorker((d) => {
+    if (d.type === 'result') {
+      setRan({ ok: !d.error && (d.trace || []).length > 0, stdout: d.stdout || '', error: d.error || null });
+      setRunning(false);
+    } else if (d.type === 'error') { setRan({ ok: false, error: d.message }); setRunning(false); }
+  });
 
   useEffect(() => {
-    const w = new Worker(`${BASE}/trace-worker.js`);
-    workerRef.current = w;
-    w.onmessage = (e) => {
-      const d = e.data || {};
-      if (d.type === 'result') {
-        setRan({ ok: !d.error && (d.trace || []).length > 0, stdout: d.stdout || '', error: d.error || null });
-        setRunning(false);
-      } else if (d.type === 'error') { setRan({ ok: false, error: d.message }); setRunning(false); }
-    };
-    return () => w.terminate();
-  }, []);
+    if (!started) return undefined;
+    const id = setInterval(() => setElapsed(Math.floor((Date.now() - startedAt.current) / 1000)), 1000);
+    return () => clearInterval(id);
+  }, [started]);
 
   useEffect(() => {
     const SR = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
@@ -87,12 +87,29 @@ export default function InterviewSession({ problem, onExit }) {
     return () => { try { rec.stop(); } catch (e) { /* noop */ } };
   }, []);
 
+  // Load our blueprint + summary for this problem. No auto-start — the session
+  // (timer, interviewer voice) only begins when the user presses Start (see begin()).
   useEffect(() => {
+    fetch(`${BASE}/solutions.json`)
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((d) => {
+        const entry = d && d[problem.slug];
+        if (!entry) return;
+        if (entry.aiSummary) setSummary(entry.aiSummary);
+        if (entry.starterCode) setCode(entry.starterCode);
+      })
+      .catch(() => {});
+    // eslint-disable-next-line
+  }, []);
+
+  function begin() {
+    setStarted(true);
+    startedAt.current = Date.now();
+    setElapsed(0);
     const intro = PHASES[0].enter;
     setTurns([{ role: 'interviewer', text: intro, phase: 0, t: 0 }]);
     speak(intro);
-    // eslint-disable-next-line
-  }, []);
+  }
 
   useEffect(() => { transcriptEnd.current?.scrollIntoView({ block: 'end' }); }, [turns, thinking]);
 
@@ -172,8 +189,29 @@ export default function InterviewSession({ problem, onExit }) {
 
   if (finished) return <Scorecard problem={problem} card={finished} elapsed={elapsed} brain={brain.mode} onExit={onExit} />;
 
+  if (!started) {
+    return (
+      <>
+        {showSettings && <SettingsPanel settings={settings} onSave={saveSettings} onClose={() => setShowSettings(false)} />}
+        <PreStart
+          problem={problem}
+          summary={summary}
+          voiceOn={voiceOn}
+          setVoiceOn={setVoiceOn}
+          srSupported={srSupported}
+          brainLabel={BRAIN_LABELS[brain.mode] || 'Stub'}
+          onBegin={begin}
+          onExit={onExit}
+          onOpenSettings={() => setShowSettings(true)}
+        />
+      </>
+    );
+  }
+
+  const editorPhase = phaseIndex >= 6; // Code & Wrap-up phases center on the editor
+
   return (
-    <div className="iv">
+    <div className={`iv${focusMode ? ' iv-focus' : ''}`} data-phase={editorPhase ? 'code' : 'talk'}>
       <div className="iv-bar">
         <div className="iv-bar-left">
           <button className="iv-exit" onClick={onExit} aria-label="Leave interview">&#8592;</button>
@@ -182,6 +220,7 @@ export default function InterviewSession({ problem, onExit }) {
           <span className={`iv-brain ${brain.mode}`}>{BRAIN_LABELS[brain.mode] || 'Stub'}</span>
         </div>
         <div className="iv-bar-right">
+          <button className={`iv-voice${focusMode ? ' on' : ''}`} onClick={() => setFocusMode((f) => !f)} aria-pressed={focusMode} title="Focus mode — dims the panels you're not using">💡 Focus</button>
           <button className="iv-voice" onClick={() => setShowSettings(true)} aria-label="Interviewer settings">⚙</button>
           <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={() => setVoiceOn((v) => !v)} aria-pressed={voiceOn}>
             {voiceOn ? '🔊 Voice on' : '🔈 Voice off'}
@@ -195,6 +234,12 @@ export default function InterviewSession({ problem, onExit }) {
 
       <div className="iv-grid">
         <div className="iv-left">
+          {summary && (
+            <details className="iv-prob">
+              <summary className="iv-prob-toggle">Problem statement</summary>
+              <ProblemStatement sol={{ aiSummary: summary }} compact />
+            </details>
+          )}
           <div className="pg-editor">
             <div className="pg-editor-head">
               <span>solution.py</span>
@@ -255,6 +300,49 @@ export default function InterviewSession({ problem, onExit }) {
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function PreStart({ problem, summary, voiceOn, setVoiceOn, srSupported, brainLabel, onBegin, onExit, onOpenSettings }) {
+  return (
+    <div className="iv-prestart">
+      <button className="back-link" onClick={onExit}>&#8592; Back to problem</button>
+      <div className="iv-prestart-head">
+        <span className="num">{problem.id}.</span>
+        <h1>{problem.title}</h1>
+        <span className={`diff ${problem.difficulty}`}>{problem.difficulty}</span>
+      </div>
+
+      {summary && (
+        <section className="prob-statement">
+          <h2 className="section-title lead">The problem</h2>
+          <ProblemStatement sol={{ aiSummary: summary }} />
+        </section>
+      )}
+
+      <div className="iv-prestart-card">
+        <h2>Ready when you are</h2>
+        <p>This is a spoken mock interview. The moment you press <b>Start</b>:</p>
+        <ul className="iv-prestart-list">
+          <li><b>⏱ The timer starts</b> — nothing is running until then.</li>
+          <li><b>🔊 The interviewer speaks aloud</b> — turn this off below if your sound is muted.</li>
+          <li><b>🎤 Your mic stays off</b> until you press <b>Speak</b>. You control when you&apos;re recorded; nothing leaves your device.</li>
+        </ul>
+        <div className="iv-prestart-opts">
+          <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={() => setVoiceOn((v) => !v)} aria-pressed={voiceOn}>
+            {voiceOn ? '🔊 Interviewer voice: on' : '🔈 Interviewer voice: off'}
+          </button>
+          <button className="iv-voice" onClick={onOpenSettings}>⚙ Interviewer brain: {brainLabel}</button>
+        </div>
+        {!srSupported && (
+          <p className="iv-note">
+            Your browser has no speech recognition, so you&apos;ll type your answers instead.
+            (Chrome and Edge support speaking out loud.)
+          </p>
+        )}
+        <button className="btn btn-primary iv-begin" onClick={onBegin}>Start interview &#8594;</button>
       </div>
     </div>
   );

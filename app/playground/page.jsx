@@ -1,12 +1,35 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useStepPlayer } from '../../components/useStepPlayer';
+import { useTraceWorker } from '../../components/useTraceWorker';
 import VizControls from '../../components/VizControls';
 import { CodeView, DataStructures, VarTable, CallStack } from '../../components/TraceViews';
+import ProblemStatement from '../../components/ProblemStatement';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+// CodeMirror is client-only — load it after mount so the static export stays clean.
+const CodeEditor = dynamic(() => import('../../components/CodeEditor'), {
+  ssr: false,
+  loading: () => <div className="pg-code-input pg-code-loading">Loading editor…</div>,
+});
+
+function ProblemSummary({ summary }) {
+  return (
+    <section className="prob-statement pg-prob">
+      <div className="prob-statement-head">
+        <h2 className="section-title lead">{summary.title}</h2>
+        <a className="inline-link" href={`https://leetcode.com/problems/${summary.slug}/`} target="_blank" rel="noreferrer">
+          Original on LeetCode ↗
+        </a>
+      </div>
+      <ProblemStatement sol={{ aiSummary: summary.text }} compact />
+    </section>
+  );
+}
 
 const SAMPLE = `def two_sum(nums, target):
     seen = {}
@@ -41,19 +64,6 @@ print(two_sum([2, 7, 11, 15, 1, 8], 9))
 
 function starterFor(title, id, slug) {
   return `# ${title}${id ? ` (LeetCode #${id})` : ''}\n# https://leetcode.com/problems/${slug}/\n\ndef solution():\n    # TODO: implement\n    pass\n\nprint(solution())\n`;
-}
-
-function useWorker(onMessage) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const w = new Worker(`${BASE}/trace-worker.js`);
-    ref.current = w;
-    w.onmessage = (e) => onMessage(e.data || {});
-    w.onerror = () => onMessage({ type: 'error', message: 'The execution worker failed to load.' });
-    return () => w.terminate();
-    // eslint-disable-next-line
-  }, []);
-  return ref;
 }
 
 export default function Playground() {
@@ -96,18 +106,29 @@ function TraceMode() {
   const [error, setError] = useState(null);
   const [stdout, setStdout] = useState('');
   const [editing, setEditing] = useState(true);
+  const [summary, setSummary] = useState(null);
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     const slug = p.get('problem');
-    if (slug) {
-      const starter = starterFor(p.get('title') || slug, p.get('id'), slug);
-      setCode(starter);
-      setRanCode(starter);
-    }
+    if (!slug) return;
+    const title = p.get('title') || slug;
+    const fallback = starterFor(title, p.get('id'), slug);
+    setCode(fallback);
+    setRanCode(fallback);
+    // Prefer the curated blueprint + our own summary when we have one.
+    fetch(`${BASE}/solutions.json`)
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((d) => {
+        const entry = d && d[slug];
+        if (!entry) return;
+        if (entry.starterCode) { setCode(entry.starterCode); setRanCode(entry.starterCode); }
+        if (entry.aiSummary) setSummary({ title, slug, text: entry.aiSummary });
+      })
+      .catch(() => {});
   }, []);
 
-  const worker = useWorker((d) => {
+  const worker = useTraceWorker((d) => {
     if (d.type === 'status') setStatusMsg(d.msg);
     else if (d.type === 'result') {
       setTrace(d.trace || []); setError(d.error || null); setStdout(d.stdout || '');
@@ -131,10 +152,12 @@ function TraceMode() {
   }
 
   return (
-    <div className="pg-grid">
+    <>
+      {summary && <ProblemSummary summary={summary} />}
+      <div className="pg-grid">
       <div className="pg-editor">
         <div className="pg-editor-head">
-          <span>main.py{traced ? ` · line ${frame.line}` : ''}</span>
+          <span>{summary ? 'solution.py' : 'main.py'}{traced ? ` · line ${frame.line}` : ''}</span>
           {traced ? (
             <button className="btn btn-ghost pg-run" onClick={() => setEditing(true)}>✎ Edit</button>
           ) : (
@@ -149,8 +172,7 @@ function TraceMode() {
             <VizControls player={player} />
           </div>
         ) : (
-          <textarea className="pg-code-input" spellCheck={false} value={code}
-            onChange={(e) => setCode(e.target.value)} aria-label="Python code" />
+          <CodeEditor value={code} onChange={setCode} ariaLabel="Python code" minHeight="320px" />
         )}
       </div>
 
@@ -182,7 +204,8 @@ function TraceMode() {
           </>
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -197,7 +220,7 @@ function CompareMode() {
   const [statusMsg, setStatusMsg] = useState('');
   const [editing, setEditing] = useState(true);
 
-  const worker = useWorker((d) => {
+  const worker = useTraceWorker((d) => {
     if (d.type === 'status') setStatusMsg(d.msg);
     else if (d.type === 'result') {
       setRes((r) => ({ ...r, [d.id]: { trace: d.trace || [], error: d.error, stdout: d.stdout } }));
@@ -284,8 +307,7 @@ function ComparePane({ title, editing, code, onChange, lines, frame }) {
         {!editing && <small>{frame ? `line ${frame.line}` : 'finished'}</small>}
       </div>
       {editing ? (
-        <textarea className="pg-code-input cmp-input" spellCheck={false} value={code}
-          onChange={(e) => onChange(e.target.value)} aria-label={`${title} code`} />
+        <CodeEditor value={code} onChange={onChange} ariaLabel={`${title} code`} minHeight="240px" />
       ) : (
         <>
           <CodeView lines={lines} active={frame ? frame.line : -1} />

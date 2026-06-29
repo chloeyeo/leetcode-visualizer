@@ -34,9 +34,20 @@ function buildFrames(arr, target) {
   return frames;
 }
 
-export default function BinarySearchViz() {
-  const [target, setTarget] = useState(TARGETS[0]);
-  const frames = useMemo(() => buildFrames(ARR, target), [target]);
+/**
+ * Binary-search visualizer.
+ * @param {object} [input] problem-specific data: { array:number[], target:number, targets?:number[] }.
+ * When omitted it runs the generic demo with a set of sample targets.
+ */
+export default function BinarySearchViz({ input }) {
+  const arr = (input && Array.isArray(input.array)) ? input.array : ARR;
+  const targetList = input && Array.isArray(input.targets)
+    ? input.targets
+    : input && typeof input.target === 'number'
+      ? [input.target]
+      : TARGETS;
+  const [target, setTarget] = useState(targetList[0]);
+  const frames = useMemo(() => buildFrames(arr, target), [arr, target]);
   const player = useStepPlayer(frames.length);
   const { step } = player;
   const frame = frames[Math.min(step, frames.length - 1)];
@@ -66,7 +77,7 @@ export default function BinarySearchViz() {
     <div className="viz">
       <div className="viz-targets">
         <span className="viz-targets-label">Search for:</span>
-        {TARGETS.map((t) => (
+        {targetList.map((t) => (
           <button key={t} className={t === target ? 'active' : ''} onClick={() => pickTarget(t)}>
             {t}
           </button>
@@ -79,7 +90,7 @@ export default function BinarySearchViz() {
       </p>
 
       <div className="viz-track">
-        {ARR.map((val, i) => (
+        {arr.map((val, i) => (
           <div key={i} className="viz-col">
             <div className="viz-ptr">{pointerLabel(i)}</div>
             <div className={cellClass(i)}>{val}</div>
@@ -97,7 +108,9 @@ export default function BinarySearchViz() {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with sample data — not a solver for this exact problem.
+        {input
+          ? "Running binary search on this problem's own sample input."
+          : 'Illustrates the general pattern with sample data — not a solver for this exact problem.'}
       </p>
     </div>
   );

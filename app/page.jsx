@@ -77,12 +77,41 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <h1>See the pattern behind every LeetCode problem.</h1>
+        <h1>Don&apos;t just solve it — interview like you mean it.</h1>
         <p>
-          Browse the full problem set and open any one for a step-by-step{' '}
-          <b>interactive visualizer</b> of the algorithm pattern it uses — plus a video
-          walkthrough when you want to go deeper.{' '}
-          <Link className="inline-link" href="/patterns">Browse visualizers by pattern →</Link>
+          A practice gym for real coding interviews: an AI interviewer that makes you
+          explain your thinking out loud, rewrites your code into the optimized
+          gold-standard solution, and scores how ready you actually are — on top of
+          step-by-step visualizers for every algorithm pattern.
+        </p>
+        <div className="sell-points">
+          <div className="sell">
+            <span className="sell-k">🎙 Think-Out-Loud coach</span>
+            <span className="sell-v">
+              Freezing or coding in silence is an instant fail at companies like Google.
+              The AI nudges you to narrate the moment you go quiet — building real-interview
+              muscle memory.
+            </span>
+          </div>
+          <div className="sell">
+            <span className="sell-k">⚡ Gold-Standard upgrade</span>
+            <span className="sell-v">
+              Don&apos;t just pass tests. Watch your code morph line-by-line into a clean,
+              production-grade FAANG solution — trimming O(n²) bottlenecks down to O(n).
+            </span>
+          </div>
+          <div className="sell">
+            <span className="sell-k">📊 Interview Readiness Score</span>
+            <span className="sell-v">
+              A metric-backed score across 5 dimensions — Communication, Complexity,
+              Edge-cases, Speed &amp; Correctness. When it hits 85%, you&apos;re statistically
+              clear for a Tier-1 screen.
+            </span>
+          </div>
+        </div>
+        <p className="hero-cta">
+          Pick any problem below to practice, or{' '}
+          <Link className="inline-link" href="/patterns">browse the pattern visualizers →</Link>
         </p>
       </section>
 
@@ -136,9 +165,7 @@ export default function Home() {
                 const extra = (p.tags || []).length - 3;
                 return (
                   <Link className="card" key={p.slug} href={`/problem/${p.slug}`}>
-                    <span className={`diff-chip ${p.difficulty}`} aria-label={p.difficulty} title={p.difficulty}>
-                      {p.difficulty[0]}
-                    </span>
+                    <span className={`diff-badge ${p.difficulty}`}>{p.difficulty}</span>
                     <span className="num">{p.id}</span>
                     <span className="grow">
                       <span className="title">{p.title}</span>
@@ -150,9 +177,15 @@ export default function Home() {
                       </span>
                     </span>
                     {typeof p.acceptance === 'number' && (
-                      <span className="accept" title="Acceptance rate">{p.acceptance.toFixed(0)}%</span>
+                      <span
+                        className="accept"
+                        title="Acceptance rate — the share of submissions that pass all tests. Higher generally means an easier problem."
+                      >
+                        <span className="accept-num">{p.acceptance.toFixed(0)}%</span>
+                        <span className="accept-label">acceptance</span>
+                      </span>
                     )}
-                    {hasViz(p) && <span className="has-viz" title="Interactive visualizer available">▶ visual</span>}
+                    {hasViz(p) && <span className="has-viz" title="Interactive visualizer available">▶ Visualizer</span>}
                   </Link>
                 );
               })}

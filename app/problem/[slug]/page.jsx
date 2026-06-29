@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { getProblems, getProblemBySlug, getVideos } from '../../../lib/data';
+import { getProblems, getProblemBySlug, getVideos, getSolutionBySlug } from '../../../lib/data';
 import PatternViz from '../../../components/PatternViz';
+import ProblemStatement from '../../../components/ProblemStatement';
 
 export function generateStaticParams() {
   return getProblems().map((q) => ({ slug: q.slug }));
@@ -27,6 +28,7 @@ export default function ProblemPage({ params }) {
 
   const videos = getVideos();
   const v = videos[q.slug];
+  const sol = getSolutionBySlug(q.slug);
   const hasVideo = v && v.ok !== false && v.id;
   const searchUrl =
     'https://www.youtube.com/results?search_query=' +
@@ -70,8 +72,38 @@ export default function ProblemPage({ params }) {
         </Link>
       </div>
 
+      {sol ? (
+        <section className="prob-statement">
+          <h2 className="section-title lead">The problem</h2>
+          <ProblemStatement sol={sol} />
+          {sol.starterCode && (
+            <div className="blueprint">
+              <div className="blueprint-head">
+                <span>Starter blueprint · Python</span>
+                <Link
+                  className="inline-link"
+                  href={`/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}`}
+                >
+                  Edit &amp; run in Playground →
+                </Link>
+              </div>
+              <pre className="blueprint-code"><code>{sol.starterCode}</code></pre>
+            </div>
+          )}
+          <p className="section-note prob-fineprint">
+            Summary rewritten in our own words for study purposes — see the exact original on{' '}
+            <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+          </p>
+        </section>
+      ) : (
+        <p className="section-note">
+          A plain-language summary for this problem is on the way. For now, open the exact
+          statement on <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+        </p>
+      )}
+
       <h2 className="section-title lead">Visualize the pattern</h2>
-      <PatternViz tags={q.tags || []} />
+      <PatternViz tags={q.tags || []} viz={sol?.viz} />
 
       <h2 className="section-title video-heading">Video hint</h2>
       {hasVideo ? (

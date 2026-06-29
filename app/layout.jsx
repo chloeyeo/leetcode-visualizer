@@ -2,8 +2,9 @@ import './globals.css';
 import Link from 'next/link';
 import { Space_Grotesk } from 'next/font/google';
 import ThemeToggle from '../components/ThemeToggle';
+import FontResizer from '../components/FontResizer';
 
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var fs=localStorage.getItem('fontScale');if(fs){document.documentElement.style.setProperty('--font-scale',fs);}}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
 
 const display = Space_Grotesk({
   subsets: ['latin'],
@@ -46,10 +47,10 @@ export default function RootLayout({ children }) {
             <nav className="header-nav">
               <Link className="ghost-link" href="/patterns">Patterns</Link>
               <Link className="ghost-link" href="/playground">Playground</Link>
-              <Link className="ghost-link" href="/interview">Interview</Link>
               <a className="ghost-link" href="https://leetcode.com/problemset/" target="_blank" rel="noreferrer">
                 LeetCode &#8599;
               </a>
+              <FontResizer />
               <ThemeToggle />
             </nav>
           </div>

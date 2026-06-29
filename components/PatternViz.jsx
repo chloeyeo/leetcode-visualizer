@@ -7,13 +7,18 @@ import { COMPONENTS } from './vizComponents';
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 /**
- * Picks an interactive visualizer from a problem's tags. If none match, shows a
- * helpful note that names the patterns that ARE covered and links to them.
+ * Picks an interactive visualizer for a problem.
+ * - `viz` (from solutions.json) wins when present: { key, input } drives a
+ *   problem-SPECIFIC animation on this problem's own sample input.
+ * - Otherwise we fall back to a tag-based generic pattern demo.
+ * If neither resolves, we show a helpful note listing the patterns we cover.
  */
-export default function PatternViz({ tags = [] }) {
+export default function PatternViz({ tags = [], viz = null }) {
   const match = pickPattern(tags);
+  const key = (viz && viz.key) || (match && match.key);
+  const Component = key ? COMPONENTS[key] : null;
 
-  if (!match) {
+  if (!Component) {
     return (
       <div className="viz-placeholder">
         <svg className="ph-mark" viewBox="0 0 64 40" width="84" height="52" aria-hidden="true">
@@ -37,14 +42,20 @@ export default function PatternViz({ tags = [] }) {
     );
   }
 
-  const Component = COMPONENTS[match.key];
+  const pat = PATTERNS.find((p) => p.key === key);
+  const specific = !!(viz && viz.input);
+
   return (
     <div>
       <p className="section-note">
-        This problem uses the <b>{match.label}</b> pattern.{' '}
-        <a className="inline-link" href={`${BASE}/patterns/${match.key}/`}>Open it standalone →</a>
+        {specific ? (
+          <>Stepping through <b>this problem&apos;s</b> sample input with the {pat ? pat.label : 'matching'} technique.</>
+        ) : (
+          <>This problem uses the <b>{pat ? pat.label : 'matching'}</b> pattern.</>
+        )}{' '}
+        <a className="inline-link" href={`${BASE}/patterns/${key}/`}>Open it standalone →</a>
       </p>
-      <Component />
+      <Component input={specific ? viz.input : undefined} />
     </div>
   );
 }
