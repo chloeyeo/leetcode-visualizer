@@ -1140,6 +1140,22 @@ input:focus-visible,
 }
 .iv-mic.live { animation: mic-pulse 1.4s ease-in-out infinite; }
 
+/* ---------- Gold-standard code diff ---------- */
+.sc-gold, .pg-gold { margin-top: var(--s5); }
+.sc-gold h3 { font-size: 15px; margin: 0 0 var(--s3); }
+.pg-gold .btn { margin-bottom: var(--s3); }
+.diff { border: var(--border-width) solid var(--border); border-radius: var(--r-md); overflow: hidden; background: var(--bg-elev); }
+.diff-head { display: grid; grid-template-columns: 1fr 1fr; font-size: 12px; font-weight: 700; color: var(--text-dim); background: var(--bg-elev-2); border-bottom: var(--border-width) solid var(--border); }
+.diff-head span { padding: 8px 12px; }
+.diff-head span:first-child { border-right: var(--border-width) solid var(--border); }
+.diff-body { overflow-x: auto; }
+.diff-row { display: grid; grid-template-columns: 1fr 1fr; }
+.diff-cell { margin: 0; padding: 1px 12px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; color: var(--text); border-right: 1px solid var(--border); min-height: 1.6em; }
+.diff-del { background: rgba(255, 55, 95, 0.13); }
+.diff-add { background: rgba(0, 184, 163, 0.14); }
+.diff-gap { background: repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(127,127,127,0.06) 6px, rgba(127,127,127,0.06) 12px); }
+.diff-note { margin: var(--s2) 0 0; }
+
 /* ---------- Merge-two-sorted-lists visualizer rows ---------- */
 .mg-row { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: 10px; }
 .mg-row .viz-out-label { min-width: 56px; }

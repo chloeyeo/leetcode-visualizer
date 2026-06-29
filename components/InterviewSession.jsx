@@ -6,6 +6,7 @@ import { PHASES, checklistFor, computeScorecard, starterCode } from '../lib/inte
 import { createBrain } from '../lib/interviewBrain';
 import { useTraceWorker } from './useTraceWorker';
 import ProblemStatement from './ProblemStatement';
+import CodeDiff from './CodeDiff';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const BRAIN_LABELS = { stub: 'Stub', claude: 'Claude', gemini: 'Gemini', custom: 'Custom' };
@@ -52,6 +53,7 @@ export default function InterviewSession({ problem, onExit }) {
   const [showSettings, setShowSettings] = useState(false);
   const [started, setStarted] = useState(false);
   const [summary, setSummary] = useState(null);
+  const [optimal, setOptimal] = useState(null);
   const [focusMode, setFocusMode] = useState(false);
 
   const recRef = useRef(null);
@@ -117,6 +119,7 @@ export default function InterviewSession({ problem, onExit }) {
         if (!entry) return;
         if (entry.aiSummary) setSummary(entry.aiSummary);
         if (entry.starterCode) setCode(entry.starterCode);
+        if (entry.optimal) setOptimal(entry.optimal);
       })
       .catch(() => {});
     // eslint-disable-next-line
@@ -214,7 +217,7 @@ export default function InterviewSession({ problem, onExit }) {
     setShowSettings(false);
   }
 
-  if (finished) return <Scorecard problem={problem} card={finished} elapsed={elapsed} brain={brain.mode} onExit={onExit} />;
+  if (finished) return <Scorecard problem={problem} card={finished} elapsed={elapsed} brain={brain.mode} onExit={onExit} code={code} optimal={optimal} />;
 
   if (!started) {
     return (
@@ -421,7 +424,7 @@ function SettingsPanel({ settings, onSave, onClose }) {
   );
 }
 
-function Scorecard({ problem, card, elapsed, brain, onExit }) {
+function Scorecard({ problem, card, elapsed, brain, onExit, code, optimal }) {
   return (
     <div className="iv-scorecard">
       <button className="back-link" onClick={onExit}>&#8592; New interview</button>
@@ -453,6 +456,13 @@ function Scorecard({ problem, card, elapsed, brain, onExit }) {
         <h3>Top 3 things to work on</h3>
         <ol>{card.actions.map((a, i) => <li key={i}>{a}</li>)}</ol>
       </div>
+
+      {optimal && (
+        <div className="sc-gold">
+          <h3>Your code vs. the gold standard</h3>
+          <CodeDiff yours={code} optimal={optimal} note="The optimal solution — compare line by line to see what to tighten next time." />
+        </div>
+      )}
 
       <p className="viz-disclaimer">
         {brain !== 'stub'

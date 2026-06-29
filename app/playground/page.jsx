@@ -8,6 +8,7 @@ import { useTraceWorker } from '../../components/useTraceWorker';
 import VizControls from '../../components/VizControls';
 import { CodeView, DataStructures, VarTable, CallStack } from '../../components/TraceViews';
 import ProblemStatement from '../../components/ProblemStatement';
+import CodeDiff from '../../components/CodeDiff';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -107,6 +108,8 @@ function TraceMode() {
   const [stdout, setStdout] = useState('');
   const [editing, setEditing] = useState(true);
   const [summary, setSummary] = useState(null);
+  const [optimal, setOptimal] = useState(null);
+  const [showGold, setShowGold] = useState(false);
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
@@ -124,6 +127,7 @@ function TraceMode() {
         if (!entry) return;
         if (entry.starterCode) { setCode(entry.starterCode); setRanCode(entry.starterCode); }
         if (entry.aiSummary) setSummary({ title, slug, text: entry.aiSummary });
+        if (entry.optimal) setOptimal(entry.optimal);
       })
       .catch(() => {});
   }, []);
@@ -205,6 +209,14 @@ function TraceMode() {
         )}
       </div>
       </div>
+      {optimal && (
+        <div className="pg-gold">
+          <button className="btn btn-ghost" onClick={() => setShowGold((s) => !s)}>
+            {showGold ? 'Hide gold-standard solution' : '⚡ Reveal gold-standard solution'}
+          </button>
+          {showGold && <CodeDiff yours={code} optimal={optimal} note="Optimal reference solution — diff your code against it." />}
+        </div>
+      )}
     </>
   );
 }
