@@ -2,11 +2,17 @@
   "_note": "Per-problem detail keyed by slug. aiSummary = our OWN re-written problem statement (never LeetCode's wording — algorithmic concepts aren't copyrightable, specific phrasing is). starterCode = a runnable Python blueprint (function signature + a sample call so it traces in the Playground). Optional viz = problem-specific visualizer config: { key, input } where key matches lib/patterns.js and input is passed to that visualizer (TwoPointerViz + BinarySearchViz are input-aware today). aiSummary fields are original drafts written for this app; replace/refine with your own ChatGPT/Gemini rewrites anytime — the UI reads this file as-is. Set draft:false once reviewed.",
   "two-sum": {
     "draft": true,
+    "goal": "Given a list of integers `nums` and a target integer `target`, return the indices of the two distinct numbers that add up to `target`. Exactly one valid pair exists, each element may be used once, and the order of the two indices doesn't matter.",
+    "constraints": "2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
+    "examples": "nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.",
     "aiSummary": "Given a list of integers `nums` and a target integer `target`, find the two distinct positions whose values add up to `target`, and return them as a pair of indices. Exactly one valid pair is guaranteed to exist, and you may use each element at most once. The order of the two indices in your answer doesn't matter.\n\nExample: nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
     "starterCode": "def two_sum(nums, target):\n    # Return the indices of the two values that add up to target.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum([2, 7, 11, 15], 9))  # expected: [0, 1]\n"
   },
   "valid-palindrome": {
     "draft": true,
+    "goal": "Decide whether a string reads the same forwards and backwards after ignoring case and keeping only alphanumeric characters. Return True or False; an empty filtered string counts as a palindrome.",
+    "constraints": "1 ≤ len(s) ≤ 200,000 · s consists of printable ASCII characters.",
+    "examples": "\"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.",
     "aiSummary": "Decide whether a string reads the same forwards and backwards once you ignore case and keep only alphanumeric characters (letters and digits). Return True if it qualifies as a palindrome under those rules, otherwise return False. An empty string (after filtering) counts as a palindrome.\n\nExamples: \"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 200,000 · s consists of printable ASCII characters.",
     "starterCode": "def is_palindrome(s):\n    # Return True if s is a palindrome, ignoring case and non-alphanumeric chars.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # expected: True\n",
     "viz": { "key": "two-pointers", "input": { "mode": "palindrome", "string": "A man, a plan, a canal: Panama" } }
@@ -19,6 +25,9 @@
   },
   "binary-search": {
     "draft": true,
+    "goal": "Given an ascending sorted list `nums` and a value `target`, return the index of `target`, or -1 if it isn't present. Must run in O(log n).",
+    "constraints": "1 ≤ len(nums) ≤ 10,000 · all values are unique · -10,000 ≤ nums[i], target ≤ 10,000 · sorted ascending.",
+    "examples": "nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.",
     "aiSummary": "Given a list `nums` sorted in ascending order and a value `target`, return the index of `target` if it's present, or -1 if it isn't. Your algorithm must run in O(log n) time.\n\nExamples: nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.\n\nConstraints: 1 ≤ len(nums) ≤ 10,000 · all values are unique · -10,000 ≤ nums[i], target ≤ 10,000 · nums is sorted ascending.",
     "starterCode": "def search(nums, target):\n    # nums is sorted ascending. Return the index of target, or -1.\n    # Must run in O(log n).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(search([-1, 0, 3, 5, 9, 12], 9))  # expected: 4\n",
     "viz": { "key": "binary-search", "input": { "array": [-1, 0, 3, 5, 9, 12], "target": 9 } }
@@ -53,7 +62,8 @@
   "merge-two-sorted-lists": {
     "draft": true,
     "aiSummary": "You're given the heads of two singly linked lists that are each sorted ascending. Splice their nodes into one sorted list and return its head.\n\nExample: 1→2→4 and 1→3→4 merge into 1→1→2→3→4→4.\n\nConstraints: 0 ≤ nodes in each list ≤ 50 · -100 ≤ node value ≤ 100 · both inputs sorted ascending.",
-    "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef merge_two_lists(l1, l2):\n    # Return the head of the merged sorted list.\n    # Your code here\n    pass\n\n\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(merge_two_lists(build([1, 2, 4]), build([1, 3, 4]))))  # expected: [1, 1, 2, 3, 4, 4]\n"
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef merge_two_lists(l1, l2):\n    # Return the head of the merged sorted list.\n    # Your code here\n    pass\n\n\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(merge_two_lists(build([1, 2, 4]), build([1, 3, 4]))))  # expected: [1, 1, 2, 3, 4, 4]\n",
+    "viz": { "key": "linked-list", "input": { "mode": "merge", "listA": [1, 2, 4], "listB": [1, 3, 4] } }
   },
   "number-of-islands": {
     "draft": true,
@@ -104,6 +114,7 @@
   "invert-binary-tree": {
     "draft": true,
     "aiSummary": "Given the root of a binary tree, swap every node's left and right child (mirror the whole tree) and return the root.\n\nExample (level order): [4,2,7,1,3,6,9] becomes [4,7,2,9,6,3,1].\n\nConstraints: 0 ≤ number of nodes ≤ 100 · -100 ≤ node value ≤ 100.",
-    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\n\ndef invert_tree(root):\n    # Mirror the tree: swap children at every node. Return root.\n    # Your code here\n    pass\n\n\ndef level_order(root):\n    out, q = [], [root]\n    while q:\n        node = q.pop(0)\n        if not node:\n            continue\n        out.append(node.val)\n        q.append(node.left)\n        q.append(node.right)\n    return out\n\n\nroot = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))\nprint(level_order(invert_tree(root)))  # expected: [4, 7, 2, 9, 6, 3, 1]\n"
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\n\ndef invert_tree(root):\n    # Mirror the tree: swap children at every node. Return root.\n    # Your code here\n    pass\n\n\ndef level_order(root):\n    out, q = [], [root]\n    while q:\n        node = q.pop(0)\n        if not node:\n            continue\n        out.append(node.val)\n        q.append(node.left)\n        q.append(node.right)\n    return out\n\n\nroot = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))\nprint(level_order(invert_tree(root)))  # expected: [4, 7, 2, 9, 6, 3, 1]\n",
+    "viz": { "key": "tree-traversal", "input": { "mode": "invert", "tree": [4, 2, 7, 1, 3, 6, 9] } }
   }
 }

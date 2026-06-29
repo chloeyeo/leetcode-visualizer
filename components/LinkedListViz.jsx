@@ -27,9 +27,64 @@ function buildFrames(values) {
   return frames;
 }
 
+/* ---------- Merge mode (merge-two-sorted-lists) ---------- */
+function buildMergeFrames(a, b) {
+  const frames = [];
+  let i = 0;
+  let j = 0;
+  const merged = [];
+  frames.push({ i, j, merged: [], note: 'Compare the heads of both lists; take the smaller.' });
+  while (i < a.length && j < b.length) {
+    if (a[i] <= b[j]) { const v = a[i]; merged.push({ v, from: 'A' }); i += 1; frames.push({ i, j, merged: [...merged], note: `${v} ≤ ${b[j]} → take ${v} from A.` }); }
+    else { const v = b[j]; merged.push({ v, from: 'B' }); j += 1; frames.push({ i, j, merged: [...merged], note: `${v} < ${a[i]} → take ${v} from B.` }); }
+  }
+  while (i < a.length) { const v = a[i]; merged.push({ v, from: 'A' }); i += 1; frames.push({ i, j, merged: [...merged], note: `List B is empty → append ${v} from A.` }); }
+  while (j < b.length) { const v = b[j]; merged.push({ v, from: 'B' }); j += 1; frames.push({ i, j, merged: [...merged], note: `List A is empty → append ${v} from B.` }); }
+  frames.push({ i, j, merged: [...merged], done: true, note: 'Done — one sorted list.' });
+  return frames;
+}
+
+function MergeListsViz({ listA, listB }) {
+  const a = listA && listA.length ? listA : [1, 2, 4];
+  const b = listB && listB.length ? listB : [1, 3, 4];
+  const frames = useMemo(() => buildMergeFrames(a, b), [a, b]);
+  const player = useStepPlayer(frames.length);
+  const frame = frames[Math.min(player.step, frames.length - 1)];
+  const cls = (idx, head) => (idx < head ? 'viz-cell eliminated' : idx === head ? 'viz-cell mid' : 'viz-cell');
+
+  return (
+    <div className="viz">
+      <p className="viz-prompt">Merge two sorted lists: compare the two heads, take the smaller, advance that list.</p>
+      <div className="mg-row">
+        <span className="viz-out-label">List A</span>
+        <div className="viz-track">{a.map((v, idx) => (<div className="viz-col" key={idx}><div className={cls(idx, frame.i)}>{v}</div></div>))}</div>
+      </div>
+      <div className="mg-row">
+        <span className="viz-out-label">List B</span>
+        <div className="viz-track">{b.map((v, idx) => (<div className="viz-col" key={idx}><div className={cls(idx, frame.j)}>{v}</div></div>))}</div>
+      </div>
+      <div className="mg-row">
+        <span className="viz-out-label">Merged</span>
+        <div className="viz-track">
+          {frame.merged.length ? frame.merged.map((m, idx) => (
+            <div className="viz-col" key={idx}><div className={`viz-cell found${m.from === 'B' ? ' mg-from-b' : ''}`}>{m.v}</div></div>
+          )) : <span className="viz-empty">empty</span>}
+        </div>
+      </div>
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className={frame.done ? 'viz-note done' : 'viz-note'}>{frame.note}</span>
+      </div>
+      <VizControls player={player} />
+      <p className="viz-disclaimer">Merging this problem&apos;s own sample lists, step by step.</p>
+    </div>
+  );
+}
+
 /**
- * Linked-list reversal visualizer.
- * @param {object} [input] problem-specific data: { values:number[] }.
+ * Linked-list visualizer.
+ * @param {object} [input] problem-specific data:
+ *   { values:number[] } — reversal (default), or
+ *   { mode:'merge', listA:number[], listB:number[] } — merge two sorted lists.
  */
 export default function LinkedListViz({ input }) {
   const values = input && Array.isArray(input.values) && input.values.length ? input.values : DEFAULT_VALUES;
@@ -39,6 +94,8 @@ export default function LinkedListViz({ input }) {
   const frame = frames[Math.min(step, frames.length - 1)];
   const { link, prev, curr } = frame;
   const n = values.length;
+
+  if (input && input.mode === 'merge') return <MergeListsViz listA={input.listA} listB={input.listB} />;
 
   function ptr(i) {
     if (i === prev) return 'prev';

@@ -46,13 +46,104 @@ for (const id of Object.keys(KIDS)) {
   for (const c of KIDS[id]) EDGES.push([Number(id), c]);
 }
 
-export default function TreeTraversalViz() {
+/* ---------- Invert mode (invert-binary-tree) ---------- */
+function treeFromLevelOrder(arr) {
+  if (!arr || !arr.length) return null;
+  let id = 0;
+  const root = { id: id++, val: arr[0], left: null, right: null };
+  const q = [root];
+  let i = 1;
+  while (q.length && i < arr.length) {
+    const node = q.shift();
+    if (i < arr.length && arr[i] != null) { node.left = { id: id++, val: arr[i], left: null, right: null }; q.push(node.left); }
+    i++;
+    if (i < arr.length && arr[i] != null) { node.right = { id: id++, val: arr[i], left: null, right: null }; q.push(node.right); }
+    i++;
+  }
+  return root;
+}
+function cloneTree(n) { return n ? JSON.parse(JSON.stringify(n)) : null; }
+function findNode(n, id) {
+  if (!n) return null;
+  if (n.id === id) return n;
+  return findNode(n.left, id) || findNode(n.right, id);
+}
+function layoutInvert(root) {
+  const nodes = []; const edges = []; let i = 0; let maxDepth = 0;
+  (function pos(n, d) {
+    if (!n) return;
+    pos(n.left, d + 1);
+    nodes.push({ id: n.id, val: n.val, x: i++, y: d });
+    maxDepth = Math.max(maxDepth, d);
+    pos(n.right, d + 1);
+  })(root, 0);
+  (function ed(n) {
+    if (!n) return;
+    if (n.left) { edges.push([n.id, n.left.id]); ed(n.left); }
+    if (n.right) { edges.push([n.id, n.right.id]); ed(n.right); }
+  })(root);
+  return { nodes, edges, cols: i, maxDepth };
+}
+function buildInvertFrames(root) {
+  const frames = [{ tree: cloneTree(root), current: null, note: 'The original tree.' }];
+  const ids = [];
+  (function pre(n) { if (!n) return; ids.push(n.id); pre(n.left); pre(n.right); })(root);
+  for (const id of ids) {
+    const node = findNode(root, id);
+    if (node && (node.left || node.right)) {
+      const t = node.left; node.left = node.right; node.right = t;
+      frames.push({ tree: cloneTree(root), current: id, note: `Swap the children of ${node.val}.` });
+    }
+  }
+  frames.push({ tree: cloneTree(root), current: null, done: true, note: 'Done — every node mirrored.' });
+  return frames;
+}
+
+function InvertTreeViz({ tree }) {
+  const root = useMemo(() => treeFromLevelOrder(tree && tree.length ? tree : [4, 2, 7, 1, 3, 6, 9]), [tree]);
+  const frames = useMemo(() => buildInvertFrames(cloneTree(root)), [root]);
+  const player = useStepPlayer(frames.length);
+  const frame = frames[Math.min(player.step, frames.length - 1)];
+  const { nodes, edges, cols, maxDepth } = layoutInvert(frame.tree);
+  const GX = 66; const GY = 68; const PAD = 28;
+  const W = Math.max(cols, 1) * GX + PAD;
+  const H = (maxDepth + 1) * GY + PAD;
+  const px = (x) => PAD / 2 + x * GX + GX / 2;
+  const py = (y) => PAD / 2 + y * GY + 22;
+  const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
+
+  return (
+    <div className="viz">
+      <p className="viz-prompt">Invert a binary tree: swap every node&apos;s left and right child so the whole tree mirrors.</p>
+      <svg className="viz-tree" viewBox={`0 0 ${W} ${H}`} style={{ maxWidth: Math.min(W, 600) }} role="img" aria-label="Inverting a binary tree">
+        {edges.map(([a, b]) => (
+          <line key={`${a}-${b}`} x1={px(byId[a].x)} y1={py(byId[a].y)} x2={px(byId[b].x)} y2={py(byId[b].y)} />
+        ))}
+        {nodes.map((n) => (
+          <g key={n.id}>
+            <circle cx={px(n.x)} cy={py(n.y)} r="20" className={n.id === frame.current ? 'current' : 'visited'} />
+            <text x={px(n.x)} y={py(n.y)}>{n.val}</text>
+          </g>
+        ))}
+      </svg>
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className={frame.done ? 'viz-note done' : 'viz-note'}>{frame.note}</span>
+      </div>
+      <VizControls player={player} />
+      <p className="viz-disclaimer">Mirroring this problem&apos;s own sample tree, swap by swap.</p>
+    </div>
+  );
+}
+
+export default function TreeTraversalViz({ input }) {
   const [mode, setMode] = useState('Preorder');
   const order = useMemo(() => MODES[mode].build(), [mode]);
   const player = useStepPlayer(order.length);
   const { step } = player;
   const current = order[Math.min(step, order.length - 1)];
   const visited = new Set(order.slice(0, step + 1));
+
+  if (input && input.mode === 'invert') return <InvertTreeViz tree={input.tree} />;
 
   function switchMode(m) {
     setMode(m);

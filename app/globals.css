@@ -1135,3 +1135,8 @@ input:focus-visible,
 .iv-focus .iv-transcript:hover, .iv-focus .iv-talk:hover, .iv-focus .pg-editor:hover {
   opacity: 1;                                                  /* restore on interaction */
 }
+
+/* ---------- Merge-two-sorted-lists visualizer rows ---------- */
+.mg-row { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: 10px; }
+.mg-row .viz-out-label { min-width: 56px; }
+.viz-cell.mg-from-b { box-shadow: inset 0 0 0 2px var(--accent-2); }
