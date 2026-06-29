@@ -9,7 +9,8 @@
     "start": "next start",
     "fetch-problems": "node scripts/fetch-problems.mjs",
     "check-videos": "node scripts/check-videos.mjs",
-    "gen-solutions": "node scripts/gen-solutions.mjs"
+    "gen-solutions": "node scripts/gen-solutions.mjs",
+    "list-models": "node scripts/list-models.mjs"
   },
   "dependencies": {
     "@codemirror/lang-python": "^6.1.6",

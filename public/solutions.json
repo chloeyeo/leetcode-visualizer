@@ -17,13 +17,31 @@
     "aiSummary": "Decide whether a string reads the same forwards and backwards once you ignore case and keep only alphanumeric characters (letters and digits). Return True if it qualifies as a palindrome under those rules, otherwise return False. An empty string (after filtering) counts as a palindrome.\n\nExamples: \"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 200,000 · s consists of printable ASCII characters.",
     "starterCode": "def is_palindrome(s):\n    # Return True if s is a palindrome, ignoring case and non-alphanumeric chars.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # expected: True\n",
     "optimal": "def is_palindrome(s):\n    t = [c.lower() for c in s if c.isalnum()]\n    return t == t[::-1]\n",
-    "viz": { "key": "two-pointers", "input": { "mode": "palindrome", "string": "A man, a plan, a canal: Panama" } }
+    "viz": {
+      "key": "two-pointers",
+      "input": {
+        "mode": "palindrome",
+        "string": "A man, a plan, a canal: Panama"
+      }
+    }
   },
   "two-sum-ii-input-array-is-sorted": {
     "draft": true,
     "aiSummary": "You're given a 1-indexed array of integers `numbers` already sorted in non-decreasing order. Find the two positions whose values add up to `target` and return them as [index1, index2] using 1-based indexing (with index1 < index2). Exactly one solution exists, you can't reuse an element, and you must use only O(1) extra space.\n\nExample: numbers = [2, 7, 11, 15], target = 9 → [1, 2], since numbers[1] + numbers[2] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(numbers) ≤ 30,000 · -1000 ≤ numbers[i] ≤ 1000 · numbers is sorted ascending · exactly one valid pair.",
     "starterCode": "def two_sum_sorted(numbers, target):\n    # numbers is sorted ascending. Return the 1-based indices of the pair.\n    # Aim for O(1) extra space (two-pointer technique).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum_sorted([2, 7, 11, 15], 9))  # expected: [1, 2]\n",
-    "viz": { "key": "two-pointers", "input": { "mode": "two-pointers", "array": [2, 7, 11, 15], "target": 9 } }
+    "viz": {
+      "key": "two-pointers",
+      "input": {
+        "mode": "two-pointers",
+        "array": [
+          2,
+          7,
+          11,
+          15
+        ],
+        "target": 9
+      }
+    }
   },
   "binary-search": {
     "draft": true,
@@ -33,7 +51,20 @@
     "aiSummary": "Given a list `nums` sorted in ascending order and a value `target`, return the index of `target` if it's present, or -1 if it isn't. Your algorithm must run in O(log n) time.\n\nExamples: nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.\n\nConstraints: 1 ≤ len(nums) ≤ 10,000 · all values are unique · -10,000 ≤ nums[i], target ≤ 10,000 · nums is sorted ascending.",
     "starterCode": "def search(nums, target):\n    # nums is sorted ascending. Return the index of target, or -1.\n    # Must run in O(log n).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(search([-1, 0, 3, 5, 9, 12], 9))  # expected: 4\n",
     "optimal": "def search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
-    "viz": { "key": "binary-search", "input": { "array": [-1, 0, 3, 5, 9, 12], "target": 9 } }
+    "viz": {
+      "key": "binary-search",
+      "input": {
+        "array": [
+          -1,
+          0,
+          3,
+          5,
+          9,
+          12
+        ],
+        "target": 9
+      }
+    }
   },
   "valid-anagram": {
     "draft": true,
@@ -54,26 +85,82 @@
     "draft": true,
     "aiSummary": "Given the head of a singly linked list, reverse it so the last node becomes the new head, and return that new head.\n\nExample: 1 → 2 → 3 → 4 → 5 becomes 5 → 4 → 3 → 2 → 1.\n\nConstraints: 0 ≤ number of nodes ≤ 5,000 · -5,000 ≤ node value ≤ 5,000 · an iterative and a recursive solution both work.",
     "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef reverse_list(head):\n    # Return the head of the reversed list.\n    # Your code here\n    pass\n\n\n# Helpers so this runs and prints in the Playground\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(reverse_list(build([1, 2, 3, 4, 5]))))  # expected: [5, 4, 3, 2, 1]\n",
-    "viz": { "key": "linked-list", "input": { "values": [1, 2, 3, 4, 5] } }
+    "viz": {
+      "key": "linked-list",
+      "input": {
+        "values": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    }
   },
   "valid-parentheses": {
     "draft": true,
     "aiSummary": "Given a string `s` of only the bracket characters ()[]{}, decide whether they are balanced: every opening bracket is closed by one of the same type, in the correct order, with nothing left open. Return True or False.\n\nExamples: \"()[]{}\" → True. \"(]\" → False. \"([)]\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 10,000 · s contains only the six bracket characters.",
     "starterCode": "def is_valid(s):\n    # Return True if the brackets in s are balanced (use a stack).\n    # Your code here\n    pass\n\n\nprint(is_valid(\"()[]{}\"))  # expected: True\n",
     "optimal": "def is_valid(s):\n    pairs = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    for c in s:\n        if c in pairs:\n            if not stack or stack.pop() != pairs[c]:\n                return False\n        else:\n            stack.append(c)\n    return not stack\n",
-    "viz": { "key": "stack", "input": { "mode": "brackets", "string": "()[]{}" } }
+    "viz": {
+      "key": "stack",
+      "input": {
+        "mode": "brackets",
+        "string": "()[]{}"
+      }
+    }
   },
   "merge-two-sorted-lists": {
     "draft": true,
     "aiSummary": "You're given the heads of two singly linked lists that are each sorted ascending. Splice their nodes into one sorted list and return its head.\n\nExample: 1→2→4 and 1→3→4 merge into 1→1→2→3→4→4.\n\nConstraints: 0 ≤ nodes in each list ≤ 50 · -100 ≤ node value ≤ 100 · both inputs sorted ascending.",
     "starterCode": "class ListNode:\n    def __init__(self, val=0, nxt=None):\n        self.val = val\n        self.next = nxt\n\n\ndef merge_two_lists(l1, l2):\n    # Return the head of the merged sorted list.\n    # Your code here\n    pass\n\n\ndef build(vals):\n    head = None\n    for v in reversed(vals):\n        head = ListNode(v, head)\n    return head\n\n\ndef to_list(node):\n    out = []\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n\n\nprint(to_list(merge_two_lists(build([1, 2, 4]), build([1, 3, 4]))))  # expected: [1, 1, 2, 3, 4, 4]\n",
-    "viz": { "key": "linked-list", "input": { "mode": "merge", "listA": [1, 2, 4], "listB": [1, 3, 4] } }
+    "viz": {
+      "key": "linked-list",
+      "input": {
+        "mode": "merge",
+        "listA": [
+          1,
+          2,
+          4
+        ],
+        "listB": [
+          1,
+          3,
+          4
+        ]
+      }
+    }
   },
   "number-of-islands": {
     "draft": true,
     "aiSummary": "You're given a 2-D grid whose cells are '1' (land) or '0' (water). Count the islands — maximal groups of land cells connected horizontally or vertically (not diagonally). Each connected group counts once.\n\nExample: a grid with one land cluster in the top-left and another in the bottom-right → 2.\n\nConstraints: 1 ≤ rows, cols ≤ 300 · each cell is '0' or '1'.",
     "starterCode": "def num_islands(grid):\n    # grid is a list of lists of '1'/'0'. Return the number of islands.\n    # Your code here (flood-fill with DFS/BFS).\n    pass\n\n\ngrid = [\n    [\"1\", \"1\", \"0\", \"0\"],\n    [\"1\", \"0\", \"0\", \"1\"],\n    [\"0\", \"0\", \"1\", \"1\"],\n]\nprint(num_islands(grid))  # expected: 2\n",
-    "viz": { "key": "graph", "input": { "grid": [["1", "1", "0", "0"], ["1", "0", "0", "1"], ["0", "0", "1", "1"]] } }
+    "viz": {
+      "key": "graph",
+      "input": {
+        "grid": [
+          [
+            "1",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "0",
+            "0",
+            "1"
+          ],
+          [
+            "0",
+            "0",
+            "1",
+            "1"
+          ]
+        ]
+      }
+    }
   },
   "merge-intervals": {
     "draft": true,
@@ -119,6 +206,60 @@
     "draft": true,
     "aiSummary": "Given the root of a binary tree, swap every node's left and right child (mirror the whole tree) and return the root.\n\nExample (level order): [4,2,7,1,3,6,9] becomes [4,7,2,9,6,3,1].\n\nConstraints: 0 ≤ number of nodes ≤ 100 · -100 ≤ node value ≤ 100.",
     "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\n\ndef invert_tree(root):\n    # Mirror the tree: swap children at every node. Return root.\n    # Your code here\n    pass\n\n\ndef level_order(root):\n    out, q = [], [root]\n    while q:\n        node = q.pop(0)\n        if not node:\n            continue\n        out.append(node.val)\n        q.append(node.left)\n        q.append(node.right)\n    return out\n\n\nroot = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))\nprint(level_order(invert_tree(root)))  # expected: [4, 7, 2, 9, 6, 3, 1]\n",
-    "viz": { "key": "tree-traversal", "input": { "mode": "invert", "tree": [4, 2, 7, 1, 3, 6, 9] } }
+    "viz": {
+      "key": "tree-traversal",
+      "input": {
+        "mode": "invert",
+        "tree": [
+          4,
+          2,
+          7,
+          1,
+          3,
+          6,
+          9
+        ]
+      }
+    }
+  },
+  "add-two-numbers": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two non-empty linked lists representing two non-negative integers, where each node contains a single digit and the digits are stored in reverse order, add the two numbers and return the sum as a linked list in the same format.",
+    "constraints": "Each node's value is a digit from 0 to 9. · The lists represent numbers without leading zeros (except for the number 0 itself). · The number of nodes in each list is between 1 and 100. · The integers can be very large, potentially exceeding standard integer limits.",
+    "examples": "Input: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807.",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:\n    # Your code here\n    pass\n\ndef list_to_linkedlist(nums):\n    if not nums:\n        return None\n    head = ListNode(nums[0])\n    current = head\n    for i in range(1, len(nums)):\n        current.next = ListNode(nums[i])\n        current = current.next\n    return head\n\ndef linkedlist_to_list(node):\n    result = []\n    while node:\n        result.append(node.val)\n        node = node.next\n    return result\n\nl1_nodes = list_to_linkedlist([2,4,3])\nl2_nodes = list_to_linkedlist([5,6,4])\nresult_list = addTwoNumbers(l1_nodes, l2_nodes)\nprint(linkedlist_to_list(result_list)) # expected: [7, 0, 8]"
+  },
+  "median-of-two-sorted-arrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the median value of two sorted arrays combined, as if they were merged into a single sorted array. Return this median value.",
+    "constraints": "Both input arrays are sorted in ascending order. · The arrays can have different lengths. · The total number of elements will be between 0 and 2000. · Element values are within a certain range (e.g., -10^6 to 10^6).",
+    "examples": "nums1 = [1, 3], nums2 = [2]. Combined: [1, 2, 3]. Median is 2. nums1 = [1, 2], nums2 = [3, 4]. Combined: [1, 2, 3, 4]. Median is (2 + 3) / 2 = 2.5.",
+    "starterCode": "def findMedianSortedArrays(nums1, nums2):\n    # Your code here\n    pass\n\nprint(findMedianSortedArrays([1, 3], [2])) # expected: 2.0\nprint(findMedianSortedArrays([1, 2], [3, 4])) # expected: 2.5"
+  },
+  "longest-palindromic-substring": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string, find and return the longest substring that reads the same forwards and backward (a palindrome).",
+    "constraints": "Input string length between 1 and 1000 · String contains only digits and English letters.",
+    "examples": "Input: s = \"babad\" Output: \"bab\" (Note: \"aba\" is also a valid answer.)\nInput: s = \"cbbd\" Output: \"bb\"",
+    "starterCode": "def longestPalindrome(s):\n    # Your code here\n    pass\n\nprint(longestPalindrome(\"babad\")) # expected: \"bab\"\nprint(longestPalindrome(\"cbbd\")) # expected: \"bb\""
+  },
+  "zigzag-conversion": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string and a number of rows, rearrange the string into a zigzag pattern and return the string read row by row.",
+    "constraints": "String length between 1 and 1000 · numRows between 1 and 1000",
+    "examples": "Input: s = \"PAYPALISHIRING\", numRows = 3\nOutput: \"PAHNAPLSIIGYIR\"\nExplanation:\nP   A   H   N\nA P L S I I G\nY   I   R\n\nInput: s = \"PAYPALISHIRING\", numRows = 4\nOutput: \"PINALSIGYAHRPI\"\nExplanation:\nP     I    N\nA   L S  I G\nY A   H R\nP     I",
+    "starterCode": "def convert(s: str, numRows: int) -> str:\n    # Your code here\n    pass\n\nprint(convert(\"PAYPALISHIRING\", 3)) # expected: \"PAHNAPLSIIGYIR\""
+  },
+  "reverse-integer": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 32-bit signed integer, reverse its digits. For example, if the input is 123, the output should be 321.",
+    "constraints": "The input is a 32-bit signed integer. If reversing the integer causes it to go outside the 32-bit signed integer range [-2^31, 2^31 - 1], return 0.",
+    "examples": "Input: 120, Output: 21. Input: -123, Output: -321. Input: 1534236469, Output: 0.",
+    "starterCode": "def reverse_integer(x):\n    # Your code here\n    pass\n\nprint(reverse_integer(123)) # expected: 321\nprint(reverse_integer(-123)) # expected: -321\nprint(reverse_integer(120)) # expected: 21\nprint(reverse_integer(1534236469)) # expected: 0"
   }
 }
