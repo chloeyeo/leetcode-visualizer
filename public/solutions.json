@@ -453,5 +453,205 @@
     "constraints": "1 <= n <= 30",
     "examples": "n = 1: \"1\"\nn = 2: \"11\" (one 1)\nn = 3: \"21\" (two 1s)\nn = 4: \"1211\" (one 2, one 1)\nn = 5: \"111221\" (one 1, one 2, two 1s)",
     "starterCode": "def countAndSay(n):\n    # Your code here\n    pass\n\nprint(countAndSay(4)) # expected: \"1211\""
+  },
+  "generate-parentheses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n, construct a list containing every possible valid combination of n pairs of parentheses.",
+    "constraints": "1 <= n <= 8",
+    "examples": "n=2: ['(())', '()()']; n=3: ['((()))', '(()())', '(())()', '()(())', '()()()']",
+    "starterCode": "def generateParenthesis(n):\n    # Your code here\n    pass\n\nprint(generateParenthesis(3)) # expected: ['((()))', '(()())', '(())()', '()(())', '()()()']"
+  },
+  "reverse-nodes-in-k-group": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a singly linked list and an integer k, reverse the nodes of the list in groups of k at a time and return the modified list. If the remaining nodes at the end are fewer than k, leave them in their original order.",
+    "constraints": "The number of nodes in the list is n · 1 <= k <= n <= 5000 · 0 <= Node.val <= 1000",
+    "examples": "Input: head = [1,2,3,4,5], k = 2; Output: [2,1,4,3,5]. Input: head = [1,2,3,4,5], k = 3; Output: [3,2,1,4,5].",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverseKGroup(head, k):\n    # Your code here\n    pass\n\n# print(reverseKGroup(ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))), 2)) # expected: [2, 1, 4, 3, 5]"
+  },
+  "search-insert-position": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted array of distinct integers and a target value, find the index where the target exists or the index where it would be placed to maintain the sorted order. You must implement an algorithm with O(log n) time complexity.",
+    "constraints": "1 <= array length <= 10^4 · -10^4 <= values <= 10^4 · Array is sorted in ascending order with distinct values.",
+    "examples": "Input: [1, 3, 5, 6], target: 5 -> Output: 2; Input: [1, 3, 5, 6], target: 2 -> Output: 1.",
+    "starterCode": "def search_insert(nums, target):\n    # Your code here\n    pass\n\nprint(search_insert([1, 3, 5, 6], 5)) # expected: 2"
+  },
+  "valid-sudoku": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given 9x9 Sudoku board is valid by checking that each row, column, and 3x3 sub-grid contains digits 1-9 without any repetitions. Return true if the current state is valid, otherwise return false.",
+    "constraints": "Board is 9x9 · Cells contain digits '1'-'9' or '.' · Only filled cells need to be validated.",
+    "examples": "Input: board with a '5' at [0,0] and another '5' at [0,4] is valid; if [0,0] and [0,1] were both '5', it would be invalid.",
+    "starterCode": "def isValidSudoku(board):\n    # Your code here\n    pass\n\nprint(isValidSudoku([[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]])) # expected: True"
+  },
+  "combination-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a collection of unique integers and a target sum, identify all distinct combinations of elements that add up to the target. You may reuse any number from the input set an unlimited number of times.",
+    "constraints": "1 <= candidates.length <= 30 · 1 <= candidates[i] <= 200 · 1 <= target <= 500 · All candidates are unique.",
+    "examples": "Input: [2,3,6,7], target: 7. Output: [[2,2,3],[7]].",
+    "starterCode": "def combinationSum(candidates, target):\n    # Your code here\n    pass\n\nprint(combinationSum([2, 3, 5], 8)) # expected: [[2, 2, 2, 2], [2, 3, 3], [3, 5]]"
+  },
+  "combination-sum-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a collection of numbers that may contain duplicates and a target integer, find all unique combinations of numbers that sum exactly to the target. Each number from the input set can be used only once in each combination.",
+    "constraints": "1 <= candidates.length <= 100 · 1 <= candidates[i] <= 50 · 1 <= target <= 30 · Result must not contain duplicate combinations.",
+    "examples": "Input: [10,1,2,7,6,1,5], target: 8. Output: [[1,1,6],[1,2,5],[1,7],[2,6]].",
+    "starterCode": "def combinationSum2(candidates, target):\n    # Your code here\n    pass\n\nprint(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)) # expected: [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]"
+  },
+  "first-missing-positive": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the smallest positive integer that is absent from a provided collection of numbers. The algorithm must operate in linear time and utilize constant extra space.",
+    "constraints": "1 <= length of array <= 10^5 · -2^31 <= array elements <= 2^31 - 1",
+    "examples": "Input: [3, 4, -1, 1] -> Output: 2. Input: [7, 8, 9, 11, 12] -> Output: 1.",
+    "starterCode": "def find_first_missing_positive(nums):\n    # Your code here\n    pass\n\nprint(find_first_missing_positive([1, 2, 0])) # expected: 3"
+  },
+  "trapping-rain-water": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers representing an elevation map, calculate the total volume of rainwater trapped between the bars after a storm.",
+    "constraints": "n == height.length · 1 <= n <= 2 * 10^4 · 0 <= height[i] <= 10^5",
+    "examples": "Input: [0,1,0,2,1,0,1,3,2,1,2,1] -> Output: 6. Explanation: The elevation map traps 6 units of water.",
+    "starterCode": "def trap(height: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(trap([0,1,0,2,1,0,1,3,2,1,2,1])) # expected: 6"
+  },
+  "multiply-strings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two non-negative integers represented as strings, return their product as a string without using built-in big integer conversion functions.",
+    "constraints": "0 <= num1.length, num2.length <= 200 · num1 and num2 consist of digits only · num1 and num2 do not contain leading zeros except for the number 0 itself.",
+    "examples": "Input: num1 = \"2\", num2 = \"3\" -> Output: \"6\"; Input: num1 = \"123\", num2 = \"456\" -> Output: \"56088\"",
+    "starterCode": "def multiply(num1: str, num2: str) -> str:\n    # Your code here\n    pass\n\nprint(multiply(\"123\", \"456\")) # expected: \"56088\""
+  },
+  "wildcard-matching": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if an input string matches a pattern containing '?' (which matches any single character) and '*' (which matches any sequence of characters, including empty ones). Return a boolean indicating if the entire string is covered by the pattern.",
+    "constraints": "1 <= string length <= 2000 · 0 <= pattern length <= 2000 · string contains lowercase letters · pattern contains lowercase letters, '?', and '*'",
+    "examples": "Input: s = \"aa\", p = \"*\" -> Output: true. Input: s = \"cb\", p = \"?a\" -> Output: false.",
+    "starterCode": "def is_match(s: str, p: str) -> bool:\n    # Your code here\n    pass\n\nprint(is_match(\"adceb\", \"*a*b\")) # expected: True"
+  },
+  "jump-game-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers where each element represents the maximum jump length from that position, determine the minimum number of jumps required to reach the final index. Assume the destination is always reachable.",
+    "constraints": "1 <= nums.length <= 10^4 · 0 <= nums[i] <= 1000",
+    "examples": "Input: [2,3,1,1,4] Output: 2. Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.",
+    "starterCode": "def jump(nums):\n    # Your code here\n    pass\n\nprint(jump([2,3,1,1,4])) # expected: 2"
+  },
+  "permutations": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a collection of distinct integers, generate every possible unique ordering of that collection. Return the complete list of all valid permutations in any order.",
+    "constraints": "1 <= nums.length <= 6 · -10 <= nums[i] <= 10 · All integers in nums are unique.",
+    "examples": "Input: [1,2] -> Output: [[1,2],[2,1]]. Input: [0,1] -> Output: [[0,1],[1,0]].",
+    "starterCode": "def permute(nums):\n    # Your code here\n    pass\n\nprint(permute([1, 2, 3])) # expected: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]"
+  },
+  "permutations-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a collection of numbers that may contain duplicates, return all possible unique permutations in any order.",
+    "constraints": "1 <= nums.length <= 8 · -10 <= nums[i] <= 10",
+    "examples": "Input: [1,1,2] -> Output: [[1,1,2],[1,2,1],[2,1,1]]",
+    "starterCode": "def permuteUnique(nums):\n    # Your code here\n    pass\n\nprint(permuteUnique([1, 1, 2])) # expected: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]"
+  },
+  "rotate-image": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an n x n 2D matrix representing an image, rotate it 90 degrees clockwise in-place. You must modify the input matrix directly without allocating a second matrix.",
+    "constraints": "n == matrix.length == matrix[i].length · 1 <= n <= 20 · -1000 <= matrix[i][j] <= 1000",
+    "examples": "Input: [[1,2],[3,4]] -> Output: [[3,1],[4,2]]",
+    "starterCode": "def rotate(matrix):\n    # Your code here\n    pass\n\nmatrix = [[1,2,3],[4,5,6],[7,8,9]]\nrotate(matrix)\nprint(matrix) # expected: [[7,4,1],[8,5,2],[9,6,3]]"
+  },
+  "powx-n": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a function that calculates x raised to the power of n, effectively computing x^n.",
+    "constraints": "-100.0 < x < 100.0 · -2^31 <= n <= 2^31 - 1 · n is an integer",
+    "examples": "Input: x = 2.00000, n = 10 -> Output: 1024.00000; Input: x = 2.10000, n = 3 -> Output: 9.26100",
+    "starterCode": "def my_pow(x: float, n: int) -> float:\n    # Your code here\n    pass\n\nprint(my_pow(2.0, 10)) # expected: 1024.0"
+  },
+  "n-queens": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine all distinct ways to place N chess queens on an N by N board such that no two queens threaten each other. Return a list of all valid board configurations, where each configuration represents the board layout using strings.",
+    "constraints": "1 <= n <= 9 · Each queen must be in a unique row, column, and diagonal.",
+    "examples": "For n=4, there are 2 solutions: ['.Q..', '...Q', 'Q...', '..Q.'] and ['..Q.', 'Q...', '...Q', '.Q..'].",
+    "starterCode": "def solveNQueens(n):\n    # Your code here\n    pass\n\nprint(solveNQueens(4)) # expected: [['.Q..', '...Q', 'Q...', '..Q.'], ['..Q.', 'Q...', '...Q', '.Q..']]"
+  },
+  "n-queens-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total number of distinct ways to place N queens on an N by N chessboard such that no two queens threaten each other. A queen attacks any piece sharing the same row, column, or diagonal.",
+    "constraints": "1 <= n <= 9",
+    "examples": "For n=4, the output is 2. For n=1, the output is 1.",
+    "starterCode": "def totalNQueens(n: int) -> int:\n    # Your code here\n    pass\n\nprint(totalNQueens(4)) # expected: 2"
+  },
+  "spiral-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 2D grid of numbers, traverse the elements in a clockwise spiral pattern starting from the top-left corner and return them as a single list.",
+    "constraints": "1 <= m, n <= 10 · -100 <= matrix[i][j] <= 100",
+    "examples": "Input: [[1,2,3],[4,5,6],[7,8,9]] -> Output: [1,2,3,6,9,8,7,4,5]",
+    "starterCode": "def spiralOrder(matrix):\n    # Your code here\n    pass\n\nprint(spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]])) # expected: [1, 2, 3, 6, 9, 8, 7, 4, 5]"
+  },
+  "jump-game": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if you can reach the final index of an array where each element represents the maximum distance you can jump forward from that position. Return true if the last index is reachable, otherwise return false.",
+    "constraints": "1 <= nums.length <= 10^4 · 0 <= nums[i] <= 10^5",
+    "examples": "Input: [2,3,1,1,4] -> Output: true (Jump 1 step from index 0 to 1, then 3 steps to the end). Input: [3,2,1,0,4] -> Output: false (You get stuck at index 3).",
+    "starterCode": "def canJump(nums):\n    # Your code here\n    pass\n\nprint(canJump([2,3,1,1,4])) # expected: True"
+  },
+  "insert-interval": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted list of non-overlapping intervals and a new interval to add, merge the new interval into the list such that the resulting list remains sorted and contains no overlapping intervals.",
+    "constraints": "0 <= intervals.length <= 10^4 · intervals[i].length == 2 · 0 <= start <= end <= 10^5 · intervals is sorted by start time.",
+    "examples": "Input: intervals = [[1,3],[6,9]], newInterval = [2,5]. Output: [[1,5],[6,9]].",
+    "starterCode": "def insert(intervals, newInterval):\n    # Your code here\n    pass\n\nprint(insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8])) # expected: [[1,2],[3,10],[12,16]]"
+  },
+  "length-of-last-word": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the number of characters in the final word of a given string, where a word is defined as a sequence of non-space characters. If the string ends with trailing whitespace, ignore those spaces to find the last actual word.",
+    "constraints": "1 <= s.length <= 10000 · s consists of English letters and spaces ' ' · there will be at least one word in s",
+    "examples": "Input: 'Hello World' -> Output: 5; Input: '   fly me   to   the moon  ' -> Output: 4",
+    "starterCode": "def length_of_last_word(s: str) -> int:\n    # Your code here\n    pass\n\nprint(length_of_last_word('luffy is still joyboy')) # expected: 6"
+  },
+  "spiral-matrix-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a positive integer n, generate an n x n matrix filled with elements from 1 to n squared in a clockwise spiral order.",
+    "constraints": "1 <= n <= 20",
+    "examples": "Input: n = 3, Output: [[1, 2, 3], [8, 9, 4], [7, 6, 5]]",
+    "starterCode": "def generateMatrix(n):\n    # Your code here\n    pass\n\nprint(generateMatrix(3)) # expected: [[1, 2, 3], [8, 9, 4], [7, 6, 5]]"
+  },
+  "permutation-sequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given integers n and k, determine the k-th lexicographical permutation of the sequence of numbers from 1 to n.",
+    "constraints": "1 <= n <= 9 · 1 <= k <= n!",
+    "examples": "For n=3, k=3: The permutations are [123, 132, 213, 231, 312, 321]. The 3rd is '213'.",
+    "starterCode": "def getPermutation(n: int, k: int) -> str:\n    # Your code here\n    pass\n\nprint(getPermutation(3, 3)) # expected: '213'"
+  },
+  "rotate-list": {
+    "draft": true,
+    "generated": true,
+    "goal": "Shift the elements of a singly linked list to the right by a specified number of positions. Return the head of the modified list.",
+    "constraints": "0 <= list length <= 500 · -100 <= node value <= 100 · 0 <= k <= 2 * 10^9",
+    "examples": "Input: 1->2->3->4->5, k=2. Output: 4->5->1->2->3. Explanation: Rotate right by 1: 5->1->2->3->4. Rotate right by 2: 4->5->1->2->3.",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef rotateRight(head, k):\n    # Your code here\n    pass\n\n# Example: head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))); print(rotateRight(head, 2)) # expected: 4->5->1->2->3"
+  },
+  "unique-paths": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the total number of distinct paths a robot can take to travel from the top-left corner to the bottom-right corner of an m x n grid, given that it can only move either down or right at any point.",
+    "constraints": "1 <= m, n <= 100 · The result is guaranteed to be less than or equal to 2 * 10^9.",
+    "examples": "For a 3x2 grid, there are 3 paths: (Right, Down, Down), (Down, Right, Down), (Down, Down, Right).",
+    "starterCode": "def uniquePaths(m: int, n: int) -> int:\n    # Your code here\n    pass\n\nprint(uniquePaths(3, 2)) # expected: 3"
   }
 }
