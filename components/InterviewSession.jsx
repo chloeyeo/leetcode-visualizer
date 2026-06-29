@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { PHASES, checklistFor, computeScorecard, starterCode } from '../lib/interview';
 import { createBrain } from '../lib/interviewBrain';
 import { useTraceWorker } from './useTraceWorker';
@@ -8,6 +9,12 @@ import ProblemStatement from './ProblemStatement';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const BRAIN_LABELS = { stub: 'Stub', claude: 'Claude', gemini: 'Gemini', custom: 'Custom' };
+
+// CodeMirror is client-only — load after mount so the static export stays clean.
+const CodeEditor = dynamic(() => import('./CodeEditor'), {
+  ssr: false,
+  loading: () => <div className="pg-code-input pg-code-loading">Loading editor…</div>,
+});
 
 function fmtTime(s) {
   const m = Math.floor(s / 60);
@@ -245,8 +252,7 @@ export default function InterviewSession({ problem, onExit }) {
               <span>solution.py</span>
               <button className="btn btn-primary pg-run" onClick={runCode} disabled={running}>{running ? 'Running…' : '▶ Run'}</button>
             </div>
-            <textarea className="pg-code-input" spellCheck={false} value={code}
-              onChange={(e) => setCode(e.target.value)} aria-label="Solution code" />
+            <CodeEditor value={code} onChange={setCode} ariaLabel="Solution code" minHeight="300px" />
           </div>
           {ran && (ran.error ? <div className="pg-error">⚠ {ran.error}</div>
             : <div className="pg-stdout"><h3>Output</h3><pre>{ran.stdout || '(no output)'}</pre></div>)}
