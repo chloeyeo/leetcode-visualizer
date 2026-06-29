@@ -84,14 +84,83 @@ export default function Playground() {
       <div className="seg pg-modes" role="group" aria-label="Playground mode">
         <button className={mode === 'trace' ? 'active' : ''} onClick={() => setMode('trace')}>Trace &amp; inspect</button>
         <button className={mode === 'compare' ? 'active' : ''} onClick={() => setMode('compare')}>Compare two solutions</button>
+        <button className={mode === 'scale' ? 'active' : ''} onClick={() => setMode('scale')}>Scale &amp; Big-O</button>
       </div>
 
-      {mode === 'trace' ? <TraceMode /> : <CompareMode />}
+      {mode === 'trace' && <TraceMode />}
+      {mode === 'compare' && <CompareMode />}
+      {mode === 'scale' && <ScaleMode />}
 
       <p className="viz-disclaimer pg-foot">
         Prototype · Python only · 4,000-step budget (infinite loops stop safely). Arrays,
         dicts, linked lists, binary trees and adjacency graphs of primitives render live;
         complex objects show as text.
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ Scale & Big-O mode */
+const SCALE_NS = [10, 25, 50, 100, 250, 500];
+
+// Count logical operations for the two Two Sum solutions on a worst-case input
+// (the only matching pair sits at the very end, so brute force scans almost everything).
+function twoSumSteps(n) {
+  const nums = Array.from({ length: n }, (_, i) => i);
+  const target = 2 * n - 3; // = (n-2) + (n-1): unique pair at the end
+  let brute = 0;
+  let bdone = false;
+  for (let i = 0; i < n && !bdone; i++) {
+    for (let j = i + 1; j < n; j++) { brute++; if (nums[i] + nums[j] === target) { bdone = true; break; } }
+  }
+  let opt = 0;
+  const seen = new Set();
+  for (let i = 0; i < n; i++) { opt++; if (seen.has(target - nums[i])) break; seen.add(nums[i]); }
+  return { brute, opt };
+}
+
+function ScaleMode() {
+  const rows = SCALE_NS.map((n) => ({ n, ...twoSumSteps(n) }));
+  const max = Math.max(...rows.map((r) => r.brute));
+  const last = rows[rows.length - 1];
+  return (
+    <div className="scale">
+      <p className="section-note">
+        Steps measure logical operations — the thing Big-O actually predicts (and what an interviewer grades),
+        unlike milliseconds. Here&apos;s how the two Two&nbsp;Sum solutions grow as the input <b>N</b> increases,
+        on a worst-case input where the matching pair sits at the end.
+      </p>
+
+      <div className="scale-badges">
+        <span className="bigo-badge hard">Brute force · O(N²) time · O(1) space</span>
+        <span className="bigo-badge easy">Optimal (hash map) · O(N) time · O(N) space</span>
+      </div>
+
+      <table className="scale-table">
+        <thead>
+          <tr><th>N</th><th>Brute force</th><th>Optimal</th><th>Brute ÷ Opt</th></tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.n}>
+              <td className="scale-n">{r.n}</td>
+              <td>
+                <div className="scale-bar"><div className="scale-fill hard" style={{ width: `${(r.brute / max) * 100}%` }} /></div>
+                <span className="scale-num">{r.brute.toLocaleString()}</span>
+              </td>
+              <td>
+                <div className="scale-bar"><div className="scale-fill easy" style={{ width: `${Math.max((r.opt / max) * 100, 0.5)}%` }} /></div>
+                <span className="scale-num">{r.opt.toLocaleString()}</span>
+              </td>
+              <td className="scale-ratio">{Math.round(r.brute / r.opt)}×</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p className="viz-disclaimer">
+        At N={last.n} the brute force already does <b>{last.brute.toLocaleString()}</b> steps versus just{' '}
+        <b>{last.opt}</b> for the optimal — and the gap keeps widening quadratically. That&apos;s why O(N) beats O(N²).
       </p>
     </div>
   );

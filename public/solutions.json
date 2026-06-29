@@ -365,5 +365,93 @@
     "constraints": "The number of nodes in the list is in the range [0, 100] · 0 <= Node.val <= 100",
     "examples": "Input: head = [1,2,3,4]\nOutput: [2,1,4,3]\n\nInput: head = []\nOutput: []\n\nInput: head = [1]\nOutput: [1]",
     "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef swapPairs(head):\n    # Your code here\n    pass\n\ndef list_to_linkedlist(arr):\n    if not arr:\n        return None\n    head = ListNode(arr[0])\n    current = head\n    for val in arr[1:]:\n        current.next = ListNode(val)\n        current = current.next\n    return head\n\ndef linkedlist_to_list(head):\n    arr = []\n    current = head\n    while current:\n        arr.append(current.val)\n        current = current.next\n    return arr\n\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([1,2,3,4])))) # expected: [2, 1, 4, 3]\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([])))) # expected: []\nprint(linkedlist_to_list(swapPairs(list_to_linkedlist([1])))) # expected: [1]"
+  },
+  "remove-duplicates-from-sorted-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Modify an array in-place so that each unique element appears only once, then return the count of these unique elements.",
+    "constraints": "Array is sorted in non-decreasing order · Modify the array in-place · Use O(1) extra memory",
+    "examples": "Input: nums = [1,1,2]\nOutput: 2, nums = [1,2,_]\nExplanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively. It does not matter what you leave beyond the returned k (hence they are underscores).\n\nInput: nums = [0,0,1,1,1,2,2,3,3,4]\nOutput: 5, nums = [0,1,2,3,4,_,_,_,_,_]",
+    "starterCode": "def removeDuplicates(nums):\n    # Your code here\n    pass\n\nprint(removeDuplicates([1,1,2])) # expected: 2\nprint(removeDuplicates([0,0,1,1,1,2,2,3,3,4])) # expected: 5"
+  },
+  "remove-element": {
+    "draft": true,
+    "generated": true,
+    "goal": "Modify an array in-place by removing all occurrences of a specific value. Return the new length of the array after removal.",
+    "constraints": "Array contains integers · Array can be empty · Value to remove is an integer",
+    "examples": "Given nums = [3,2,2,3] and val = 3, the function should return 2. The first two elements of nums would then be [2,2].\nGiven nums = [0,1,2,2,3,0,4,2] and val = 2, the function should return 5. The first five elements of nums would then be [0,1,3,0,4] (order of the first five elements can vary).",
+    "starterCode": "def removeElement(nums, val):\n    # Your code here\n    pass\n\nprint(removeElement([3,2,2,3], 3)) # expected: 2\nprint(removeElement([0,1,2,2,3,0,4,2], 2)) # expected: 5"
+  },
+  "find-the-index-of-the-first-occurrence-in-a-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two strings, `haystack` and `needle`, find the starting index of the first time `needle` appears within `haystack`. If `needle` is not found in `haystack`, return -1.",
+    "constraints": "Both strings consist of lowercase English letters. · The lengths of both strings are between 0 and 10^4.",
+    "examples": "haystack = \"sadbutsad\", needle = \"sad\" -> 0\nhaystack = \"leetcode\", needle = \"leeto\" -> -1",
+    "starterCode": "def strStr(haystack: str, needle: str) -> int:\n    # Your code here\n    pass\n\nprint(strStr(\"sadbutsad\", \"sad\")) # expected: 0\nprint(strStr(\"leetcode\", \"leeto\")) # expected: -1"
+  },
+  "divide-two-integers": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the integer division of two numbers, dividend and divisor, without using multiplication, division, or the modulo operator. Return the quotient.",
+    "constraints": "Both dividend and divisor are 32-bit signed integers. The divisor will not be zero. Handle potential integer overflow for the minimum possible integer.",
+    "examples": "If dividend is 10 and divisor is 3, the result is 3. If dividend is 7 and divisor is -3, the result is -2.",
+    "starterCode": "def divide(dividend: int, divisor: int) -> int:\n    # Your code here\n    pass\n\nprint(divide(10, 3)) # expected: 3\nprint(divide(7, -3)) # expected: -2"
+  },
+  "substring-with-concatenation-of-all-words": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find all starting indices in a given string 's' where a substring is formed by concatenating all words from a list 'words' exactly once and in any order.",
+    "constraints": "Length of 's' and 'words' · Length of each word · All words have the same length · Words consist of lowercase English letters.",
+    "examples": "s = \"barfoothefoobarman\", words = [\"foo\",\"bar\"] -> [0, 9]. s = \"wordgoodgoodgoodbestword\", words = [\"word\",\"good\",\"best\",\"word\"] -> []. s = \"barfoofoobarthefoobarman\", words = [\"bar\",\"foo\",\"the\"] -> [6, 9, 12].",
+    "starterCode": "def findSubstring(s: str, words: list[str]) -> list[int]:\n    # Your code here\n    pass\n\nprint(findSubstring(\"barfoothefoobarman\", [\"foo\",\"bar\"])) # expected: [0, 9]"
+  },
+  "next-permutation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of numbers, rearrange them to form the lexicographically next greater permutation. If no such permutation exists, rearrange the list into the smallest possible order (ascending).",
+    "constraints": "The input is a list of integers · The list can contain duplicates · The modification must be in-place.",
+    "examples": "Input: [1,2,3] -> Output: [1,3,2]\nInput: [3,2,1] -> Output: [1,2,3]",
+    "starterCode": "def nextPermutation(nums):\n    # Your code here\n    pass\n\nprint(nextPermutation([1,2,3])) # expected: [1,3,2]\nprint(nextPermutation([3,2,1])) # expected: [1,2,3]\nprint(nextPermutation([1,1,5])) # expected: [1,5,1]"
+  },
+  "longest-valid-parentheses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string composed solely of opening and closing parentheses, find the length of the longest contiguous substring that forms a well-formed sequence of parentheses.",
+    "constraints": "String length between 0 and 30,000 · String contains only '(' and ')' characters.",
+    "examples": "For '(()', the longest valid substring is '()', with length 2. For ')()())', the longest valid substring is '()()', with length 4.",
+    "starterCode": "def longestValidParentheses(s):\n    # Your code here\n    pass\n\nprint(longestValidParentheses('(()')) # expected: 2\nprint(longestValidParentheses(')()())')) # expected: 4"
+  },
+  "search-in-rotated-sorted-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the index of a specific target value within a sorted array that has been rotated at some unknown pivot point. If the target is not present, return -1.",
+    "constraints": "The array contains distinct values. The algorithm must run in O(log n) time complexity.",
+    "examples": "Example 1: nums = [4,5,6,7,0,1,2], target = 0. Output: 4. Example 2: nums = [4,5,6,7,0,1,2], target = 3. Output: -1.",
+    "starterCode": "def search(nums, target):\n    # Your code here\n    pass\n\nprint(search([4,5,6,7,0,1,2], 0)) # expected: 4\nprint(search([4,5,6,7,0,1,2], 3)) # expected: -1"
+  },
+  "find-first-and-last-position-of-element-in-sorted-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted array of integers, find the starting and ending index of a given target value. If the target is not found, return [-1, -1].",
+    "constraints": "The input array is sorted in non-decreasing order. · The array can be empty. · The target value may or may not be present in the array.",
+    "examples": "Input: nums = [5,7,7,8,8,10], target = 8. Output: [3,4]. Input: nums = [5,7,7,8,8,10], target = 6. Output: [-1,-1].",
+    "starterCode": "def searchRange(nums, target):\n    # Your code here\n    pass\n\nprint(searchRange([5,7,7,8,8,10], 8)) # expected: [3, 4]\nprint(searchRange([5,7,7,8,8,10], 6)) # expected: [-1, -1]\nprint(searchRange([], 0)) # expected: [-1, -1]"
+  },
+  "sudoku-solver": {
+    "draft": true,
+    "generated": true,
+    "goal": "Fill in a partially completed 9x9 Sudoku grid with digits from 1-9 such that each row, each column, and each of the nine 3x3 subgrids contains all digits from 1 to 9 exactly once. The input grid is guaranteed to have a unique solution, and you should modify the grid in-place.",
+    "constraints": "The grid is 9x9 · Each cell contains a digit from '1'-'9' or '.' for empty cells · Exactly one solution exists",
+    "examples": "Input: board = [[...],[...],[...]], Output: [[...],[...],[...]] (filled board)",
+    "starterCode": "def solveSudoku(board):\n    # Your code here\n    pass\n\nboard = [[\".\", \".\", \".\", \"2\", \".\", \".\", \".\", \"6\", \".\"],\n             [\"4\", \".\", \".\", \".\", \".\", \"3\", \".\", \".\", \"9\"],\n             [\".\", \".\", \".\", \".\", \"9\", \".\", \"2\", \".\", \".\"],\n             [\".\", \".\", \".\", \"5\", \".\", \".\", \".\", \".\", \"7\"],\n             [\".\", \".\", \".\", \".\", \"8\", \".\", \".\", \".\", \".\"],\n             [\"7\", \".\", \".\", \".\", \".\", \"6\", \".\", \".\", \".\"],\n             [\".\", \".\", \"3\", \".\", \"1\", \".\", \".\", \".\", \".\"],\n             [\".\", \".\", \".\", \"7\", \".\", \".\", \".\", \".\", \"6\"],\n             [\".\", \"6\", \".\", \".\", \".\", \"2\", \".\", \".\", \".\"]]\nprint(solveSudoku(board)) # expected: [[5,3,4,6,7,8,9,1,2],[6,7,2,1,9,5,3,4,8],[1,9,8,3,4,2,5,6,7],[8,5,9,7,6,1,4,2,3],[4,2,6,8,5,3,7,9,1],[7,1,3,9,2,4,8,5,6],[9,6,1,5,3,7,2,8,4],[2,8,7,4,1,9,6,3,5],[3,4,5,2,8,6,1,7,9]]"
+  },
+  "count-and-say": {
+    "draft": true,
+    "generated": true,
+    "goal": "Generate the nth term of the 'count-and-say' sequence. This sequence is defined by describing the previous term.",
+    "constraints": "1 <= n <= 30",
+    "examples": "n = 1: \"1\"\nn = 2: \"11\" (one 1)\nn = 3: \"21\" (two 1s)\nn = 4: \"1211\" (one 2, one 1)\nn = 5: \"111221\" (one 1, one 2, two 1s)",
+    "starterCode": "def countAndSay(n):\n    # Your code here\n    pass\n\nprint(countAndSay(4)) # expected: \"1211\""
   }
 }
