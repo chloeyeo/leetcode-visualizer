@@ -6,7 +6,8 @@
     "constraints": "2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
     "examples": "nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.",
     "aiSummary": "Given a list of integers `nums` and a target integer `target`, find the two distinct positions whose values add up to `target`, and return them as a pair of indices. Exactly one valid pair is guaranteed to exist, and you may use each element at most once. The order of the two indices in your answer doesn't matter.\n\nExample: nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
-    "starterCode": "def two_sum(nums, target):\n    # Return the indices of the two values that add up to target.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum([2, 7, 11, 15], 9))  # expected: [0, 1]\n"
+    "starterCode": "def two_sum(nums, target):\n    # Return the indices of the two values that add up to target.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum([2, 7, 11, 15], 9))  # expected: [0, 1]\n",
+    "optimal": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n"
   },
   "valid-palindrome": {
     "draft": true,
@@ -15,6 +16,7 @@
     "examples": "\"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.",
     "aiSummary": "Decide whether a string reads the same forwards and backwards once you ignore case and keep only alphanumeric characters (letters and digits). Return True if it qualifies as a palindrome under those rules, otherwise return False. An empty string (after filtering) counts as a palindrome.\n\nExamples: \"A man, a plan, a canal: Panama\" → True (it reduces to \"amanaplanacanalpanama\"). \"race a car\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 200,000 · s consists of printable ASCII characters.",
     "starterCode": "def is_palindrome(s):\n    # Return True if s is a palindrome, ignoring case and non-alphanumeric chars.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # expected: True\n",
+    "optimal": "def is_palindrome(s):\n    t = [c.lower() for c in s if c.isalnum()]\n    return t == t[::-1]\n",
     "viz": { "key": "two-pointers", "input": { "mode": "palindrome", "string": "A man, a plan, a canal: Panama" } }
   },
   "two-sum-ii-input-array-is-sorted": {
@@ -30,6 +32,7 @@
     "examples": "nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.",
     "aiSummary": "Given a list `nums` sorted in ascending order and a value `target`, return the index of `target` if it's present, or -1 if it isn't. Your algorithm must run in O(log n) time.\n\nExamples: nums = [-1, 0, 3, 5, 9, 12], target = 9 → 4. With target = 2 → -1.\n\nConstraints: 1 ≤ len(nums) ≤ 10,000 · all values are unique · -10,000 ≤ nums[i], target ≤ 10,000 · nums is sorted ascending.",
     "starterCode": "def search(nums, target):\n    # nums is sorted ascending. Return the index of target, or -1.\n    # Must run in O(log n).\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(search([-1, 0, 3, 5, 9, 12], 9))  # expected: 4\n",
+    "optimal": "def search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
     "viz": { "key": "binary-search", "input": { "array": [-1, 0, 3, 5, 9, 12], "target": 9 } }
   },
   "valid-anagram": {
@@ -57,6 +60,7 @@
     "draft": true,
     "aiSummary": "Given a string `s` of only the bracket characters ()[]{}, decide whether they are balanced: every opening bracket is closed by one of the same type, in the correct order, with nothing left open. Return True or False.\n\nExamples: \"()[]{}\" → True. \"(]\" → False. \"([)]\" → False.\n\nConstraints: 1 ≤ len(s) ≤ 10,000 · s contains only the six bracket characters.",
     "starterCode": "def is_valid(s):\n    # Return True if the brackets in s are balanced (use a stack).\n    # Your code here\n    pass\n\n\nprint(is_valid(\"()[]{}\"))  # expected: True\n",
+    "optimal": "def is_valid(s):\n    pairs = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    for c in s:\n        if c in pairs:\n            if not stack or stack.pop() != pairs[c]:\n                return False\n        else:\n            stack.append(c)\n    return not stack\n",
     "viz": { "key": "stack", "input": { "mode": "brackets", "string": "()[]{}" } }
   },
   "merge-two-sorted-lists": {

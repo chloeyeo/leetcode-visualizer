@@ -57,9 +57,6 @@
   --font-display: "Space Grotesk", -apple-system, system-ui, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
-  /* Accessibility: app-wide readable-text scale, driven by the A-/A+ resizer */
-  --font-scale: 1;
-
   /* High-contrast: one token controls border thickness everywhere */
   --border-width: 2px;
 }
@@ -807,10 +804,10 @@ input:focus-visible,
   width: 100%; min-height: 340px; resize: vertical;
   background: var(--bg); color: var(--text); border: none; outline: none;
   padding: 14px; font-family: var(--mono);
-  font-size: calc(13px * var(--font-scale)); line-height: 1.6; tab-size: 4;
+  font-size: 13px; line-height: 1.6; tab-size: 4;
 }
 .pg-trace { min-height: 200px; }
-.pg-codeview { background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); overflow-x: auto; font-family: var(--mono); font-size: calc(13px * var(--font-scale)); }
+.pg-codeview { background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); overflow-x: auto; font-family: var(--mono); font-size: 13px; }
 .pg-editor-trace .pg-codeview { border: none; border-radius: 0; }
 .pg-editor-trace .viz-playback { padding: 12px 14px 14px; border-top: var(--border-width) solid var(--border); }
 .code-line { display: flex; gap: 12px; padding: 2px 12px; }
@@ -868,7 +865,7 @@ input:focus-visible,
 
 .iv-transcript { background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-md); padding: 12px 14px; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
 .iv-turn { display: flex; flex-direction: column; gap: 2px; }
-.iv-turn p { margin: 0; font-size: calc(14px * var(--font-scale)); line-height: 1.5; }
+.iv-turn p { margin: 0; font-size: 14px; line-height: 1.5; }
 .iv-who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); }
 .iv-turn.interviewer .iv-who { color: var(--accent); }
 .iv-turn.candidate .iv-who { color: var(--accent-2); }
@@ -877,7 +874,7 @@ input:focus-visible,
 .iv-talk { display: flex; flex-direction: column; gap: 8px; }
 .iv-mic { align-self: flex-start; background: var(--bg-elev-2); border: var(--border-width) solid var(--border); color: var(--text); border-radius: var(--r-pill); padding: 8px 16px; font-size: 14px; cursor: pointer; }
 .iv-mic.live { background: var(--state-current); border-color: var(--accent); }
-.iv-pending { width: 100%; min-height: 70px; resize: vertical; background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-md); color: var(--text); padding: 10px 12px; font-size: calc(14px * var(--font-scale)); line-height: 1.5; }
+.iv-pending { width: 100%; min-height: 70px; resize: vertical; background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-md); color: var(--text); padding: 10px 12px; font-size: 14px; line-height: 1.5; }
 .iv-done { align-self: flex-end; }
 
 .iv-brain { font-size: 11px; padding: 2px 8px; border-radius: var(--r-pill); border: var(--border-width) solid var(--border); color: var(--text-dim); }
@@ -1035,11 +1032,11 @@ input:focus-visible,
 /* ---------- Problem statement + blueprint ---------- */
 .prob-statement { margin: var(--s2) 0 var(--s5); }
 .prob-statement-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; }
-.prob-para { color: var(--text); font-size: calc(15px * var(--font-scale)); line-height: 1.6; margin: 0 0 var(--s3); max-width: 720px; white-space: pre-wrap; }
+.prob-para { color: var(--text); font-size: 15px; line-height: 1.6; margin: 0 0 var(--s3); max-width: 720px; white-space: pre-wrap; }
 .prob-fineprint { margin-top: var(--s2); }
 .blueprint { border: var(--border-width) solid var(--border); border-radius: var(--r-md); overflow: hidden; background: var(--bg-elev); margin: var(--s2) 0 var(--s3); max-width: 720px; }
 .blueprint-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: 8px 12px; border-bottom: var(--border-width) solid var(--border); background: var(--bg-elev-2); font-family: var(--mono); font-size: 12px; color: var(--text-dim); flex-wrap: wrap; }
-.blueprint-code { margin: 0; padding: 12px 14px; overflow-x: auto; font-family: var(--mono); font-size: calc(13px * var(--font-scale)); line-height: 1.6; color: var(--text); background: var(--bg); }
+.blueprint-code { margin: 0; padding: 12px 14px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text); background: var(--bg); }
 
 /* ---------- Interview: collapsible problem + pre-start gate ---------- */
 .iv-prob { background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-md); padding: 10px 14px; }
@@ -1091,7 +1088,7 @@ input:focus-visible,
 
 /* ---------- CodeMirror 6 — scales with --font-scale, sharp frame ---------- */
 .cm-wrap { width: 100%; }
-.cm-editor { font-size: calc(13px * var(--font-scale)); border: var(--border-width) solid var(--border); border-radius: var(--r-md); }
+.cm-editor { font-size: 13px; border: var(--border-width) solid var(--border); border-radius: var(--r-md); }
 .cm-editor.cm-focused { outline: none; border-color: var(--accent-2); }
 .cm-wrap .cm-scroller { font-family: var(--mono); }
 
@@ -1111,7 +1108,7 @@ input:focus-visible,
 /* ---------- Chunked problem statement (anti-wall-of-text) ---------- */
 .ps { display: flex; flex-direction: column; gap: var(--s3); margin: var(--s2) 0 var(--s4); max-width: 760px; }
 .ps-sec { border-left: 4px solid var(--border); border-radius: var(--r-sm); background: var(--bg-elev); padding: 10px 14px; }
-.ps-head { cursor: pointer; font-weight: 700; font-size: calc(14px * var(--font-scale)); color: var(--text); list-style: none; }
+.ps-head { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--text); list-style: none; }
 .ps-head::-webkit-details-marker { display: none; }
 .ps-sec[open] .ps-head { margin-bottom: var(--s2); }
 .ps-sec .prob-para { margin: 0; }
@@ -1135,6 +1132,13 @@ input:focus-visible,
 .iv-focus .iv-transcript:hover, .iv-focus .iv-talk:hover, .iv-focus .pg-editor:hover {
   opacity: 1;                                                  /* restore on interaction */
 }
+
+/* ---------- Pulsing "mic is listening" indicator ---------- */
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 55, 95, 0.45); }
+  50% { box-shadow: 0 0 0 7px rgba(255, 55, 95, 0); }
+}
+.iv-mic.live { animation: mic-pulse 1.4s ease-in-out infinite; }
 
 /* ---------- Merge-two-sorted-lists visualizer rows ---------- */
 .mg-row { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: 10px; }

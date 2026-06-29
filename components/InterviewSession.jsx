@@ -55,6 +55,7 @@ export default function InterviewSession({ problem, onExit }) {
   const [focusMode, setFocusMode] = useState(false);
 
   const recRef = useRef(null);
+  const wantMic = useRef(false); // true while the user wants to be recorded — drives auto-restart
   const startedAt = useRef(Date.now());
   const transcriptEnd = useRef(null);
 
@@ -89,9 +90,21 @@ export default function InterviewSession({ problem, onExit }) {
       }
       setPending((finalBuf + interim).trim());
     };
-    rec.onend = () => setListening(false);
+    // Chrome ends the stream after ~10–15s of silence ('no-speech'). Auto-restart
+    // while the user still wants the mic, so long thinking pauses don't kill it.
+    rec.onend = () => {
+      if (wantMic.current) {
+        try { rec.start(); } catch (e) { /* transient: engine still stopping */ }
+      } else {
+        setListening(false);
+      }
+    };
+    rec.onerror = (e) => {
+      if (e && e.error === 'not-allowed') { wantMic.current = false; setListening(false); }
+      // 'no-speech' / 'aborted' / 'network' fall through to onend, which restarts.
+    };
     recRef.current = { rec, reset: () => { finalBuf = ''; } };
-    return () => { try { rec.stop(); } catch (e) { /* noop */ } };
+    return () => { wantMic.current = false; try { rec.stop(); } catch (e) { /* noop */ } };
   }, []);
 
   // Load our blueprint + summary for this problem. No auto-start — the session
@@ -128,8 +141,14 @@ export default function InterviewSession({ problem, onExit }) {
   function toggleMic() {
     const r = recRef.current;
     if (!r) return;
-    if (listening) { try { r.rec.stop(); } catch (e) { /* noop */ } setListening(false); }
-    else { try { r.reset(); setPending(''); r.rec.start(); setListening(true); } catch (e) { /* noop */ } }
+    if (listening) {
+      wantMic.current = false;
+      try { r.rec.stop(); } catch (e) { /* noop */ }
+      setListening(false);
+    } else {
+      wantMic.current = true;
+      try { r.reset(); setPending(''); r.rec.start(); setListening(true); } catch (e) { /* noop */ }
+    }
   }
 
   function runCode() {
@@ -168,6 +187,7 @@ export default function InterviewSession({ problem, onExit }) {
   }
 
   async function endSession() {
+    wantMic.current = false;
     try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
     if (recRef.current) { try { recRef.current.rec.stop(); } catch (e) { /* noop */ } }
     setListening(false);
@@ -291,7 +311,7 @@ export default function InterviewSession({ problem, onExit }) {
           <div className="iv-talk">
             {srSupported && (
               <button className={`iv-mic${listening ? ' live' : ''}`} onClick={toggleMic}>
-                {listening ? '● Listening… (stop)' : '🎤 Speak'}
+                {listening ? '🔴 Mic is listening — tap to stop' : '🎤 Speak'}
               </button>
             )}
             <textarea
