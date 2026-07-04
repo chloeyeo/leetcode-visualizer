@@ -990,7 +990,7 @@ input:focus-visible,
 /* Compare mode */
 .cmp-editors { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
 .cmp-input { min-height: 220px; }
-.cmp-results { margin-top: var(--s5); background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); padding: var(--s4); position: sticky; top: 68px; z-index: 5; }
+.cmp-results { margin-top: var(--s5); background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); padding: var(--s4); }
 .cmp-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .cmp-bar-label { width: 100px; font-size: 14px; color: var(--text-dim); }
 .cmp-bar-track { flex: 1; background: var(--bg-elev-2); border-radius: var(--r-pill); height: 22px; overflow: hidden; }
@@ -1192,7 +1192,6 @@ input:focus-visible,
 .scale-fill.hard { background: var(--hard); }
 .scale-fill.easy { background: var(--easy); }
 .scale-num { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
-.scale-ratio { font-family: var(--mono); font-weight: 700; color: var(--accent); text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ---------- Inner horizontal scroll for genuinely-wide widgets ----------
    The PAGE never scrolls sideways (see html,body overflow-x:clip above); instead

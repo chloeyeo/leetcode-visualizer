@@ -135,7 +135,7 @@ function ScaleMode() {
 
       <table className="scale-table">
         <thead>
-          <tr><th>N</th><th>Brute force</th><th>Optimal</th><th>Brute ÷ Opt</th></tr>
+          <tr><th>N</th><th>Brute force</th><th>Optimal</th></tr>
         </thead>
         <tbody>
           {rows.map((r) => (
@@ -149,7 +149,6 @@ function ScaleMode() {
                 <div className="scale-bar"><div className="scale-fill easy" style={{ width: `${Math.max((r.opt / max) * 100, 0.5)}%` }} /></div>
                 <span className="scale-num">{r.opt.toLocaleString()}</span>
               </td>
-              <td className="scale-ratio">{Math.round(r.brute / r.opt)}×</td>
             </tr>
           ))}
         </tbody>
