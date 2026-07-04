@@ -1,5 +1,7 @@
 # LeetCode Visualizer
 
+**Live:** [lc-visualizer.vercel.app](https://lc-visualizer.vercel.app) — pushes to `main` auto-deploy via the Vercel GitHub integration.
+
 A free, static web app that lets you browse **every LeetCode problem**, search and filter
 the catalog, and open each problem with a one-click link to LeetCode plus a YouTube video
 hint (shown as a clickable thumbnail card). No backend, no database, no paid services.
