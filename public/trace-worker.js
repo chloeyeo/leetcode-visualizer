@@ -124,7 +124,7 @@ def __run_user(code, max_steps=4000):
 
 async function ensurePyodide() {
   if (!pyodidePromise) {
-    self.postMessage({ type: 'status', msg: 'Downloading Python runtime (first run only)…' });
+    self.postMessage({ type: 'status', msg: 'Loading Python runtime — the first ever run downloads it, later loads are cached…' });
     pyodidePromise = loadPyodide({ indexURL: BASE_URL }).then(async (py) => {
       py.runPython(HARNESS);
       return py;
