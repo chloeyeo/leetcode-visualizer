@@ -15,7 +15,21 @@ const display = Space_Grotesk({
 export const metadata = {
   title: 'LeetCode Visualizer — see the pattern behind every problem',
   description:
-    'Browse every LeetCode problem with a step-by-step interactive visualizer of the algorithm pattern it uses, plus a video hint.',
+    'Practice all 3,900+ LeetCode problems with step-by-step pattern visualizers, a runnable in-browser Python playground, and a spoken AI mock interview that grades you like a real screen. Free, no signup.',
+  keywords: ['leetcode', 'coding interview practice', 'algorithm visualizer', 'mock interview', 'python playground', 'big-o'],
+  openGraph: {
+    title: 'LeetCode Visualizer — interview like you mean it',
+    description:
+      'Step-by-step algorithm visualizers, an in-browser Python playground that traces every line, and a spoken mock interview with a scorecard. Free, no signup.',
+    type: 'website',
+    siteName: 'LC Visualizer',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'LeetCode Visualizer — interview like you mean it',
+    description:
+      'Visualize the pattern, trace your Python line by line, and practice a spoken mock interview — free, in the browser.',
+  },
 };
 
 function BrandMark() {

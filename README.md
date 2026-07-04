@@ -58,6 +58,30 @@ Deploy the `out/` folder to any static host.
 
 ---
 
+## Content coverage (all 3,973 problems)
+
+Every problem page ships **runnable starter code**, in two layers:
+
+1. **Original scaffold (100% coverage, zero cost).** `lib/starter.js` generates a Python
+   blueprint from catalog facts only — title, slug, id, tags, difficulty — with a proper
+   `snake_case` function name and a link-out to the statement. Nothing is copied from
+   LeetCode, so there's no copyright exposure.
+2. **AI-rewritten summaries + tailored blueprints (348 so far).** `scripts/gen-solutions.mjs`
+   uses the free Gemini API to write goal/constraints/examples **in original words** plus a
+   problem-specific starter signature. It's resume-safe and never overwrites hand-authored
+   entries. Backfill the rest with:
+
+   ```bash
+   set GEMINI_API_KEY=AIza...            # free key from aistudio.google.com
+   set MODELS=gemini-2.5-flash-lite,gemini-2.0-flash-lite,gemini-2.5-flash
+   set LIMIT=3973
+   npm run gen-solutions                 # re-run daily until coverage is full
+   ```
+
+Pages without a layer-2 entry fall back to layer 1 automatically — no dead ends.
+
+---
+
 ## Adding video hints
 
 `public/videos.json` maps a problem slug to a YouTube video:
