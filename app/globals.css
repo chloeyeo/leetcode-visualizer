@@ -233,7 +233,7 @@ select.tag-select {
 .loading { text-align: center; color: var(--text-dim); padding: 60px 0; }
 
 /* ---------- Detail page ---------- */
-.back-link { color: var(--text-dim); font-size: 14px; display: inline-block; margin: 28px 0 18px; }
+.back-link { color: var(--text-dim); font-size: 14px; display: inline-block; margin: 28px 0 18px; background: none; border: 0; padding: 0; font-family: inherit; cursor: pointer; }
 .back-link:hover { color: var(--text); }
 .detail-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .detail-head h1 { font-size: 28px; margin: 0; letter-spacing: -0.02em; }
