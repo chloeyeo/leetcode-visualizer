@@ -10,15 +10,34 @@
  * sections, everything else is the goal. So all existing entries chunk for free.
  */
 /**
+ * Natural math in prose: 10^9 → 10⁹ (real <sup>), <= → ≤, >= → ≥, != → ≠,
+ * 3 * 10^4 → 3 × 10⁴. Text-level only — backtick code spans are left as-is.
+ */
+function MathProse({ text }) {
+  const s = String(text)
+    .replace(/\s<=\s/g, ' ≤ ')
+    .replace(/\s>=\s/g, ' ≥ ')
+    .replace(/\s!=\s/g, ' ≠ ')
+    .replace(/(\d)\s*\*\s*(?=\d)/g, '$1 × ');
+  const POW = /((?:\d[\d,.]*|[a-zA-Z])\^-?\d+)/g;
+  return s.split(POW).map((chunk, i) => {
+    const m = chunk.match(/^(\d[\d,.]*|[a-zA-Z])\^(-?\d+)$/);
+    if (m) return <span key={i}>{m[1]}<sup>{m[2]}</sup></span>;
+    return chunk;
+  });
+}
+
+/**
  * Renders `backtick-wrapped` tokens in prose as inline <code> instead of
- * showing the literal backticks. Plain text otherwise — no other markdown.
+ * showing the literal backticks; everything else gets natural math notation
+ * via MathProse. No other markdown.
  */
 export function InlineCode({ text }) {
   const parts = String(text).split(/(`[^`\n]+`)/g);
   return parts.map((part, i) =>
     part.startsWith('`') && part.endsWith('`') && part.length > 2
       ? <code className="inline-code" key={i}>{part.slice(1, -1)}</code>
-      : part
+      : <MathProse key={i} text={part} />
   );
 }
 

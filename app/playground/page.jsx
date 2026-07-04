@@ -6,44 +6,15 @@ import Link from 'next/link';
 import { useStepPlayer } from '../../components/useStepPlayer';
 import { useTraceWorker } from '../../components/useTraceWorker';
 import VizControls from '../../components/VizControls';
-import { CodeView, DataStructures, VarTable, CallStack } from '../../components/TraceViews';
-import ProblemStatement, { InlineCode } from '../../components/ProblemStatement';
-import CodeDiff from '../../components/CodeDiff';
-import { starterFor, summaryTextFor } from '../../lib/starter';
-
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+import { CodeView, DataStructures } from '../../components/TraceViews';
+import TraceMode from '../../components/TraceMode';
+import { analyzeComplexity } from '../../lib/analyzeComplexity';
 
 // CodeMirror is client-only — load it after mount so the static export stays clean.
 const CodeEditor = dynamic(() => import('../../components/CodeEditor'), {
   ssr: false,
   loading: () => <div className="pg-code-input pg-code-loading">Loading editor…</div>,
 });
-
-function ProblemSummary({ summary }) {
-  return (
-    <section className="prob-statement pg-prob">
-      <div className="prob-statement-head">
-        <h2 className="section-title lead">{summary.title}</h2>
-        <a className="inline-link" href={`https://leetcode.com/problems/${summary.slug}/`} target="_blank" rel="noreferrer">
-          Original on LeetCode ↗
-        </a>
-      </div>
-      <ProblemStatement sol={{ aiSummary: summary.text }} compact />
-    </section>
-  );
-}
-
-const SAMPLE = `def two_sum(nums, target):
-    seen = {}
-    for i, x in enumerate(nums):
-        need = target - x
-        if need in seen:
-            return [seen[need], i]
-        seen[x] = i
-
-result = two_sum([2, 7, 11, 15], 9)
-print("indices:", result)
-`;
 
 const BRUTE = `def two_sum(nums, target):
     for i in range(len(nums)):
@@ -84,7 +55,7 @@ export default function Playground() {
         <button className={mode === 'scale' ? 'active' : ''} onClick={() => setMode('scale')}>Scale &amp; Big-O</button>
       </div>
 
-      {mode === 'trace' && <TraceMode />}
+      {mode === 'trace' && <TraceMode autoLoadFromUrl />}
       {mode === 'compare' && <CompareMode />}
       {mode === 'scale' && <ScaleMode />}
 
@@ -162,216 +133,6 @@ function ScaleMode() {
   );
 }
 
-/* ---------------------------------------------------- Hidden-complexity detector (Upgrade B) */
-/**
- * Heuristic static check: flags O(N) operations hiding inside loops — the classic
- * "secretly O(N²)" trap (e.g. `x in some_list`, `.index()`, `.count()` on a list).
- * Lookups on sets/dicts are O(1) and are NOT flagged. Python-oriented, best-effort.
- */
-function analyzeComplexity(code) {
-  const lines = (code || '').replace(/\r/g, '').split('\n').map((l) => l.split('#')[0]);
-  const kind = {}; // name -> 'list' | 'dict' | 'set'
-
-  // 1) Explicit assignments decide kind first (so O(1) structures are never flagged).
-  for (const ln of lines) {
-    const m = ln.match(/^\s*([A-Za-z_]\w*)\s*=\s*(.+?)\s*$/);
-    if (!m) continue;
-    const name = m[1];
-    const rhs = m[2];
-    if (/^set\s*\(/.test(rhs)) kind[name] = 'set';
-    else if (/^dict\s*\(/.test(rhs)) kind[name] = 'dict';
-    else if (/^\{/.test(rhs)) kind[name] = (/:/.test(rhs) || /^\{\s*\}$/.test(rhs)) ? 'dict' : 'set';
-    else if (/^\[/.test(rhs) || /^list\s*\(/.test(rhs)) kind[name] = 'list';
-  }
-  // 2) Infer list-like for still-unknown names from usage (indexing / len / list methods).
-  const text = lines.join('\n');
-  const infer = (re) => { for (const m of text.matchAll(re)) if (!kind[m[1]]) kind[m[1]] = 'list'; };
-  infer(/\b([A-Za-z_]\w*)\s*\[/g);
-  infer(/\blen\s*\(\s*([A-Za-z_]\w*)\s*\)/g);
-  infer(/\b([A-Za-z_]\w*)\.(?:append|sort|insert|extend|index|count)\b/g);
-
-  // 3) Walk lines; flag O(N) ops that sit inside a loop body.
-  const warnings = [];
-  const loopIndents = [];
-  for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    if (!raw.trim()) continue;
-    const indent = raw.match(/^\s*/)[0].length;
-    while (loopIndents.length && indent <= loopIndents[loopIndents.length - 1]) loopIndents.pop();
-    const inLoop = loopIndents.length > 0;
-    const isForHeader = /^\s*for\b/.test(raw);
-    const isLoopHeader = /^\s*(for|while)\b/.test(raw);
-
-    if (inLoop && !isForHeader) {
-      for (const m of raw.matchAll(/(?:\bnot\s+)?\bin\s+([A-Za-z_]\w*)\b/g)) {
-        if (kind[m[1]] === 'list') {
-          warnings.push({ line: i + 1, code: raw.trim(), msg: `\`in ${m[1]}\` scans the whole list (O(N)). Inside this loop that's ~O(N²) — convert ${m[1]} to a set/dict for O(1) lookups.` });
-        }
-      }
-      const dot = raw.match(/\b([A-Za-z_]\w*)\.(index|count)\s*\(/);
-      if (dot && kind[dot[1]] === 'list') {
-        warnings.push({ line: i + 1, code: raw.trim(), msg: `\`${dot[1]}.${dot[2]}(…)\` is O(N). Inside this loop that's ~O(N²).` });
-      }
-    }
-    if (isLoopHeader) loopIndents.push(indent);
-  }
-  return warnings;
-}
-
-function ComplexityLint({ warnings }) {
-  if (!warnings) return null;
-  if (!warnings.length) {
-    return <div className="cx-lint ok">✓ Complexity check: no hidden O(N) lookups inside loops.</div>;
-  }
-  return (
-    <div className="cx-lint warn">
-      <h3>⚠ Hidden complexity — {warnings.length} spot{warnings.length === 1 ? '' : 's'} that may be secretly O(N²)</h3>
-      <ul>
-        {warnings.map((w, i) => (
-          <li key={i}>
-            <span className="cx-loc">Line {w.line}</span>
-            <code className="cx-code">{w.code}</code>
-            <span className="cx-msg"><InlineCode text={w.msg} /></span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ Trace mode */
-function TraceMode() {
-  const [code, setCode] = useState(SAMPLE);
-  const [ranCode, setRanCode] = useState(SAMPLE);
-  const [trace, setTrace] = useState([]);
-  const [status, setStatus] = useState('idle');
-  const [statusMsg, setStatusMsg] = useState('');
-  const [error, setError] = useState(null);
-  const [stdout, setStdout] = useState('');
-  const [editing, setEditing] = useState(true);
-  const [summary, setSummary] = useState(null);
-  const [optimal, setOptimal] = useState(null);
-  const [showGold, setShowGold] = useState(false);
-
-  useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    const slug = p.get('problem');
-    if (!slug) return;
-    const title = p.get('title') || slug;
-    const fallback = starterFor({
-      slug,
-      title,
-      id: p.get('id') || '',
-      difficulty: p.get('diff') || '',
-      tags: (p.get('tags') || '').split(',').map((t) => t.trim()).filter(Boolean),
-    });
-    setCode(fallback);
-    setRanCode(fallback);
-    // Prefer the curated blueprint + our own summary when we have one.
-    fetch(`${BASE}/solutions.json`)
-      .then((r) => (r.ok ? r.json() : {}))
-      .then((d) => {
-        const entry = d && d[slug];
-        if (!entry) return;
-        if (entry.starterCode) { setCode(entry.starterCode); setRanCode(entry.starterCode); }
-        const text = summaryTextFor(entry);
-        if (text) setSummary({ title, slug, text });
-        if (entry.optimal) setOptimal(entry.optimal);
-      })
-      .catch(() => {});
-  }, []);
-
-  const worker = useTraceWorker((d) => {
-    if (d.type === 'status') setStatusMsg(d.msg);
-    else if (d.type === 'result') {
-      setTrace(d.trace || []); setError(d.error || null); setStdout(d.stdout || '');
-      setStatus('done'); setStatusMsg(''); setEditing(false);
-    } else if (d.type === 'error') { setError(d.message); setStatus('error'); setStatusMsg(''); }
-  });
-
-  const player = useStepPlayer(Math.max(trace.length, 1));
-  useEffect(() => { player.setStep(0); player.setPlaying(false); /* eslint-disable-next-line */ }, [trace]);
-
-  const frame = trace.length ? trace[Math.min(player.step, trace.length - 1)] : null;
-  const prevFrame = trace.length && player.step > 0 ? trace[player.step - 1] : null;
-  const codeLines = useMemo(() => ranCode.replace(/\n$/, '').split('\n'), [ranCode]);
-  const complexityWarnings = useMemo(() => analyzeComplexity(code), [code]);
-  const traced = !editing && status === 'done' && !!frame;
-
-  function run() {
-    if (!worker.current) return;
-    setStatus('busy'); setStatusMsg('Starting…'); setError(null); setTrace([]); setStdout('');
-    setRanCode(code);
-    worker.current.postMessage({ type: 'run', id: 'trace', code });
-  }
-
-  return (
-    <>
-      {summary && <ProblemSummary summary={summary} />}
-      <div className="pg-grid">
-      <div className="pg-editor">
-        <div className="pg-editor-head">
-          <span>{summary ? 'solution.py' : 'main.py'}{traced ? ` · line ${frame.line}` : ''}</span>
-          {traced ? (
-            <button className="btn btn-ghost pg-run" onClick={() => setEditing(true)}>✎ Edit</button>
-          ) : (
-            <button className="btn btn-primary pg-run" onClick={run} disabled={status === 'busy'}>
-              {status === 'busy' ? 'Running…' : '▶ Run'}
-            </button>
-          )}
-        </div>
-        {traced ? (
-          <div className="pg-editor-trace">
-            <CodeView lines={codeLines} active={frame.line} />
-            <VizControls player={player} />
-          </div>
-        ) : (
-          <CodeEditor value={code} onChange={setCode} ariaLabel="Python code" minHeight="320px" />
-        )}
-      </div>
-
-      <div className="pg-trace">
-        {status === 'busy' && <p className="loading">{statusMsg || 'Working…'}</p>}
-        {!traced && status === 'idle' && (
-          <div className="pg-hint">Press <b>Run</b> to execute. The code on the left highlights line-by-line; variables, call stack, data structures and output appear here. The first run downloads the Python runtime (a few seconds).</div>
-        )}
-        {!traced && status === 'done' && editing && (
-          <div className="pg-hint">Editing — press <b>Run</b> again to re-trace.</div>
-        )}
-        {status === 'error' && <div className="pg-error">⚠ {error}</div>}
-
-        {traced && (
-          <>
-            <DataStructures locals={frame.locals} prevLocals={prevFrame ? prevFrame.locals : null} />
-            <div className="pg-panels">
-              <div className="pg-panel">
-                <h3>Variables <small>frame: {frame.func}</small></h3>
-                <VarTable locals={frame.locals} />
-              </div>
-              <div className="pg-panel">
-                <h3>Call stack <small>depth {frame.depth}</small></h3>
-                <CallStack frame={frame} />
-              </div>
-            </div>
-            {error && <div className="pg-error">⚠ {error}</div>}
-            {stdout && <div className="pg-stdout"><h3>Output</h3><pre>{stdout}</pre></div>}
-          </>
-        )}
-      </div>
-      </div>
-      <ComplexityLint warnings={complexityWarnings} />
-      {optimal && (
-        <div className="pg-gold">
-          <button className="btn btn-ghost" onClick={() => setShowGold((s) => !s)}>
-            {showGold ? 'Hide gold-standard solution' : '⚡ Reveal gold-standard solution'}
-          </button>
-          {showGold && <CodeDiff yours={code} optimal={optimal} note="Optimal reference solution — diff your code against it." />}
-        </div>
-      )}
-    </>
-  );
-}
-
 /* ------------------------------------------------------------------ Compare mode */
 function CompareMode() {
   const [a, setA] = useState(BRUTE);
@@ -429,19 +190,6 @@ function CompareMode() {
         </p>
       )}
 
-      {!editing && done && (
-        <div className="cmp-results">
-          <CmpBar label="Brute force" len={lenA} err={res.A.error} max={maxSteps} tone="hard" />
-          <CmpBar label="Optimal" len={lenB} err={res.B.error} max={maxSteps} tone="easy" />
-          {fewer && (
-            <p className="cmp-verdict">
-              <b>{fewer.winner}</b> ran in <b>{fewer.ratio.toFixed(1)}×</b> fewer steps on this input.
-            </p>
-          )}
-          <div className="cmp-step"><VizControls player={player} /></div>
-        </div>
-      )}
-
       <div className="cmp-editors">
         <ComparePane title="Brute force" editing={editing} code={a} onChange={setA}
           lines={linesA} frame={frameA} />
@@ -457,6 +205,109 @@ function CompareMode() {
         ) : (
           <button className="btn btn-ghost" onClick={() => setEditing(true)}>✎ Edit code</button>
         )}
+      </div>
+
+      {!editing && done && (
+        <div className="cmp-results">
+          <CmpBar label="Brute force" len={lenA} err={res.A.error} max={maxSteps} tone="hard" />
+          <CmpBar label="Optimal" len={lenB} err={res.B.error} max={maxSteps} tone="easy" />
+          {fewer && (
+            <p className="cmp-verdict">
+              <b>{fewer.winner}</b> ran in <b>{fewer.ratio.toFixed(1)}×</b> fewer steps on this input.
+            </p>
+          )}
+          <div className="cmp-step"><VizControls player={player} /></div>
+        </div>
+      )}
+
+      {!editing && done && (
+        <ComplexityBreakdown
+          isDefaultPair={ranA === BRUTE && ranB === OPTIMAL}
+          lenA={lenA} lenB={lenB} ranA={ranA} ranB={ranB}
+        />
+      )}
+    </div>
+  );
+}
+
+/**
+ * The "so what" under the race: time AND space complexity, in words. Precise
+ * for the built-in Two Sum pair; heuristic (measured steps + the hidden-
+ * complexity detector) for user-pasted code.
+ */
+function ComplexityBreakdown({ isDefaultPair, lenA, lenB, ranA, ranB }) {
+  const ratio = lenA && lenB ? (Math.max(lenA, lenB) / Math.min(lenA, lenB)).toFixed(1) : null;
+  if (isDefaultPair) {
+    return (
+      <div className="cmp-explain">
+        <h3>Why the optimal wins — time &amp; space, in detail</h3>
+        <div className="cmp-explain-grid">
+          <div>
+            <h4>⏱ Time complexity</h4>
+            <p>
+              <span className="bigo-badge hard">Brute force · O(N²)</span> Nested loops: for every
+              element it re-scans the rest of the array looking for a partner — about N²/2 pair
+              checks in the worst case. That&apos;s why it needed <b>{lenA}</b> traced steps on this
+              small input.
+            </p>
+            <p>
+              <span className="bigo-badge easy">Optimal · O(N)</span> One pass. Each element does a
+              single O(1) hash-map lookup (&quot;have I already seen <code className="inline-code">target − x</code>?&quot;)
+              and a single O(1) insert. Same answer in <b>{lenB}</b> steps — {ratio}× fewer, and the
+              gap widens quadratically as N grows (see the <b>Scale &amp; Big-O</b> tab).
+            </p>
+          </div>
+          <div>
+            <h4>💾 Space complexity</h4>
+            <p>
+              <span className="bigo-badge easy">Brute force · O(1)</span> Just two loop indices — no
+              extra storage at all.
+            </p>
+            <p>
+              <span className="bigo-badge hard">Optimal · O(N)</span> The hash map can grow to hold
+              all N elements.
+            </p>
+            <p className="cmp-explain-note">
+              That&apos;s the trade: the optimal <b>spends O(N) memory to buy O(1) lookups</b>,
+              collapsing the inner O(N) scan entirely. Turning O(N²) time into O(N) for the price of
+              O(N) space is almost always the right trade in an interview — and saying that trade
+              out loud is exactly what earns the points.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  const warnA = analyzeComplexity(ranA);
+  const warnB = analyzeComplexity(ranB);
+  return (
+    <div className="cmp-explain">
+      <h3>Reading the result — time &amp; space</h3>
+      <div className="cmp-explain-grid">
+        <div>
+          <h4>⏱ Time</h4>
+          <p>
+            On this input the left solution took <b>{lenA}</b> steps and the right took{' '}
+            <b>{lenB}</b>{ratio ? <> — a <b>{ratio}×</b> gap</> : null}. A step gap on one input is a
+            hint, not a proof: to see the real complexity, grow the input and watch how the gap
+            grows — linear work doubles when N doubles, quadratic work quadruples.
+          </p>
+          {warnA.length > 0 && (
+            <p>⚠ Brute-force side: line {warnA[0].line} does an O(N) list scan inside a loop — the classic hidden-O(N²) signature.</p>
+          )}
+          {warnB.length > 0 && (
+            <p>⚠ Optimal side: line {warnB[0].line} does an O(N) list scan inside a loop — convert that list to a set/dict for O(1) lookups.</p>
+          )}
+        </div>
+        <div>
+          <h4>💾 Space</h4>
+          <p>
+            Extra dicts, sets, or arrays cost O(N) memory — but they usually <b>buy a lower time
+            complexity</b> by replacing repeated O(N) scans with O(1) lookups. When you compare your
+            two versions, name that trade explicitly: &quot;I&apos;m spending O(N) space to get the
+            time from O(N²) down to O(N).&quot;
+          </p>
+        </div>
       </div>
     </div>
   );

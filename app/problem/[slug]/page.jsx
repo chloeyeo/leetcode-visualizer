@@ -3,6 +3,7 @@ import { getProblems, getProblemBySlug, getVideos, getSolutionBySlug } from '../
 import { starterFor } from '../../../lib/starter';
 import PatternViz from '../../../components/PatternViz';
 import ProblemStatement from '../../../components/ProblemStatement';
+import TraceMode from '../../../components/TraceMode';
 
 export function generateStaticParams() {
   return getProblems().map((q) => ({ slug: q.slug }));
@@ -87,15 +88,8 @@ export default function ProblemPage({ params }) {
             then start from the scaffold below.
           </p>
         )}
-        <div className="blueprint">
-          <div className="blueprint-head">
-            <span>Starter blueprint · Python</span>
-            <Link className="inline-link" href={pgHref}>
-              Edit &amp; run in Playground →
-            </Link>
-          </div>
-          <pre className="blueprint-code"><code>{starter}</code></pre>
-        </div>
+        <h3 className="pg-embed-title">Code it right here — runs &amp; traces in your browser</h3>
+        <TraceMode initialCode={starter} problemSlug={q.slug} showSummary={false} />
         <p className="section-note prob-fineprint">
           {sol ? (
             <>

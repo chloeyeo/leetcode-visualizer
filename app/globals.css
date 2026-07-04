@@ -991,6 +991,16 @@ input:focus-visible,
 .cmp-editors { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
 .cmp-input { min-height: 220px; }
 .cmp-results { margin-top: var(--s5); background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); padding: var(--s4); }
+.pg-embed-title { margin: var(--s5) 0 var(--s3); font-size: 15px; font-weight: 700; color: var(--text); }
+
+.cmp-explain { margin-top: var(--s4); background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); padding: var(--s4) var(--s5); }
+.cmp-explain h3 { margin: 0 0 var(--s3); font-size: 16px; }
+.cmp-explain h4 { margin: 0 0 var(--s2); font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-dim); }
+.cmp-explain p { font-size: 14px; line-height: 1.65; color: var(--text); margin: 0 0 var(--s3); }
+.cmp-explain .bigo-badge { margin-right: 6px; }
+.cmp-explain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+@media (max-width: 860px) { .cmp-explain-grid { grid-template-columns: 1fr; } }
+.cmp-explain-note { border-top: var(--border-width) solid var(--border); padding-top: var(--s3); }
 .cmp-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .cmp-bar-label { width: 100px; font-size: 14px; color: var(--text-dim); }
 .cmp-bar-track { flex: 1; background: var(--bg-elev-2); border-radius: var(--r-pill); height: 22px; overflow: hidden; }
