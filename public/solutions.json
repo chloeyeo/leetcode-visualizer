@@ -2005,5 +2005,837 @@
     "constraints": "1 <= expression.length <= 20 · expression contains only digits, '+', '-', and '*' · The result fits in a 32-bit signed integer.",
     "examples": "Input: '2-1-1' -> Output: [0, 2] because (2-1)-1 = 0 and 2-(1-1) = 2.",
     "starterCode": "def diffWaysToCompute(expression: str) -> list[int]:\n    # Your code here\n    pass\n\nprint(diffWaysToCompute('2-1-1')) # expected: [2, 0]"
+  },
+  "shortest-word-distance": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings and two specific target words, calculate the minimum number of indices between the two words in the array. Return this integer distance.",
+    "constraints": "2 <= wordsDict.length <= 30000 · 1 <= wordsDict[i].length <= 30 · word1 and word2 exist in the list · word1 != word2",
+    "examples": "Input: words = [\"a\", \"b\", \"c\", \"a\"], word1 = \"a\", word2 = \"c\". Output: 1. Explanation: The index of 'c' is 2, and the nearest 'a' is at index 3 or 0. The minimum distance is |2-3| = 1.",
+    "starterCode": "def shortestDistance(wordsDict, word1, word2):\n    # Your code here\n    pass\n\nprint(shortestDistance([\"practice\", \"makes\", \"perfect\", \"coding\", \"makes\"], \"coding\", \"practice\")) # expected: 3"
+  },
+  "shortest-word-distance-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a class that efficiently calculates the minimum distance between two distinct words in a provided list, supporting multiple queries for different word pairs.",
+    "constraints": "The list length is between 1 and 30,000 · Each word length is between 1 and 10 · Total calls to the query method will not exceed 5,000 · The two words provided in a query are guaranteed to exist in the list.",
+    "examples": "Input: words = [\"practice\", \"makes\", \"perfect\", \"coding\", \"makes\"], queries = [(\"coding\", \"practice\"), (\"makes\", \"coding\")]. Output: 3, 1.",
+    "starterCode": "class WordDistance:\n    def __init__(self, wordsDict: list[str]):\n        # Your code here\n        pass\n\n    def shortest(self, word1: str, word2: str) -> int:\n        # Your code here\n        pass\n\nobj = WordDistance([\"a\", \"b\", \"c\", \"a\"])\nprint(obj.shortest(\"a\", \"c\")) # expected: 1"
+  },
+  "shortest-word-distance-iii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings and two target words, find the minimum distance between any two occurrences of these words in the list. If the two target words are identical, you must find the minimum distance between two distinct occurrences of that same word.",
+    "constraints": "2 <= wordsDict.length <= 30,000 · 1 <= wordsDict[i].length <= 30 · word1 and word2 are in wordsDict · word1 and word2 consist of lowercase English letters",
+    "examples": "Input: words = [\"a\",\"b\",\"c\",\"a\",\"b\"], word1 = \"a\", word2 = \"b\". Output: 1. Input: words = [\"a\",\"b\",\"a\",\"b\",\"a\"], word1 = \"a\", word2 = \"a\". Output: 2.",
+    "starterCode": "def shortestWordDistance(wordsDict, word1, word2):\n    # Your code here\n    pass\n\nprint(shortestWordDistance([\"practice\", \"makes\", \"perfect\", \"coding\", \"makes\"], \"makes\", \"coding\")) # expected: 1"
+  },
+  "strobogrammatic-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given string representation of an integer is a strobogrammatic number, meaning it looks the same when rotated 180 degrees.",
+    "constraints": "1 <= num.length <= 20 · num consists of only numeric digits · num does not contain leading zeros except for the number 0 itself",
+    "examples": "Input: \"69\" -> Output: true; Input: \"888\" -> Output: true; Input: \"962\" -> Output: false",
+    "starterCode": "def isStrobogrammatic(num: str) -> bool:\n    # Your code here\n    pass\n\nprint(isStrobogrammatic(\"69\")) # expected: True"
+  },
+  "strobogrammatic-number-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n, return a list containing all strobogrammatic numbers of length n. A strobogrammatic number is a number that appears the same when rotated 180 degrees.",
+    "constraints": "1 <= n <= 14",
+    "examples": "n = 2: [\"11\", \"69\", \"88\", \"96\"]",
+    "starterCode": "def findStrobogrammatic(n):\n    # Your code here\n    pass\n\nprint(findStrobogrammatic(2)) # expected: ['11', '69', '88', '96']"
+  },
+  "strobogrammatic-number-iii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total count of strobogrammatic numbers that fall within a specified inclusive range defined by two numeric strings, low and high.",
+    "constraints": "1 <= low.length, high.length <= 15 · low <= high · low and high consist only of digits · Time complexity should be better than O(N^2).",
+    "examples": "Range [50, 100]: Strobogrammatic numbers are 69, 88, 96. Total count is 3.",
+    "starterCode": "def countStrobogrammatic(low: str, high: str) -> int:\n    # Your code here\n    pass\n\nprint(countStrobogrammatic(\"50\", \"100\")) # expected: 3"
+  },
+  "group-shifted-strings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Partition a collection of strings into groups where each group consists of strings that can be transformed into one another by shifting each character by the same fixed offset, wrapping around from 'z' to 'a'. Return the grouped strings as a list of lists.",
+    "constraints": "1 <= strings.length <= 200 · 1 <= strings[i].length <= 50 · strings[i] consists of lowercase English letters.",
+    "examples": "Input: [\"abc\", \"bcd\", \"acef\", \"xyz\", \"az\", \"ba\", \"a\", \"z\"] Output: [[\"abc\",\"bcd\",\"xyz\"],[\"acef\"],[\"az\",\"ba\"],[\"a\",\"z\"]]",
+    "starterCode": "def groupStrings(strings):\n    # Your code here\n    pass\n\nprint(groupStrings([\"abc\", \"bcd\", \"acef\", \"xyz\", \"az\", \"ba\", \"a\", \"z\"])) # expected: [[\"abc\", \"bcd\", \"xyz\"], [\"acef\"], [\"az\", \"ba\"], [\"a\", \"z\"]]"
+  },
+  "count-univalue-subtrees": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary tree, identify and return the total count of subtrees where every node within that subtree shares the exact same value.",
+    "constraints": "The tree contains between 0 and 1000 nodes · Node values range from -1000 to 1000 · Time complexity should be O(N) where N is the number of nodes.",
+    "examples": "Input: [5,1,5,5,5,null,5]. Output: 4. Explanation: The leaf nodes (three 5s and one 1) are univalue, and the subtree rooted at the bottom-right 5 is also univalue.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef countUnivalSubtrees(root):\n    # Your code here\n    pass\n\n# Example usage:\n# root = TreeNode(5, TreeNode(1, TreeNode(5), TreeNode(5)), TreeNode(5, None, TreeNode(5)))\n# print(countUnivalSubtrees(root)) # expected: 4"
+  },
+  "flatten-2d-vector": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design an iterator class that flattens a two-dimensional list of integers, providing methods to retrieve the next element and check if more elements exist.",
+    "constraints": "1 <= vector.length <= 200 · 0 <= vector[i].length <= 500 · -10^3 <= vector[i][j] <= 10^3 · Total elements <= 10^5 · Calls to next() and hasNext() will not exceed 10^5.",
+    "examples": "Input: [[1,2],[3],[4]] -> next(): 1, 2, 3, 4; hasNext(): false.",
+    "starterCode": "class Vector2D:\n    def __init__(self, vec: list[list[int]]):\n        # Your code here\n        pass\n    def next(self) -> int:\n        # Your code here\n        pass\n    def hasNext(self) -> bool:\n        # Your code here\n        pass\n\n# Example usage:\niterator = Vector2D([[1, 2], [3], [4]])\nprint(iterator.next()) # expected: 1\nprint(iterator.next()) # expected: 2\nprint(iterator.next()) # expected: 3\nprint(iterator.hasNext()) # expected: True\nprint(iterator.next()) # expected: 4\nprint(iterator.hasNext()) # expected: False"
+  },
+  "meeting-rooms": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a person can attend every scheduled meeting by checking if any of the provided time intervals overlap.",
+    "constraints": "0 <= intervals.length <= 10^4 · intervals[i].length == 2 · 0 <= start < end <= 10^6",
+    "examples": "Input: [[0, 30], [5, 10], [15, 20]] -> Output: false; Input: [[7, 10], [2, 4]] -> Output: true",
+    "starterCode": "def can_attend_meetings(intervals):\n    # Your code here\n    pass\n\nprint(can_attend_meetings([[0, 30], [5, 10], [15, 20]])) # expected: False"
+  },
+  "meeting-rooms-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a collection of meeting time intervals, determine the minimum number of conference rooms required to accommodate all meetings without overlap.",
+    "constraints": "1 <= intervals.length <= 10^4 · 0 <= start_i < end_i <= 10^6",
+    "examples": "Input: [[0, 30], [5, 10], [15, 20]]. Output: 2. Explanation: One room handles [0, 30], while another handles [5, 10] and [15, 20].",
+    "starterCode": "def min_meeting_rooms(intervals):\n    # Your code here\n    pass\n\nprint(min_meeting_rooms([[0, 30], [5, 10], [15, 20]])) # expected: 2"
+  },
+  "factor-combinations": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer, return all possible unique ways to represent it as a product of two or more integers, where each factor is greater than one. The order of factors within a combination does not matter.",
+    "constraints": "1 <= n <= 10^7 · Factors must be integers > 1 · Return a list of lists containing the factor sets.",
+    "examples": "Input: 12. Output: [[2, 6], [2, 2, 3], [3, 4]]. Input: 1. Output: [].",
+    "starterCode": "def get_factor_combinations(n):\n    # Your code here\n    pass\n\nprint(get_factor_combinations(12)) # expected: [[2, 6], [2, 2, 3], [3, 4]]"
+  },
+  "verify-preorder-sequence-in-binary-search-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a provided array of integers represents the valid preorder traversal sequence of a Binary Search Tree. Return true if the sequence is valid, otherwise return false.",
+    "constraints": "1 <= length <= 10^4 · -10^4 <= values <= 10^4 · All values are unique.",
+    "examples": "Input: [5, 2, 6, 1, 3] -> Output: false (6 is the right child of 5, so 1 and 3 cannot appear after 6). Input: [5, 2, 1, 3, 6] -> Output: true.",
+    "starterCode": "def verifyPreorder(preorder):\n    # Your code here\n    pass\n\nprint(verifyPreorder([5, 2, 1, 3, 6])) # expected: True"
+  },
+  "paint-house": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the minimum cost to paint a row of houses such that no two adjacent houses share the same color, given a cost matrix where each row represents a house and each column represents the cost of painting it one of three colors. Return the total minimum cost.",
+    "constraints": "1 <= number of houses <= 1000 · costs matrix is always n x 3 · costs are non-negative integers.",
+    "examples": "Input: [[17,2,17],[16,16,5],[14,3,19]]. Output: 10. Explanation: Paint house 0 blue (2), house 1 red (16), and house 2 green (5) or house 0 blue (2), house 1 green (5), and house 2 red (14). The cheapest path is 2 + 5 + 3 = 10.",
+    "starterCode": "def minCost(costs):\n    # Your code here\n    pass\n\nprint(minCost([[17,2,17],[16,16,5],[14,3,19]])) # expected: 10"
+  },
+  "binary-tree-paths": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary tree, identify every possible path from the root node to a leaf node and return them as a list of strings formatted with arrows.",
+    "constraints": "Number of nodes in the tree is between 1 and 100 · Node values range from -100 to 100",
+    "examples": "Input: [1,2,3,null,5] -> Output: ['1->2->5', '1->3']",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef binaryTreePaths(root):\n    # Your code here\n    pass\n\n# print(binaryTreePaths(TreeNode(1, TreeNode(2, None, TreeNode(5)), TreeNode(3)))) # expected: ['1->2->5', '1->3']"
+  },
+  "add-digits": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a non-negative integer, repeatedly sum its digits until the result is a single-digit number. Return this final value.",
+    "constraints": "0 <= num <= 2^31 - 1",
+    "examples": "Input: 38 -> 3+8=11 -> 1+1=2. Output: 2.",
+    "starterCode": "def addDigits(num: int) -> int:\n    # Your code here\n    pass\n\nprint(addDigits(38)) # expected: 2"
+  },
+  "3sum-smaller": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers and a target value, identify the total count of unique index triplets (i, j, k) such that the sum of the elements at these indices is strictly less than the target.",
+    "constraints": "3 <= nums.length <= 5000 · -10^5 <= nums[i] <= 10^5 · -10^5 <= target <= 10^5",
+    "examples": "Input: nums = [-2, 0, 1, 3], target = 2. Output: 2. Explanation: The triplets are (-2, 0, 1) and (-2, 0, 3) is not valid, but (-2, 0, 1) and (-2, 0, 3) is false; actually (-2, 0, 1) sum is -1 < 2 and (-2, 0, 3) sum is 1 < 2.",
+    "starterCode": "def threeSumSmaller(nums, target):\n    # Your code here\n    pass\n\nprint(threeSumSmaller([-2, 0, 1, 3], 2)) # expected: 2"
+  },
+  "single-number-iii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer array where every element appears exactly twice except for two specific numbers that appear only once, identify and return those two unique numbers. The order of the returned values does not matter.",
+    "constraints": "2 <= nums.length <= 3 * 10^4 · -2^31 <= nums[i] <= 2^31 - 1 · Each element appears twice except for two numbers appearing once · Time complexity must be O(n) · Space complexity must be O(1)",
+    "examples": "Input: [1, 2, 1, 3, 2, 5] -> Output: [3, 5] (Since 3 and 5 appear once, while 1 and 2 appear twice).",
+    "starterCode": "def find_single_numbers(nums):\n    # Your code here\n    pass\n\nprint(find_single_numbers([1, 2, 1, 3, 2, 5])) # expected: [3, 5]"
+  },
+  "graph-valid-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given set of undirected edges forms a single, connected tree structure containing exactly n nodes labeled from 0 to n-1. Return true if the graph is a valid tree and false otherwise.",
+    "constraints": "1 <= n <= 2000 · 0 <= edges.length <= 5000 · edges[i].length == 2 · 0 <= edges[i][0], edges[i][1] < n · No duplicate edges or self-loops.",
+    "examples": "Example 1: n=5, edges=[[0,1],[0,2],[0,3],[1,4]] returns true. Example 2: n=5, edges=[[0,1],[1,2],[2,3],[1,3],[3,4]] returns false because it contains a cycle.",
+    "starterCode": "def is_valid_tree(n, edges):\n    # Your code here\n    pass\n\nprint(is_valid_tree(5, [[0, 1], [0, 2], [0, 3], [1, 4]])) # expected: True"
+  },
+  "trips-and-users": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the daily cancellation rate for non-banned drivers and riders between specific dates. The cancellation rate is defined as the number of cancelled trips divided by the total number of trips for each day.",
+    "constraints": "Trips table has 10^5 rows · Users table has 10^4 rows · Dates range from 2013-10-01 to 2013-10-03 · Banned status is 'Yes' or 'No'.",
+    "examples": "On 2013-10-01, there are 3 total trips involving non-banned users, 1 of which is cancelled. The rate is 1/3 = 0.33.",
+    "starterCode": "def get_cancellation_rate(trips, users):\n    # Your code here\n    pass\n\n# print(get_cancellation_rate(trips_df, users_df)) # expected: 0.33"
+  },
+  "ugly-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given integer is an 'ugly number', defined as a positive integer whose prime factors are limited to 2, 3, and 5.",
+    "constraints": "-2^31 <= n <= 2^31 - 1 · n must be a positive integer to be considered ugly",
+    "examples": "Input: 6 (2 * 3) -> True; Input: 14 (2 * 7) -> False; Input: 1 -> True",
+    "starterCode": "def is_ugly(n: int) -> bool:\n    # Your code here\n    pass\n\nprint(is_ugly(6)) # expected: True"
+  },
+  "ugly-number-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the nth number in the sequence where all prime factors are restricted to 2, 3, and 5. By convention, 1 is considered the first ugly number.",
+    "constraints": "1 <= n <= 1690 · The result is guaranteed to fit within a 32-bit signed integer.",
+    "examples": "For n = 10, the sequence is 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, so the output is 12.",
+    "starterCode": "def nthUglyNumber(n: int) -> int:\n    # Your code here\n    pass\n\nprint(nthUglyNumber(10)) # expected: 12"
+  },
+  "paint-house-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum cost to paint a row of houses using a set of colors such that no two adjacent houses share the same color. Return the total cost for the cheapest possible painting configuration.",
+    "constraints": "1 <= n <= 100 · 1 <= k <= 20 · 1 <= cost[i][j] <= 20",
+    "examples": "Input: [[1,5,3],[2,9,4]], Output: 5. Explanation: Paint house 0 with color 0 (cost 1) and house 1 with color 2 (cost 4), total 5.",
+    "starterCode": "def minCostII(costs):\n    # Your code here\n    pass\n\nprint(minCostII([[1,5,3],[2,9,4]])) # expected: 5"
+  },
+  "palindrome-permutation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if any possible rearrangement of the characters in a given string can form a palindrome. Return true if such a permutation exists, and false otherwise.",
+    "constraints": "The input string consists of ASCII characters · Length of string is between 1 and 5000",
+    "examples": "Input: 'code' -> Output: false; Input: 'aab' -> Output: true; Input: 'carerac' -> Output: true",
+    "starterCode": "def can_form_palindrome(s: str) -> bool:\n    # Your code here\n    pass\n\nprint(can_form_palindrome('aab')) # expected: True"
+  },
+  "palindrome-permutation-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string, determine all unique palindromic permutations that can be formed by rearranging its characters. Return an empty list if no such palindrome is possible.",
+    "constraints": "1 <= string length <= 16 · string consists of lowercase English letters",
+    "examples": "Input: 'aabb' -> Output: ['abba', 'baab']",
+    "starterCode": "def generate_palindromes(s):\n    # Your code here\n    pass\n\nprint(generate_palindromes('aabb')) # expected: ['abba', 'baab']"
+  },
+  "missing-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array containing n distinct integers taken from the range [0, n], identify and return the single number from that range that is absent from the array.",
+    "constraints": "n == nums.length · 1 <= n <= 10^4 · 0 <= nums[i] <= n · All numbers in nums are unique.",
+    "examples": "Input: [3, 0, 1] -> Output: 2. Input: [0, 1] -> Output: 2.",
+    "starterCode": "def find_missing_number(nums):\n    # Your code here\n    pass\n\nprint(find_missing_number([3, 0, 1])) # expected: 2"
+  },
+  "alien-dictionary": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of words sorted lexicographically by an alien language's unique alphabet, determine the order of characters in that language. Return an empty string if no valid order exists or if the input is inconsistent.",
+    "constraints": "1 <= words.length <= 100 · 1 <= words[i].length <= 100 · words[i] contains only lowercase English letters · The total number of unique characters is at most 26.",
+    "examples": "Input: [\"wrt\",\"wrf\",\"er\",\"ett\",\"rft\"] Output: \"wert\". Input: [\"z\",\"x\"] Output: \"zx\".",
+    "starterCode": "def alienOrder(words):\n    # Your code here\n    pass\n\nprint(alienOrder([\"wrt\",\"wrf\",\"er\",\"ett\",\"rft\"])) # expected: \"wert\""
+  },
+  "closest-binary-search-tree-value": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given the root of a binary search tree and a floating-point target value, identify the node value in the tree that is numerically closest to the target.",
+    "constraints": "The number of nodes is between 1 and 10,000 · Node values are integers · The target is a double-precision float · There is exactly one unique closest value.",
+    "examples": "Input: root = [4,2,5,1,3], target = 3.714286. Output: 4. Explanation: The value 4 is closer to 3.714286 than any other node.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef closestValue(root: TreeNode, target: float) -> int:\n    # Your code here\n    pass\n\n# Example usage:\n# root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(5))\n# print(closestValue(root, 3.714286)) # expected: 4"
+  },
+  "encode-and-decode-strings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a pair of functions to serialize a list of strings into a single string and deserialize that string back into the original list of strings.",
+    "constraints": "0 <= list length <= 100 · 0 <= string length <= 200 · strings contain any valid UTF-8 characters",
+    "examples": "Input: [\"hello\", \"world\"] -> Output: \"5#hello5#world\" -> Input: [\"\", \"a\"] -> Output: \"0#1#a\"",
+    "starterCode": "class Codec:\n    def encode(self, strs: list[str]) -> str:\n        # Your code here\n        pass\n\n    def decode(self, s: str) -> list[str]:\n        # Your code here\n        pass\n\ncodec = Codec()\nprint(codec.decode(codec.encode([\"leet\", \"code\"]))) # expected: ['leet', 'code']"
+  },
+  "closest-binary-search-tree-value-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary search tree and a target floating-point value, identify the k nodes in the tree whose values are closest to that target. Return these k values in any order.",
+    "constraints": "1 <= k <= number of nodes · 1 <= nodes <= 10^4 · -10^9 <= node.val <= 10^9 · -10^9 <= target <= 10^9",
+    "examples": "Input: root = [4,2,5,1,3], target = 3.7, k = 2. Output: [4,3]. Explanation: The values 4 and 3 are the closest to 3.7.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef closestKValues(root, target, k):\n    # Your code here\n    pass\n\n# print(closestKValues(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(5)), 3.7, 2)) # expected: [3, 4]"
+  },
+  "integer-to-english-words": {
+    "draft": true,
+    "generated": true,
+    "goal": "Convert a non-negative integer into its corresponding English word representation. The output must be a string where each digit group is correctly labeled by its magnitude (e.g., Thousand, Million, Billion).",
+    "constraints": "0 <= num <= 2^31 - 1",
+    "examples": "123 -> \"One Hundred Twenty Three\"; 12345 -> \"Twelve Thousand Three Hundred Forty Five\"",
+    "starterCode": "def numberToWords(num: int) -> str:\n    # Your code here\n    pass\n\nprint(numberToWords(12345)) # expected: \"Twelve Thousand Three Hundred Forty Five\""
+  },
+  "h-index": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the maximum integer H such that a researcher has published at least H papers with at least H citations each. Return this value as the H-index.",
+    "constraints": "1 <= citations.length <= 5000 · 0 <= citations[i] <= 1000",
+    "examples": "Input: [3, 0, 6, 1, 5]. Output: 3. Explanation: The researcher has 3 papers with at least 3 citations each.",
+    "starterCode": "def hIndex(citations):\n    # Your code here\n    pass\n\nprint(hIndex([3, 0, 6, 1, 5])) # expected: 3"
+  },
+  "h-index-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of citation counts sorted in ascending order, determine the researcher's H-index, defined as the maximum value h such that the researcher has at least h papers with at least h citations.",
+    "constraints": "1 <= citations.length <= 10^5 · 0 <= citations[i] <= 1000 · citations is sorted in ascending order",
+    "examples": "Input: [0, 1, 3, 5, 6]. Output: 3. Explanation: There are 3 papers with at least 3 citations.",
+    "starterCode": "def hIndex(citations):\n    # Your code here\n    pass\n\nprint(hIndex([0, 1, 3, 5, 6])) # expected: 3"
+  },
+  "paint-fence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total number of ways to color a fence consisting of n posts using k available colors, such that no more than two adjacent posts share the same color.",
+    "constraints": "0 <= n <= 50 · 0 <= k <= 10^5 · The result is guaranteed to fit in a 32-bit integer.",
+    "examples": "If n=3 and k=2: The valid patterns are (Red, Red, Blue), (Red, Blue, Blue), (Red, Blue, Red), (Blue, Red, Red), (Blue, Red, Blue), and (Blue, Blue, Red), totaling 6 ways.",
+    "starterCode": "def count_ways(n: int, k: int) -> int:\n    # Your code here\n    pass\n\nprint(count_ways(3, 2)) # expected: 6"
+  },
+  "find-the-celebrity": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the unique celebrity in a group of n people, defined as someone whom everyone else knows but who knows no one else. If no such person exists, return -1.",
+    "constraints": "n == number of people · 2 <= n <= 5000 · knows(a, b) is an O(1) API · Time complexity should be O(n)",
+    "examples": "Input: graph = [[1,1,0],[0,1,0],[1,1,1]], Output: 1. Person 1 is known by 0 and 2, but knows no one else.",
+    "starterCode": "def findCelebrity(n):\n    # Your code here\n    pass\n\n# Example usage:\n# print(findCelebrity(3)) # expected: 1"
+  },
+  "first-bad-version": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sequence of versions from 1 to n where one version is faulty and causes all subsequent versions to be faulty, identify the index of the first bad version using the minimum number of API calls.",
+    "constraints": "1 <= bad <= n <= 2^31 - 1 · API isBadVersion(version) is provided · Minimize calls to isBadVersion",
+    "examples": "n=5, bad=4. isBadVersion(1)=F, (2)=F, (3)=F, (4)=T, (5)=T. Result: 4.",
+    "starterCode": "def firstBadVersion(n):\n    # Your code here\n    pass\n\n# print(firstBadVersion(5)) # expected: 4"
+  },
+  "perfect-squares": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a positive integer n, determine the minimum number of perfect square numbers that sum up to exactly n. Return this count as an integer.",
+    "constraints": "1 <= n <= 10000",
+    "examples": "For n = 12, return 3 because 4 + 4 + 4 = 12. For n = 13, return 2 because 4 + 9 = 13.",
+    "starterCode": "def numSquares(n: int) -> int:\n    # Your code here\n    pass\n\nprint(numSquares(12)) # expected: 3"
+  },
+  "wiggle-sort": {
+    "draft": true,
+    "generated": true,
+    "goal": "Rearrange a given list of integers into a sequence where elements at odd indices are greater than or equal to their neighbors, creating a 'wiggle' pattern. You must modify the input array in-place.",
+    "constraints": "1 <= array.length <= 10^5 · -10^6 <= array[i] <= 10^6",
+    "examples": "Input: [3, 5, 2, 1, 6, 4] -> Output: [3, 5, 1, 6, 2, 4]",
+    "starterCode": "def wiggleSort(nums):\n    # Your code here\n    pass\n\nnums = [3, 5, 2, 1, 6, 4]\nwiggleSort(nums)\nprint(nums) # expected: [3, 5, 1, 6, 2, 4]"
+  },
+  "zigzag-iterator": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design an iterator that takes two lists of integers and returns their elements in a zigzag pattern, alternating between the two lists until both are exhausted.",
+    "constraints": "0 <= list length <= 5000 · Total elements <= 10^5 · Time complexity O(N) · Space complexity O(K) where K is the number of lists.",
+    "examples": "Input: v1 = [1, 2], v2 = [3, 4, 5, 6]. Output: [1, 3, 2, 4, 5, 6].",
+    "starterCode": "class ZigzagIterator:\n    def __init__(self, v1, v2):\n        # Your code here\n        pass\n\n    def next(self):\n        # Your code here\n        pass\n\n    def hasNext(self):\n        # Your code here\n        pass\n\n# i, v = ZigzagIterator([1, 2], [3, 4, 5, 6]), []\n# while i.hasNext(): v.append(i.next())\n# print(v) # expected: [1, 3, 2, 4, 5, 6]"
+  },
+  "expression-add-operators": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string of digits and a target integer, insert the binary operators '+', '-', or '*' between the digits to evaluate the expression to the target value. Return all possible valid expression strings.",
+    "constraints": "1 <= num.length <= 10 · num consists of only digits · -2^31 <= target <= 2^31 - 1",
+    "examples": "num = \"123\", target = 6 -> [\"1+2+3\", \"1*2*3\"] · num = \"232\", target = 8 -> [\"2*3+2\", \"2+3*2\"]",
+    "starterCode": "def addOperators(num: str, target: int) -> list[str]:\n    # Your code here\n    pass\n\nprint(addOperators(\"123\", 6)) # expected: ['1+2+3', '1*2*3']"
+  },
+  "move-zeroes": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, shift all zeros to the end of the list while maintaining the relative order of the non-zero elements. You must perform this operation in-place without creating a copy of the array.",
+    "constraints": "1 <= array.length <= 10^4 · -2^31 <= elements <= 2^31 - 1 · Minimize total operations",
+    "examples": "Input: [0, 1, 0, 3, 12] -> Output: [1, 3, 12, 0, 0]",
+    "starterCode": "def move_zeroes(nums):\n    # Your code here\n    pass\n\nprint(move_zeroes([0, 1, 0, 3, 12])) # expected: [1, 3, 12, 0, 0]"
+  },
+  "inorder-successor-in-bst": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary search tree and a specific node, identify the node that appears immediately after it in an in-order traversal. Return null if no such successor exists.",
+    "constraints": "The tree contains 1 to 10,000 nodes · Node values are unique · The target node is guaranteed to exist within the tree.",
+    "examples": "Input: root = [2,1,3], p = 1. Output: 2. Explanation: The in-order sequence is [1, 2, 3], so the successor of 1 is 2.",
+    "starterCode": "class TreeNode:\n    def __init__(self, x):\n        self.val = x\n        self.left = None\n        self.right = None\n\ndef inorderSuccessor(root: TreeNode, p: TreeNode) -> TreeNode:\n    # Your code here\n    pass\n\n# print(inorderSuccessor(TreeNode(2), TreeNode(1))) # expected: 2"
+  },
+  "peeking-iterator": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a wrapper class for an existing iterator that adds a peek() method to inspect the next element without advancing the iterator's position.",
+    "constraints": "The iterator has next() and hasNext() methods · The peek() method must not consume the element · Total calls to next() and peek() will not exceed 1000 · Elements are integers.",
+    "examples": "Iterator initialized with [1, 2, 3]. Calling peek() returns 1. Calling next() returns 1. Calling peek() returns 2. Calling next() returns 2. Calling next() returns 3. Calling hasNext() returns false.",
+    "starterCode": "class PeekingIterator:\n    def __init__(self, iterator):\n        # Your code here\n        pass\n\n    def peek(self):\n        # Your code here\n        pass\n\n    def next(self):\n        # Your code here\n        pass\n\n    def hasNext(self):\n        # Your code here\n        pass\n\n# print(PeekingIterator(iter([1, 2, 3])).peek()) # expected: 1"
+  },
+  "walls-and-gates": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 2D grid representing a dungeon, fill every empty room with the minimum number of steps required to reach the nearest gate. If a room cannot reach any gate, leave it as is.",
+    "constraints": "m == grid.length · n == grid[i].length · 1 <= m, n <= 250 · grid[i][j] is -1, 0, or 2147483647",
+    "examples": "Input: [[inf, -1, 0, inf], [inf, inf, inf, -1], [inf, -1, inf, -1], [0, -1, inf, inf]] Output: [[3, -1, 0, 1], [2, 2, 1, -1], [1, -1, 2, -1], [0, -1, 3, 4]]",
+    "starterCode": "def solve_walls_and_gates(grid):\n    # Your code here\n    pass\n\n# print(solve_walls_and_gates([[2147483647, -1, 0, 2147483647]])) # expected: [[3, -1, 0, 1]]"
+  },
+  "find-the-duplicate-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the single integer that appears more than once in an array containing n+1 integers, where each value is between 1 and n inclusive. You must find this repeating value without modifying the input array and while using constant extra space.",
+    "constraints": "Array length is n+1 · Values are in range [1, n] · At least one duplicate exists · Time complexity should be better than O(n^2) · Space complexity must be O(1)",
+    "examples": "Input: [1,3,4,2,2] -> Output: 2. Input: [3,1,3,4,2] -> Output: 3.",
+    "starterCode": "def findDuplicate(nums):\n    # Your code here\n    pass\n\nprint(findDuplicate([1, 3, 4, 2, 2])) # expected: 2"
+  },
+  "unique-word-abbreviation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a class that determines if a word is 'unique' based on a provided dictionary. A word is unique if no other word in the dictionary shares the same abbreviation, where an abbreviation is defined as the first letter, the count of characters between the first and last, and the last letter.",
+    "constraints": "Dictionary size <= 5000 · Word length <= 20 · Word contains only lowercase English letters · Total queries <= 5000",
+    "examples": "Dictionary: [\"deer\", \"door\", \"cake\", \"cake\"]. Abbreviation for 'deer' is 'd2r'. Since 'door' also maps to 'd2r', 'deer' is not unique. 'cake' maps to 'c2e', which is unique because all dictionary entries for 'c2e' are 'cake'.",
+    "starterCode": "class ValidWordAbbr:\n    def __init__(self, dictionary: list[str]):\n        # Your code here\n        pass\n    def isUnique(self, word: str) -> bool:\n        # Your code here\n        pass\n\n# Example usage:\nvwa = ValidWordAbbr([\"deer\", \"door\", \"cake\", \"cake\"])\nprint(vwa.isUnique(\"dear\")) # expected: False\nprint(vwa.isUnique(\"cake\")) # expected: True"
+  },
+  "game-of-life": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an m x n grid representing a cellular automaton, compute the next state of the grid based on four specific rules regarding neighbor counts. You must update the board in-place without using extra space for a copy.",
+    "constraints": "m == board.length · n == board[i].length · 1 <= m, n <= 25 · board[i][j] is 0 or 1",
+    "examples": "Input: [[0,1,0],[0,0,1],[1,1,1],[0,0,0]] -> Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]",
+    "starterCode": "def gameOfLife(board):\n    # Your code here\n    pass\n\nboard = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]\ngameOfLife(board)\nprint(board) # expected: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]"
+  },
+  "word-pattern": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given string of words follows the same structural mapping as a provided pattern of characters. Each character in the pattern must correspond uniquely to a specific word in the string, ensuring a consistent one-to-one bijection.",
+    "constraints": "1 <= pattern.length <= 300 · pattern contains only lowercase English letters · 1 <= s.length <= 3000 · s contains only lowercase English letters and spaces · s does not contain leading or trailing spaces · words in s are separated by a single space",
+    "examples": "pattern = 'abba', s = 'dog cat cat dog' returns True. pattern = 'abba', s = 'dog cat cat fish' returns False.",
+    "starterCode": "def wordPattern(pattern: str, s: str) -> bool:\n    # Your code here\n    pass\n\nprint(wordPattern('abba', 'dog cat cat dog')) # expected: True"
+  },
+  "word-pattern-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given string can be partitioned into a sequence of substrings that correspond to a specific character pattern, where each unique character in the pattern maps to a unique, non-empty substring. Return true if such a bijection exists, otherwise return false.",
+    "constraints": "1 <= pattern.length <= 20 · 1 <= s.length <= 20 · pattern and s consist of lowercase English letters.",
+    "examples": "Pattern: 'abab', String: 'redblueredblue' -> True (a='red', b='blue'). Pattern: 'aaaa', String: 'asdasdasdasd' -> True (a='asd'). Pattern: 'aabb', String: 'xyzabc' -> False.",
+    "starterCode": "def wordPatternMatch(pattern: str, s: str) -> bool:\n    # Your code here\n    pass\n\nprint(wordPatternMatch('abab', 'redblueredblue')) # expected: True"
+  },
+  "nim-game": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if you can win a game where you and an opponent take turns removing 1 to 3 stones from a pile of n stones, assuming you go first and both players play optimally.",
+    "constraints": "1 <= n <= 2^31 - 1",
+    "examples": "If n = 4, you lose because no matter if you take 1, 2, or 3 stones, your opponent will take the remainder. If n = 5, you win by taking 1 stone to leave 4 for your opponent.",
+    "starterCode": "def canWinNim(n: int) -> bool:\n    # Your code here\n    pass\n\nprint(canWinNim(4)) # expected: False"
+  },
+  "flip-game": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string consisting only of '+' and '-', return all possible configurations of the string after flipping any pair of adjacent '+' signs into '--'.",
+    "constraints": "The input string length is between 1 and 60 · The input string contains only '+' and '-' characters.",
+    "examples": "Input: '++++' -> Output: ['--++', '+--+', '++--']",
+    "starterCode": "def generatePossibleNextMoves(s):\n    # Your code here\n    pass\n\nprint(generatePossibleNextMoves('++++')) # expected: ['--++', '+--+', '++--']"
+  },
+  "flip-game-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if the current player can guarantee a win in a game where two adjacent '+' signs are flipped to '--' in each turn, assuming both players play optimally. Return true if the first player has a winning strategy, otherwise return false.",
+    "constraints": "The input string length is between 1 and 60 · The string consists only of '+' and '-' characters.",
+    "examples": "Input: \"++++\" Output: true (Player 1 flips the middle two to get \"+--+\", leaving Player 2 with no moves).",
+    "starterCode": "def canWin(s: str) -> bool:\n    # Your code here\n    pass\n\nprint(canWin(\"++++\")) # expected: True"
+  },
+  "find-median-from-data-stream": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure that maintains an evolving collection of numbers and provides an efficient way to retrieve the median value of all elements added so far.",
+    "constraints": "The number of calls to addNum and findMedian will be between 1 and 50,000 · Each number added will be between -100,000 and 100,000 · At least one element will exist when findMedian is called.",
+    "examples": "addNum(1) -> addNum(2) -> findMedian() returns 1.5 · addNum(3) -> findMedian() returns 2.0",
+    "starterCode": "class MedianFinder:\n    def __init__(self):\n        # Your code here\n        pass\n\n    def addNum(self, num: int) -> None:\n        # Your code here\n        pass\n\n    def findMedian(self) -> float:\n        # Your code here\n        pass\n\nobj = MedianFinder()\nobj.addNum(1)\nobj.addNum(2)\nprint(obj.findMedian()) # expected: 1.5"
+  },
+  "best-meeting-point": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 2D grid of 0s and 1s, find a meeting point (r, c) that minimizes the total Manhattan distance to all points marked with a 1. Return the minimum total distance.",
+    "constraints": "Grid dimensions up to 200x200 · At least one 1 exists · Manhattan distance is |r1 - r2| + |c1 - c2|",
+    "examples": "Input: [[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]] Output: 6. Explanation: The meeting point is (0, 2), resulting in distances |0-0|+|2-0| + |0-0|+|2-4| + |0-2|+|2-2| = 2 + 2 + 2 = 6.",
+    "starterCode": "def minTotalDistance(grid):\n    # Your code here\n    pass\n\nprint(minTotalDistance([[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]])) # expected: 6"
+  },
+  "serialize-and-deserialize-binary-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a pair of algorithms to convert a binary tree into a string representation and then reconstruct the original tree structure from that string. Ensure the serialization and deserialization processes are reversible and maintain the tree's integrity.",
+    "constraints": "The number of nodes is between 0 and 10,000 · Node values range from -1000 to 1000 · The tree structure must be preserved exactly.",
+    "examples": "Input: [1,2,3,null,null,4,5] -> Serialize -> \"1,2,null,null,3,4,null,null,5,null,null\" -> Deserialize -> [1,2,3,null,null,4,5]",
+    "starterCode": "class Codec:\n    def serialize(self, root):\n        # Your code here\n        pass\n\n    def deserialize(self, data):\n        # Your code here\n        pass\n\n# ser = Codec()\n# deser = Codec()\n# print(deser.deserialize(ser.serialize(root))) # expected: original tree structure"
+  },
+  "binary-tree-longest-consecutive-sequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the length of the longest path in a binary tree where node values increase consecutively by exactly one. The path must follow the parent-to-child direction.",
+    "constraints": "Number of nodes in tree: [0, 30000] · Node value range: [-10^9, 10^9]",
+    "examples": "Example 1: Input [1, null, 3, 2, 4, null, null, null, 5], Output: 3 (Path: 3->4->5). Example 2: Input [2, null, 3, 2, null, 1], Output: 2 (Path: 2->3).",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef longestConsecutive(root: TreeNode) -> int:\n    # Your code here\n    pass\n\n# print(longestConsecutive(TreeNode(1, None, TreeNode(3, TreeNode(2), TreeNode(4, None, TreeNode(5)))))) # expected: 3"
+  },
+  "bulls-and-cows": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a secret number and a guess, calculate the number of bulls (correct digits in the correct positions) and cows (correct digits in the wrong positions) and return them as a formatted string.",
+    "constraints": "secret and guess have equal length · 1 <= length <= 1000 · strings contain only digits",
+    "examples": "secret = \"1807\", guess = \"7810\" -> \"1A3B\" (8 is a bull, 1, 0, 7 are cows)",
+    "starterCode": "def getHint(secret: str, guess: str) -> str:\n    # Your code here\n    pass\n\nprint(getHint(\"1807\", \"7810\")) # expected: \"1A3B\""
+  },
+  "longest-increasing-subsequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the length of the longest subsequence within a given integer array where elements are arranged in strictly increasing order. A subsequence is formed by deleting zero or more elements from the original array without changing the relative order of the remaining items.",
+    "constraints": "1 <= nums.length <= 2500 · -10^4 <= nums[i] <= 10^4",
+    "examples": "Input: [10,9,2,5,3,7,101,18] Output: 4 (The subsequence is [2,3,7,101]) · Input: [0,1,0,3,2,3] Output: 4 (The subsequence is [0,1,2,3])",
+    "starterCode": "def lengthOfLIS(nums):\n    # Your code here\n    pass\n\nprint(lengthOfLIS([10,9,2,5,3,7,101,18])) # expected: 4"
+  },
+  "remove-invalid-parentheses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string containing parentheses and letters, remove the minimum number of invalid parentheses to make the expression valid. Return all possible unique resulting strings.",
+    "constraints": "1 <= s.length <= 25 · s consists of lowercase English letters and parentheses '(' and ')' · The input string may contain other characters.",
+    "examples": "Input: \"()())()\" -> Output: [\"(())()\", \"()()()\"]",
+    "starterCode": "def removeInvalidParentheses(s: str) -> list[str]:\n    # Your code here\n    pass\n\nprint(removeInvalidParentheses(\"()())()\")) # expected: ['(())()', '()()()']"
+  },
+  "smallest-rectangle-enclosing-black-pixels": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary grid where '1' represents black pixels and '0' represents white, find the area of the smallest axis-aligned rectangle that contains all black pixels. You are provided with the coordinates of one black pixel within the grid.",
+    "constraints": "m == image.length · n == image[0].length · 1 <= m, n <= 100 · image[i][j] is '0' or '1' · There is at least one '1' · The '1's form a single connected component.",
+    "examples": "Input: image = [[\"0\",\"0\",\"1\",\"0\"],[\"0\",\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\",\"0\"]], x = 0, y = 2. Output: 6. The bounding box covers rows 0-2 and columns 1-2, area = 3 * 2 = 6.",
+    "starterCode": "def minArea(image: list[list[str]], x: int, y: int) -> int:\n    # Your code here\n    pass\n\nprint(minArea([[\"0\",\"0\",\"1\",\"0\"],[\"0\",\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\",\"0\"]], 0, 2)) # expected: 6"
+  },
+  "range-sum-query-immutable": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a class that initializes with an integer array and provides a method to calculate the sum of elements between any two given indices, inclusive. The sum method will be called multiple times, so optimize for efficient query performance.",
+    "constraints": "1 <= nums.length <= 10^4 · -10^5 <= nums[i] <= 10^5 · 0 <= left <= right < nums.length · At most 10^4 calls to sumRange.",
+    "examples": "Given nums = [-2, 0, 3, -5, 2, -1], sumRange(0, 2) returns 1 (-2+0+3), sumRange(2, 5) returns -1 (3-5+2-1).",
+    "starterCode": "class NumArray:\n    def __init__(self, nums: list[int]):\n        # Your code here\n        pass\n\n    def sumRange(self, left: int, right: int) -> int:\n        # Your code here\n        pass\n\nobj = NumArray([-2, 0, 3, -5, 2, -1])\nprint(obj.sumRange(0, 2)) # expected: 1"
+  },
+  "range-sum-query-2d-immutable": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure that efficiently calculates the sum of elements within a rectangular subgrid defined by its top-left and bottom-right corners. The structure must support multiple queries on a static 2D matrix.",
+    "constraints": "1 <= m, n <= 200 · -10^5 <= matrix[i][j] <= 10^5 · 0 <= row1 <= row2 < m · 0 <= col1 <= col2 < n · Number of queries <= 10^4",
+    "examples": "Given a 3x3 matrix, the sum of the subgrid from (1,1) to (2,2) is the sum of the four elements contained within that rectangle.",
+    "starterCode": "class NumMatrix:\n    def __init__(self, matrix: list[list[int]]):\n        # Your code here\n        pass\n\n    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:\n        # Your code here\n        pass\n\n# obj = NumMatrix([[3,0,1],[5,6,3],[1,2,0]])\n# print(obj.sumRegion(1, 1, 2, 2)) # expected: 11"
+  },
+  "number-of-islands-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an empty grid of size m x n, process a sequence of land-addition operations. After each operation, return the total number of distinct islands currently present in the grid.",
+    "constraints": "1 <= m, n <= 10^4 · 1 <= positions.length <= 10^4 · 0 <= r < m · 0 <= c < n",
+    "examples": "Input: m=3, n=3, positions=[[0,0], [0,1], [1,2], [2,1]] Output: [1, 1, 2, 3]",
+    "starterCode": "def numIslands2(m, n, positions):\n    # Your code here\n    pass\n\nprint(numIslands2(3, 3, [[0,0], [0,1], [1,2], [2,1]])) # expected: [1, 1, 2, 3]"
+  },
+  "additive-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given numeric string can form an additive sequence, where every number in the sequence is the sum of the two preceding ones. Return true if the string can be partitioned into at least three such numbers, otherwise false.",
+    "constraints": "1 <= string length <= 35 · string contains only digits · numbers cannot have leading zeros unless the number is exactly '0'",
+    "examples": "Input: '112358' -> Output: true (1+1=2, 1+2=3, 2+3=5, 3+5=8) · Input: '1023' -> Output: false",
+    "starterCode": "def isAdditiveNumber(num: str) -> bool:\n    # Your code here\n    pass\n\nprint(isAdditiveNumber('112358')) # expected: True"
+  },
+  "range-sum-query-mutable": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure that maintains an array of integers and supports both updating the value at a specific index and calculating the sum of elements within a given inclusive range.",
+    "constraints": "1 <= array length <= 3 * 10^4 · -100 <= element value <= 100 · 0 <= index < length · 0 <= left <= right < length · total operations <= 3 * 10^4",
+    "examples": "Input: nums = [1, 3, 5], update(1, 2), sumRange(0, 2). Output: After update, array is [1, 2, 5], sumRange(0, 2) returns 8.",
+    "starterCode": "class NumArray:\n    def __init__(self, nums: list[int]):\n        # Your code here\n        pass\n    def update(self, index: int, val: int) -> None:\n        # Your code here\n        pass\n    def sumRange(self, left: int, right: int) -> int:\n        # Your code here\n        pass\n\nobj = NumArray([1, 3, 5])\nobj.update(1, 2)\nprint(obj.sumRange(0, 2)) # expected: 8"
+  },
+  "range-sum-query-2d-mutable": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure that maintains a 2D grid of numbers and supports both updating the value at a specific coordinate and calculating the sum of all elements within a defined rectangular sub-region.",
+    "constraints": "1 <= m, n <= 200 · -10^5 <= value <= 10^5 · Total operations <= 10^4 · Coordinates are 0-indexed.",
+    "examples": "Grid: [[3, 0, 1], [5, 6, 3]], sumRegion(0, 0, 1, 1) returns 14. After update(0, 1, 2), sumRegion(0, 0, 1, 1) returns 16.",
+    "starterCode": "class NumMatrix:\n    def __init__(self, matrix):\n        # Your code here\n        pass\n    def update(self, row, col, val):\n        # Your code here\n        pass\n    def sumRegion(self, row1, col1, row2, col2):\n        # Your code here\n        pass\n\nobj = NumMatrix([[3, 0, 1], [5, 6, 3]])\nprint(obj.sumRegion(0, 0, 1, 1)) # expected: 14"
+  },
+  "best-time-to-buy-and-sell-stock-with-cooldown": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of daily stock prices, determine the maximum profit you can achieve by performing multiple buy and sell transactions. You must wait at least one day after selling before you can buy again (a cooldown period).",
+    "constraints": "1 <= prices.length <= 5000 · 0 <= prices[i] <= 1000",
+    "examples": "Input: [1, 2, 3, 0, 2]. Output: 3. Explanation: Buy on day 1, sell on day 2, cooldown on day 3, buy on day 4, sell on day 5. Profit: (2-1) + (2-0) = 3.",
+    "starterCode": "def maxProfit(prices):\n    # Your code here\n    pass\n\nprint(maxProfit([1, 2, 3, 0, 2])) # expected: 3"
+  },
+  "minimum-height-trees": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an undirected tree represented as an adjacency list of n nodes labeled 0 to n-1, identify all nodes that serve as roots to produce a tree with the minimum possible height. Return these nodes as a list.",
+    "constraints": "1 <= n <= 2 * 10^4 · edges.length == n - 1 · All nodes are unique · No cycles or disconnected components.",
+    "examples": "Input: n = 4, edges = [[1,0],[1,2],[1,3]]. Output: [1]. Explanation: Rooting at 1 yields height 1, while other nodes yield height 2.",
+    "starterCode": "def findMinHeightTrees(n, edges):\n    # Your code here\n    pass\n\nprint(findMinHeightTrees(4, [[1,0],[1,2],[1,3]])) # expected: [1]"
+  },
+  "sparse-matrix-multiplication": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two matrices A and B, compute their product C = A * B. Since the matrices are sparse, return the resulting matrix efficiently by ignoring zero-valued elements during multiplication.",
+    "constraints": "1 <= A.length, B.length, B[0].length <= 100 · 0 <= A[i][j], B[i][j] <= 1000 · Matrices are guaranteed to be multipliable.",
+    "examples": "A = [[1, 0], [0, 2]], B = [[0, 1], [3, 0]] -> Result = [[0, 1], [6, 0]]",
+    "starterCode": "def multiply(mat1, mat2):\n    # Your code here\n    pass\n\nprint(multiply([[1, 0], [-5, 0]], [[0, 0], [0, 1]])) # expected: [[0, 0], [0, 0]]"
+  },
+  "burst-balloons": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of balloons, bursting a balloon at index i earns you coins equal to (nums[i-1] * nums[i] * nums[i+1]). Find the maximum coins you can collect by bursting all balloons optimally, assuming virtual balloons with value 1 exist at the boundaries.",
+    "constraints": "1 <= nums.length <= 300 · 0 <= nums[i] <= 100",
+    "examples": "Input: [3, 1, 5]. Burst 1 (3*1*5=15) -> [3, 5]. Burst 3 (1*3*5=15) -> [5]. Burst 5 (1*5*1=5). Total: 35.",
+    "starterCode": "def maxCoins(nums):\n    # Your code here\n    pass\n\nprint(maxCoins([3, 1, 5])) # expected: 35"
+  },
+  "super-ugly-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n and a sorted list of prime numbers, calculate the n-th super ugly number. A super ugly number is a positive integer whose prime factors are all contained within the provided list of primes.",
+    "constraints": "1 <= n <= 10^5 · 1 <= primes.length <= 100 · 2 <= primes[i] <= 1000 · The result is guaranteed to fit in a 32-bit signed integer.",
+    "examples": "For n=12 and primes=[2,7,13,19], the sequence is [1,2,4,7,8,13,14,16,19,26,28,32], so the 12th number is 32.",
+    "starterCode": "def nthSuperUglyNumber(n: int, primes: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(nthSuperUglyNumber(12, [2, 7, 13, 19])) # expected: 32"
+  },
+  "binary-tree-vertical-order-traversal": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary tree, return the values of its nodes grouped by their vertical column indices, ordered from the leftmost column to the rightmost column. For nodes in the same column, order them from top to bottom based on their depth.",
+    "constraints": "The number of nodes is in the range [0, 100] · Node values are between -2^31 and 2^31 - 1 · Column indices range from negative to positive infinity.",
+    "examples": "Input: [3,9,20,null,null,15,7] -> Output: [[9],[3,15],[20],[7]]. Explanation: Column -1 has 9, column 0 has 3 and 15, column 1 has 20, and column 2 has 7.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef verticalOrder(root):\n    # Your code here\n    pass\n\n# print(verticalOrder(TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7))))) # expected: [[9], [3, 15], [20], [7]]"
+  },
+  "count-of-smaller-numbers-after-self": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, return a new array where each element at index i represents the count of numbers to its right that are strictly smaller than the value at index i.",
+    "constraints": "1 <= nums.length <= 10^5 · -10^4 <= nums[i] <= 10^4",
+    "examples": "Input: [5, 2, 6, 1] Output: [2, 1, 1, 0]. Explanation: For 5, there are two smaller numbers (2, 1). For 2, one smaller (1). For 6, one smaller (1). For 1, zero smaller.",
+    "starterCode": "def countSmaller(nums):\n    # Your code here\n    pass\n\nprint(countSmaller([5, 2, 6, 1])) # expected: [2, 1, 1, 0]"
+  },
+  "remove-duplicate-letters": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string, return the lexicographically smallest subsequence that contains every unique character from the original string exactly once.",
+    "constraints": "1 <= s.length <= 10^4 · s consists of lowercase English letters.",
+    "examples": "Input: 'bcabc' -> Output: 'abc'. Input: 'cbacdcbc' -> Output: 'acdb'.",
+    "starterCode": "def removeDuplicateLetters(s: str) -> str:\n    # Your code here\n    pass\n\nprint(removeDuplicateLetters('bcabc')) # expected: 'abc'"
+  },
+  "shortest-distance-from-all-buildings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 2D grid containing empty land, buildings, and obstacles, find the shortest total walking distance from an empty plot to all buildings. Return the minimum sum of distances, or -1 if no such plot exists.",
+    "constraints": "Grid dimensions up to 50x50 · 0 represents empty land, 1 represents a building, and 2 represents an obstacle · At least one building must exist.",
+    "examples": "Grid: [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]. The optimal spot is at (1,2) with a total distance of 7.",
+    "starterCode": "def shortestDistance(grid):\n    # Your code here\n    pass\n\nprint(shortestDistance([[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]])) # expected: 7"
+  },
+  "maximum-product-of-word-lengths": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings, find the maximum product of the lengths of two strings that do not share any common characters. If no such pair exists, return 0.",
+    "constraints": "2 <= words.length <= 1000 · 1 <= words[i].length <= 1000 · words[i] consists of lowercase English letters.",
+    "examples": "Input: [\"abcw\",\"baz\",\"foo\",\"bar\",\"xtfn\",\"abcdef\"] Output: 16 (The pair \"abcw\" and \"xtfn\" share no characters, 4 * 4 = 16).",
+    "starterCode": "def maxProduct(words):\n    # Your code here\n    pass\n\nprint(maxProduct([\"abcw\",\"baz\",\"foo\",\"bar\",\"xtfn\",\"abcdef\"])) # expected: 16"
+  },
+  "bulb-switcher": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine how many light bulbs remain illuminated after performing a specific sequence of toggling operations on a row of n bulbs. Each round i, you toggle every i-th bulb, starting from the first round where you toggle all bulbs, until you have completed n rounds.",
+    "constraints": "0 <= n <= 10^9",
+    "examples": "For n=3: Round 1 toggles [1,2,3] (all ON). Round 2 toggles [2] (1 ON, 2 OFF, 3 ON). Round 3 toggles [3] (1 ON, 2 OFF, 3 OFF). Result is 1.",
+    "starterCode": "def bulbSwitch(n: int) -> int:\n    # Your code here\n    pass\n\nprint(bulbSwitch(3)) # expected: 1"
+  },
+  "generalized-abbreviation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Generate every possible abbreviated form of a given word, where any non-overlapping sequence of characters can be replaced by its length. Return the full list of all valid abbreviations.",
+    "constraints": "1 <= word.length <= 15 · word consists of lowercase English letters.",
+    "examples": "For 'word', valid abbreviations include 'word', '1ord', 'w1rd', 'wo1d', 'wor1', '2rd', 'w2d', 'wo2', '1o1d', '1or1', 'w1r1', '1o2', '2r1', '3d', 'w3', '4'.",
+    "starterCode": "def generateAbbreviations(word):\n    # Your code here\n    pass\n\nprint(generateAbbreviations('word')) # expected: ['4', '3d', '2r1', '2rd', '1o2', '1o1d', '1or1', '1ord', 'w3', 'w2d', 'w1r1', 'w1rd', 'wo2', 'wo1d', 'wor1', 'word']"
+  },
+  "create-maximum-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two arrays of digits representing integers, select a total of k digits from both while maintaining their relative order to form the largest possible number.",
+    "constraints": "1 <= nums1.length, nums2.length <= 500 · 1 <= k <= nums1.length + nums2.length · 0 <= digits <= 9",
+    "examples": "nums1 = [3, 4, 6, 5], nums2 = [9, 1, 2, 5, 8, 3], k = 5. Result: [9, 8, 6, 5, 3]",
+    "starterCode": "def maxNumber(nums1, nums2, k):\n    # Your code here\n    pass\n\nprint(maxNumber([3, 4, 6, 5], [9, 1, 2, 5, 8, 3], 5)) # expected: [9, 8, 6, 5, 3]"
+  },
+  "coin-change": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum number of coins required to reach a target total using a given set of coin denominations. If the target cannot be achieved with the provided coins, return -1.",
+    "constraints": "1 <= coins.length <= 12 · 1 <= coins[i] <= 2^31 - 1 · 0 <= amount <= 10^4",
+    "examples": "Coins: [1, 2, 5], Amount: 11. Output: 3 (5 + 5 + 1). Coins: [2], Amount: 3. Output: -1.",
+    "starterCode": "def min_coins(coins, amount):\n    # Your code here\n    pass\n\nprint(min_coins([1, 2, 5], 11)) # expected: 3"
+  },
+  "number-of-connected-components-in-an-undirected-graph": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n representing nodes labeled 0 to n-1 and a list of undirected edges, determine the total number of distinct connected components in the graph.",
+    "constraints": "1 <= n <= 2000 · 0 <= edges.length <= 5000 · edges[i].length == 2 · 0 <= edges[i][j] < n · No duplicate edges",
+    "examples": "Input: n=5, edges=[[0,1],[1,2],[3,4]] Output: 2. Explanation: Components are {0,1,2} and {3,4}.",
+    "starterCode": "def countComponents(n, edges):\n    # Your code here\n    pass\n\nprint(countComponents(5, [[0, 1], [1, 2], [3, 4]])) # expected: 2"
+  },
+  "wiggle-sort-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Rearrange an input array such that elements at odd indices are strictly greater than their immediate neighbors, forming a 'wiggle' pattern where nums[0] < nums[1] > nums[2] < nums[3]...",
+    "constraints": "1 <= nums.length <= 5 * 10^4 · 0 <= nums[i] <= 5000 · It is guaranteed that a valid wiggle arrangement always exists.",
+    "examples": "Input: [1, 5, 1, 1, 6, 4] -> Output: [1, 4, 1, 5, 1, 6] · Input: [1, 3, 2, 2, 3, 1] -> Output: [2, 3, 1, 3, 1, 2]",
+    "starterCode": "def wiggleSort(nums):\n    # Your code here\n    pass\n\nprint(wiggleSort([1, 5, 1, 1, 6, 4])) # expected: [1, 4, 1, 5, 1, 6]"
+  },
+  "maximum-size-subarray-sum-equals-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer array and a target value k, find the length of the longest contiguous subarray whose elements sum up to exactly k. If no such subarray exists, return 0.",
+    "constraints": "1 <= nums.length <= 2 * 10^5 · -10^4 <= nums[i] <= 10^4 · -10^9 <= k <= 10^9",
+    "examples": "Input: nums = [1, -1, 5, -2, 3], k = 3. Output: 4. Explanation: The subarray [1, -1, 5, -2] sums to 3 and has length 4.",
+    "starterCode": "def max_sub_array_len(nums, k):\n    # Your code here\n    pass\n\nprint(max_sub_array_len([1, -1, 5, -2, 3], 3)) # expected: 4"
+  },
+  "power-of-three": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given integer is a perfect power of three. Return true if there exists an integer x such that 3^x equals the input, and false otherwise.",
+    "constraints": "-2^31 <= n <= 2^31 - 1 · Time complexity should ideally be O(log3(n))",
+    "examples": "Input: 27 -> Output: true (3^3 = 27); Input: 0 -> Output: false; Input: 45 -> Output: false",
+    "starterCode": "def isPowerOfThree(n: int) -> bool:\n    # Your code here\n    pass\n\nprint(isPowerOfThree(27)) # expected: True"
+  },
+  "count-of-range-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer array, determine the total number of contiguous subarrays whose sum falls within the inclusive range [lower, upper].",
+    "constraints": "1 <= nums.length <= 10^5 · -2^31 <= nums[i] <= 2^31 - 1 · -10^10 <= lower <= upper <= 10^10",
+    "examples": "Input: nums = [-2, 5, -1], lower = -2, upper = 2. Subarrays are [-2], [-1], and [-2, 5, -1]. Count = 3.",
+    "starterCode": "def countRangeSum(nums, lower, upper):\n    # Your code here\n    pass\n\nprint(countRangeSum([-2, 5, -1], -2, 2)) # expected: 3"
+  },
+  "odd-even-linked-list": {
+    "draft": true,
+    "generated": true,
+    "goal": "Rearrange a singly linked list so that all nodes at odd-indexed positions appear before those at even-indexed positions. The relative order within the odd and even groups must remain unchanged, and the operation must be performed in-place with O(1) extra space.",
+    "constraints": "Number of nodes in the list is [0, 10^4] · Node values are between -10^6 and 10^6 · Time complexity must be O(n) · Space complexity must be O(1).",
+    "examples": "Input: 1->2->3->4->5->NULL, Output: 1->3->5->2->4->NULL. Input: 2->1->3->5->6->4->7->NULL, Output: 2->3->6->7->1->5->4->NULL.",
+    "starterCode": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef oddEvenList(head: ListNode) -> ListNode:\n    # Your code here\n    pass\n\n# Example usage:\n# head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))) \n# print(oddEvenList(head)) # expected: 1->3->5->2->4"
+  },
+  "longest-increasing-path-in-a-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an m x n grid of integers, determine the length of the longest sequence of strictly increasing numbers that can be formed by moving to adjacent cells. You must return the total number of cells in this longest path.",
+    "constraints": "m == matrix.length · n == matrix[i].length · 1 <= m, n <= 200 · 0 <= matrix[i][j] <= 2^31 - 1",
+    "examples": "Input: [[9,9,4],[6,6,8],[2,1,1]] Output: 4 (Path: 1 -> 2 -> 6 -> 9)",
+    "starterCode": "def longestIncreasingPath(matrix):\n    # Your code here\n    pass\n\nprint(longestIncreasingPath([[9,9,4],[6,6,8],[2,1,1]])) # expected: 4"
+  },
+  "patching-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted array of positive integers and an integer n, determine the minimum number of elements to add to the array so that every integer in the range [1, n] can be formed by the sum of a subset of the array.",
+    "constraints": "1 <= nums.length <= 1000 · 1 <= nums[i] <= n <= 10^9 · nums is sorted in ascending order",
+    "examples": "Input: nums = [1, 3], n = 6. Output: 1. Explanation: We can add 2 to the array to make [1, 2, 3], which covers all sums from 1 to 6.",
+    "starterCode": "def minPatches(nums, n):\n    # Your code here\n    pass\n\nprint(minPatches([1, 3], 6)) # expected: 1"
+  },
+  "verify-preorder-serialization-of-a-binary-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given comma-separated string represents a valid preorder traversal serialization of a binary tree, where '#' denotes a null node. Return true if the sequence is valid, otherwise return false.",
+    "constraints": "The input string length is between 1 and 20,000 · The string contains non-negative integers and '#' separated by commas · The tree structure must be logically consistent.",
+    "examples": "'9,3,4,#,#,1,#,#,2,#,6,#,#' returns true; '1,#' returns false.",
+    "starterCode": "def isValidSerialization(preorder: str) -> bool:\n    # Your code here\n    pass\n\nprint(isValidSerialization(\"9,3,4,#,#,1,#,#,2,#,6,#,#\")) # expected: True"
+  },
+  "reconstruct-itinerary": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of airline tickets represented as pairs of departure and arrival airports, reconstruct the lexicographically smallest itinerary that uses every ticket exactly once, starting from the 'JFK' airport.",
+    "constraints": "1 <= ticket count <= 300 · departure/arrival codes are 3 uppercase letters · itinerary must use all tickets · if multiple valid paths exist, choose the one that is lexicographically smallest.",
+    "examples": "Input: [[\"MUC\", \"LHR\"], [\"JFK\", \"MUC\"], [\"SFO\", \"SJC\"], [\"LHR\", \"SFO\"]] Output: [\"JFK\", \"MUC\", \"LHR\", \"SFO\", \"SJC\"]",
+    "starterCode": "def findItinerary(tickets):\n    # Your code here\n    pass\n\nprint(findItinerary([[\"JFK\",\"SFO\"],[\"JFK\",\"ATL\"],[\"SFO\",\"ATL\"],[\"ATL\",\"JFK\"],[\"ATL\",\"SFO\"]]))\n# expected: [\"JFK\", \"ATL\", \"JFK\", \"SFO\", \"ATL\", \"SFO\"]"
+  },
+  "largest-bst-subtree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the largest subtree within a given binary tree that satisfies the properties of a Binary Search Tree (BST). Return the total number of nodes contained within that specific subtree.",
+    "constraints": "The number of nodes in the tree is in the range [0, 10^4] · Node values are between -10^4 and 10^4 · Time complexity should ideally be O(n).",
+    "examples": "Input: root = [10,5,15,1,8,null,7]. The subtree rooted at 5 is a BST with 3 nodes. Output: 3.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef largestBSTSubtree(root: TreeNode) -> int:\n    # Your code here\n    pass\n\n# print(largestBSTSubtree(TreeNode(10, TreeNode(5, TreeNode(1), TreeNode(8)), TreeNode(15, None, TreeNode(7))))) # expected: 3"
+  },
+  "increasing-triplet-subsequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if there exists a triplet of indices (i, j, k) such that i < j < k and the corresponding values satisfy nums[i] < nums[j] < nums[k]. Return true if such a sequence exists, otherwise return false.",
+    "constraints": "1 <= nums.length <= 5 * 10^5 · -2^31 <= nums[i] <= 2^31 - 1",
+    "examples": "Input: [1,2,3,4,5], Output: true (1 < 2 < 3). Input: [5,4,3,2,1], Output: false.",
+    "starterCode": "def increasingTriplet(nums):\n    # Your code here\n    pass\n\nprint(increasingTriplet([2,1,5,0,4,6])) # expected: True"
+  },
+  "self-crossing": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of line segment lengths representing a path that turns 90 degrees left at each step, determine if the path ever intersects itself.",
+    "constraints": "1 <= distance.length <= 100,000 · 1 <= distance[i] <= 50,000",
+    "examples": "Input: [2,1,1,2]. Output: true. The path forms a square that closes on itself. Input: [1,2,3,4]. Output: false. The path spirals outward.",
+    "starterCode": "def isSelfCrossing(distance):\n    # Your code here\n    pass\n\nprint(isSelfCrossing([2,1,1,2])) # expected: True"
+  },
+  "palindrome-pairs": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify all unique pairs of distinct indices (i, j) from a given list of strings such that the concatenation of words[i] and words[j] forms a valid palindrome. Return these pairs as a list of lists.",
+    "constraints": "1 <= words.length <= 5000 · 0 <= words[i].length <= 300 · words[i] consists of lowercase English letters.",
+    "examples": "Input: [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"] Output: [[0,1],[1,0],[3,2],[2,4]]",
+    "starterCode": "def palindromePairs(words):\n    # Your code here\n    pass\n\nprint(palindromePairs([\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"])) # expected: [[0, 1], [1, 0], [3, 2], [2, 4]]"
+  },
+  "house-robber-iii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary tree representing a neighborhood where each node is a house containing a specific amount of cash, determine the maximum value you can steal without robbing two directly connected houses.",
+    "constraints": "The number of nodes is in the range [1, 10^4] · Node values are between 0 and 10^4 · The tree structure is a standard binary tree.",
+    "examples": "Input: [3,2,3,null,3,null,1]. Output: 7. Explanation: Rob the root (3), the right child (3), and the right-most leaf (1). Total: 3+3+1 = 7.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef rob(root: TreeNode) -> int:\n    # Your code here\n    pass\n\n# print(rob(TreeNode(3, TreeNode(2, None, TreeNode(3)), TreeNode(3, None, TreeNode(1))))) # expected: 7"
+  },
+  "counting-bits": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n, generate an array of length n + 1 where each index i stores the total count of set bits (1s) in the binary representation of that number.",
+    "constraints": "0 <= n <= 10^5 · Time complexity should be O(n) · Space complexity should be O(n)",
+    "examples": "For n = 2, the output is [0, 1, 1]. For n = 5, the output is [0, 1, 1, 2, 1, 2].",
+    "starterCode": "def countBits(n: int) -> list[int]:\n    # Your code here\n    pass\n\nprint(countBits(5)) # expected: [0, 1, 1, 2, 1, 2]"
+  },
+  "nested-list-weight-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total sum of all integers in a nested list, where each number is multiplied by its current depth level. The depth starts at 1 for the outermost elements.",
+    "constraints": "The nested list contains integers or other nested lists · The depth of the structure is at most 50 · The total number of integers is at most 50 · Each integer is between -100 and 100",
+    "examples": "Input: [[1,1],2,[1,1]] -> (1*2 + 1*2) + (2*1) + (1*2 + 1*2) = 10. Input: [1,[4,[6]]] -> (1*1) + (4*2) + (6*3) = 27.",
+    "starterCode": "def depthSum(nestedList):\n    # Your code here\n    pass\n\n# print(depthSum([[1,1],2,[1,1]])) # expected: 10"
+  },
+  "longest-substring-with-at-most-k-distinct-characters": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string and an integer k, identify the length of the longest contiguous segment that contains no more than k unique characters. Return this maximum length as an integer.",
+    "constraints": "1 <= s.length <= 50,000 · 0 <= k <= 50,000",
+    "examples": "For s = \"eceba\" and k = 2, the longest substring is \"ece\" with length 3. For s = \"aa\" and k = 1, the result is 2.",
+    "starterCode": "def lengthOfLongestSubstringKDistinct(s: str, k: int) -> int:\n    # Your code here\n    pass\n\nprint(lengthOfLongestSubstringKDistinct(\"eceba\", 2)) # expected: 3"
+  },
+  "flatten-nested-list-iterator": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design an iterator class that traverses a nested list of integers in a flattened, linear order. You must implement the next() and hasNext() methods to sequentially access every integer contained within the structure.",
+    "constraints": "1 <= nestedList.length <= 500 · -10^6 <= integer values <= 10^6 · Total depth of nesting <= 500 · Time complexity O(N) for total traversal · Space complexity O(D) where D is the maximum nesting depth.",
+    "examples": "Input: [[1,1],2,[1,1]] -> Output: [1,1,2,1,1]. Input: [1,[4,[6]]] -> Output: [1,4,6].",
+    "starterCode": "class NestedIterator:\n    def __init__(self, nestedList):\n        # Your code here\n        pass\n    def next(self):\n        # Your code here\n        pass\n    def hasNext(self):\n        # Your code here\n        pass\n\n# Example usage:\n# i, v = NestedIterator([[1,1],2,[1,1]]), []\n# while i.hasNext(): v.append(i.next())\n# print(v) # expected: [1, 1, 2, 1, 1]"
+  },
+  "power-of-four": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given integer is a perfect power of four. Return true if there exists an integer x such that 4^x equals the input, otherwise return false.",
+    "constraints": "-2^31 <= n <= 2^31 - 1",
+    "examples": "Input: 16 -> Output: true (4^2); Input: 5 -> Output: false",
+    "starterCode": "def isPowerOfFour(n: int) -> bool:\n    # Your code here\n    pass\n\nprint(isPowerOfFour(16)) # expected: True"
+  },
+  "integer-break": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer n, split it into the sum of at least two positive integers such that the product of these integers is maximized. Return this maximum possible product.",
+    "constraints": "2 <= n <= 58",
+    "examples": "For n=2, the only split is 1+1, product 1. For n=10, the split 3+3+4 gives the maximum product 36.",
+    "starterCode": "def integerBreak(n: int) -> int:\n    # Your code here\n    pass\n\nprint(integerBreak(10)) # expected: 36"
+  },
+  "reverse-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Modify a given character array in-place so that its elements appear in reverse order. You must perform this operation using O(1) extra memory space.",
+    "constraints": "1 <= s.length <= 10^5 · s[i] is a printable ASCII character",
+    "examples": "Input: ['h','e','l','l','o'] -> Output: ['o','l','l','e','h']",
+    "starterCode": "def reverseString(s):\n    # Your code here\n    pass\n\nprint(reverseString(['h','e','l','l','o'])) # expected: ['o','l','l','e','h']"
+  },
+  "reverse-vowels-of-a-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string, swap the positions of all its vowels so that the sequence of vowels appears in reverse order while consonants remain in their original spots. Return the modified string.",
+    "constraints": "1 <= s.length <= 3 * 10^5 · s consists of printable ASCII characters · Vowels include 'a', 'e', 'i', 'o', 'u' in both lowercase and uppercase cases.",
+    "examples": "Input: \"hello\" -> Output: \"holle\"; Input: \"leetcode\" -> Output: \"leotcede\"",
+    "starterCode": "def reverseVowels(s: str) -> str:\n    # Your code here\n    pass\n\nprint(reverseVowels(\"hello\")) # expected: holle"
+  },
+  "moving-average-from-data-stream": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a class that maintains a sliding window of size 'n' over a stream of integers and returns the average of all numbers currently in that window.",
+    "constraints": "1 <= size <= 10^5 · -10^5 <= value <= 10^5 · Number of calls will not exceed 10^4",
+    "examples": "MovingAverage(3) -> next(1)=1.0, next(10)=5.5, next(3)=4.66667, next(5)=6.0",
+    "starterCode": "class MovingAverage:\n    def __init__(self, size: int):\n        # Your code here\n        pass\n\n    def next(self, val: int) -> float:\n        # Your code here\n        pass\n\nobj = MovingAverage(3)\nprint(obj.next(1), obj.next(10), obj.next(3)) # expected: 1.0 5.5 4.666666666666667"
   }
 }

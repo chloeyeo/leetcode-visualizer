@@ -2,23 +2,30 @@
  * Backfill public/solutions.json with AI-generated, ORIGINAL problem summaries
  * (goal / constraints / examples) + a runnable Python blueprint for each problem.
  *
- * Uses Google's free Gemini API. The wording is generated fresh (never copied
- * from LeetCode), so it's legally safe — algorithmic concepts aren't copyrightable.
+ * Uses Google's free Gemini API. Wording is generated fresh (never copied from
+ * LeetCode), so it's legally safe — algorithmic concepts aren't copyrightable.
+ *
+ * Efficiency: it asks for MANY problems per request (BATCH) and can ROTATE across
+ * several models (each free model has its own quota), so you cover far more per day.
  *
  * Run:
  *   set GEMINI_API_KEY=AIza...        (Windows)   /   export GEMINI_API_KEY=...  (mac/linux)
+ *   set MODELS=gemini-2.5-flash-lite,gemini-2.0-flash-lite,gemini-2.5-flash
+ *   set LIMIT=3973
  *   npm run gen-solutions
  *
- * Useful env vars:
- *   GEMINI_API_KEY  (required)  your free key from aistudio.google.com
- *   LIMIT           (default 40) how many NEW problems to generate this run
- *   MODEL           (default gemini-2.0-flash)
- *   DELAY_MS        (default 4500) pause between calls (free tier ≈ 15 req/min)
- *   FORCE           (default 0) set 1 to regenerate entries that already exist
- *   ONLY            comma-separated slugs to (re)generate just those
+ * Env vars:
+ *   GEMINI_API_KEY  (required)  free key from aistudio.google.com
+ *   LIMIT   (default 400)  how many NEW problems to generate this run
+ *   BATCH   (default 8)    problems requested per API call (fewer calls = more/quota)
+ *   MODELS  (default gemini-2.5-flash-lite) comma-separated models to rotate through
+ *   MODEL   (fallback if MODELS unset)
+ *   DELAY_MS (default 4500) pause between calls (free tier ≈ 15 req/min)
+ *   FORCE   (default 0) set 1 to regenerate entries that already exist
+ *   ONLY    comma-separated slugs to (re)generate just those
  *
- * It saves after every problem, so it's safe to stop (Ctrl+C) and re-run — it
- * skips slugs already present unless FORCE=1.
+ * Saves after every batch, so it's safe to Ctrl+C and re-run — it skips slugs
+ * already present unless FORCE=1. Run it again the next day to keep going.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,8 +35,10 @@ const PROBLEMS = path.join(ROOT, 'public', 'problems.json');
 const OUT = path.join(ROOT, 'public', 'solutions.json');
 
 const KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.MODEL || 'gemini-2.0-flash';
-const LIMIT = Number(process.env.LIMIT || 40);
+const MODELS = (process.env.MODELS || process.env.MODEL || 'gemini-2.5-flash-lite')
+  .split(',').map((s) => s.trim()).filter(Boolean);
+const LIMIT = Number(process.env.LIMIT || 400);
+const BATCH = Math.max(1, Number(process.env.BATCH || 8));
 const DELAY_MS = Number(process.env.DELAY_MS || 4500);
 const FORCE = process.env.FORCE === '1';
 const ONLY = (process.env.ONLY || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -40,70 +49,78 @@ if (!KEY) {
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function readJson(file, fallback) {
-  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return fallback; }
-}
+const readJson = (f, fb) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return fb; } };
 
 const problems = readJson(PROBLEMS, []);
 const solutions = readJson(OUT, {});
 
-function prompt(p) {
-  return `You are writing study material for a coding-interview app. Rewrite the LeetCode problem "${p.title}" (problem #${p.id}) entirely in your OWN original words — do NOT copy LeetCode's phrasing. Keep the meaning, constraints, and a worked example accurate.
+function prompt(chunk) {
+  const list = chunk.map((p) => `- ${p.slug} | ${p.title} (#${p.id}) | tags: ${(p.tags || []).join(', ') || 'none'}`).join('\n');
+  return `You are writing study material for a coding-interview app. For EACH LeetCode problem below, rewrite it in your OWN original words (do NOT copy LeetCode's phrasing). Keep the meaning, constraints, and a worked example accurate.
 
-Return ONLY a minified JSON object (no markdown, no backticks) with exactly these keys:
-- "goal": 1-2 sentences stating what to compute and return.
-- "constraints": a single line of the key constraints, using " · " as a separator.
+Return ONLY a minified JSON object (no markdown, no backticks) whose keys are the EXACT slugs given, and whose values are objects with keys:
+- "goal": 1-2 sentences: what to compute and return.
+- "constraints": one line of the key constraints, using " · " as a separator.
 - "examples": one or two short worked examples as a single string.
 - "starterCode": runnable Python — a function with a clear signature, a "# Your code here" body with pass, then a sample call wrapped in print() with an "# expected: ..." comment. Use \\n for newlines.
 
-Tags for context: ${(p.tags || []).join(', ') || 'none'}.`;
+Problems:
+${list}`;
 }
 
-async function callModel(p, attempt = 0) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`;
-  const body = {
-    contents: [{ parts: [{ text: prompt(p) }] }],
-    generationConfig: { temperature: 0.4, responseMimeType: 'application/json' },
-  };
+let callCount = 0;
+async function callModel(text, attempt = 0) {
+  const model = MODELS[(callCount + attempt) % MODELS.length];
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${KEY}`;
+  const body = { contents: [{ parts: [{ text }] }], generationConfig: { temperature: 0.4, responseMimeType: 'application/json' } };
   const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  if ((res.status === 429 || res.status === 503) && attempt < 3) {
-    const wait = 20000 * (attempt + 1);
-    process.stdout.write(`rate-limited (${res.status}); waiting ${wait / 1000}s… `);
+  if ((res.status === 429 || res.status === 503) && attempt < MODELS.length + 2) {
+    const wait = 15000 * (attempt + 1);
+    process.stdout.write(`[${model} ${res.status}; retry in ${wait / 1000}s] `);
     await sleep(wait);
-    return callModel(p, attempt + 1);
+    return callModel(text, attempt + 1);
   }
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 160)}`);
+  callCount += 1;
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 140)}`);
   return res.json();
 }
 
-async function generate(p) {
-  const data = await callModel(p);
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-  const clean = text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
-  const obj = JSON.parse(clean);
-  if (!obj.goal || !obj.starterCode) throw new Error('missing fields in model output');
-  return { draft: true, generated: true, goal: obj.goal, constraints: obj.constraints || '', examples: obj.examples || '', starterCode: obj.starterCode };
+async function generateBatch(chunk) {
+  const data = await callModel(prompt(chunk));
+  const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  const obj = JSON.parse(raw.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim());
+  const out = {};
+  for (const p of chunk) {
+    const e = obj[p.slug];
+    if (e && e.goal && e.starterCode) {
+      out[p.slug] = { draft: true, generated: true, goal: e.goal, constraints: e.constraints || '', examples: e.examples || '', starterCode: e.starterCode };
+    }
+  }
+  return out;
 }
 
 const targets = (ONLY.length ? problems.filter((p) => ONLY.includes(p.slug)) : problems)
   .filter((p) => p.slug && (FORCE || ONLY.length || !solutions[p.slug]));
 
-console.log(`Catalog: ${problems.length} problems · already have: ${Object.keys(solutions).filter((k) => k !== '_note').length} · generating up to ${LIMIT} this run.`);
+const have = () => Object.keys(solutions).filter((k) => k !== '_note').length;
+console.log(`Catalog: ${problems.length} · have: ${have()} · to do: ${targets.length} · this run: up to ${LIMIT} (batch ${BATCH}, models: ${MODELS.join(', ')})`);
 
 let done = 0;
 let failed = 0;
-for (const p of targets) {
-  if (done >= LIMIT) break;
-  process.stdout.write(`[${done + 1}/${Math.min(LIMIT, targets.length)}] ${p.slug} … `);
+for (let start = 0; start < targets.length && done < LIMIT; start += BATCH) {
+  const chunk = targets.slice(start, start + BATCH);
+  process.stdout.write(`[${done}/${LIMIT}] ${chunk.length} problems (${chunk[0].slug}…) `);
   try {
-    const entry = await generate(p);
-    // Don't clobber hand-tuned (non-generated) entries unless FORCE.
-    if (solutions[p.slug] && !solutions[p.slug].generated && !FORCE) { console.log('skip (hand-authored)'); continue; }
-    solutions[p.slug] = { ...solutions[p.slug], ...entry };
+    const res = await generateBatch(chunk);
+    let n = 0;
+    for (const slug of Object.keys(res)) {
+      if (solutions[slug] && !solutions[slug].generated && !FORCE) continue; // never clobber hand-authored
+      solutions[slug] = { ...solutions[slug], ...res[slug] };
+      n += 1;
+    }
     fs.writeFileSync(OUT, JSON.stringify(solutions, null, 2) + '\n');
-    console.log('ok');
-    done += 1;
+    console.log(`ok (+${n})`);
+    done += n;
   } catch (e) {
     failed += 1;
     console.log(`FAILED — ${e.message}`);
@@ -111,4 +128,4 @@ for (const p of targets) {
   await sleep(DELAY_MS);
 }
 
-console.log(`\nDone. Generated ${done}, failed ${failed}. solutions.json now has ${Object.keys(solutions).filter((k) => k !== '_note').length} problems.`);
+console.log(`\nDone. Added ${done} this run (${failed} batches failed). solutions.json now has ${have()} problems of ${problems.length}.`);
