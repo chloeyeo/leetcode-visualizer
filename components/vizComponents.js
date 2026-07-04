@@ -10,6 +10,7 @@ import HeapViz from './HeapViz';
 import StackViz from './StackViz';
 import LinkedListViz from './LinkedListViz';
 import GraphViz from './GraphViz';
+import HashMapViz from './HashMapViz';
 
 /** Map of pattern key -> visualizer component. Keys match lib/patterns.js. */
 export const COMPONENTS = {
@@ -23,4 +24,5 @@ export const COMPONENTS = {
   stack: StackViz,
   'linked-list': LinkedListViz,
   graph: GraphViz,
+  'hash-map': HashMapViz,
 };
