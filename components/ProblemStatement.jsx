@@ -10,21 +10,22 @@
  * sections, everything else is the goal. So all existing entries chunk for free.
  */
 /**
- * Natural math in prose: 10^9 → 10⁹ (real <sup>), <= → ≤, >= → ≥, != → ≠,
- * 3 * 10^4 → 3 × 10⁴. Text-level only — backtick code spans are left as-is.
+ * Natural math in prose, for EVERY problem: any base^exp → real <sup>
+ * (10^9, 2^31, x^n, base^k, (2+1)^x), <= → ≤, >= → ≥, != → ≠, spaced -> → →,
+ * 3 * 10^4 → 3 × 10⁴. Text-level only — backtick code spans are left as-is,
+ * and spaced XOR ("a ^ b") is untouched since the exponent must hug the ^.
  */
 function MathProse({ text }) {
   const s = String(text)
-    .replace(/\s<=\s/g, ' ≤ ')
-    .replace(/\s>=\s/g, ' ≥ ')
-    .replace(/\s!=\s/g, ' ≠ ')
+    .replace(/[ \t]*<=[ \t]*/g, ' ≤ ')
+    .replace(/[ \t]*>=[ \t]*/g, ' ≥ ')
+    .replace(/[ \t]*!=[ \t]*/g, ' ≠ ')
+    .replace(/[ \t]->[ \t]/g, ' → ')
     .replace(/(\d)\s*\*\s*(?=\d)/g, '$1 × ');
-  const POW = /((?:\d[\d,.]*|[a-zA-Z])\^-?\d+)/g;
-  return s.split(POW).map((chunk, i) => {
-    const m = chunk.match(/^(\d[\d,.]*|[a-zA-Z])\^(-?\d+)$/);
-    if (m) return <span key={i}>{m[1]}<sup>{m[2]}</sup></span>;
-    return chunk;
-  });
+  // split(/\^(-?\w+)/) alternates [text, exponent, text, exponent, …]
+  return s.split(/\^(-?\w+)/g).map((chunk, i) =>
+    i % 2 === 1 ? <sup key={i}>{chunk}</sup> : chunk
+  );
 }
 
 /**
