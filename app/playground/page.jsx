@@ -7,7 +7,7 @@ import { useStepPlayer } from '../../components/useStepPlayer';
 import { useTraceWorker } from '../../components/useTraceWorker';
 import VizControls from '../../components/VizControls';
 import { CodeView, DataStructures, VarTable, CallStack } from '../../components/TraceViews';
-import ProblemStatement from '../../components/ProblemStatement';
+import ProblemStatement, { InlineCode } from '../../components/ProblemStatement';
 import CodeDiff from '../../components/CodeDiff';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
@@ -235,7 +235,7 @@ function ComplexityLint({ warnings }) {
           <li key={i}>
             <span className="cx-loc">Line {w.line}</span>
             <code className="cx-code">{w.code}</code>
-            <span className="cx-msg">{w.msg}</span>
+            <span className="cx-msg"><InlineCode text={w.msg} /></span>
           </li>
         ))}
       </ul>

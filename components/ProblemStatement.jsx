@@ -9,6 +9,19 @@
  * by paragraph: paragraphs starting with "Example"/"Constraints" route to those
  * sections, everything else is the goal. So all existing entries chunk for free.
  */
+/**
+ * Renders `backtick-wrapped` tokens in prose as inline <code> instead of
+ * showing the literal backticks. Plain text otherwise — no other markdown.
+ */
+export function InlineCode({ text }) {
+  const parts = String(text).split(/(`[^`\n]+`)/g);
+  return parts.map((part, i) =>
+    part.startsWith('`') && part.endsWith('`') && part.length > 2
+      ? <code className="inline-code" key={i}>{part.slice(1, -1)}</code>
+      : part
+  );
+}
+
 function chunk(sol) {
   if (!sol) return { goal: '', constraints: '', examples: '' };
   if (sol.goal || sol.constraints || sol.examples) {
@@ -33,18 +46,18 @@ export default function ProblemStatement({ sol, compact = false }) {
     <div className="ps">
       <details className="ps-sec ps-goal" open>
         <summary className="ps-head">🎯 The goal</summary>
-        <p className="prob-para">{goal}</p>
+        <p className="prob-para"><InlineCode text={goal} /></p>
       </details>
       {constraints && (
         <details className="ps-sec ps-rules" open={!compact}>
           <summary className="ps-head">📏 Constraints &amp; rules</summary>
-          <p className="prob-para">{constraints}</p>
+          <p className="prob-para"><InlineCode text={constraints} /></p>
         </details>
       )}
       {examples && (
         <details className="ps-sec ps-ex" open={!compact}>
           <summary className="ps-head">🧪 Examples</summary>
-          <p className="prob-para">{examples}</p>
+          <p className="prob-para"><InlineCode text={examples} /></p>
         </details>
       )}
     </div>
