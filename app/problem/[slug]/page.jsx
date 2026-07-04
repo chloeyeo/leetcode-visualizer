@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getProblems, getProblemBySlug, getVideos, getSolutionBySlug } from '../../../lib/data';
+import { starterFor } from '../../../lib/starter';
 import PatternViz from '../../../components/PatternViz';
 import ProblemStatement from '../../../components/ProblemStatement';
 
@@ -9,8 +10,11 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }) {
   const q = getProblemBySlug(params.slug);
+  if (!q) return { title: 'Problem — LC Visualizer' };
+  const tags = (q.tags || []).slice(0, 3).join(', ');
   return {
-    title: q ? `${q.id}. ${q.title} — LC Visualizer` : 'Problem — LC Visualizer',
+    title: `${q.id}. ${q.title} — LC Visualizer`,
+    description: `${q.title} (${q.difficulty}${tags ? ` · ${tags}` : ''}): interactive pattern visualizer, runnable Python starter, and a spoken mock interview — free, entirely in your browser.`,
   };
 }
 
@@ -34,6 +38,8 @@ export default function ProblemPage({ params }) {
     'https://www.youtube.com/results?search_query=' +
     encodeURIComponent(`${q.title} leetcode solution`);
   const lcUrl = `https://leetcode.com/problems/${q.slug}/`;
+  const pgHref = `/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}&diff=${q.difficulty}&tags=${encodeURIComponent((q.tags || []).join(','))}`;
+  const starter = sol?.starterCode || starterFor(q);
 
   return (
     <div>
@@ -61,10 +67,7 @@ export default function ProblemPage({ params }) {
         <a className="btn btn-primary" href={lcUrl} target="_blank" rel="noreferrer">
           Open on LeetCode &#8599;
         </a>
-        <Link
-          className="btn btn-ghost"
-          href={`/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}`}
-        >
+        <Link className="btn btn-ghost" href={pgHref}>
           Open in Playground
         </Link>
         <Link className="btn btn-ghost" href={`/interview/?problem=${q.slug}`}>
@@ -72,35 +75,41 @@ export default function ProblemPage({ params }) {
         </Link>
       </div>
 
-      {sol ? (
-        <section className="prob-statement">
-          <h2 className="section-title lead">The problem</h2>
+      <section className="prob-statement">
+        <h2 className="section-title lead">The problem</h2>
+        {sol ? (
           <ProblemStatement sol={sol} />
-          {sol.starterCode && (
-            <div className="blueprint">
-              <div className="blueprint-head">
-                <span>Starter blueprint · Python</span>
-                <Link
-                  className="inline-link"
-                  href={`/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}`}
-                >
-                  Edit &amp; run in Playground →
-                </Link>
-              </div>
-              <pre className="blueprint-code"><code>{sol.starterCode}</code></pre>
-            </div>
-          )}
-          <p className="section-note prob-fineprint">
-            Summary rewritten in our own words for study purposes — see the exact original on{' '}
-            <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+        ) : (
+          <p className="section-note">
+            We haven&apos;t written our own plain-language summary for this one yet — read the
+            exact statement on{' '}
+            <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>,
+            then start from the scaffold below.
           </p>
-        </section>
-      ) : (
-        <p className="section-note">
-          A plain-language summary for this problem is on the way. For now, open the exact
-          statement on <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+        )}
+        <div className="blueprint">
+          <div className="blueprint-head">
+            <span>Starter blueprint · Python</span>
+            <Link className="inline-link" href={pgHref}>
+              Edit &amp; run in Playground →
+            </Link>
+          </div>
+          <pre className="blueprint-code"><code>{starter}</code></pre>
+        </div>
+        <p className="section-note prob-fineprint">
+          {sol ? (
+            <>
+              Summary rewritten in our own words for study purposes — see the exact original on{' '}
+              <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+            </>
+          ) : (
+            <>
+              This scaffold is original to LC Visualizer — the problem statement itself lives on{' '}
+              <a className="inline-link" href={lcUrl} target="_blank" rel="noreferrer">LeetCode ↗</a>.
+            </>
+          )}
         </p>
-      )}
+      </section>
 
       <h2 className="section-title lead">Visualize the pattern</h2>
       <PatternViz tags={q.tags || []} viz={sol?.viz} />

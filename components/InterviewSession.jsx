@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { PHASES, checklistFor, computeScorecard, starterCode } from '../lib/interview';
+import { summaryTextFor } from '../lib/starter';
 import { createBrain } from '../lib/interviewBrain';
 import { useTraceWorker } from './useTraceWorker';
 import ProblemStatement from './ProblemStatement';
@@ -117,7 +118,8 @@ export default function InterviewSession({ problem, onExit }) {
       .then((d) => {
         const entry = d && d[problem.slug];
         if (!entry) return;
-        if (entry.aiSummary) setSummary(entry.aiSummary);
+        const text = summaryTextFor(entry);
+        if (text) setSummary(text);
         if (entry.starterCode) setCode(entry.starterCode);
         if (entry.optimal) setOptimal(entry.optimal);
       })
@@ -344,12 +346,20 @@ function PreStart({ problem, summary, voiceOn, setVoiceOn, srSupported, brainLab
         <span className={`diff ${problem.difficulty}`}>{problem.difficulty}</span>
       </div>
 
-      {summary && (
-        <section className="prob-statement">
-          <h2 className="section-title lead">The problem</h2>
+      <section className="prob-statement">
+        <h2 className="section-title lead">The problem</h2>
+        {summary ? (
           <ProblemStatement sol={{ aiSummary: summary }} />
-        </section>
-      )}
+        ) : (
+          <p className="section-note">
+            Read the exact statement on{' '}
+            <a className="inline-link" href={`https://leetcode.com/problems/${problem.slug}/`} target="_blank" rel="noreferrer">
+              LeetCode ↗
+            </a>{' '}
+            before you start — the interviewer will ask you to restate it in your own words.
+          </p>
+        )}
+      </section>
 
       <div className="iv-prestart-card">
         <h2>Ready when you are</h2>

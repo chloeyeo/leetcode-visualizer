@@ -9,6 +9,7 @@ import VizControls from '../../components/VizControls';
 import { CodeView, DataStructures, VarTable, CallStack } from '../../components/TraceViews';
 import ProblemStatement, { InlineCode } from '../../components/ProblemStatement';
 import CodeDiff from '../../components/CodeDiff';
+import { starterFor, summaryTextFor } from '../../lib/starter';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -62,10 +63,6 @@ const OPTIMAL = `def two_sum(nums, target):
 
 print(two_sum([8, 3, 5, 7, 6, 2, 9, 1, 4, 11, 15], 26))
 `;
-
-function starterFor(title, id, slug) {
-  return `# ${title}${id ? ` (LeetCode #${id})` : ''}\n# https://leetcode.com/problems/${slug}/\n\ndef solution():\n    # TODO: implement\n    pass\n\nprint(solution())\n`;
-}
 
 export default function Playground() {
   const [mode, setMode] = useState('trace');
@@ -262,7 +259,13 @@ function TraceMode() {
     const slug = p.get('problem');
     if (!slug) return;
     const title = p.get('title') || slug;
-    const fallback = starterFor(title, p.get('id'), slug);
+    const fallback = starterFor({
+      slug,
+      title,
+      id: p.get('id') || '',
+      difficulty: p.get('diff') || '',
+      tags: (p.get('tags') || '').split(',').map((t) => t.trim()).filter(Boolean),
+    });
     setCode(fallback);
     setRanCode(fallback);
     // Prefer the curated blueprint + our own summary when we have one.
@@ -272,7 +275,8 @@ function TraceMode() {
         const entry = d && d[slug];
         if (!entry) return;
         if (entry.starterCode) { setCode(entry.starterCode); setRanCode(entry.starterCode); }
-        if (entry.aiSummary) setSummary({ title, slug, text: entry.aiSummary });
+        const text = summaryTextFor(entry);
+        if (text) setSummary({ title, slug, text });
         if (entry.optimal) setOptimal(entry.optimal);
       })
       .catch(() => {});
