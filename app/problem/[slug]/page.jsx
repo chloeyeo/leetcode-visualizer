@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { getProblems, getProblemBySlug, getVideos, getSolutionBySlug } from '../../../lib/data';
 import { starterFor } from '../../../lib/starter';
-import { pickPattern } from '../../../lib/patterns';
-import { vizInputFor } from '../../../lib/vizInput';
+import { resolveViz } from '../../../lib/vizInput';
 import PatternViz from '../../../components/PatternViz';
 import ProblemStatement from '../../../components/ProblemStatement';
 import TraceMode from '../../../components/TraceMode';
@@ -43,12 +42,6 @@ export default function ProblemPage({ params }) {
   const lcUrl = `https://leetcode.com/problems/${q.slug}/`;
   const pgHref = `/playground/?problem=${q.slug}&title=${encodeURIComponent(q.title)}&id=${q.id}&diff=${q.difficulty}&tags=${encodeURIComponent((q.tags || []).join(','))}`;
   const starter = sol?.starterCode || starterFor(q);
-  // Problem-specific visualization: replay THIS problem's sample input
-  // through its matched pattern, parsed straight from the starter's sample
-  // call. Falls back to the generic demo when the shapes don't fit.
-  const pattern = pickPattern(q.tags || []);
-  const autoInput = pattern ? vizInputFor(pattern.key, starter) : null;
-  const autoViz = autoInput ? { key: pattern.key, input: autoInput } : null;
 
   return (
     <div>
@@ -114,7 +107,7 @@ export default function ProblemPage({ params }) {
       </section>
 
       <h2 className="section-title lead">Visualize the pattern</h2>
-      <PatternViz tags={q.tags || []} viz={sol?.viz || autoViz} />
+      <PatternViz tags={q.tags || []} viz={resolveViz(q, sol)} />
 
       <h2 className="section-title video-heading">Video hint</h2>
       {hasVideo ? (
