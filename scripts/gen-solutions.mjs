@@ -107,6 +107,8 @@ console.log(`Catalog: ${problems.length} · have: ${have()} · to do: ${targets.
 
 let done = 0;
 let failed = 0;
+let failStreak = 0;
+const MAX_FAIL_STREAK = Number(process.env.MAX_FAIL_STREAK || 4);
 for (let start = 0; start < targets.length && done < LIMIT; start += BATCH) {
   const chunk = targets.slice(start, start + BATCH);
   process.stdout.write(`[${done}/${LIMIT}] ${chunk.length} problems (${chunk[0].slug}…) `);
@@ -121,9 +123,15 @@ for (let start = 0; start < targets.length && done < LIMIT; start += BATCH) {
     fs.writeFileSync(OUT, JSON.stringify(solutions, null, 2) + '\n');
     console.log(`ok (+${n})`);
     done += n;
+    failStreak = 0;
   } catch (e) {
     failed += 1;
+    failStreak += 1;
     console.log(`FAILED — ${e.message}`);
+    if (failStreak >= MAX_FAIL_STREAK) {
+      console.log(`\n${failStreak} consecutive batch failures — daily quota is almost certainly exhausted. Stopping; re-run after quota reset to resume.`);
+      break;
+    }
   }
   await sleep(DELAY_MS);
 }

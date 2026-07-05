@@ -82,6 +82,13 @@ Every problem page ships **runnable starter code**, in two layers:
 
 Pages without a layer-2 entry fall back to layer 1 automatically — no dead ends.
 
+**Hands-free mode:** the Windows scheduled task `lc-visualizer-backfill` runs
+[`scripts/backfill-daily.ps1`](scripts/backfill-daily.ps1) every morning at 09:30 —
+pull → generate until the day's quota is exhausted (the generator stops itself
+after 4 consecutive failed batches) → commit → push → Vercel auto-deploys.
+It reads `GEMINI_API_KEY` from the user environment. Remove with
+`Unregister-ScheduledTask lc-visualizer-backfill`.
+
 ---
 
 ## Adding video hints
