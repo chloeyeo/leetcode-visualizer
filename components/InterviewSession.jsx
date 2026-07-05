@@ -138,9 +138,22 @@ export default function InterviewSession({ problem, onExit }) {
 
   useEffect(() => { transcriptEnd.current?.scrollIntoView({ block: 'end' }); }, [turns, thinking]);
 
+  // The interviewer must go silent the moment the user leaves this page —
+  // client-side navigation doesn't reload, so cancel on unmount explicitly.
+  useEffect(() => () => {
+    try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* noop */ }
+  }, []);
+
   function speak(text) {
     if (!voiceOn || typeof window === 'undefined' || !window.speechSynthesis) return;
     try { window.speechSynthesis.cancel(); window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)); } catch (e) { /* noop */ }
+  }
+
+  function toggleVoice() {
+    setVoiceOn((v) => {
+      if (v) { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* noop */ } }
+      return !v;
+    });
   }
 
   function toggleMic() {
@@ -229,7 +242,7 @@ export default function InterviewSession({ problem, onExit }) {
           problem={problem}
           summary={summary}
           voiceOn={voiceOn}
-          setVoiceOn={setVoiceOn}
+          setVoiceOn={toggleVoice}
           srSupported={srSupported}
           brainLabel={BRAIN_LABELS[brain.mode] || 'Stub'}
           onBegin={begin}
@@ -254,7 +267,7 @@ export default function InterviewSession({ problem, onExit }) {
         <div className="iv-bar-right">
           <button className={`iv-voice${focusMode ? ' on' : ''}`} onClick={() => setFocusMode((f) => !f)} aria-pressed={focusMode} title="Focus mode — dims the panels you're not using">💡 Focus</button>
           <button className="iv-voice" onClick={() => setShowSettings(true)} aria-label="Interviewer settings">⚙</button>
-          <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={() => setVoiceOn((v) => !v)} aria-pressed={voiceOn}>
+          <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={toggleVoice} aria-pressed={voiceOn}>
             {voiceOn ? '🔊 Voice on' : '🔈 Voice off'}
           </button>
           <span className="iv-timer">{fmtTime(elapsed)}</span>
@@ -275,9 +288,11 @@ export default function InterviewSession({ problem, onExit }) {
           <div className="pg-editor">
             <div className="pg-editor-head">
               <span>solution.py</span>
-              <button className="btn btn-primary pg-run" onClick={runCode} disabled={running}>{running ? 'Running…' : '▶ Run'}</button>
             </div>
             <CodeEditor value={code} onChange={setCode} ariaLabel="Solution code" minHeight="300px" />
+            <div className="pg-run-bar">
+              <button className="btn btn-primary" onClick={runCode} disabled={running}>{running ? 'Running…' : '▶ Run'}</button>
+            </div>
           </div>
           {ran && (ran.error ? <div className="pg-error">⚠ {ran.error}</div>
             : <div className="pg-stdout"><h3>Output</h3><pre>{ran.stdout || '(no output)'}</pre></div>)}
@@ -370,7 +385,7 @@ function PreStart({ problem, summary, voiceOn, setVoiceOn, srSupported, brainLab
           <li><b>🎤 Your mic stays off</b> until you press <b>Speak</b>. You control when you&apos;re recorded; nothing leaves your device.</li>
         </ul>
         <div className="iv-prestart-opts">
-          <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={() => setVoiceOn((v) => !v)} aria-pressed={voiceOn}>
+          <button className={`iv-voice${voiceOn ? ' on' : ''}`} onClick={() => setVoiceOn()} aria-pressed={voiceOn}>
             {voiceOn ? '🔊 Interviewer voice: on' : '🔈 Interviewer voice: off'}
           </button>
           <button className="iv-voice" onClick={onOpenSettings}>⚙ Interviewer brain: {brainLabel}</button>

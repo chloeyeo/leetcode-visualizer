@@ -160,21 +160,24 @@ export default function TraceMode({
       <div className="pg-editor">
         <div className="pg-editor-head">
           <span>solution.py{traced ? ` · line ${frame.line}` : ''}</span>
-          {traced ? (
-            <button className="btn btn-ghost pg-run" onClick={() => setEditing(true)}>✎ Edit</button>
-          ) : (
-            <button className="btn btn-primary pg-run" onClick={run} disabled={status === 'busy'}>
-              {status === 'busy' ? 'Running…' : '▶ Run'}
-            </button>
-          )}
         </div>
         {traced ? (
           <div className="pg-editor-trace">
             <CodeView lines={codeLines} active={frame.line} />
-            <VizControls player={player} />
+            <div className="pg-run-bar">
+              <VizControls player={player} />
+              <button className="btn btn-ghost" onClick={() => setEditing(true)}>✎ Edit</button>
+            </div>
           </div>
         ) : (
-          <CodeEditor value={code} onChange={setCode} ariaLabel="Python code" minHeight="320px" />
+          <>
+            <CodeEditor value={code} onChange={setCode} ariaLabel="Python code" minHeight="320px" />
+            <div className="pg-run-bar">
+              <button className="btn btn-primary" onClick={run} disabled={status === 'busy'}>
+                {status === 'busy' ? 'Running…' : '▶ Run'}
+              </button>
+            </div>
+          </>
         )}
       </div>
 

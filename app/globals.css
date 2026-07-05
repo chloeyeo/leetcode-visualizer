@@ -63,6 +63,12 @@
 
 * { box-sizing: border-box; }
 
+/* Invisible scrollbars everywhere — scrolling still works (wheel, touch,
+   keyboard, drag), but no bars are ever drawn, including on code blocks
+   and the page itself. */
+* { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -825,7 +831,11 @@ input:focus-visible,
 .pg-trace { min-height: 200px; }
 .pg-codeview { background: var(--bg-elev); border: var(--border-width) solid var(--border); border-radius: var(--r-lg); overflow-x: auto; font-family: var(--mono); font-size: 13px; }
 .pg-editor-trace .pg-codeview { border: none; border-radius: 0; }
-.pg-editor-trace .viz-playback { padding: 12px 14px 14px; border-top: var(--border-width) solid var(--border); }
+
+/* Run / playback bar glued to the bottom edge of the code — controls always
+   live where the code is. */
+.pg-run-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-top: var(--border-width) solid var(--border); }
+.pg-run-bar .viz-playback { flex: 1; min-width: 240px; padding: 0; border-top: none; }
 .code-line { display: flex; gap: 12px; padding: 2px 12px; }
 .code-line.active { background: var(--state-current); box-shadow: inset 3px 0 0 var(--accent); }
 .code-ln { color: var(--text-faint); min-width: 22px; text-align: right; user-select: none; }
