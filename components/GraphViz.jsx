@@ -139,6 +139,13 @@ function IslandsViz({ grid }) {
   );
 }
 
+/**
+ * Graph visualizer.
+ * @param {object} [input] problem-specific data:
+ *   { mode:'islands', grid:('0'|'1')[][] } — flood-fill island count on the
+ *   problem's own grid (bare { grid } also accepted for back-compat).
+ * When omitted it runs the generic BFS/DFS demo.
+ */
 export default function GraphViz({ input }) {
   const [mode, setMode] = useState('BFS');
   const frames = useMemo(() => (mode === 'BFS' ? bfs(0) : dfs(0)), [mode]);
@@ -147,7 +154,9 @@ export default function GraphViz({ input }) {
   const frame = frames[Math.min(step, frames.length - 1)];
   const order = frames.slice(0, step + 1).map((f) => f.node);
 
-  if (input && input.grid) return <IslandsViz grid={input.grid} />;
+  if (input && Array.isArray(input.grid) && input.grid.length) {
+    return <IslandsViz grid={input.grid.map((row) => row.map((c) => String(c)))} />;
+  }
 
   function switchMode(m) {
     setMode(m);

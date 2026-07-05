@@ -6,24 +6,26 @@ import VizControls from './VizControls';
 
 const TEMPS = [73, 74, 75, 71, 69, 72, 76, 73];
 
-function buildFrames() {
-  const res = Array(TEMPS.length).fill(0);
+// `days` switches the wording between the generic next-greater walk and the
+// daily-temperatures framing of the default demo.
+function buildFrames(arr, days) {
+  const unit = days ? '°' : '';
+  const thing = days ? 'day' : 'index';
+  const res = Array(arr.length).fill(0);
   const st = [];
   const frames = [];
-  for (let i = 0; i < TEMPS.length; i++) {
-    while (st.length && TEMPS[st[st.length - 1]] < TEMPS[i]) {
+  for (let i = 0; i < arr.length; i++) {
+    while (st.length && arr[st[st.length - 1]] < arr[i]) {
       const idx = st.pop();
       res[idx] = i - idx;
-      frames.push({ i, stack: [...st], result: [...res], popped: idx, note: `Day ${i} (${TEMPS[i]}°) beats day ${idx} (${TEMPS[idx]}°): answer[${idx}] = ${i - idx} day(s). Pop it.` });
+      frames.push({ i, stack: [...st], result: [...res], popped: idx, note: `${days ? 'Day' : 'Index'} ${i} (${arr[i]}${unit}) beats ${thing} ${idx} (${arr[idx]}${unit}): answer[${idx}] = ${i - idx} ${days ? 'day(s)' : 'step(s)'}. Pop it.` });
     }
     st.push(i);
-    frames.push({ i, stack: [...st], result: [...res], pushed: i, note: `Push day ${i} (${TEMPS[i]}°) — it's now waiting for a warmer day.` });
+    frames.push({ i, stack: [...st], result: [...res], pushed: i, note: `Push ${thing} ${i} (${arr[i]}${unit}) — it's now waiting for a ${days ? 'warmer day' : 'greater value'}.` });
   }
-  frames.push({ i: TEMPS.length, stack: [...st], result: [...res], done: true, note: 'Done. Days still on the stack have no warmer future day → 0.' });
+  frames.push({ i: arr.length, stack: [...st], result: [...res], done: true, note: `Done. ${days ? 'Days' : 'Indices'} still on the stack have no ${days ? 'warmer future day' : 'greater value ahead'} → 0.` });
   return frames;
 }
-
-const FRAMES = buildFrames();
 
 /* ---------- Brackets mode (valid-parentheses) ---------- */
 const PAIRS = { ')': '(', ']': '[', '}': '{' };
@@ -110,26 +112,136 @@ function BracketsViz({ s }) {
   );
 }
 
+/* ---------- Intervals mode (merge-intervals) ---------- */
+function buildIntervalFrames(sorted) {
+  const frames = [];
+  const out = [];
+  frames.push({ idx: -1, out: [], note: 'Sort intervals by start, then sweep left to right merging overlaps.' });
+  sorted.forEach((iv, idx) => {
+    const top = out[out.length - 1];
+    if (!top || iv[0] > top[1]) {
+      out.push([...iv]);
+      frames.push({
+        idx, out: out.map((p) => [...p]),
+        note: top
+          ? `[${iv[0]}, ${iv[1]}] starts after the top [${top[0]}, ${top[1]}] ends — no overlap, push it.`
+          : `Output is empty — push [${iv[0]}, ${iv[1]}] as the first block.`,
+      });
+    } else {
+      top[1] = Math.max(top[1], iv[1]);
+      frames.push({
+        idx, out: out.map((p) => [...p]),
+        note: `[${iv[0]}, ${iv[1]}] overlaps the top — merge them into [${top[0]}, ${top[1]}].`,
+      });
+    }
+  });
+  frames.push({ idx: sorted.length, out: out.map((p) => [...p]), done: true, note: `Done — ${out.length} merged interval${out.length === 1 ? '' : 's'}.` });
+  return frames;
+}
+
+function IntervalBar({ iv, lo, span, state }) {
+  const left = ((iv[0] - lo) / span) * 100;
+  const width = Math.max(((iv[1] - iv[0]) / span) * 100, 3);
+  const bg = state === 'current' ? 'var(--accent)' : state === 'done' ? 'var(--state-visited)' : state === 'out' ? 'var(--easy)' : 'var(--bg-elev-2)';
+  return (
+    <div
+      style={{
+        position: 'absolute', left: `${left}%`, width: `${width}%`, top: 3, bottom: 3,
+        background: bg, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 12, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+        color: state === 'pending' ? 'var(--text-faint)' : 'var(--on-accent)',
+        outline: state === 'current' ? '2px solid var(--text)' : 'none',
+        transition: 'background 0.25s', whiteSpace: 'nowrap', overflow: 'hidden',
+      }}
+    >
+      [{iv[0]},{iv[1]}]
+    </div>
+  );
+}
+
+function IntervalsViz({ intervals }) {
+  const sorted = useMemo(() => [...intervals].map((p) => [...p]).sort((a, b) => a[0] - b[0] || a[1] - b[1]), [intervals]);
+  const frames = useMemo(() => buildIntervalFrames(sorted), [sorted]);
+  const player = useStepPlayer(frames.length);
+  const frame = frames[Math.min(player.step, frames.length - 1)];
+  const lo = Math.min(...sorted.map((p) => p[0]));
+  const hi = Math.max(...sorted.map((p) => p[1]));
+  const span = Math.max(hi - lo, 1);
+
+  return (
+    <div className="viz">
+      <p className="viz-prompt">
+        Sort by start, then keep an output stack: each interval either <b>merges into</b> the
+        top (overlap) or is <b>pushed</b> as a new block.
+      </p>
+
+      <div className="viz-out-label">Input (sorted by start)</div>
+      <div style={{ margin: '8px 0 14px' }}>
+        {sorted.map((iv, i) => (
+          <div key={i} style={{ position: 'relative', height: 30 }}>
+            <IntervalBar iv={iv} lo={lo} span={span} state={i === frame.idx ? 'current' : i < frame.idx ? 'done' : 'pending'} />
+          </div>
+        ))}
+      </div>
+
+      <div className="viz-out-label">Merged output, top →</div>
+      <div style={{ position: 'relative', height: 30, margin: '8px 0 4px' }}>
+        {frame.out.length ? (
+          frame.out.map((iv, i) => <IntervalBar key={i} iv={iv} lo={lo} span={span} state="out" />)
+        ) : (
+          <span className="viz-empty">empty</span>
+        )}
+      </div>
+
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className={frame.done ? 'viz-note done' : 'viz-note'}>{frame.note}</span>
+      </div>
+
+      <VizControls player={player} />
+
+      <p className="viz-disclaimer">Merging this problem&apos;s own sample intervals, step by step.</p>
+    </div>
+  );
+}
+
+/**
+ * Stack-family visualizer.
+ * @param {object} [input] problem-specific data:
+ *   { mode:'brackets', string:string } — matched-brackets walk,
+ *   { mode:'monotonic', array:number[] } — next-greater-element walk,
+ *   { mode:'intervals', intervals:[lo,hi][] } — sort + merge via an output stack.
+ * When omitted it runs the daily-temperatures demo.
+ */
 export default function StackViz({ input }) {
-  const player = useStepPlayer(FRAMES.length);
+  const custom = input && input.mode === 'monotonic' && Array.isArray(input.array) && input.array.length >= 2 ? input.array : null;
+  const arr = custom || TEMPS;
+  const frames = useMemo(() => buildFrames(arr, !custom), [arr, custom]);
+  const player = useStepPlayer(frames.length);
   const { step } = player;
-  const frame = FRAMES[Math.min(step, FRAMES.length - 1)];
+  const frame = frames[Math.min(step, frames.length - 1)];
 
   if (input && (input.string || input.mode === 'brackets')) {
     return <BracketsViz s={input.string || '()[]{}'} />;
+  }
+  if (input && input.mode === 'intervals' && Array.isArray(input.intervals) && input.intervals.length >= 2) {
+    return <IntervalsViz intervals={input.intervals} />;
   }
 
   return (
     <div className="viz">
       <p className="viz-prompt">
-        For each day, how many days until a <b>warmer</b> temperature? Keep a stack of days still waiting.
+        {custom ? (
+          <>For each element, how many steps until a <b>greater</b> value appears? Keep a stack of indices still waiting.</>
+        ) : (
+          <>For each day, how many days until a <b>warmer</b> temperature? Keep a stack of days still waiting.</>
+        )}
       </p>
 
       <div className="stk-arrays">
         <div>
-          <div className="viz-out-label">Temps</div>
+          <div className="viz-out-label">{custom ? 'Values' : 'Temps'}</div>
           <div className="viz-track">
-            {TEMPS.map((t, i) => (
+            {arr.map((t, i) => (
               <div className="viz-col" key={i}>
                 <div className={`viz-cell ${i === frame.i ? 'mid' : i < frame.i ? 'eliminated' : ''} ${frame.stack.includes(i) ? 'active' : ''}`}>{t}</div>
                 <div className="viz-idx">{i}</div>
@@ -138,7 +250,7 @@ export default function StackViz({ input }) {
           </div>
         </div>
         <div>
-          <div className="viz-out-label">answer (days to wait)</div>
+          <div className="viz-out-label">{custom ? 'answer (steps to wait)' : 'answer (days to wait)'}</div>
           <div className="viz-track">
             {frame.result.map((r, i) => (
               <div className="viz-col" key={i}>
@@ -151,13 +263,13 @@ export default function StackViz({ input }) {
       </div>
 
       <div className="stk-wrap">
-        <span className="viz-out-label">Stack (days waiting), top →</span>
+        <span className="viz-out-label">Stack ({custom ? 'indices' : 'days'} waiting), top →</span>
         <div className="stk-row">
           {frame.stack.length ? (
             frame.stack.map((idx, k) => (
               <div className={`stk-item${k === frame.stack.length - 1 ? ' top' : ''}`} key={k}>
-                <b>{TEMPS[idx]}°</b>
-                <small>day {idx}</small>
+                <b>{arr[idx]}{custom ? '' : '°'}</b>
+                <small>{custom ? `i = ${idx}` : `day ${idx}`}</small>
               </div>
             ))
           ) : (
@@ -173,7 +285,9 @@ export default function StackViz({ input }) {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with sample data — not a solver for this exact problem.
+        {custom
+          ? "Running the monotonic-stack technique on this problem's own sample input."
+          : 'Illustrates the general pattern with sample data — not a solver for this exact problem.'}
       </p>
     </div>
   );
