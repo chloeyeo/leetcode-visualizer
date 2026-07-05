@@ -1069,7 +1069,11 @@ input:focus-visible,
 .prob-statement { margin: var(--s2) 0 var(--s5); }
 .prob-statement-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; }
 .prob-para { color: var(--text); font-size: 15px; line-height: 1.6; margin: 0 0 var(--s3); max-width: 720px; white-space: pre-wrap; }
-.inline-code { font-family: var(--mono); font-size: 0.9em; color: var(--text); background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-sm); padding: 1px 5px; }
+.inline-code { font-family: var(--mono); font-size: 0.95em; color: var(--text); background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-sm); padding: 1px 6px; }
+
+/* Math operators (≤ ≥ ≠ → × ·) — crisp, code-like, never thin prose */
+.mop { font-family: var(--mono); font-weight: 700; font-size: 1.08em; color: var(--accent-2); padding: 0 1px; }
+.math-expr { line-height: 1.9; }
 .prob-fineprint { margin-top: var(--s2); }
 .blueprint { border: var(--border-width) solid var(--border); border-radius: var(--r-md); overflow: hidden; background: var(--bg-elev); margin: var(--s2) 0 var(--s3); max-width: 720px; }
 .blueprint-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: 8px 12px; border-bottom: var(--border-width) solid var(--border); background: var(--bg-elev-2); font-family: var(--mono); font-size: 12px; color: var(--text-dim); flex-wrap: wrap; }
@@ -1152,12 +1156,12 @@ input:focus-visible,
 
 /* Structured constraints: one code-styled line per rule */
 .ps-constraints { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.ps-constraints li { font-family: var(--mono); font-size: 13.5px; line-height: 1.55; color: var(--text); background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-sm); padding: 4px 10px; align-self: flex-start; max-width: 100%; overflow-x: auto; }
+.ps-constraints li { font-family: var(--mono); font-size: 14.5px; line-height: 1.6; color: var(--text); background: var(--bg); border: var(--border-width) solid var(--border); border-radius: var(--r-sm); padding: 5px 12px; align-self: flex-start; max-width: 100%; overflow-x: auto; }
 .ps-constraints .inline-code { border: none; background: none; padding: 0; font-size: inherit; }
 
 /* Structured examples: one block per case, labels emphasized, values as chips */
 .ps-examples { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.ps-examples li { border-left: 3px solid var(--border-hover); padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7; color: var(--text); }
+.ps-examples li { border-left: 3px solid var(--border-hover); padding: 2px 0 2px 12px; font-size: 15px; line-height: 1.8; color: var(--text); }
 .ps-label { color: var(--text-dim); font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
 .prob-para sup, .ps-constraints sup, .ps-examples sup { font-size: 0.72em; line-height: 0; }
 .ps-goal { border-left-color: var(--accent-2); }

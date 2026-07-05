@@ -11,6 +11,7 @@ import StackViz from './StackViz';
 import LinkedListViz from './LinkedListViz';
 import GraphViz from './GraphViz';
 import HashMapViz from './HashMapViz';
+import LinearScanViz from './LinearScanViz';
 
 /** Map of pattern key -> visualizer component. Keys match lib/patterns.js. */
 export const COMPONENTS = {
@@ -25,4 +26,5 @@ export const COMPONENTS = {
   'linked-list': LinkedListViz,
   graph: GraphViz,
   'hash-map': HashMapViz,
+  scan: LinearScanViz,
 };

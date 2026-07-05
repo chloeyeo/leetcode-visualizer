@@ -22,10 +22,13 @@ function MathProse({ text }) {
     .replace(/[ \t]*!=[ \t]*/g, ' ≠ ')
     .replace(/[ \t]->[ \t]/g, ' → ')
     .replace(/(\d)\s*\*\s*(?=\d)/g, '$1 × ');
-  // split(/\^(-?\w+)/) alternates [text, exponent, text, exponent, …]
-  return s.split(/\^(-?\w+)/g).map((chunk, i) =>
-    i % 2 === 1 ? <sup key={i}>{chunk}</sup> : chunk
-  );
+  // Exponents become real superscripts; the math symbols get their own
+  // styled span so they read crisp and code-like instead of thin prose.
+  return s.split(/(\^-?\w+|[≤≥≠→×·])/g).map((chunk, i) => {
+    if (chunk.startsWith('^')) return <sup key={i}>{chunk.slice(1)}</sup>;
+    if (/^[≤≥≠→×·]$/.test(chunk)) return <span className="mop" key={i}>{chunk}</span>;
+    return chunk;
+  });
 }
 
 /**
@@ -51,8 +54,25 @@ function RichText({ text }) {
   return parts.map((part, i) =>
     /^(\[.*\]|".*"|'.*')$/.test(part)
       ? <code className="inline-code" key={i}>{part}</code>
-      : <InlineCode key={i} text={part} />
+      : <ExprText key={i} text={part} />
   );
+}
+
+/**
+ * Chips whole equations/assignments in prose — `target = 9`,
+ * `nums[0] + nums[1] = 2 + 7 = 9`, `12 > 9` — so math never reads as thin
+ * raw text. A candidate must contain a digit, bracket, or comparison to
+ * qualify (keeps hyphenated prose like "run-time - roughly" untouched).
+ */
+function ExprText({ text }) {
+  const TOKEN = String.raw`(?:[A-Za-z_]\w*(?:\[[^\]\s]{0,12}\])?|-?\d[\d,]*(?:\.\d+)?)`;
+  const EXPR = new RegExp(`(${TOKEN}(?:\\s*[+\\-*/×=≤≥≠<>]\\s*${TOKEN})+)`, 'g');
+  return String(text).split(EXPR).map((piece, i) => {
+    if (i % 2 === 1 && /[\d\[\]=≤≥≠<>]/.test(piece)) {
+      return <code className="inline-code math-expr" key={i}><InlineCode text={piece} /></code>;
+    }
+    return <InlineCode key={i} text={piece} />;
+  });
 }
 
 /** Constraints as a scannable list of code-styled lines, LeetCode-style. */
@@ -122,7 +142,7 @@ export default function ProblemStatement({ sol, compact = false }) {
     <div className="ps">
       <details className="ps-sec ps-goal" open>
         <summary className="ps-head">🎯 The goal</summary>
-        <p className="prob-para"><InlineCode text={goal} /></p>
+        <p className="prob-para"><RichText text={goal} /></p>
       </details>
       {constraints && (
         <details className="ps-sec ps-rules" open={!compact}>
