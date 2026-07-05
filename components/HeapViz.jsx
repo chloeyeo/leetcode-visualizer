@@ -1,14 +1,15 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useStepPlayer } from './useStepPlayer';
 import VizControls from './VizControls';
 
 const INSERTS = [5, 3, 8, 1, 9, 2];
 
-function buildFrames() {
+function buildFrames(inserts) {
   const heap = [];
   const frames = [];
-  for (const val of INSERTS) {
+  for (const val of inserts) {
     heap.push(val);
     let i = heap.length - 1;
     frames.push({ heap: [...heap], active: i, note: `Insert ${val} at the end (index ${i}).` });
@@ -30,8 +31,6 @@ function buildFrames() {
   return frames;
 }
 
-const FRAMES = buildFrames();
-
 const VB_W = 560;
 const TOP = 38;
 const GAPY = 80;
@@ -42,10 +41,18 @@ function pos(i) {
   return { x: (VB_W * (idxInLevel + 0.5)) / count, y: TOP + level * GAPY, level };
 }
 
-export default function HeapViz() {
-  const player = useStepPlayer(FRAMES.length);
+/**
+ * Min-heap visualizer.
+ * @param {object} [input] problem-specific data: { inserts:number[] } — the
+ * values inserted one by one (e.g. the problem's own sample array).
+ * When omitted it runs the generic demo sequence.
+ */
+export default function HeapViz({ input }) {
+  const inserts = input && Array.isArray(input.inserts) && input.inserts.length >= 2 ? input.inserts : INSERTS;
+  const frames = useMemo(() => buildFrames(inserts), [inserts]);
+  const player = useStepPlayer(frames.length);
   const { step } = player;
-  const frame = FRAMES[Math.min(step, FRAMES.length - 1)];
+  const frame = frames[Math.min(step, frames.length - 1)];
   const heap = frame.heap;
   const maxLevel = heap.length ? pos(heap.length - 1).level : 0;
   const VB_H = TOP + maxLevel * GAPY + 38;
@@ -95,7 +102,9 @@ export default function HeapViz() {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with sample data — not a solver for this exact problem.
+        {input
+          ? "Heapifying this problem's own sample values, one insert at a time."
+          : 'Illustrates the general pattern with sample data — not a solver for this exact problem.'}
       </p>
     </div>
   );

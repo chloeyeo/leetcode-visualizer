@@ -135,6 +135,119 @@ function InvertTreeViz({ tree }) {
   );
 }
 
+/* ---------- Traverse mode (problem-specific tree) ---------- */
+const ORDER_LABELS = { preorder: 'Preorder', inorder: 'Inorder', postorder: 'Postorder', level: 'Level order' };
+
+function buildOrder(root, kind) {
+  const out = [];
+  if (kind === 'level') {
+    const q = [root];
+    while (q.length) {
+      const n = q.shift();
+      out.push(n);
+      if (n.left) q.push(n.left);
+      if (n.right) q.push(n.right);
+    }
+    return out;
+  }
+  (function walk(n) {
+    if (!n) return;
+    if (kind === 'preorder') out.push(n);
+    walk(n.left);
+    if (kind === 'inorder') out.push(n);
+    walk(n.right);
+    if (kind === 'postorder') out.push(n);
+  })(root);
+  return out;
+}
+
+const ORDER_RULES = {
+  preorder: 'node → left → right',
+  inorder: 'left → node → right',
+  postorder: 'left → right → node',
+  level: 'top to bottom, left to right (BFS)',
+};
+
+function TraverseTreeViz({ tree, order: initialOrder }) {
+  const root = useMemo(() => treeFromLevelOrder(tree), [tree]);
+  const [order, setOrder] = useState(
+    ORDER_LABELS[initialOrder] ? initialOrder : 'preorder'
+  );
+  const seq = useMemo(() => buildOrder(root, order), [root, order]);
+  const player = useStepPlayer(seq.length);
+  const { step } = player;
+  const current = seq[Math.min(step, seq.length - 1)];
+  const visitedIds = new Set(seq.slice(0, step + 1).map((n) => n.id));
+  const { nodes, edges, cols, maxDepth } = useMemo(() => layoutInvert(root), [root]);
+  const GX = 66; const GY = 68; const PAD = 28;
+  const W = Math.max(cols, 1) * GX + PAD;
+  const H = (maxDepth + 1) * GY + PAD;
+  const px = (x) => PAD / 2 + x * GX + GX / 2;
+  const py = (y) => PAD / 2 + y * GY + 22;
+  const posById = Object.fromEntries(nodes.map((n) => [n.id, n]));
+
+  function switchOrder(o) {
+    setOrder(o);
+    player.setStep(0);
+    player.setPlaying(false);
+  }
+
+  function nodeClass(id) {
+    if (id === current.id) return 'current';
+    if (visitedIds.has(id)) return 'visited';
+    return '';
+  }
+
+  return (
+    <div className="viz">
+      <div className="viz-modes">
+        {Object.keys(ORDER_LABELS).map((o) => (
+          <button key={o} className={o === order ? 'active' : ''} onClick={() => switchOrder(o)}>
+            {ORDER_LABELS[o]}
+          </button>
+        ))}
+      </div>
+
+      <p className="viz-prompt"><b>{ORDER_LABELS[order]}</b>: {ORDER_RULES[order]}</p>
+
+      <svg className="viz-tree" viewBox={`0 0 ${W} ${H}`} style={{ maxWidth: Math.min(W, 600) }} role="img" aria-label={`${ORDER_LABELS[order]} traversal of this problem's tree`}>
+        <title>{ORDER_LABELS[order]} traversal</title>
+        {edges.map(([a, b]) => (
+          <line key={`${a}-${b}`} x1={px(posById[a].x)} y1={py(posById[a].y)} x2={px(posById[b].x)} y2={py(posById[b].y)} />
+        ))}
+        {nodes.map((n) => (
+          <g key={n.id}>
+            <circle cx={px(n.x)} cy={py(n.y)} r="20" className={nodeClass(n.id)} />
+            <text x={px(n.x)} y={py(n.y)}>{n.val}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div className="viz-out">
+        <span className="viz-out-label">Output:</span>
+        {seq.slice(0, step + 1).map((n, i) => (
+          <span key={i} className={`pill${n.id === current.id ? ' current' : ''}`}>{n.val}</span>
+        ))}
+      </div>
+
+      <div className="viz-status" role="status" aria-live="polite">
+        <span className="viz-note">Visit node {current.val}.</span>
+      </div>
+
+      <VizControls player={player} />
+
+      <p className="viz-disclaimer">Traversing this problem&apos;s own sample tree.</p>
+    </div>
+  );
+}
+
+/**
+ * Binary-tree visualizer.
+ * @param {object} [input] problem-specific data:
+ *   { mode:'traverse', tree:(number|null)[] level-order, order?:'preorder'|'inorder'|'postorder'|'level' }
+ *   { mode:'invert', tree:(number|null)[] level-order }
+ * When omitted it runs the generic BST demo with an order switcher.
+ */
 export default function TreeTraversalViz({ input }) {
   const [mode, setMode] = useState('Preorder');
   const order = useMemo(() => MODES[mode].build(), [mode]);
@@ -144,6 +257,9 @@ export default function TreeTraversalViz({ input }) {
   const visited = new Set(order.slice(0, step + 1));
 
   if (input && input.mode === 'invert') return <InvertTreeViz tree={input.tree} />;
+  if (input && input.mode === 'traverse' && Array.isArray(input.tree) && input.tree.length && input.tree[0] != null) {
+    return <TraverseTreeViz tree={input.tree} order={input.order} />;
+  }
 
   function switchMode(m) {
     setMode(m);

@@ -10,9 +10,10 @@ const COST = [
   [4, 2, 1, 2],
 ];
 
-function build(mode) {
-  const rows = mode === 'Min Path Sum' ? COST.length : 4;
-  const cols = mode === 'Min Path Sum' ? COST[0].length : 5;
+function build(mode, opts = {}) {
+  const grid = mode === 'Min Path Sum' ? (opts.grid || COST) : null;
+  const rows = grid ? grid.length : opts.rows || 4;
+  const cols = grid ? grid[0].length : opts.cols || 5;
   const dp = Array.from({ length: rows }, () => Array(cols).fill(0));
   const frames = [];
 
@@ -31,7 +32,7 @@ function build(mode) {
           note = `${dp[r - 1][c]} (above) + ${dp[r][c - 1]} (left) = ${val} paths.`;
         }
       } else {
-        const cost = COST[r][c];
+        const cost = grid[r][c];
         if (r === 0 && c === 0) {
           val = cost;
           note = `Start cell: cost ${cost}.`;
@@ -61,13 +62,27 @@ function build(mode) {
       ? `Done. ${answer} unique paths to the bottom-right.`
       : `Done. Cheapest path cost = ${answer}.`;
 
-  return { rows, cols, dp, frames, mode };
+  return { rows, cols, dp, frames, mode, grid };
 }
 
-export default function DpGridViz() {
-  const [mode, setMode] = useState('Unique Paths');
-  const model = useMemo(() => build(mode), [mode]);
-  const { rows, cols, dp, frames } = model;
+/**
+ * DP-table visualizer.
+ * @param {object} [input] problem-specific data:
+ *   { mode:'unique-paths', rows:int, cols:int } — count right/down paths on the problem's own m×n grid.
+ *   { mode:'min-path-sum', grid:number[][] } — cheapest path over the problem's own cost grid.
+ * When omitted it runs the generic two-mode demo.
+ */
+export default function DpGridViz({ input }) {
+  const forced = input && input.mode === 'unique-paths' ? 'Unique Paths'
+    : input && input.mode === 'min-path-sum' ? 'Min Path Sum'
+      : null;
+  const [mode, setMode] = useState(forced || 'Unique Paths');
+  const model = useMemo(
+    () => build(forced || mode, forced ? { rows: input.rows, cols: input.cols, grid: input.grid } : {}),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mode, forced, input]
+  );
+  const { rows, cols, dp, frames, grid } = model;
   const player = useStepPlayer(frames.length);
   const { step } = player;
   const frame = frames[Math.min(step, frames.length - 1)];
@@ -88,11 +103,13 @@ export default function DpGridViz() {
 
   return (
     <div className="viz">
-      <div className="viz-modes">
-        {['Unique Paths', 'Min Path Sum'].map((m) => (
-          <button key={m} className={m === mode ? 'active' : ''} onClick={() => switchMode(m)}>{m}</button>
-        ))}
-      </div>
+      {!forced && (
+        <div className="viz-modes">
+          {['Unique Paths', 'Min Path Sum'].map((m) => (
+            <button key={m} className={m === mode ? 'active' : ''} onClick={() => switchMode(m)}>{m}</button>
+          ))}
+        </div>
+      )}
 
       <p className="viz-prompt">
         {mode === 'Unique Paths' ? (
@@ -108,7 +125,7 @@ export default function DpGridViz() {
             <div className="dp-row" key={r}>
               {Array.from({ length: cols }).map((_, c) => (
                 <div className={cellClass(r, c)} key={c}>
-                  {mode === 'Min Path Sum' && <span className="dp-cost">{COST[r][c]}</span>}
+                  {grid && <span className="dp-cost">{grid[r][c]}</span>}
                   {isFilled(r, c) ? dp[r][c] : ''}
                 </div>
               ))}
@@ -124,7 +141,9 @@ export default function DpGridViz() {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with sample data — not a solver for this exact problem.
+        {input
+          ? "Filling the DP table for this problem's own input, cell by cell."
+          : 'Illustrates the general pattern with sample data — not a solver for this exact problem.'}
       </p>
     </div>
   );

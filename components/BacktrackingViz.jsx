@@ -5,57 +5,80 @@ import { useStepPlayer } from './useStepPlayer';
 import VizControls from './VizControls';
 
 const ELEMS = [1, 2, 3];
-
-const NODES = [];
-const EDGES = [];
-(function build(depth, subset, parent) {
-  const id = NODES.length;
-  const node = { id, depth, subset: [...subset], parent, children: [], isLeaf: depth === ELEMS.length };
-  NODES.push(node);
-  if (parent != null) {
-    NODES[parent].children.push(id);
-    EDGES.push([parent, id]);
-  }
-  if (depth < ELEMS.length) {
-    build(depth + 1, subset, id);
-    build(depth + 1, [...subset, ELEMS[depth]], id);
-  }
-  return id;
-})(0, [], null);
+const MAX_ELEMS = 4; // 2^4 leaves is the widest tree the 640px viewBox can hold
 
 const VB_W = 640;
 const MARGIN = 44;
 const V_GAP = 78;
 const TOP = 36;
-const leaves = NODES.filter((n) => n.isLeaf);
-leaves.forEach((lf, i) => { lf.x = MARGIN + (VB_W - 2 * MARGIN) * (i / (leaves.length - 1)); });
-(function setX(id) {
-  const n = NODES[id];
-  if (n.children.length === 0) return n.x;
-  const xs = n.children.map(setX);
-  n.x = (Math.min(...xs) + Math.max(...xs)) / 2;
-  return n.x;
-})(0);
-NODES.forEach((n) => { n.y = TOP + n.depth * V_GAP; });
-const VB_H = TOP + ELEMS.length * V_GAP + 36;
 
-const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
+/** Build the full include/skip decision tree + layout for a set of elements. */
+function buildModel(elems) {
+  const nodes = [];
+  const edges = [];
+  (function build(depth, subset, parent) {
+    const id = nodes.length;
+    const node = { id, depth, subset: [...subset], parent, children: [], isLeaf: depth === elems.length };
+    nodes.push(node);
+    if (parent != null) {
+      nodes[parent].children.push(id);
+      edges.push([parent, id]);
+    }
+    if (depth < elems.length) {
+      build(depth + 1, subset, id);
+      build(depth + 1, [...subset, elems[depth]], id);
+    }
+    return id;
+  })(0, [], null);
+
+  const leaves = nodes.filter((n) => n.isLeaf);
+  leaves.forEach((lf, i) => {
+    lf.x = leaves.length === 1 ? VB_W / 2 : MARGIN + (VB_W - 2 * MARGIN) * (i / (leaves.length - 1));
+  });
+  (function setX(id) {
+    const n = nodes[id];
+    if (n.children.length === 0) return n.x;
+    const xs = n.children.map(setX);
+    n.x = (Math.min(...xs) + Math.max(...xs)) / 2;
+    return n.x;
+  })(0);
+  nodes.forEach((n) => { n.y = TOP + n.depth * V_GAP; });
+
+  return {
+    nodes,
+    edges,
+    byId: Object.fromEntries(nodes.map((n) => [n.id, n])),
+    vbH: TOP + elems.length * V_GAP + 36,
+    elems,
+  };
+}
+
 const label = (subset) => (subset.length ? subset.join('') : '∅');
 const setStr = (subset) => `{${subset.join(', ')}}`;
 
-function pathToRoot(id) {
+function pathToRoot(byId, id) {
   const path = [];
   let cur = id;
   while (cur != null) { path.push(cur); cur = byId[cur].parent; }
   return new Set(path);
 }
 
-export default function BacktrackingViz() {
-  const player = useStepPlayer(NODES.length);
+/**
+ * Backtracking (subsets decision tree) visualizer.
+ * @param {object} [input] problem-specific data: { elems:(number|string)[] } —
+ * the problem's own elements (max 4, so the tree stays drawable).
+ * When omitted it enumerates the subsets of [1, 2, 3].
+ */
+export default function BacktrackingViz({ input }) {
+  const elems = input && Array.isArray(input.elems) && input.elems.length
+    ? input.elems.slice(0, MAX_ELEMS)
+    : ELEMS;
+  const { nodes, edges, byId, vbH } = useMemo(() => buildModel(elems), [elems]);
+  const player = useStepPlayer(nodes.length);
   const { step } = player;
-  const node = NODES[Math.min(step, NODES.length - 1)];
-  const pathSet = useMemo(() => pathToRoot(node.id), [node.id]);
-  const results = NODES.filter((n) => n.id <= step && n.isLeaf).map((n) => n.subset);
+  const node = nodes[Math.min(step, nodes.length - 1)];
+  const pathSet = useMemo(() => pathToRoot(byId, node.id), [byId, node.id]);
+  const results = nodes.filter((n) => n.id <= step && n.isLeaf).map((n) => n.subset);
 
   function nodeClass(id) {
     if (id === node.id) return 'current';
@@ -66,22 +89,22 @@ export default function BacktrackingViz() {
 
   const note = node.isLeaf
     ? `Leaf reached — record ${setStr(node.subset)}.`
-    : `At ${setStr(node.subset)}: branch on whether to include ${ELEMS[node.depth]}.`;
+    : `At ${setStr(node.subset)}: branch on whether to include ${elems[node.depth]}.`;
 
   return (
     <div className="viz">
       <p className="viz-prompt">
-        Backtracking builds all subsets of <b>[1, 2, 3]</b>. Each level decides one
+        Backtracking builds all subsets of <b>[{elems.join(', ')}]</b>. Each level decides one
         element: left = skip, right = take. Leaves are finished subsets.
       </p>
 
-      <svg className="viz-btree" viewBox={`0 0 ${VB_W} ${VB_H}`} role="img" aria-label="subset decision tree">
+      <svg className="viz-btree" viewBox={`0 0 ${VB_W} ${vbH}`} role="img" aria-label="subset decision tree">
         <title>Backtracking decision tree</title>
-        {EDGES.map(([a, b]) => (
+        {edges.map(([a, b]) => (
           <line key={`${a}-${b}`} x1={byId[a].x} y1={byId[a].y} x2={byId[b].x} y2={byId[b].y}
             className={pathSet.has(a) && pathSet.has(b) ? 'on-path' : ''} />
         ))}
-        {NODES.map((n) => (
+        {nodes.map((n) => (
           <g key={n.id}>
             <circle cx={n.x} cy={n.y} r="18" className={nodeClass(n.id)} />
             <text x={n.x} y={n.y}>{label(n.subset)}</text>
@@ -108,7 +131,9 @@ export default function BacktrackingViz() {
       <VizControls player={player} />
 
       <p className="viz-disclaimer">
-        Illustrates the general pattern with a sample input — not a solver for this exact problem.
+        {input
+          ? "Enumerating the subsets of this problem's own sample elements."
+          : 'Illustrates the general pattern with a sample input — not a solver for this exact problem.'}
       </p>
     </div>
   );
