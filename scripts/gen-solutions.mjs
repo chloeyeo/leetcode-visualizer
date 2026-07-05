@@ -29,6 +29,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { validateViz, vizPromptSpec } from '../lib/vizSchemas.js';
 
 const ROOT = process.cwd();
 const PROBLEMS = path.join(ROOT, 'public', 'problems.json');
@@ -63,6 +64,9 @@ Return ONLY a minified JSON object (no markdown, no backticks) whose keys are th
 - "constraints": one line of the key constraints, using " · " as a separator.
 - "examples": one or two short worked examples as a single string.
 - "starterCode": runnable Python — a function with a clear signature, a "# Your code here" body with pass, then a sample call wrapped in print() with an "# expected: ..." comment. Use \\n for newlines.
+- "viz" (OPTIONAL — include only when you are confident): {"key": <kind>, "input": <shape>} describing THIS problem's own primary example input so our site can animate it. The input values MUST be the same sample you used in "examples". "key" must be one of the kinds below and "input" must match that kind's shape exactly — the listed sizes are hard limits. Only emit "viz" when the problem's core technique IS what that visualizer shows (e.g. don't give a "brackets" viz to a problem that merely contains strings); when unsure, OMIT the field entirely.
+Allowed "viz" kinds and input shapes:
+${vizPromptSpec()}
 
 Problems:
 ${list}`;
@@ -94,6 +98,11 @@ async function generateBatch(chunk) {
     const e = obj[p.slug];
     if (e && e.goal && e.starterCode) {
       out[p.slug] = { draft: true, generated: true, goal: e.goal, constraints: e.constraints || '', examples: e.examples || '', starterCode: e.starterCode };
+      if (e.viz) {
+        const r = validateViz(e.viz);
+        if (r.ok) out[p.slug].viz = r.viz;
+        else process.stdout.write(`[viz rejected ${p.slug}: ${r.errors.join('; ')}] `);
+      }
     }
   }
   return out;
@@ -116,8 +125,11 @@ for (let start = 0; start < targets.length && done < LIMIT; start += BATCH) {
     const res = await generateBatch(chunk);
     let n = 0;
     for (const slug of Object.keys(res)) {
-      if (solutions[slug] && !solutions[slug].generated && !FORCE) continue; // never clobber hand-authored
-      solutions[slug] = { ...solutions[slug], ...res[slug] };
+      const prev = solutions[slug];
+      if (prev && !prev.generated && !FORCE) continue; // never clobber hand-authored
+      solutions[slug] = { ...prev, ...res[slug] };
+      // hand-authored viz survives even a FORCE regeneration of the prose
+      if (prev?.viz && !prev.generated) solutions[slug].viz = prev.viz;
       n += 1;
     }
     fs.writeFileSync(OUT, JSON.stringify(solutions, null, 2) + '\n');
