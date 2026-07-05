@@ -42,6 +42,62 @@ export function InlineCode({ text }) {
   );
 }
 
+/**
+ * InlineCode plus value highlighting for example text: array literals and
+ * quoted strings render as code chips so inputs/outputs pop out of the prose.
+ */
+function RichText({ text }) {
+  const parts = String(text).split(/((?<![\w\]])\[[^\[\]\n]{0,80}\]|"[^"\n]{0,60}"|'[^'\n]{0,60}')/g);
+  return parts.map((part, i) =>
+    /^(\[.*\]|".*"|'.*')$/.test(part)
+      ? <code className="inline-code" key={i}>{part}</code>
+      : <InlineCode key={i} text={part} />
+  );
+}
+
+/** Constraints as a scannable list of code-styled lines, LeetCode-style. */
+function ConstraintList({ text }) {
+  const items = String(text).split(/\s*·\s*|\n+/).map((s) => s.trim()).filter(Boolean);
+  if (!items.length) return null;
+  return (
+    <ul className="ps-constraints">
+      {items.map((item, i) => (
+        <li key={i}><InlineCode text={item} /></li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Examples as separate blocks, one per case, with Input/Output/Explanation
+ * labels emphasized and literal values shown as code chips. Handles the
+ * catalog's real shapes: "Input: X → Output: Y; Input: …", "Example 1: …",
+ * newline-separated cases, and single free-form sentences.
+ */
+function ExampleList({ text }) {
+  const rows = String(text)
+    .split(/\n+|;\s+/)
+    .flatMap((seg) => seg.split(/(?!^)(?=Input\s*:)/))
+    .flatMap((seg) => seg.split(/(?!^)(?=Example\s*\d+\s*:)/i))
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!rows.length) return null;
+  const LABEL = /(Input\s*:|Output\s*:|Explanation\s*:|Example\s*\d+\s*:)/gi;
+  return (
+    <ul className="ps-examples">
+      {rows.map((row, i) => (
+        <li key={i}>
+          {row.split(LABEL).map((piece, j) =>
+            /^(Input|Output|Explanation|Example\s*\d+)\s*:$/i.test(piece)
+              ? <b className="ps-label" key={j}>{piece}</b>
+              : <RichText key={j} text={piece} />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function chunk(sol) {
   if (!sol) return { goal: '', constraints: '', examples: '' };
   if (sol.goal || sol.constraints || sol.examples) {
@@ -71,13 +127,13 @@ export default function ProblemStatement({ sol, compact = false }) {
       {constraints && (
         <details className="ps-sec ps-rules" open={!compact}>
           <summary className="ps-head">📏 Constraints &amp; rules</summary>
-          <p className="prob-para"><InlineCode text={constraints} /></p>
+          <ConstraintList text={constraints} />
         </details>
       )}
       {examples && (
         <details className="ps-sec ps-ex" open={!compact}>
           <summary className="ps-head">🧪 Examples</summary>
-          <p className="prob-para"><InlineCode text={examples} /></p>
+          <ExampleList text={examples} />
         </details>
       )}
     </div>
