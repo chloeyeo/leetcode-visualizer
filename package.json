@@ -1,6 +1,6 @@
 {
   "name": "leetcode-visualizer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,6 +12,8 @@
     "gen-solutions": "node scripts/gen-solutions.mjs",
     "list-models": "node scripts/list-models.mjs",
     "validate-viz": "node scripts/validate-viz.mjs",
+    "validate-guide": "node scripts/validate-guide.mjs",
+    "test-guide-checks": "node scripts/test-guide-checks.mjs",
     "viz-coverage": "node scripts/viz-coverage.mjs"
   },
   "dependencies": {

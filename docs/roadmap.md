@@ -158,6 +158,62 @@ can't afford $150 human mocks), then upmarket where Elite margins live.
 
 ---
 
+## Phase R — Guided Thought-Process Coach ("solve-it-with-me" overlay) — RESEARCH FIRST
+
+> **Status: BUILT + verified (2026-07-06).** Spec: `docs/guided-coach-plan.md`. Live on the
+> problem pages for **two-sum, valid-palindrome, reverse-linked-list**: the `GuideCoach`
+> docked strip inside the editor region (`components/GuideCoach.jsx`); checks run as
+> programs in the existing Pyodide worker (`lib/guideChecks.js`, routed by message id in
+> `TraceMode`). Verified: `npm run validate-guide` (3 guides), `npm run test-guide-checks`
+> (22/22 JS↔Python generator parity), `py scripts/test-guide-pilot.py` (11/11), a full
+> in-browser guided solve (fail→hint→fix arc, duplicate trap, trace coexistence, reload
+> persistence, dismiss/resume), and a clean `npm run build` (3,995 pages).
+> **Not built yet (later):** per-pattern generic fallback guides, `gen-solutions` guide
+> emission (v2), BYOK adaptive coach (v3).
+
+**The idea:** on the problem page's **"Code it right here"** block (`TraceMode` on
+`app/problem/[slug]/page.jsx`), a step-by-step guide layover — like a new-website onboarding
+tour, but teaching the **thought process** of solving, one step at a time. Each step gives a
+single reasoning prompt (e.g. *"What does 'same tree' mean at one node? Write just that
+base-case check."*); the user writes code and clicks **OK**; the guide looks at what they
+wrote and advances (or nudges) to the next thinking step. Hints steer reasoning — never the
+full answer.
+
+**Why it can win:** turns the passive summary into active recall; differentiates from
+LeetCode's paywalled editorials; natural on-ramp into the interview coach and the
+gold-standard diff.
+
+### Research questions (this IS the phase-1 task list)
+
+1. **Step content source.** Hand-authored per-problem scripts (extend `solutions.json` with a
+   `guide` array, same pattern as `viz`) vs. per-pattern generic scripts vs. LLM-generated /
+   adaptive via the existing swappable brain (`lib/interviewBrain.js`: free stub → BYOK).
+   Likely layered, like the coach.
+2. **What "OK" actually validates.** Options: run the user's code against a step-level
+   assertion in the existing Pyodide worker (`useTraceWorker`); Python `ast` structure checks
+   (Pyodide can parse); cheap heuristics; or an LLM judge. Trade off cost/latency/robustness —
+   and define what happens when the user's code is *wrong but interesting*.
+3. **UX shape.** Layover anchored to the editor vs. inline card above it; must respect the
+   **one-region rule** (no third pane); skip/dismiss/resume; never cover the code while the
+   user types; works at 375px.
+4. **Step schema.** `id`, prompt, success criteria (assertion / AST predicate / rubric), hint
+   escalation (nudge → bigger hint → reveal), progress persistence (localStorage).
+5. **Prior-art scan.** Onboarding-tour libs (driver.js, Shepherd), Khan Academy / Brilliant
+   step mechanics, LeetCode editorial "approach" sections — steal shamelessly, note what fails.
+6. **Pilot scope.** Hand-author guides for 2–3 Top-20 problems (e.g. two-sum,
+   valid-palindrome) before ANY automation.
+
+### DoD (for the research phase — the build gets its own plan after)
+
+A `docs/guided-coach-plan.md` spec answering questions 1–5, a finalized step schema, and one
+hand-authored pilot script proving the schema fits a real problem end to end.
+
+### Cut (v1 of the eventual build)
+
+Full LLM adaptivity, multi-language guides, voice narration of steps.
+
+---
+
 ## UX-debt / polish track (run alongside)
 
 - Keep killing duplicate code regions; trace is always an in-place state of the editor.

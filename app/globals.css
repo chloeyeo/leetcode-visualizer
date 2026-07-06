@@ -857,6 +857,39 @@ input:focus-visible,
 .pg-error { background: rgba(255, 55, 95, 0.12); border: 1px solid rgba(255, 55, 95, 0.4); color: var(--hard); padding: 12px 14px; border-radius: var(--r-md); font-size: 14px; }
 .pg-hint, .pg-muted { color: var(--text-dim); font-size: 14px; }
 .pg-muted { font-style: italic; }
+
+/* Guided thought-process coach — a docked strip inside the editor region.
+   One-region rule: part of .pg-editor, never an overlay on the code. */
+.guide-strip {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 10px 14px; background: var(--bg-elev-2);
+  border-bottom: var(--border-width) solid var(--border);
+}
+.guide-strip-min { flex-direction: row; padding: 6px 14px; }
+.guide-head { display: flex; align-items: baseline; gap: 10px; }
+.guide-progress { font-family: var(--font-display); font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+.guide-title { flex: 1; font-size: 14px; color: var(--text); }
+.guide-head-btns { display: flex; gap: 2px; }
+.guide-head-btns button { background: none; border: none; padding: 0 5px; font-size: 14px; color: var(--text-faint); cursor: pointer; }
+.guide-head-btns button:hover { color: var(--text); }
+.guide-prompt { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text); }
+.guide-hint { margin: 0; font-size: 13px; color: var(--accent-2); }
+.guide-fail { margin: 0; font-size: 13px; color: var(--hard); }
+.guide-flash { margin: 0; font-size: 13px; color: var(--easy); }
+.guide-reveal {
+  margin: 0; padding: 8px 10px; background: var(--bg);
+  border: var(--border-width) solid var(--border); border-radius: var(--r-md);
+  font-family: var(--mono); font-size: 12.5px; white-space: pre; overflow-x: auto;
+}
+.guide-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.guide-btn { padding: 5px 12px; font-size: 13px; }
+.guide-skip { color: var(--text-faint); }
+.guide-checking-note { margin: 0; font-size: 12px; font-style: italic; color: var(--text-faint); }
+.guide-chip {
+  background: none; border: var(--border-width) solid var(--border); border-radius: var(--r-pill);
+  padding: 3px 10px; font-size: 12.5px; color: var(--text-dim); cursor: pointer;
+}
+.guide-chip:hover { color: var(--text); border-color: var(--accent); }
 .pg-modes { margin-bottom: 18px; }
 .pg-foot { margin-top: var(--s5); }
 
