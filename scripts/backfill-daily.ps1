@@ -1,10 +1,19 @@
-# Daily solutions backfill — registered as the Windows scheduled task
+# Daily solutions backfill - registered as the Windows scheduled task
 # "lc-visualizer-backfill" (see README "Content coverage").
 #
 # Pulls latest, runs the resume-safe generator until the day's free-tier
 # quota is exhausted (the generator self-stops after 4 consecutive failed
-# batches), then commits and pushes public/solutions.json — the Vercel
+# batches), then commits and pushes public/solutions.json - the Vercel
 # GitHub integration deploys it automatically.
+#
+# The generator saves solutions.json after EVERY batch, but this process
+# tree can be killed mid-run (2026-07-06: the task's StopIfGoingOnBatteries
+# setting killed it when the laptop was unplugged, stranding 320 entries
+# uncommitted). A killed process cannot commit its own output, so each run
+# salvage-commits whatever an earlier interrupted run left uncommitted
+# BEFORE pulling (a dirty tracked file would also make pull --rebase refuse
+# and abort the run), and the push step pushes ALL unpushed local commits,
+# not just this run's.
 #
 # Requires: GEMINI_API_KEY stored as a user environment variable.
 
@@ -20,12 +29,38 @@ if (-not $env:GEMINI_API_KEY) {
   exit 1
 }
 
-# Never fight a dirty tree or a diverged branch unattended.
-$dirty = git status --porcelain -- public/solutions.json
+# Never auto-commit onto whatever branch happens to be checked out.
+$branch = git rev-parse --abbrev-ref HEAD
+if ($branch -ne 'main') {
+  "checkout is on '$branch', not main - aborting" | Out-File -FilePath $log -Append -Encoding utf8
+  exit 1
+}
+
+function Get-SolutionCount {
+  $n = node -e "const s=JSON.parse(require('fs').readFileSync('public/solutions.json','utf8')); console.log(Object.keys(s).length)"
+  if ($n) { $n } else { '?' }
+}
+
+# Commits public/solutions.json if it has uncommitted changes; returns $true
+# when a commit was made.
+function Commit-Solutions([string]$label) {
+  $changed = git status --porcelain -- public/solutions.json
+  if (-not $changed) { return $false }
+  $count = Get-SolutionCount
+  git add public/solutions.json *>> $log
+  git commit -m "feat: daily solutions backfill ($label) - $count/3973 covered" *>> $log
+  return ($LASTEXITCODE -eq 0)
+}
+
+# Salvage output stranded by a previous interrupted run.
+if (Commit-Solutions 'auto, salvaged from interrupted run') {
+  "salvaged uncommitted solutions.json left by an interrupted run" | Out-File -FilePath $log -Append -Encoding utf8
+}
+
 git pull --rebase origin main *>> $log
 if ($LASTEXITCODE -ne 0) {
   git rebase --abort 2>$null
-  "pull --rebase failed - aborting run" | Out-File -FilePath $log -Append -Encoding utf8
+  "pull --rebase failed - aborting run (local commits kept; next run pushes them)" | Out-File -FilePath $log -Append -Encoding utf8
   exit 1
 }
 
@@ -35,13 +70,18 @@ $env:BATCH = '20'
 $env:DELAY_MS = '5000'
 node scripts/gen-solutions.mjs *>> $log
 
-$changed = git status --porcelain -- public/solutions.json
-if ($changed) {
-  $count = node -e "const s=JSON.parse(require('fs').readFileSync('public/solutions.json','utf8')); console.log(Object.keys(s).length)"
-  git add public/solutions.json
-  git commit -m "feat: daily solutions backfill (auto) - $count/3973 covered" *>> $log
+[void](Commit-Solutions 'auto')
+
+# Push everything origin doesn't have yet - this run's commit, a salvage
+# commit, and any commit stranded by an earlier failed push.
+$unpushed = [int](git rev-list --count origin/main..HEAD)
+if ($unpushed -gt 0) {
   git push origin main *>> $log
-  "pushed - coverage $count/3973" | Out-File -FilePath $log -Append -Encoding utf8
+  if ($LASTEXITCODE -eq 0) {
+    "pushed $unpushed commit(s) - coverage $(Get-SolutionCount)/3973" | Out-File -FilePath $log -Append -Encoding utf8
+  } else {
+    "push failed - commits stay local; next run retries" | Out-File -FilePath $log -Append -Encoding utf8
+  }
 } else {
-  "no new entries this run" | Out-File -FilePath $log -Append -Encoding utf8
+  "no changes to push this run" | Out-File -FilePath $log -Append -Encoding utf8
 }
