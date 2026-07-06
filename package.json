@@ -13,6 +13,7 @@
     "list-models": "node scripts/list-models.mjs",
     "validate-viz": "node scripts/validate-viz.mjs",
     "validate-guide": "node scripts/validate-guide.mjs",
+    "test-guide-checks": "node scripts/test-guide-checks.mjs",
     "viz-coverage": "node scripts/viz-coverage.mjs"
   },
   "dependencies": {
