@@ -160,13 +160,16 @@ can't afford $150 human mocks), then upmarket where Elite margins live.
 
 ## Phase R — Guided Thought-Process Coach ("solve-it-with-me" overlay) — RESEARCH FIRST
 
-> **Status: research DONE (2026-07-06) — build not started.** The spec lives in
-> `docs/guided-coach-plan.md`; the finalized step schema is enforced by
-> `npm run validate-guide` (`lib/guideSchema.js`); the hand-authored pilot (`guide` on
-> **two-sum** in `solutions.json`) is proven end to end by `scripts/test-guide-pilot.py`
-> (11/11 verdicts, incl. the duplicate-trap catch and pass-with-note). The build still does
-> **not** block Sprints 1–3; its sprint plan should start from the sketch at the end of the
-> spec.
+> **Status: BUILT + verified (2026-07-06).** Spec: `docs/guided-coach-plan.md`. Live on the
+> problem pages for **two-sum, valid-palindrome, reverse-linked-list**: the `GuideCoach`
+> docked strip inside the editor region (`components/GuideCoach.jsx`); checks run as
+> programs in the existing Pyodide worker (`lib/guideChecks.js`, routed by message id in
+> `TraceMode`). Verified: `npm run validate-guide` (3 guides), `npm run test-guide-checks`
+> (22/22 JS↔Python generator parity), `py scripts/test-guide-pilot.py` (11/11), a full
+> in-browser guided solve (fail→hint→fix arc, duplicate trap, trace coexistence, reload
+> persistence, dismiss/resume), and a clean `npm run build` (3,995 pages).
+> **Not built yet (later):** per-pattern generic fallback guides, `gen-solutions` guide
+> emission (v2), BYOK adaptive coach (v3).
 
 **The idea:** on the problem page's **"Code it right here"** block (`TraceMode` on
 `app/problem/[slug]/page.jsx`), a step-by-step guide layover — like a new-website onboarding
