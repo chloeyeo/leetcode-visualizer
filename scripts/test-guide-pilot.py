@@ -45,17 +45,29 @@ def __calls(tree, name):
                 return True
     return False
 
+def __scope(tree, within):
+    import ast
+    if not within:
+        return tree
+    for n in ast.walk(tree):
+        if type(n).__name__ in ("FunctionDef", "AsyncFunctionDef") and n.name == within:
+            return n
+    return None
+
 def __rules(tree, rules, res):
     for i, r in enumerate(rules):
         kind, level = r["kind"], r.get("level", "require")
-        if kind == "defines":
+        t = __scope(tree, r.get("within"))
+        if t is None:
+            hit = kind == "lacks"  # scope fn absent: nothing can be "had"/called
+        elif kind == "defines":
             hit = __defines(tree, r["name"])
         elif kind == "calls":
-            hit = __calls(tree, r["name"])
+            hit = __calls(t, r["name"])
         elif kind == "has":
-            hit = __count(tree, r["node"]) >= r.get("count", 1)
+            hit = __count(t, r["node"]) >= r.get("count", 1)
         else:  # lacks: fewer than count occurrences
-            hit = __count(tree, r["node"]) < r.get("count", 1)
+            hit = __count(t, r["node"]) < r.get("count", 1)
         if not hit:
             if level == "require":
                 res["ok"] = False

@@ -184,6 +184,112 @@
         "mode": "palindrome",
         "string": "A man, a plan, a canal: Panama"
       }
+    },
+    "guide": {
+      "version": 1,
+      "steps": [
+        {
+          "id": "restate",
+          "title": "Say the rule you are checking",
+          "prompt": "In a # comment: what makes s a palindrome HERE? Name the two things you must ignore before comparing anything (look closely at the sample input).",
+          "hints": [
+            "The sample has spaces, punctuation, and mixed case — which of those survive into the comparison?",
+            "Ignore non-alphanumeric characters entirely; compare case-insensitively."
+          ],
+          "check": {
+            "type": "ok"
+          }
+        },
+        {
+          "id": "normalize",
+          "title": "Clean the string first",
+          "prompt": "Build a cleaned version of s: keep only alphanumeric characters, all lowercased. Store it (e.g. t) — do not compare anything yet.",
+          "hints": [
+            "c.isalnum() tests one character; c.lower() lowercases it.",
+            "One line does it: t = [c.lower() for c in s if c.isalnum()]"
+          ],
+          "check": {
+            "type": "ast",
+            "rules": [
+              {
+                "kind": "defines",
+                "name": "is_palindrome"
+              },
+              {
+                "kind": "calls",
+                "name": "isalnum",
+                "level": "prefer"
+              },
+              {
+                "kind": "calls",
+                "name": "lower",
+                "level": "prefer"
+              }
+            ]
+          }
+        },
+        {
+          "id": "strategy",
+          "title": "Pick your comparison",
+          "prompt": "Two clean ways to finish: compare t to its reverse, or walk two pointers inward from both ends. Decide which you will write — the reverse-compare is one line; two pointers is the interview-classic O(1)-extra-space version.",
+          "hints": [
+            "t[::-1] reverses a list or string.",
+            "Two pointers: i at 0, j at the end, walk while i < j."
+          ],
+          "check": {
+            "type": "ok"
+          }
+        },
+        {
+          "id": "implement",
+          "title": "Make it answer",
+          "prompt": "Finish is_palindrome with your chosen strategy and make the sample print True.",
+          "hints": [
+            "Reverse-compare: return t == t[::-1]",
+            "Two pointers: while i < j: if t[i] != t[j]: return False; move both inward; return True after the loop."
+          ],
+          "reveal": "def is_palindrome(s):\n    t = [c.lower() for c in s if c.isalnum()]\n    return t == t[::-1]\n",
+          "check": {
+            "type": "run",
+            "tests": [
+              {
+                "call": "is_palindrome(\"A man, a plan, a canal: Panama\")",
+                "expect": true
+              },
+              {
+                "call": "is_palindrome(\"race a car\")",
+                "expect": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "edges",
+          "title": "The empty-after-cleaning trap",
+          "prompt": "Two classics: a string that is ALL punctuation (cleans to empty — a palindrome by definition) and \"0P\" (digit + letter: cleaned \"0p\" is NOT a palindrome). Predict both answers, then press OK to test.",
+          "hints": [
+            "An empty sequence equals its own reverse — it should return True.",
+            "Digits must survive your filter: isalnum() keeps them, isalpha() silently drops them and breaks \"0P\"."
+          ],
+          "check": {
+            "type": "run",
+            "tests": [
+              {
+                "call": "is_palindrome(\".,\")",
+                "expect": true
+              },
+              {
+                "call": "is_palindrome(\"0P\")",
+                "expect": false
+              },
+              {
+                "call": "is_palindrome(\"A man, a plan, a canal: Panama\")",
+                "expect": true
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "two-sum-ii-input-array-is-sorted": {
@@ -257,6 +363,103 @@
           5
         ]
       }
+    },
+    "guide": {
+      "version": 1,
+      "steps": [
+        {
+          "id": "restate",
+          "title": "Reverse the arrows, not the values",
+          "prompt": "In a # comment: what actually changes when a linked list reverses? (Node values never move.) Say what each node’s .next must point at afterwards.",
+          "hints": [
+            "Every node’s .next must point at the node that USED to be before it.",
+            "The old head becomes the tail (its .next becomes None); the old tail becomes the new head."
+          ],
+          "check": {
+            "type": "ok"
+          }
+        },
+        {
+          "id": "setup",
+          "title": "Two travellers",
+          "prompt": "You will walk the list once, flipping arrows as you go. Before the loop set prev = None and cur = head, then write the loop that walks while cur is not None — do not flip anything yet.",
+          "hints": [
+            "prev trails exactly one node behind cur the whole walk.",
+            "while cur: is the standard walk."
+          ],
+          "check": {
+            "type": "ast",
+            "rules": [
+              {
+                "kind": "defines",
+                "name": "reverse_list"
+              },
+              {
+                "kind": "has",
+                "node": "While",
+                "level": "prefer",
+                "within": "reverse_list"
+              }
+            ]
+          }
+        },
+        {
+          "id": "rewire",
+          "title": "Flip one arrow per step",
+          "prompt": "Inside the loop: save cur.next FIRST (or you lose the rest of the list), point cur.next at prev, then advance both travellers. After the loop, return the new head. Make the sample print [5, 4, 3, 2, 1].",
+          "hints": [
+            "nxt = cur.next, then cur.next = prev, then prev = cur, then cur = nxt — the order matters.",
+            "When the loop ends, cur is None and prev stands on the old tail: return prev."
+          ],
+          "reveal": "def reverse_list(head):\n    prev = None\n    cur = head\n    while cur:\n        nxt = cur.next\n        cur.next = prev\n        prev = cur\n        cur = nxt\n    return prev\n",
+          "check": {
+            "type": "run",
+            "tests": [
+              {
+                "call": "to_list(reverse_list(build([1, 2, 3, 4, 5])))",
+                "expect": [
+                  5,
+                  4,
+                  3,
+                  2,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "edges",
+          "title": "Empty and single",
+          "prompt": "Two inputs interviewers always probe: an empty list (head is None) and a single node. Convince yourself your loop handles both WITHOUT special cases, then press OK.",
+          "hints": [
+            "With head None the loop never runs and you return prev, which is None — exactly right."
+          ],
+          "check": {
+            "type": "run",
+            "tests": [
+              {
+                "call": "to_list(reverse_list(build([])))",
+                "expect": []
+              },
+              {
+                "call": "to_list(reverse_list(build([7])))",
+                "expect": [
+                  7
+                ]
+              },
+              {
+                "call": "to_list(reverse_list(build([1, 2, 3])))",
+                "expect": [
+                  3,
+                  2,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "valid-parentheses": {

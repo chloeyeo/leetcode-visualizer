@@ -128,6 +128,11 @@ Lives on a solutions.json entry as `guide`, sibling of `viz`. Validated by
 Semantics: `rules` are AND-ed; `level` defaults to `"require"`; `lacks`/`defines` are always
 require. `has`/`lacks` take an optional `count` (default 1): `has` means *at least* `count`
 occurrences, `lacks` means *fewer than* `count` (so `lacks For count 2` = "no second loop").
+`has`/`lacks`/`calls` take an optional `within: "<function>"` that scopes the rule to one
+function's subtree — required whenever the starter ships helpers that would pre-satisfy a
+whole-file rule (found in the build pilot: reverse-linked-list's `to_list` helper contains a
+`while`, so `has While` must be `within: "reverse_list"`). If the scoped function doesn't
+exist yet, `has`/`calls` miss and `lacks` holds.
 `run` tests are AND-ed, executed in one worker round-trip. The verdict line is printed to
 stdout with a `__GUIDE__` prefix so the UI can find it even when the user's code prints. Progress persists in
 `localStorage` under `guide:<slug>` as `{ step, tries, done, dismissed }`.
