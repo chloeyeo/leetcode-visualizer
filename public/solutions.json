@@ -7,7 +7,168 @@
     "examples": "nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.",
     "aiSummary": "Given a list of integers `nums` and a target integer `target`, find the two distinct positions whose values add up to `target`, and return them as a pair of indices. Exactly one valid pair is guaranteed to exist, and you may use each element at most once. The order of the two indices in your answer doesn't matter.\n\nExample: nums = [2, 7, 11, 15], target = 9 → [0, 1], because nums[0] + nums[1] = 2 + 7 = 9.\n\nConstraints: 2 ≤ len(nums) ≤ 10,000 · -10^9 ≤ nums[i] ≤ 10^9 · -10^9 ≤ target ≤ 10^9 · exactly one solution exists.",
     "starterCode": "def two_sum(nums, target):\n    # Return the indices of the two values that add up to target.\n    # Your code here\n    pass\n\n\n# Sample run (edit the input to experiment)\nprint(two_sum([2, 7, 11, 15], 9))  # expected: [0, 1]\n",
-    "optimal": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n"
+    "optimal": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n",
+    "guide": {
+      "version": 1,
+      "steps": [
+        {
+          "id": "restate",
+          "title": "Say the goal in your own words",
+          "prompt": "Before any code: what exactly must two_sum return? Write it as a # comment above the function — say what the two numbers must do, and what you return instead of the numbers themselves.",
+          "hints": [
+            "Not the values — the answer is WHERE they live in the list.",
+            "Two indices i and j (any order) such that nums[i] + nums[j] == target."
+          ],
+          "check": {
+            "type": "ok"
+          }
+        },
+        {
+          "id": "brute-force",
+          "title": "Write the obvious version first",
+          "prompt": "Try every pair: an outer loop over each index, an inner loop over the LATER indices, return the pair that adds up to target. Make the sample print [0, 1], then press OK.",
+          "hints": [
+            "Two nested loops: for i in range(len(nums)), and inside it for j in range(i + 1, len(nums)).",
+            "Inside the inner loop: if nums[i] + nums[j] == target: return [i, j]"
+          ],
+          "reveal": "def two_sum(nums, target):\n    for i in range(len(nums)):\n        for j in range(i + 1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return [i, j]\n",
+          "check": {
+            "type": "run",
+            "rules": [
+              {
+                "kind": "has",
+                "node": "For",
+                "count": 2
+              }
+            ],
+            "tests": [
+              {
+                "call": "two_sum([2, 7, 11, 15], 9)",
+                "expect": [
+                  0,
+                  1
+                ],
+                "compare": "sorted"
+              }
+            ]
+          }
+        },
+        {
+          "id": "feel-the-cost",
+          "title": "Now look at what it costs",
+          "prompt": "It works — but look at the complexity check under the editor: nested loops mean ~N² pair-checks. With 10,000 numbers that is ~50 million. Say (to yourself) WHICH loop you would delete if you could, then press OK.",
+          "hints": [
+            "The inner loop only exists to answer one question: \"have I seen the number that completes this one?\""
+          ],
+          "check": {
+            "type": "ok"
+          }
+        },
+        {
+          "id": "hash-idea",
+          "title": "Trade space for time",
+          "prompt": "The question \"have I seen target - x?\" can be O(1) if you REMEMBER numbers as you pass them. Delete the inner loop and create an empty dict named seen before the (single) remaining loop — it will map each value to its index.",
+          "hints": [
+            "seen = {} on the line before the loop.",
+            "Keep one loop over indices and values: for i, x in enumerate(nums):"
+          ],
+          "check": {
+            "type": "ast",
+            "rules": [
+              {
+                "kind": "defines",
+                "name": "two_sum"
+              },
+              {
+                "kind": "has",
+                "node": "For",
+                "count": 1
+              },
+              {
+                "kind": "lacks",
+                "node": "For",
+                "count": 2
+              },
+              {
+                "kind": "has",
+                "node": "Dict",
+                "level": "prefer"
+              }
+            ]
+          }
+        },
+        {
+          "id": "check-then-insert",
+          "title": "Ask first, remember after",
+          "prompt": "Inside the loop, for each value x: FIRST ask whether target - x is already in seen (if it is, you have both indices — return them), and only THEN store x in seen. Make the sample print [0, 1] again.",
+          "hints": [
+            "Membership test: if target - x in seen: return [seen[target - x], i]",
+            "After the if (not before it): seen[x] = i"
+          ],
+          "reveal": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n",
+          "check": {
+            "type": "run",
+            "rules": [
+              {
+                "kind": "has",
+                "node": "In"
+              },
+              {
+                "kind": "has",
+                "node": "Return"
+              }
+            ],
+            "tests": [
+              {
+                "call": "two_sum([2, 7, 11, 15], 9)",
+                "expect": [
+                  0,
+                  1
+                ],
+                "compare": "sorted"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edge-duplicates",
+          "title": "The duplicate trap",
+          "prompt": "Why \"ask first, remember after\"? Consider nums = [3, 3], target = 6 — the answer needs BOTH threes. If you stored x before asking, the dict would answer with the number itself. Run your solution against this case in the sample line, then press OK.",
+          "hints": [
+            "If this fails with [0, 0], you are inserting into seen before the membership test — swap the order."
+          ],
+          "check": {
+            "type": "run",
+            "tests": [
+              {
+                "call": "two_sum([3, 3], 6)",
+                "expect": [
+                  0,
+                  1
+                ],
+                "compare": "sorted"
+              },
+              {
+                "call": "two_sum([3, 2, 4], 6)",
+                "expect": [
+                  1,
+                  2
+                ],
+                "compare": "sorted"
+              },
+              {
+                "call": "two_sum([2, 7, 11, 15], 9)",
+                "expect": [
+                  0,
+                  1
+                ],
+                "compare": "sorted"
+              }
+            ]
+          }
+        }
+      ]
+    }
   },
   "valid-palindrome": {
     "draft": true,

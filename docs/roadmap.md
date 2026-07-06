@@ -160,9 +160,13 @@ can't afford $150 human mocks), then upmarket where Elite margins live.
 
 ## Phase R — Guided Thought-Process Coach ("solve-it-with-me" overlay) — RESEARCH FIRST
 
-> **Status: parked until researched.** Captured 2026-07-05. Does **not** block Sprints 1–3
-> (the revenue path). Earliest sensible slot: alongside/after Sprint 2, since it shares the
-> brain-interface work. The phase's first deliverable is a spec, not code.
+> **Status: research DONE (2026-07-06) — build not started.** The spec lives in
+> `docs/guided-coach-plan.md`; the finalized step schema is enforced by
+> `npm run validate-guide` (`lib/guideSchema.js`); the hand-authored pilot (`guide` on
+> **two-sum** in `solutions.json`) is proven end to end by `scripts/test-guide-pilot.py`
+> (11/11 verdicts, incl. the duplicate-trap catch and pass-with-note). The build still does
+> **not** block Sprints 1–3; its sprint plan should start from the sketch at the end of the
+> spec.
 
 **The idea:** on the problem page's **"Code it right here"** block (`TraceMode` on
 `app/problem/[slug]/page.jsx`), a step-by-step guide layover — like a new-website onboarding
