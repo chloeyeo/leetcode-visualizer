@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useStepPlayer } from './useStepPlayer';
 import { useTraceWorker } from './useTraceWorker';
@@ -8,6 +8,7 @@ import VizControls from './VizControls';
 import { CodeView, DataStructures, VarTable, CallStack } from './TraceViews';
 import ProblemStatement, { InlineCode } from './ProblemStatement';
 import CodeDiff from './CodeDiff';
+import GuideCoach from './GuideCoach';
 import { starterFor, summaryTextFor } from '../lib/starter';
 import { analyzeComplexity } from '../lib/analyzeComplexity';
 
@@ -92,6 +93,10 @@ export default function TraceMode({
   const [summary, setSummary] = useState(null);
   const [optimal, setOptimal] = useState(null);
   const [showGold, setShowGold] = useState(false);
+  const [guide, setGuide] = useState(null);
+  const [guideSlug, setGuideSlug] = useState(null);
+  // GuideCoach registers its worker-message listener here (see routing below).
+  const guideHandler = useRef(null);
 
   useEffect(() => {
     let slug = problemSlug;
@@ -124,12 +129,21 @@ export default function TraceMode({
           if (text) setSummary({ title: title || slug, slug, text });
         }
         if (entry.optimal) setOptimal(entry.optimal);
+        if (entry.guide) { setGuide(entry.guide); setGuideSlug(slug); }
       })
       .catch(() => {});
     // eslint-disable-next-line
   }, []);
 
   const worker = useTraceWorker((d) => {
+    // Guide checks share this worker; route on id so their results never
+    // clobber the trace UI state (docs/guided-coach-plan.md, Q2).
+    if (typeof d.id === 'string' && d.id.indexOf('guide:') === 0) {
+      if (guideHandler.current) guideHandler.current(d);
+      return;
+    }
+    // A fatal worker error carries no id — unblock a pending guide check too.
+    if (d.type === 'error' && !d.id && guideHandler.current) guideHandler.current(d);
     if (d.type === 'status') setStatusMsg(d.msg);
     else if (d.type === 'result') {
       setTrace(d.trace || []); setError(d.error || null); setStdout(d.stdout || '');
@@ -161,6 +175,15 @@ export default function TraceMode({
         <div className="pg-editor-head">
           <span>solution.py{traced ? ` · line ${frame.line}` : ''}</span>
         </div>
+        {guide && guideSlug && (
+          <GuideCoach
+            slug={guideSlug}
+            guide={guide}
+            code={code}
+            workerRef={worker}
+            register={(fn) => { guideHandler.current = fn; }}
+          />
+        )}
         {traced ? (
           <div className="pg-editor-trace">
             <CodeView lines={codeLines} active={frame.line} />
