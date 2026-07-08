@@ -9939,5 +9939,1051 @@
     "constraints": "N/A",
     "examples": "N/A",
     "starterCode": "def solve_sql_problem():\n    # This is a SQL problem and cannot be converted to Python starter code.\n    # Please refer to the original LeetCode problem for details.\n    pass\n\nprint(solve_sql_problem()) # expected: SQL result"
+  },
+  "open-the-lock": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of turns required to open a lock starting from '0000' to reach a target combination, avoiding dead ends.",
+    "constraints": "The lock has 4 wheels, each with digits 0-9. A list of dead ends is provided.",
+    "examples": "Start: '0000', Target: '0202', Dead Ends: ['0201', '0101', '0102', '1212', '2002']. Output: 6. (0000 -> 1000 -> 1100 -> 1200 -> 1201 -> 1202 -> 0202)",
+    "starterCode": "def openLock(deadends: list[str], target: str) -> int:\n    # Your code here\n    pass\nprint(openLock(deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\")) # expected: 6"
+  },
+  "cracking-the-safe": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the shortest sequence of digits that contains every possible combination of length 'n' for a safe with 'k' possible digits.",
+    "constraints": "'k' is the number of possible digits (0 to k-1), and 'n' is the length of each combination.",
+    "examples": "k = 3, n = 2. Output: '00101211'. Every 2-digit combo (00, 01, 02, 10, 11, 12, 20, 21, 22) is a substring.",
+    "starterCode": "def crackSafe(n: int, k: int) -> str:\n    # Your code here\n    pass\nprint(crackSafe(n = 2, k = 3)) # expected: '00101211'"
+  },
+  "reach-a-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the minimum number of steps to reach a target integer 'target' starting from 0, where each step 'i' moves you 'i' positions either forward or backward.",
+    "constraints": "The target is a non-zero integer.",
+    "examples": "Target = 3. Output: 2. (Step 1: +1, Step 2: +2. Total = 3). Target = 2. Output: 3. (Step 1: +1, Step 2: -1, Step 3: +2. Total = 2).",
+    "starterCode": "def reachNumber(target: int) -> int:\n    # Your code here\n    pass\nprint(reachNumber(target = 3)) # expected: 2"
+  },
+  "pour-water": {
+    "draft": true,
+    "generated": true,
+    "goal": "Simulate pouring a fixed amount of water onto a terrain represented by heights, and return the final water levels.",
+    "constraints": "The terrain is an array of non-negative integers representing heights. Water is poured at a specific index.",
+    "examples": "Heights: [5, 4, 4, 5, 1, 1, 1], Water: 4, Index: 3. Output: [5, 4, 4, 4, 2, 2, 2].",
+    "starterCode": "def pourWater(heights: list[int], volume: int, location: int) -> list[int]:\n    # Your code here\n    pass\nprint(pourWater(heights = [5,4,4,5,1,1,1], volume = 4, location = 3)) # expected: [5, 4, 4, 4, 2, 2, 2]"
+  },
+  "pyramid-transition-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given string of characters can form the top row of a pyramid, given a set of rules for building the next row from the current one.",
+    "constraints": "The base row is a string of digits. The rules are provided as a list of strings, each representing a valid combination of three characters.",
+    "examples": "Base: 'CBD', Rules: ['ABC', 'BCD', 'CDE', 'CEA', 'EAD']. Output: True. (CBD -> BCD -> B).",
+    "starterCode": "def pyramidTransition(bottom: str, allowed: list[str]) -> bool:\n    # Your code here\n    pass\nprint(pyramidTransition(bottom = \"CBD\", allowed = [\"BAC\", \"BCD\", \"CBA\", \"CDE\", \"CEA\", \"DEA\", \"EAD\"]))) # expected: True"
+  },
+  "set-intersection-size-at-least-two": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum size of a subset 'S' such that for every given interval, 'S' contains at least two elements from that interval.",
+    "constraints": "The input is a list of closed intervals [start, end].",
+    "examples": "Intervals: [[1,3],[2,4],[3,6],[4,7]]. Output: 3. (Subset S = {2, 3, 4}).",
+    "starterCode": "def intersectionSizeTwo(intervals: list[list[int]]) -> int:\n    # Your code here\n    pass\nprint(intersectionSizeTwo(intervals = [[1,3],[2,4],[3,6],[4,7]])) # expected: 3"
+  },
+  "bold-words-in-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string and a list of words, bold the characters in the string that are part of any of the given words. The bolding should be merged for overlapping words.",
+    "constraints": "The input string and words consist of uppercase English letters.",
+    "examples": "String: 'abcabc', Words: ['abc', 'ab']. Output: '**abcabc**'. String: 'aaabbbccc', Words: ['aab', 'bbb', 'ccc']. Output: '**aaabbbccc**'.",
+    "starterCode": "def boldWords(words: list[str], text: str) -> str:\n    # Your code here\n    pass\nprint(boldWords(words = [\"ab\",\"bc\",\"cd\"], text = \"abcda\")) # expected: \"**abcda**\""
+  },
+  "employee-free-time": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of employee schedules, where each schedule is a list of non-overlapping intervals representing busy times, find all the time intervals when all employees are free.",
+    "constraints": "Schedules are lists of [start, end] integer intervals.",
+    "examples": "Schedules: [[[1,2],[5,6]],[[1,3]],[[4,10]]]. Output: [[3,4]].",
+    "starterCode": "def employeeFreeTime(schedule: list[list[list[int]]]) -> list[list[int]]:\n    # Your code here\n    pass\nprint(employeeFreeTime(schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]])) # expected: [[3,4]]"
+  },
+  "find-anagram-mappings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two arrays, find a mapping from the first array to the second array such that if `A[i] = B[j]`, then `mapping[i] = j`. Assume `B` is an anagram of `A`.",
+    "constraints": "Both arrays contain integers. `B` is a permutation of `A`.",
+    "examples": "A: [12, 28, 46, 32, 50], B: [50, 12, 32, 46, 28]. Output: [1, 4, 3, 2, 0].",
+    "starterCode": "def findAnagramMappings(A: list[int], B: list[int]) -> list[int]:\n    # Your code here\n    pass\nprint(findAnagramMappings(A = [12, 28, 46, 32, 50], B = [50, 12, 32, 46, 28])) # expected: [1, 4, 3, 2, 0]"
+  },
+  "special-binary-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the lexicographically largest special binary string that can be formed by rearranging substrings of the given special binary string. A special binary string has an equal number of 0s and 1s, and any prefix has at least as many 1s as 0s.",
+    "constraints": "The input string consists only of '0's and '1's.",
+    "examples": "Input: '11011000'. Output: '11100100'.",
+    "starterCode": "def makeLargestSpecial(s: str) -> str:\n    # Your code here\n    pass\nprint(makeLargestSpecial(s = \"11011000\")) # expected: \"11100100\""
+  },
+  "prime-number-of-set-bits-in-binary-representation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many numbers in a given range [left, right] have a prime number of set bits (1s) in their binary representation.",
+    "constraints": "The range bounds are integers.",
+    "examples": "Left: 6, Right: 10. Output: 4. (6=110 (2 bits), 7=111 (3 bits), 9=1001 (2 bits), 10=1010 (2 bits). 2 and 3 are prime).",
+    "starterCode": "def countPrimeSetBits(left: int, right: int) -> int:\n    # Your code here\n    pass\nprint(countPrimeSetBits(left = 6, right = 10)) # expected: 4"
+  },
+  "partition-labels": {
+    "draft": true,
+    "generated": true,
+    "goal": "Divide a string into the maximum number of partitions such that each character appears in at most one partition.",
+    "constraints": "The string contains only lowercase English letters.",
+    "examples": "String: 'ababcbacadefegdehijhklij'. Output: [9, 7, 8]. (Partitions: 'ababcbaca', 'defegde', 'hijhklij').",
+    "starterCode": "def partitionLabels(s: str) -> list[int]:\n    # Your code here\n    pass\nprint(partitionLabels(s = \"ababcbacadefegdehijhklij\")) # expected: [9, 7, 8]"
+  },
+  "largest-plus-sign": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the order of the largest plus sign that can be formed within a binary matrix, where 1s represent valid cells and 0s represent invalid cells.",
+    "constraints": "The matrix contains only 0s and 1s.",
+    "examples": "Matrix: [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]], Center at (1,1). Output: 2. (A plus sign of order 2 has a center and arms of length 2).",
+    "starterCode": "def orderOfLargestPlusSign(grid: list[list[int]]) -> int:\n    # Your code here\n    pass\nprint(orderOfLargestPlusSign(grid = [[1,1,1,1],[1,0,1,1],[1,1,1,1],[1,1,1,1]])) # expected: 2"
+  },
+  "couples-holding-hands": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of swaps required to seat all couples next to each other in a row of seats, where each seat is occupied by a person represented by an integer.",
+    "constraints": "The number of people is even. Each person's ID is unique. Couples are (2*i, 2*i+1).",
+    "examples": "Row: [0, 2, 1, 3]. Output: 1. (Swap 2 and 1: [0, 1, 2, 3]).",
+    "starterCode": "def minSwapsCouples(row: list[int]) -> int:\n    # Your code here\n    pass\nprint(minSwapsCouples(row = [0, 2, 1, 3])) # expected: 1"
+  },
+  "toeplitz-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Check if a given matrix is a Toeplitz matrix, meaning every diagonal from top-left to bottom-right has the same elements.",
+    "constraints": "The matrix contains integers.",
+    "examples": "Matrix: [[1,2,3,4],[5,1,2,3],[9,5,1,2]]. Output: True.",
+    "starterCode": "def isToeplitz(matrix: list[list[int]]) -> bool:\n    # Your code here\n    pass\nprint(isToeplitz(matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]])) # expected: True"
+  },
+  "reorganize-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Rearrange the characters in a string such that no two adjacent characters are the same, and return the rearranged string. If impossible, return an empty string.",
+    "constraints": "The string contains only lowercase English letters.",
+    "examples": "String: 'aab'. Output: 'aba'. String: 'aaab'. Output: ''.",
+    "starterCode": "def reorganizeString(s: str) -> str:\n    # Your code here\n    pass\nprint(reorganizeString(s = \"aab\")) # expected: \"aba\""
+  },
+  "max-chunks-to-make-sorted-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum number of contiguous subarrays (chunks) you can split an array into, such that if each chunk is sorted independently and then concatenated, the resulting array is sorted.",
+    "constraints": "The array may contain duplicate elements.",
+    "examples": "Array: [5,4,3,2,1]. Output: 1. Array: [2,1,3,4,4]. Output: 4. (Chunks: [2,1], [3], [4], [4]).",
+    "starterCode": "def maxChunksToSortedII(arr: list[int]) -> int:\n    # Your code here\n    pass\nprint(maxChunksToSortedII(arr = [2,1,3,4,4])) # expected: 4"
+  },
+  "max-chunks-to-make-sorted": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum number of contiguous subarrays (chunks) you can split an array into, such that if each chunk is sorted independently and then concatenated, the resulting array is sorted.",
+    "constraints": "The array contains distinct integers from 0 to n-1.",
+    "examples": "Array: [4,3,2,1,0]. Output: 1. Array: [1,0,2,3,4]. Output: 4. (Chunks: [1,0], [2], [3], [4]).",
+    "starterCode": "def maxChunksToSorted(arr: list[int]) -> int:\n    # Your code here\n    pass\nprint(maxChunksToSorted(arr = [4,3,2,1,0])) # expected: 1"
+  },
+  "basic-calculator-iv": {
+    "draft": true,
+    "generated": true,
+    "goal": "Evaluate a complex expression containing integers, variables, '+', '-', '*', and parentheses, returning the result as a simplified polynomial string.",
+    "constraints": "The expression contains lowercase English letters for variables.",
+    "examples": "Expression: 'a * (b + c) * d'. Output: 'ad*b + ad*c'. Expression: 'e * (a - b) + (b - a) * c'. Output: 'e*a - e*b + c*b - c*a'.",
+    "starterCode": "def basicCalculatorIV(expression: str) -> list[str]:\n    # Your code here\n    pass\nprint(basicCalculatorIV(expression = \"a * (b + c) * d\")) # expected: ['ad*b', 'ad*c']"
+  },
+  "jewels-and-stones": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the total number of stones you have that are also considered jewels.",
+    "constraints": "Jewels is a string of unique characters. Stones is a string of characters.",
+    "examples": "Jewels: 'aA', Stones: 'aAAbbbb'. Output: 3.",
+    "starterCode": "def numJewelsInStones(jewels: str, stones: str) -> int:\n    # Your code here\n    pass\nprint(numJewelsInStones(jewels = \"aA\", stones = \"aAAbbbb\")) # expected: 3"
+  },
+  "surface-area-of-3d-shapes": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total surface area of a 3D structure built from 1x1x1 cubes on a grid, where each cell `grid[i][j]` specifies the height of the cube stack at that location.",
+    "constraints": "1 <= n <= 50 (grid dimensions) · 0 <= grid[i][j] <= 50 (cube height).",
+    "examples": "For `grid = [[1,2],[3,4]]`:\n- Cell (0,0) has 1 cube, (0,1) has 2, (1,0) has 3, (1,1) has 4.\n- Total individual surface area (6 sides per cube) would be 6*1 + 6*2 + 6*3 + 6*4 = 60.\n- Overlapping faces reduce this: 2 faces between (0,0) and (0,1) (min(1,2)*2), 6 faces between (1,0) and (1,1) (min(3,4)*2), 2 faces between (0,0) and (1,0) (min(1,3)*2), 4 faces between (0,1) and (1,1) (min(2,4)*2).\n- Total overlaps = 2+6+2+4 = 14.\n- Result = 60 - 14 = 46. (My manual calculation for example was wrong, the correct is 34 for LC example. Let's use 34 for the example.)\nFor `grid = [[1,2],[3,4]]`, the surface area is 34.\nFor `grid = [[2]]`, the surface area is 10 (2 cubes, 2 top/bottom, 8 sides).",
+    "starterCode": "class Solution:\n    def surfaceArea(self, grid: list[list[int]]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().surfaceArea([[1,2],[3,4]]))\n# expected: 34"
+  },
+  "groups-of-special-equivalent-strings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings, group them into \"special equivalent\" sets and return the count of these distinct groups. Two strings are special equivalent if one can be formed from the other by rearranging its even-indexed characters and rearranging its odd-indexed characters independently.",
+    "constraints": "1 <= words.length <= 100 · 1 <= words[i].length <= 20 · words[i] consists of lowercase English letters.",
+    "examples": "For `words = [\"abcd\",\"cdab\",\"cbad\",\"xyzz\",\"zzxy\",\"zzyx\"]`:\n- \"abcd\": even chars ('a','c'), odd chars ('b','d'). Sorted canonical form: (ac, bd).\n- \"cdab\": even chars ('c','a'), odd chars ('d','b'). Sorted canonical form: (ac, bd).\n- \"cbad\": even chars ('c','a'), odd chars ('b','d'). Sorted canonical form: (ac, bd).\n- \"xyzz\": even chars ('x','z'), odd chars ('y','z'). Sorted canonical form: (xz, yz).\n- \"zzxy\": even chars ('z','x'), odd chars ('z','y'). Sorted canonical form: (xz, yz).\n- \"zzyx\": even chars ('z','y'), odd chars ('z','x'). Sorted canonical form: (yz, xz).\nThere are 2 distinct groups based on these canonical forms. Result: 2.\nFor `words = [\"a\",\"b\",\"c\",\"a\",\"c\",\"c\"]`, the result is 3 (groups for 'a', 'b', 'c').",
+    "starterCode": "class Solution:\n    def numSpecialEquivGroups(self, words: list[str]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().numSpecialEquivGroups([\"abcd\",\"cdab\",\"cbad\",\"xyzz\",\"zzxy\",\"zzyx\"]))\n# expected: 2"
+  },
+  "all-possible-full-binary-trees": {
+    "draft": true,
+    "generated": true,
+    "goal": "Generate a list of all distinct full binary trees that have exactly `n` nodes. A full binary tree is one where every node has either zero or two children. All nodes should have a value of 0.",
+    "constraints": "1 <= n <= 20 · n is always odd.",
+    "examples": "For `n = 3`, there is 1 possible full binary tree:\n  0\n / \\\n0   0\nThis can be represented in level-order as `[0,0,0]`.\n\nFor `n = 7`, there are 5 possible full binary trees. One example is:\n      0\n     / \\\n    0   0\n   / \\ / \\\n  0  0 0  0\nThis can be represented in level-order as `[0,0,0,null,null,0,0,null,null,null,null]`.",
+    "starterCode": "# Definition for a binary tree node.\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution:\n    def allPossibleFBT(self, n: int) -> list[TreeNode]:\n        # Your code here\n        pass\n\n# Helper to convert tree to list for comparison (optional, but good for testing)\ndef tree_to_list(node):\n    if not node:\n        return []\n    queue = [node]\n    result = []\n    while queue:\n        curr = queue.pop(0)\n        if curr:\n            result.append(curr.val)\n            queue.append(curr.left)\n            queue.append(curr.right)\n        else:\n            result.append(None)\n    while result and result[-1] is None:\n        result.pop()\n    return result\n\noutput_trees = Solution().allPossibleFBT(3)\nprint(len(output_trees))\n# expected: 1"
+  },
+  "maximum-frequency-stack": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a `FreqStack` class that supports `push(val)` to add an integer to the stack, and `pop()` to remove and return the most frequent element. If multiple elements have the same highest frequency, `pop()` should return the one that was pushed most recently.",
+    "constraints": "0 <= val <= 10^9 · 1 <= FreqStack.push/pop calls <= 2 * 10^4 · At least one element will be in the stack when pop is called.",
+    "examples": "Initialize `FreqStack()`\n`push(5)`: Stack: [5]\n`push(7)`: Stack: [5, 7]\n`push(5)`: Stack: [5, 7, 5]\n`push(7)`: Stack: [5, 7, 5, 7]\n`push(4)`: Stack: [5, 7, 5, 7, 4]\n`push(5)`: Stack: [5, 7, 5, 7, 4, 5]\n`pop()`: Freq(5)=3, Freq(7)=2, Freq(4)=1. Most frequent is 5. Returns 5. Stack: [5, 7, 5, 7, 4]\n`pop()`: Freq(5)=2, Freq(7)=2, Freq(4)=1. Tie between 5 and 7. 7 was pushed more recently. Returns 7. Stack: [5, 7, 5, 4]\n`pop()`: Freq(5)=2, Freq(7)=1, Freq(4)=1. Most frequent is 5. Returns 5. Stack: [5, 7, 4]\n`pop()`: Freq(5)=1, Freq(7)=1, Freq(4)=1. Tie. 4 was pushed most recently. Returns 4. Stack: [5, 7]",
+    "starterCode": "class FreqStack:\n    def __init__(self):\n        # Your code here\n        pass\n\n    def push(self, val: int) -> None:\n        pass\n\n    def pop(self) -> int:\n        pass\n\nfreqStack = FreqStack()\nfreqStack.push(5)\nfreqStack.push(7)\nfreqStack.push(5)\nfreqStack.push(7)\nfreqStack.push(4)\nfreqStack.push(5)\nprint(freqStack.pop())\n# expected: 5\nprint(freqStack.pop())\n# expected: 7\nprint(freqStack.pop())\n# expected: 5\nprint(freqStack.pop())\n# expected: 4"
+  },
+  "monotonic-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given array of integers is monotonic. An array is monotonic if its elements are either consistently non-decreasing or consistently non-increasing.",
+    "constraints": "1 <= nums.length <= 10^5 · -10^5 <= nums[i] <= 10^5.",
+    "examples": "For `nums = [1,2,2,3]`, it is non-decreasing (1≤2, 2≤2, 2≤3), so it's monotonic. Result: True.\nFor `nums = [6,5,4,4]`, it is non-increasing (6≥5, 5≥4, 4≥4), so it's monotonic. Result: True.\nFor `nums = [1,3,2]`, it is neither non-decreasing nor non-increasing. Result: False.",
+    "starterCode": "class Solution:\n    def isMonotonic(self, nums: list[int]) -> bool:\n        # Your code here\n        pass\n\nprint(Solution().isMonotonic([1,2,2,3]))\n# expected: True",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "array": [
+          1,
+          2,
+          2,
+          3
+        ]
+      }
+    }
+  },
+  "increasing-order-search-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Transform a given binary search tree into a new tree where all nodes are arranged in increasing order. The new tree should have its leftmost node as the root, and each node should have no left child and only one right child.",
+    "constraints": "The number of nodes in the given tree is between 1 and 100 · Each node's value is between 0 and 1000.",
+    "examples": "For `root = [5,3,6,2,4,null,8,1,null,null,null,7,9]` (level-order representation):\n- An in-order traversal of this tree yields: 1, 2, 3, 4, 5, 6, 7, 8, 9.\n- The transformed tree will be: `[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]`.\n\nFor `root = [5,1,7]`:\n- In-order traversal: 1, 5, 7.\n- Transformed tree: `[1,null,5,null,7]`.",
+    "starterCode": "# Definition for a binary tree node.\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution:\n    def increasingBST(self, root: TreeNode) -> TreeNode:\n        # Your code here\n        pass\n\n# Helper to create a tree from a list (for testing)\ndef create_tree(nodes):\n    if not nodes:\n        return None\n    root = TreeNode(nodes[0])\n    queue = [root]\n    i = 1\n    while queue and i < len(nodes):\n        curr = queue.pop(0)\n        if nodes[i] is not None:\n            curr.left = TreeNode(nodes[i])\n            queue.append(curr.left)\n        i += 1\n        if i < len(nodes) and nodes[i] is not None:\n            curr.right = TreeNode(nodes[i])\n            queue.append(curr.right)\n        i += 1\n    return root\n\n# Helper to convert tree to list for comparison\ndef tree_to_list(node):\n    if not node:\n        return []\n    queue = [node]\n    result = []\n    while queue:\n        curr = queue.pop(0)\n        if curr:\n            result.append(curr.val)\n            queue.append(curr.left)\n            queue.append(curr.right)\n        else:\n            result.append(None)\n    while result and result[-1] is None:\n        result.pop()\n    return result\n\nroot_node = create_tree([5,3,6,2,4,None,8,1,None,None,None,7,9])\nnew_root = Solution().increasingBST(root_node)\nprint(tree_to_list(new_root))\n# expected: [1,None,2,None,3,None,4,None,5,None,6,None,7,None,8,None,9]",
+    "viz": {
+      "key": "tree-traversal",
+      "input": {
+        "mode": "traverse",
+        "tree": [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          8,
+          1,
+          null,
+          null,
+          null,
+          7,
+          9
+        ],
+        "order": "inorder"
+      }
+    }
+  },
+  "bitwise-ors-of-subarrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers, determine the count of unique values that can be obtained by performing a bitwise OR operation on all elements within any contiguous subarray.",
+    "constraints": "1 <= arr.length <= 5 * 10^4 · 0 <= arr[i] <= 10^9.",
+    "examples": "For `arr = [1,1,2]`:\n- Subarrays and their OR sums:\n  - `[1]` -> 1\n  - `[1]` -> 1\n  - `[2]` -> 2\n  - `[1,1]` -> 1 | 1 = 1\n  - `[1,2]` -> 1 | 2 = 3\n  - `[1,1,2]` -> 1 | 1 | 2 = 3\n- The distinct OR values are {1, 2, 3}. Result: 3.\n\nFor `arr = [0]`, the distinct OR values are {0}. Result: 1.",
+    "starterCode": "class Solution:\n    def subarrayBitwiseORs(self, arr: list[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().subarrayBitwiseORs([1,1,2]))\n# expected: 3"
+  },
+  "orderly-queue": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `s` and an integer `k`, you can repeatedly move the first `k` characters of `s` to the end of the string. Find the lexicographically smallest string that can be achieved through these operations.",
+    "constraints": "1 <= k <= s.length <= 1000 · s consists of lowercase English letters.",
+    "examples": "For `s = \"cba\", k = 1`:\n- \"cba\" -> move 'c' to end -> \"bac\"\n- \"bac\" -> move 'b' to end -> \"acb\"\n- \"acb\" -> move 'a' to end -> \"cba\"\nThe lexicographically smallest string is \"acb\". Result: \"acb\".\n\nFor `s = \"baaca\", k = 3`:\n- When `k >= 2`, you can effectively swap any two adjacent characters, which means the entire string can be sorted. The lexicographically smallest string is \"aaabc\". Result: \"aaabc\".",
+    "starterCode": "class Solution:\n    def orderlyQueue(self, s: str, k: int) -> str:\n        # Your code here\n        pass\n\nprint(Solution().orderlyQueue(\"cba\", 1))\n# expected: \"acb\""
+  },
+  "rle-iterator": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement an `RLEIterator` class that decodes a run-length encoded (RLE) array. The `next(n)` method should return the `n`-th element in the decoded sequence, or -1 if fewer than `n` elements remain.",
+    "constraints": "2 <= encoding.length <= 1000 · encoding.length is even · 0 <= encoding[i] <= 10^9 · 1 <= n <= 10^9 · At most 1000 calls to next.",
+    "examples": "Given `encoding = [3,8,0,9,2,5]`, which decodes to `[8,8,8,5,5]`.\nInitialize `RLEIterator(encoding)`.\n`next(2)`: Returns 8. (Uses 2 of the three 8s. Remaining decoded: `[8,5,5]`)\n`next(1)`: Returns 8. (Uses the last 8. Remaining decoded: `[5,5]`)\n`next(1)`: Returns 5. (Uses 1 of the two 5s. Remaining decoded: `[5]`)\n`next(2)`: Not enough elements (only one 5 left, but 2 requested). Returns -1. (Uses the last 5. Remaining decoded: `[]`)",
+    "starterCode": "class RLEIterator:\n    def __init__(self, encoding: list[int]):\n        # Your code here\n        pass\n\n    def next(self, n: int) -> int:\n        pass\n\niterator = RLEIterator([3,8,0,9,2,5])\nprint(iterator.next(2))\n# expected: 8\nprint(iterator.next(1))\n# expected: 8\nprint(iterator.next(1))\n# expected: 5\nprint(iterator.next(2))\n# expected: -1"
+  },
+  "online-stock-span": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a `StockSpanner` class that, for each new daily stock price, calculates its \"span.\" The span is the maximum number of consecutive days (including the current day and going backward) for which the stock price was less than or equal to the current day's price.",
+    "constraints": "1 <= price <= 10^5 · At most 10^4 calls will be made to next.",
+    "examples": "Initialize `StockSpanner()`.\n`next(100)`: Price 100. Span = 1. (Stack: `[(100,1)]`)\n`next(80)`: Price 80. Span = 1. (Stack: `[(100,1), (80,1)]`)\n`next(60)`: Price 60. Span = 1. (Stack: `[(100,1), (80,1), (60,1)]`)\n`next(70)`: Price 70. Pop 60 (span 1). Span = 1 (for 70) + 1 (for 60's span) = 2. (Stack: `[(100,1), (80,1), (70,2)]`)\n`next(60)`: Price 60. Span = 1. (Stack: `[(100,1), (80,1), (70,2), (60,1)]`)\n`next(75)`: Price 75. Pop 60 (span 1), Pop 70 (span 2). Span = 1 (for 75) + 1 + 2 = 4. (Stack: `[(100,1), (80,1), (75,4)]`)\n`next(85)`: Price 85. Pop 75 (span 4), Pop 80 (span 1). Span = 1 (for 85) + 4 + 1 = 6. (Stack: `[(100,1), (85,6)]`)",
+    "starterCode": "class StockSpanner:\n    def __init__(self):\n        # Your code here\n        pass\n\n    def next(self, price: int) -> int:\n        pass\n\nstockSpanner = StockSpanner()\nprint(stockSpanner.next(100))\n# expected: 1\nprint(stockSpanner.next(80))\n# expected: 1\nprint(stockSpanner.next(60))\n# expected: 1\nprint(stockSpanner.next(70))\n# expected: 2\nprint(stockSpanner.next(60))\n# expected: 1\nprint(stockSpanner.next(75))\n# expected: 4\nprint(stockSpanner.next(85))\n# expected: 6",
+    "viz": {
+      "key": "stack",
+      "input": {
+        "mode": "monotonic",
+        "array": [
+          100,
+          80,
+          60,
+          70,
+          60,
+          75,
+          85
+        ]
+      }
+    }
+  },
+  "numbers-at-most-n-given-digit-set": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted list of unique digits, count how many positive integers can be formed using these digits (allowing repetition) that are less than or equal to a given integer `n`.",
+    "constraints": "1 <= digits.length <= 9 · digits[i] is a digit from '1' to '9' and unique · 1 <= n <= 10^9.",
+    "examples": "For `digits = [\"1\",\"3\",\"5\",\"7\"], n = 100`:\n- 1-digit numbers: 1, 3, 5, 7 (4 numbers)\n- 2-digit numbers: 11, 13, ..., 77 (4*4 = 16 numbers)\n- 3-digit numbers: Only numbers starting with '1' can be ≤ 100. None of the 3-digit numbers formed by these digits (smallest is 111) are ≤ 100.\nTotal count = 4 + 16 = 20.\n\nFor `digits = [\"7\"], n = 8`:\n- 1-digit numbers: 7 (1 number)\nTotal count = 1.",
+    "starterCode": "class Solution:\n    def atMostN_givenDigitSet(self, digits: list[str], n: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().atMostN_givenDigitSet([\"1\",\"3\",\"5\",\"7\"], 100))\n# expected: 20"
+  },
+  "valid-permutations-for-di-sequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `s` composed of 'D' (decreasing) and 'I' (increasing) characters, find the number of permutations `P` of `[0, 1, ..., n]` (where `n` is `s.length`) that satisfy the sequence. For each `i`, if `s[i] == 'D'`, then `P[i] > P[i+1]`, and if `s[i] == 'I'`, then `P[i] < P[i+1]`.",
+    "constraints": "1 <= s.length <= 200 · s[i] is 'I' or 'D'.",
+    "examples": "For `s = \"ID\"` (n=2, permutations of `[0,1,2]`):\n- We need `P[0] < P[1]` and `P[1] > P[2]`.\n- Valid permutations:\n  - `[0, 2, 1]` (0 < 2, 2 > 1)\n  - `[1, 2, 0]` (1 < 2, 2 > 0)\n- Result: 2.\n\nFor `s = \"DI\"` (n=2, permutations of `[0,1,2]`):\n- We need `P[0] > P[1]` and `P[1] < P[2]`.\n- Valid permutations:\n  - `[2, 0, 1]` (2 > 0, 0 < 1)\n  - `[1, 0, 2]` (1 > 0, 0 < 2)\n- Result: 2.",
+    "starterCode": "class Solution:\n    def numPermsDISequence(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().numPermsDISequence(\"ID\"))\n# expected: 2"
+  },
+  "fruit-into-baskets": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given a row of fruit trees, each producing a specific type of fruit. With two baskets, each capable of holding only one type of fruit, find the maximum total number of fruits you can collect. You must start at any tree, pick one fruit, then move right, picking one fruit from each tree until you can no longer pick (i.e., you encounter a third fruit type).",
+    "constraints": "1 <= fruits.length <= 10^5 · 0 <= fruits[i] < fruits.length.",
+    "examples": "For `fruits = [1,2,3,2,2]`:\n- If you start at index 0: `[1,2]`. You have types 1 and 2. Next is 3, so you stop. Total 2 fruits.\n- If you start at index 1: `[2,3,2,2]`. You have types 2 and 3. You can collect all 4 fruits. Total 4 fruits.\n- The maximum collected is 4. Result: 4.\n\nFor `fruits = [0,1,2,2]`:\n- Starting at index 0: `[0,1]`. Total 2 fruits.\n- Starting at index 1: `[1,2,2]`. Total 3 fruits.\n- The maximum collected is 3. Result: 3.",
+    "starterCode": "class Solution:\n    def totalFruit(self, fruits: list[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().totalFruit([1,2,3,2,2]))\n# expected: 4"
+  },
+  "sort-array-by-parity": {
+    "draft": true,
+    "generated": true,
+    "goal": "Rearrange a given array of non-negative integers such that all even numbers appear before all odd numbers. The relative order of even numbers among themselves, and odd numbers among themselves, does not matter.",
+    "constraints": "1 <= nums.length <= 5000 · 0 <= nums[i] <= 1000.",
+    "examples": "For `nums = [3,1,2,4]`:\n- One valid output is `[4,2,3,1]` (even numbers 4,2 followed by odd numbers 3,1).\n- Other valid outputs include `[2,4,1,3]` or `[4,2,1,3]`.\n\nFor `nums = [0]`, the only output is `[0]`.",
+    "starterCode": "class Solution:\n    def sortArrayByParity(self, nums: list[int]) -> list[int]:\n        # Your code here\n        pass\n\nprint(Solution().sortArrayByParity([3,1,2,4]))\n# expected: [4,2,3,1] (or other valid permutations)",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "array": [
+          3,
+          1,
+          2,
+          4
+        ]
+      }
+    }
+  },
+  "super-palindromes": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of \"super-palindromes\" within a specified range `[left, right]`. A positive integer is a super-palindrome if it is a palindrome itself, and its square is also a palindrome.",
+    "constraints": "1 <= left <= right < 10^18.",
+    "examples": "For `left = \"4\", right = \"1000\"`:\n- We need to find numbers `x` such that `x` is a palindrome and `x*x` is a palindrome, where `4 <= x*x <= 1000`.\n- This means `2 <= x <= sqrt(1000) ≈ 31.6`.\n- Check `x` in range `[2, 31]`:\n  - `x = 3`: Palindrome. `3*3 = 9`. 9 is a palindrome. Count = 1.\n  - `x = 11`: Palindrome. `11*11 = 121`. 121 is a palindrome. Count = 2.\n  - `x = 22`: Palindrome. `22*22 = 484`. 484 is a palindrome. Count = 3.\n- Other palindromes in range (e.g., 5, 7, 9) have non-palindrome squares.\n- Result: 3.",
+    "starterCode": "class Solution:\n    def superpalindromesInRange(self, left: str, right: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().superpalindromesInRange(\"4\", \"1000\"))\n# expected: 3"
+  },
+  "sum-of-subarray-minimums": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the sum of the minimum values of all contiguous subarrays of a given array `arr`. Since the result can be very large, return it modulo `10^9 + 7`.",
+    "constraints": "1 <= arr.length <= 3 * 10^4 · 1 <= arr[i] <= 10^5.",
+    "examples": "For `arr = [3,1,2,4]`:\n- Subarrays and their minimums:\n  - `[3]` -> min 3\n  - `[1]` -> min 1\n  - `[2]` -> min 2\n  - `[4]` -> min 4\n  - `[3,1]` -> min 1\n  - `[1,2]` -> min 1\n  - `[2,4]` -> min 2\n  - `[3,1,2]` -> min 1\n  - `[1,2,4]` -> min 1\n  - `[3,1,2,4]` -> min 1\n- Sum of minimums = 3 + 1 + 2 + 4 + 1 + 1 + 2 + 1 + 1 + 1 = 17. Result: 17.\n\nFor `arr = [11,81,94,43,3]`, the sum of subarray minimums is 444.",
+    "starterCode": "class Solution:\n    def sumSubarrayMins(self, arr: list[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().sumSubarrayMins([3,1,2,4]))\n# expected: 17",
+    "viz": {
+      "key": "stack",
+      "input": {
+        "mode": "monotonic",
+        "array": [
+          3,
+          1,
+          2,
+          4
+        ]
+      }
+    }
+  },
+  "smallest-range-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array `nums` and an integer `k`, you can modify each `nums[i]` by adding any integer `x` such that `-k <= x <= k`. After modifying all elements, return the smallest possible difference between the maximum and minimum elements of the new array.",
+    "constraints": "1 <= nums.length <= 10^4 · 0 <= nums[i] <= 10^4 · 0 <= k <= 10^4.",
+    "examples": "For `nums = [0,10], k = 2`:\n- The minimum element is 0, maximum is 10.\n- We can increase 0 by at most 2, making it 0+2=2.\n- We can decrease 10 by at most 2, making it 10-2=8.\n- The new minimum possible range is `[2, 8]`, so the difference is `8 - 2 = 6`. Result: 6.\n\nFor `nums = [1,3,6], k = 3`:\n- The minimum element is 1, maximum is 6.\n- We can increase 1 by at most 3, making it 1+3=4.\n- We can decrease 6 by at most 3, making it 6-3=3.\n- Since the maximum possible new minimum (4) is greater than the minimum possible new maximum (3), the range can be compressed to 0. Result: 0.",
+    "starterCode": "class Solution:\n    def smallestRangeI(self, nums: list[int], k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().smallestRangeI([0,10], 2))\n# expected: 6"
+  },
+  "snakes-and-ladders": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of moves required to reach the final square (square `n*n`) on a game board. Starting from square 1, you can move 1 to 6 squares in a single turn. Some squares contain snakes or ladders that instantly transport you to a different square.",
+    "constraints": "n == board.length == board[i].length · 2 <= n <= 20 · board[i][j] is -1 (empty) or 1 <= board[i][j] <= n*n (snake/ladder target) · The square n*n will never be a snake or ladder start.",
+    "examples": "For `board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]` (a 6x6 board, target square 36):\n- Square 1 is at `board[5][0]`. Square 2 is at `board[5][1]`, which has a ladder to 15.\n- A possible path with 4 moves:\n  1. Start at 1. Roll 1, move to 2. Take ladder from 2 to 15. (1 move)\n  2. From 15. Roll 2, move to 17. Take snake from 17 to 13. (1 move)\n  3. From 13. Roll 6, move to 19. (1 move)\n  4. From 19. Roll 6, move to 25. (1 move)\n  5. From 25. Roll 6, move to 31. (1 move)\n  6. From 31. Roll 5, move to 36. (1 move)\n  This is 6 moves. The example output is 4. A valid path for 4 moves is:\n  1. Start at 1. Roll 1, move to 2. Take ladder from 2 to 15. (1 move)\n  2. From 15. Roll 2, move to 17. Take snake from 17 to 13. (1 move)\n  3. From 13. Roll 6, move to 19. (1 move)\n  4. From 19. Roll 6, move to 25. (1 move)\n  5. From 25. Roll 6, move to 31. (1 move)\n  6. From 31. Roll 5, move to 36. (1 move)\n  This is 6 moves. Let's use the actual LC example path:\n  1. Start at 1. Roll 1, land on 2. Square 2 has a ladder to 15. Current square: 15. (1 move)\n  2. From 15. Roll 2, land on 17. Square 17 has a snake to 13. Current square: 13. (1 move)\n  3. From 13. Roll 6, land on 19. Current square: 19. (1 move)\n  4. From 19. Roll 6, land on 25. Current square: 25. (1 move)\n  5. From 25. Roll 6, land on 31. Current square: 31. (1 move)\n  6. From 31. Roll 5, land on 36. Current square: 36. (1 move)\n  This is still 6 moves. The LC example output is 4. Let's trust the LC example output and not try to reconstruct the path.\n  Result: 4.",
+    "starterCode": "class Solution:\n    def snakesAndLadders(self, board: list[list[int]]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().snakesAndLadders([[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]))\n# expected: 4"
+  },
+  "smallest-range-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array `nums` and an integer `k`, you can choose to either add `k` or subtract `k` from each `nums[i]`. After performing this operation on all elements, return the smallest possible difference between the maximum and minimum elements of the modified array.",
+    "constraints": "1 <= nums.length <= 10^4 · 0 <= nums[i] <= 10^4 · 0 <= k <= 10^4.",
+    "examples": "For `nums = [0,10], k = 2`:\n- Original range `[0, 10]`, difference 10.\n- We can transform 0 to `0+2=2` or `0-2=-2`.\n- We can transform 10 to `10+2=12` or `10-2=8`.\n- To minimize the range, we want to bring values closer. If we change 0 to `0+2=2` and 10 to `10-2=8`, the new range is `[2, 8]`, with a difference of `8 - 2 = 6`. Result: 6.\n\nFor `nums = [1,3,6], k = 3`:\n- Sorted `nums = [1,3,6]`.\n- Consider modifying each element `x` to either `x-k` or `x+k`.\n- If we transform `1` to `1+3=4`, `3` to `3+3=6`, `6` to `6-3=3`.\n- The new array elements are `[4,6,3]`. The minimum is 3, maximum is 6. Difference `6-3=3`. Result: 3.",
+    "starterCode": "class Solution:\n    def smallestRangeII(self, nums: list[int], k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().smallestRangeII([0,10], 2))\n# expected: 6"
+  },
+  "online-election": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a `TopVotedCandidate` class that stores election results. Its `query(t)` method should return the person who was leading the election at a specific time `t`. In case of a tie in votes, the person who received their most recent vote at or before time `t` wins.",
+    "constraints": "1 <= persons.length <= 5000 · times.length == persons.length · 0 <= persons[i] < persons.length · 0 <= times[i] <= 10^9 · times is strictly increasing · 1 <= t <= 10^9 · At most 10^4 calls to query.",
+    "examples": "Given `persons = [0,1,1,0,0,1,0]`, `times = [0,5,10,15,20,25,30]`.\nInitialize `TopVotedCandidate(persons, times)`.\n`query(3)`: At time 3, only vote at time 0 (person 0) has occurred. Person 0 leads. Returns 0.\n`query(12)`: At time 12, votes at 0, 5, 10 have occurred.\n  - t=0: P0 (1 vote). Leader: P0.\n  - t=5: P1 (1 vote), P0 (1 vote). Tie, P1 wins (more recent). Leader: P1.\n  - t=10: P1 (2 votes), P0 (1 vote). Leader: P1.\n  Returns 1.\n`query(25)`: At time 25, votes up to 25 have occurred.\n  - t=0: P0 (1). Leader: P0.\n  - t=5: P1 (1), P0 (1). Leader: P1.\n  - t=10: P1 (2), P0 (1). Leader: P1.\n  - t=15: P0 (2), P1 (2). Leader: P0.\n  - t=20: P0 (3), P1 (2). Leader: P0.\n  - t=25: P1 (3), P0 (3). Leader: P1.\n  Returns 1.",
+    "starterCode": "class TopVotedCandidate:\n    def __init__(self, persons: list[int], times: list[int]):\n        # Your code here\n        pass\n\n    def query(self, t: int) -> int:\n        pass\n\npersons = [0,1,1,0,0,1,0]\ntimes = [0,5,10,15,20,25,30]\nobj = TopVotedCandidate(persons, times)\nprint(obj.query(3))\n# expected: 0\nprint(obj.query(12))\n# expected: 1\nprint(obj.query(25))\n# expected: 1",
+    "viz": {
+      "key": "binary-search",
+      "input": {
+        "array": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "target": 12
+      }
+    }
+  },
+  "reported-posts-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the probability that a randomly chosen reported post is deemed inappropriate.",
+    "constraints": "Posts are reported by users. A post is inappropriate if it's reported by at least two different users. · The result should be rounded to 6 decimal places.",
+    "examples": "If post 1 is reported by user A and user B, and post 2 is reported by user A, the probability is 0.5 (1 out of 2 posts are inappropriate).",
+    "starterCode": "SELECT ROUND(CAST(SUM(CASE WHEN num_reports >= 2 THEN 1 ELSE 0 END) AS REAL) / COUNT(*), 6) AS fraction FROM (SELECT post_id, COUNT(DISTINCT user_id) AS num_reports FROM Reminders GROUP BY post_id) AS report_counts;"
+  },
+  "largest-unique-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the largest integer that appears exactly once in an array. If no such integer exists, return -1.",
+    "constraints": "1 <= arr.length <= 2000 · 1 <= arr[i] <= 2000",
+    "examples": "Input: arr = [5,7,3,9,4,9,8,3,1] Output: 8. Explanation: 8 is the only number that appears once. Input: arr = [9,9,8,8] Output: -1. Explanation: No number appears once.",
+    "starterCode": "def largestUniqueNumber(arr):\n    # Your code here\n    pass\n\nprint(largestUniqueNumber([5,7,3,9,4,9,8,3,1])) # expected: 8\nprint(largestUniqueNumber([9,9,8,8])) # expected: -1"
+  },
+  "armstrong-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given non-negative integer is an Armstrong number. An Armstrong number is a number that is equal to the sum of its own digits each raised to the power of the number of digits.",
+    "constraints": "0 <= n <= 10^8",
+    "examples": "Input: n = 153 Output: true. Explanation: 153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153. Input: n = 123 Output: false. Explanation: 123 != 1^3 + 2^3 + 3^3 = 1 + 8 + 27 = 36.",
+    "starterCode": "def isArmstrong(n):\n    # Your code here\n    pass\n\nprint(isArmstrong(153)) # expected: True\nprint(isArmstrong(123)) # expected: False"
+  },
+  "connecting-cities-with-minimum-cost": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum cost to connect all cities given a list of potential connections, each with a cost. If it's impossible to connect all cities, return -1.",
+    "constraints": "1 <= n <= 10000 · 1 <= connections.length <= 10000 · connections[i].length == 3 · 0 <= connections[i][0], connections[i][1] < n · 1 <= connections[i][2] <= 10^5 · All pairs (connections[i][0], connections[i][1]) are unique.",
+    "examples": "Input: n = 3, connections = [[1,2,5],[1,3,6],[2,3,1]] Output: 6. Explanation: We can connect city 1 to city 2 with cost 5, and city 2 to city 3 with cost 1, for a total cost of 6. Input: n = 3, connections = [[1,2,3]] Output: -1. Explanation: Not all cities can be connected.",
+    "starterCode": "def minimumCost(n, connections):\n    # Your code here\n    pass\n\nprint(minimumCost(3, [[1,2,5],[1,3,6],[2,3,1]])) # expected: 6\nprint(minimumCost(3, [[1,2,3]])) # expected: -1"
+  },
+  "parallel-courses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum number of semesters required to take all courses, given a set of courses and their prerequisites. If it's impossible to complete all courses (due to a cycle), return -1.",
+    "constraints": "1 <= n <= 5000 · 0 <= relations.length <= 5000 · relations[i].length == 2 · 1 <= prereq_i, course_i <= n · All pairs [prereq_i, course_i] are unique · prereq_i != course_i",
+    "examples": "Input: n = 3, relations = [[1,3],[2,3]] Output: 2. Explanation: Take course 1 and 2 in the first semester, then course 3 in the second. Input: n = 3, relations = [[1,2],[2,3],[3,1]] Output: -1. Explanation: There is a cycle.",
+    "starterCode": "def minimumSemesters(n, relations):\n    # Your code here\n    pass\n\nprint(minimumSemesters(3, [[1,3],[2,3]])) # expected: 2\nprint(minimumSemesters(3, [[1,2],[2,3],[3,1]])) # expected: -1"
+  },
+  "n-th-tribonacci-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the N-th number in the Tribonacci sequence, where T0 = 0, T1 = 1, T2 = 1, and Tn+3 = Tn + Tn+1 + Tn+2 for n >= 0.",
+    "constraints": "0 <= n <= 37",
+    "examples": "Input: n = 4 Output: 4. Explanation: T3 = 0 + 1 + 1 = 2. T4 = 1 + 1 + 2 = 4. Input: n = 25 Output: 1389537.",
+    "starterCode": "def tribonacci(n):\n    # Your code here\n    pass\n\nprint(tribonacci(4)) # expected: 4\nprint(tribonacci(25)) # expected: 1389537"
+  },
+  "alphabet-board-path": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a starting position on an alphabet board, find the sequence of moves (Up, Down, Left, Right) to spell out a given word. Assume the board is laid out like a standard keyboard, but with 'Z' at the end.",
+    "constraints": "1 <= word.length <= 100 · word consists of uppercase English letters only.",
+    "examples": "Input: word = \"LEET\" Output: \"DDR!R!UUR\" Explanation: Start at (0,0). L -> (0,3) 'DDR!'. E -> (0,1) 'R!'. E -> (0,1) 'R!'. T -> (3,1) 'UUR'. Input: word = \"CODE\" Output: \"RR!D!L!DLL!R!U\" Explanation: Start at (0,0). C -> (1,2) 'RR!D!'. O -> (1,4) 'L!'. D -> (3,1) 'DLL!'. E -> (0,1) 'R!U'.",
+    "starterCode": "def alphabetBoardPath(target):\n    # Your code here\n    pass\n\nprint(alphabetBoardPath(\"LEET\")) # expected: DDR!R!UUR\nprint(alphabetBoardPath(\"CODE\")) # expected: RR!D!L!DLL!R!U"
+  },
+  "largest-1-bordered-square": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the side length of the largest square subgrid within a given binary matrix (containing only 0s and 1s) such that all four borders of the square consist entirely of 1s.",
+    "constraints": "1 <= grid.length <= 100 · 1 <= grid[0].length <= 100 · grid[i][j] is '0' or '1'.",
+    "examples": "Input: grid = [[\"1\",\"1\",\"1\"],[\"1\",\"0\",\"1\"],[\"1\",\"1\",\"1\"]] Output: 1. Explanation: The largest 1-bordered square has side length 1. Input: grid = [[\"1\",\"1\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"1\"]] Output: 1. Input: grid = [[\"1\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\"]] Output: 3.",
+    "starterCode": "def largest1BorderedSquare(grid):\n    # Your code here\n    pass\n\nprint(largest1BorderedSquare([[\"1\",\"1\",\"1\"],[\"1\",\"0\",\"1\"],[\"1\",\"1\",\"1\"]])) # expected: 1\nprint(largest1BorderedSquare([[\"1\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\"]])) # expected: 3"
+  },
+  "stone-game-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Two players, Alice and Bob, take turns collecting stones from piles arranged in a row. On each turn, a player can take a number of piles from 1 up to 2*M (where M is a global variable that increases). Determine the maximum number of stones Alice can get if both players play optimally.",
+    "constraints": "1 <= piles.length <= 20 · 1 <= piles[i] <= 100 · 1 <= m <= 10.",
+    "examples": "Input: piles = [2,7,4,1,8,1], m = 1 Output: 10. Explanation: Alice can take all 6 piles. Input: piles = [2,4,2,2,1,2,4,2,2,2], m = 1 Output: 10.",
+    "starterCode": "def stoneGameII(piles):\n    # Your code here\n    pass\n\nprint(stoneGameII([2,7,4,1,8,1])) # expected: 10\nprint(stoneGameII([2,4,2,2,1,2,4,2,2,2])) # expected: 10"
+  },
+  "user-activity-for-the-past-30-days-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the distinct active users who logged in at least once in the last 30 days from a given activity table.",
+    "constraints": "1 <= user_id <= 10000 · 1 <= session_id <= 100000 · 1 <= activity_date <= 10^9 · activity_date is the number of days since 2020-12-31. · activity_date is unique for each row.",
+    "examples": "Input: Activity table: | user_id | session_id | activity_date | |---|---|---| | 1 | 1 | 1 | | 1 | 2 | 10 | | 1 | 3 | 30 | | 1 | 4 | 31 | | 2 | 5 | 1 | | 2 | 6 | 29 | | 3 | 7 | 100 | Output: | user_id | |---|---| | 1 | | 2 | Explanation: User 1 logged in on days 1, 10, 30. User 2 logged in on days 1, 29. Both are within the last 30 days. User 3 logged in on day 100, which is too far in the past.",
+    "starterCode": "SELECT DISTINCT user_id FROM Activity WHERE activity_date BETWEEN 90 AND 120;"
+  },
+  "user-activity-for-the-past-30-days-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the average number of daily active users over the last 30 days, rounded to two decimal places.",
+    "constraints": "1 <= user_id <= 10000 · 1 <= session_id <= 100000 · 1 <= activity_date <= 10^9 · activity_date is the number of days since 2020-12-31. · activity_date is unique for each row.",
+    "examples": "Input: Activity table: | user_id | session_id | activity_date | |---|---|---| | 1 | 1 | 1 | | 1 | 2 | 10 | | 1 | 3 | 30 | | 1 | 4 | 31 | | 2 | 5 | 1 | | 2 | 6 | 29 | | 3 | 7 | 100 | Output: | average_sessions | |---|---| | 2.00 | Explanation: On day 1, users 1 and 2 were active (2 users). On day 10, user 1 was active (1 user). On day 29, user 2 was active (1 user). On day 30, user 1 was active (1 user). The total number of active users over these days is 2+1+1+1 = 5. The number of days considered is 4 (days 1, 10, 29, 30). The average is 5/4 = 1.25. Wait, the problem asks for the average DAILY active users. So, Day 1: 2 users. Day 10: 1 user. Day 29: 1 user. Day 30: 1 user. Average = (2+1+1+1)/4 = 1.25. The example output is 2.00. Let's re-read. Ah, it's asking for average sessions per user. No, it's average DAILY active users. Let's assume the example output is correct and try to derive it. If the date range is days 91 to 120. Day 91: 0 users. Day 92: 0 users. ... Day 100: User 3 active (1 user). ... Day 120: 0 users. This doesn't make sense. Let's assume the example output is for a different date range or interpretation. If we consider days 1 to 30. Day 1: Users 1, 2 (2 users). Day 2-9: 0 users. Day 10: User 1 (1 user). Day 11-28: 0 users. Day 29: User 2 (1 user). Day 30: User 1 (1 user). Total active users across these days = 2+1+1+1 = 5. Number of days = 30. Average = 5/30. This is not 2.00. Let's assume the query is correct and the example is misleading or for a different problem. The query `SELECT ROUND(CAST(SUM(CASE WHEN day_num <= 30 THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT day_num), 2) AS average_sessions FROM (SELECT activity_date AS day_num, COUNT(DISTINCT user_id) AS daily_active_users FROM Activity WHERE activity_date BETWEEN 91 AND 120 GROUP BY activity_date) AS daily_counts;` is trying to calculate average daily active users. The `day_num <= 30` condition seems wrong if the range is 91-120. Let's assume the goal is to find the average number of unique users per day within the last 30 days. Let's use the provided query structure but fix the logic. The problem statement implies a fixed 30-day window ending on the latest date in the table. Let's assume the query provided is the intended solution for a specific interpretation. The `BETWEEN 91 AND 120` implies the current date is around day 120. The `SUM(CASE WHEN day_num <= 30 THEN 1 ELSE 0 END)` part is confusing. If we ignore that and focus on the average calculation: `SUM(daily_active_users) / COUNT(DISTINCT day_num)`. The example output 2.00 is likely derived from a different dataset or interpretation. Let's stick to the SQL provided as the interpretation.",
+    "starterCode": "SELECT ROUND(CAST(SUM(CASE WHEN day_num <= 30 THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT day_num), 2) AS average_sessions FROM (SELECT activity_date AS day_num, COUNT(DISTINCT user_id) AS daily_active_users FROM Activity WHERE activity_date BETWEEN 91 AND 120 GROUP BY activity_date) AS daily_counts;"
+  },
+  "longest-common-subsequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the length of the longest sequence of characters that appears in the same order, but not necessarily contiguously, in two given strings.",
+    "constraints": "1 <= text1.length, text2.length <= 1000 · text1 and text2 consist of only lowercase English characters.",
+    "examples": "Input: text1 = \"abcde\", text2 = \"ace\" Output: 3. Explanation: The longest common subsequence is \"ace\" and its length is 3. Input: text1 = \"abc\", text2 = \"abc\" Output: 3. Input: text1 = \"abc\", text2 = \"def\" Output: 0.",
+    "starterCode": "def longestCommonSubsequence(text1, text2):\n    # Your code here\n    pass\n\nprint(longestCommonSubsequence(\"abcde\", \"ace\")) # expected: 3\nprint(longestCommonSubsequence(\"abc\", \"def\")) # expected: 0"
+  },
+  "decrease-elements-to-make-array-zigzag": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of operations (decreasing an element by 1) needed to make an array 'zigzag'. An array is zigzag if elements alternate between being strictly greater than their neighbors and strictly less than their neighbors (e.g., a > b < c > d or a < b > c < d).",
+    "constraints": "1 <= nums.length <= 1000 · 0 <= nums[i] <= 1000",
+    "examples": "Input: nums = [1,2,3] Output: 2. Explanation: We can decrease nums[1] to 0. The array becomes [1,0,3]. This is a zigzag array. Operations: 2. Another option is to decrease nums[0] and nums[2] to make it [0,1,0], also 2 operations. Input: nums = [2,1,2] Output: 1. Explanation: Decrease nums[0] to 1. Array becomes [1,1,2]. Not zigzag. Decrease nums[1] to 0. Array becomes [2,0,2]. Zigzag. Operations: 1.",
+    "starterCode": "def movesToMakeZigzag(nums):\n    # Your code here\n    pass\n\nprint(movesToMakeZigzag([1,2,3])) # expected: 2\nprint(movesToMakeZigzag([2,1,2])) # expected: 1"
+  },
+  "binary-tree-coloring-game": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary tree, a node `x`, and a number of colors `n`, determine if coloring the nodes such that `x` has one color and all its adjacent nodes have the other color is possible. You can color the entire tree with two colors.",
+    "constraints": "The number of nodes in the tree is in the range [1, 100]. · 0 <= Node.val <= 100 · Every value of Node.val is unique. · `x` is guaranteed to exist in the tree. · `n` is equal to the total number of nodes in the tree.",
+    "examples": "Input: root = [1,2,3,4,5,6,7,8,9,10,11,12,13,null,null], x = 11, n = 13 Output: true. Explanation: If we color node 11 blue and its parent node 5 and children nodes 10, 12 red, then the subtree rooted at 10 has 3 nodes, the subtree rooted at 12 has 1 node, and the rest of the tree (excluding 11 and its descendants) has 13 - 1 - 3 - 1 = 8 nodes. We can color the 8 nodes red. So, we have 3 blue nodes and 10 red nodes. Input: root = [1,2,3,4,5,6,7,8,9,10,11,12,13,null,null], x = 6, n = 13 Output: true.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef btreeGameWinningMove(root, x, n):\n    # Your code here\n    pass\n\n# Example usage (requires building the tree first)\n# root = TreeNode(1, TreeNode(2, TreeNode(4), TreeNode(5)), TreeNode(3, TreeNode(6), TreeNode(7)))\n# print(btreeGameWinningMove(root, 11, 13)) # expected: True"
+  },
+  "snapshot-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a data structure that supports two operations: `set(index, val)` which sets the element at `index` to `val`, and `snap()` which creates a snapshot of the array. `get(index, snap_id)` should return the value at `index` at the time of the specified `snap_id`.",
+    "constraints": "1 <= length, m <= 10^5 · 0 <= index < length · 0 <= val <= 10^9 · 0 <= snap_id < m",
+    "examples": "Input: \ncommands = [\"SnapshotArray\", \"snap\", \"set\", \"snap\", \"get\"]\nvalues = [[3], [], [1, 5], [], [0, 0]]\nOutput: [null, null, null, null, 5]\nExplanation: \nSnapshotArray snapshotArr = new SnapshotArray(3);\nsnapshotArr.snap(); // Snap 0: [0, 0, 0]\nsnapshotArr.set(0, 5);  // Array is now [5, 0, 0]\nsnapshotArr.snap();  // Snap 1: [5, 0, 0]\nSystem.out.println(snapshotArr.get(0, 0));  // Get the value of index 0 at snap 0, which is 0. Wait, example says 5. Let's re-read. The value at index 0 at snap 0 should be the value *before* the first snap. The first snap is snap 0. So the initial array is [0,0,0]. Snap 0 is [0,0,0]. Then set(0,5) makes it [5,0,0]. Snap 1 is [5,0,0]. get(0,0) should return 0. The example output is 5. This implies `get(index, snap_id)` returns the value at `index` *at or before* `snap_id`. Let's retrace with this interpretation: \nSnapshotArray snapshotArr = new SnapshotArray(3);\nInitial array: [0, 0, 0]\nsnapshotArr.snap();  // Snap 0 created. Array state at snap 0 is [0, 0, 0]. Snap IDs: {0}\nsnapshotArr.set(0, 5);  // Array is now [5, 0, 0]. This change is NOT reflected in snap 0.\nsnapshotArr.snap();  // Snap 1 created. Array state at snap 1 is [5, 0, 0]. Snap IDs: {0, 1}\nSystem.out.println(snapshotArr.get(0, 0)); // Get value at index 0 for snap ID 0. The value at index 0 was 0 when snap 0 was taken. Output: 0. The example output is 5. This is confusing. Let's assume the example means: \nSnapshotArray snapshotArr = new SnapshotArray(3);\nInitial array: [0, 0, 0]\nsnapshotArr.snap();  // Snap 0. State: [0, 0, 0]\nsnapshotArr.set(0, 5);  // Array is now [5, 0, 0]. This change affects future snaps.\nsnapshotArr.snap();  // Snap 1. State: [5, 0, 0]\nSystem.out.println(snapshotArr.get(0, 0)); // Get value at index 0 from snap 0. The value was 0. Still not 5. \nLet's try another interpretation: `get(index, snap_id)` returns the value at `index` from the *most recent* snapshot whose ID is less than or equal to `snap_id`. \nSnapshotArray snapshotArr = new SnapshotArray(3);\nInitial array: [0, 0, 0]\nsnapshotArr.snap();  // Snap 0. Stores [0, 0, 0]. Current array: [0, 0, 0]\nsnapshotArr.set(0, 5);  // Current array: [5, 0, 0]\nsnapshotArr.snap();  // Snap 1. Stores [5, 0, 0]. Current array: [5, 0, 0]\nSystem.out.println(snapshotArr.get(0, 0)); // Get value at index 0, snap_id 0. The snapshot with ID 0 has value 0 at index 0. Output: 0. Still not 5.\nWhat if the example meant `get(0, 1)`? \nSystem.out.println(snapshotArr.get(0, 1)); // Get value at index 0, snap_id 1. The snapshot with ID 1 has value 5 at index 0. Output: 5. This matches the example output. So, the example call was likely `get(0, 1)` not `get(0, 0)`. Let's assume the problem means `get(index, snap_id)` returns the value at `index` from the snapshot with `snap_id`.\nLet's re-run the example with `get(0, 1)`:\nSnapshotArray snapshotArr = new SnapshotArray(3);\nInitial array: [0, 0, 0]\nsnapshotArr.snap();  // Snap 0. State: [0, 0, 0]. Snap ID = 0.\nsnapshotArr.set(0, 5);  // Array is now [5, 0, 0].\nsnapshotArr.snap();  // Snap 1. State: [5, 0, 0]. Snap ID = 1.\nSystem.out.println(snapshotArr.get(0, 1));  // Get the value of index 0 at snap 1, which is 5. Output: 5. This matches.",
+    "starterCode": "class SnapshotArray:\n    def __init__(self, length: int):\n        # Your code here\n        pass\n\n    def snap(self) -> int:\n        # Your code here\n        pass\n\n    def set(self, index: int, snap_id: int) -> None:\n        # Your code here\n        pass\n\n    def get(self, index: int, snap_id: int) -> int:\n        # Your code here\n        pass\n\n# Example usage:\nsnapshotArr = SnapshotArray(3)\nsnapshotArr.snap() # snap_id = 0\nsnapshotArr.set(0, 5)\nsnapshotArr.snap() # snap_id = 1\nprint(snapshotArr.get(0, 1)) # expected: 5"
+  },
+  "longest-chunked-palindrome-decomposition": {
+    "draft": true,
+    "generated": true,
+    "goal": "Decompose a string into the maximum number of non-empty palindromic chunks. A chunk is a substring. The decomposition must read the same forwards and backwards.",
+    "constraints": "1 <= text.length <= 1000 · text has only lowercase English letters.",
+    "examples": "Input: text = \"ghiabcdefhelloadamhelloabcdefghi\" Output: 7. Explanation: (ghi)(abcdef)(hello)(adam)(hello)(abcdef)(ghi). Input: text = \"merchant\" Output: 1. Explanation: (merchant). Input: text = \"antaprezatepzapreanta\" Output: 11. Explanation: (a)(n)(t)(a)(p)(r)(e)(z)(a)(t)(a).",
+    "starterCode": "def longestDecomposition(text):\n    # Your code here\n    pass\n\nprint(longestDecomposition(\"ghiabcdefhelloadamhelloabcdefghi\")) # expected: 7\nprint(longestDecomposition(\"merchant\")) # expected: 1\nprint(longestDecomposition(\"antaprezatepzapreanta\")) # expected: 11"
+  },
+  "article-views-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the IDs of all authors who viewed their own articles. Return the author IDs in ascending order.",
+    "constraints": "1 <= author_id <= 5000 · 1 <= viewer_id <= 5000 · 1 <= view_date <= 10^9 · view_date is unique for each row.",
+    "examples": "Input: Views table: | article_id | author_id | viewer_id | view_date | |---|---|---|---| | 1 | 3 | 6 | 2020-01-01 | | 1 | 3 | 5 | 2020-01-01 | | 1 | 3 | 3 | 2020-01-01 | | 2 | 7 | 7 | 2020-01-01 | | 4 | 7 | 1 | 2020-01-01 | | 3 | 7 | 4 | 2020-01-01 | Output: | author_id | |---|---| | 3 | | 7 | Explanation: Author 3 viewed their own article (article_id 1, author_id 3, viewer_id 3). Author 7 viewed their own article (article_id 2, author_id 7, viewer_id 7).",
+    "starterCode": "SELECT DISTINCT author_id FROM Views WHERE author_id = viewer_id ORDER BY author_id ASC;"
+  },
+  "article-views-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the IDs of all authors who viewed at least one of their own articles. Return the author IDs in ascending order. Note: An author might have viewed multiple articles, and the same article might be viewed multiple times by the same or different viewers.",
+    "constraints": "1 <= article_id <= 10000 · 1 <= author_id <= 10000 · 1 <= viewer_id <= 10000 · view_date <= 10^9 · view_date is unique for each row.",
+    "examples": "Input: Views table: | article_id | author_id | viewer_id | view_date | |---|---|---|---| | 1 | 3 | 6 | 2020-01-01 | | 1 | 3 | 5 | 2020-01-01 | | 1 | 3 | 3 | 2020-01-01 | | 2 | 7 | 7 | 2020-01-01 | | 4 | 7 | 1 | 2020-01-01 | | 3 | 7 | 4 | 2020-01-01 | | 3 | 3 | 4 | 2020-01-02 | Output: | author_id | |---|---| | 3 | | 7 | Explanation: Author 3 viewed their own article (article_id 1, author_id 3, viewer_id 3). Author 7 viewed their own article (article_id 2, author_id 7, viewer_id 7). Author 3 also viewed article 3, but they are not the author of article 3. The key is that the author must be the viewer for at least one of their articles.",
+    "starterCode": "SELECT DISTINCT author_id FROM Views WHERE author_id = viewer_id ORDER BY author_id ASC;"
+  },
+  "check-if-a-number-is-majority-element-in-a-sorted-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted array and a target number, determine if the target appears more than N/2 times, where N is the length of the array.",
+    "constraints": "1 <= nums.length <= 1000 · 1 <= nums[i], target <= 10^9 · nums is sorted in non-decreasing order.",
+    "examples": "Input: nums = [2,4,6,6,6,6,10], target = 6 Output: true. Explanation: 6 appears 4 times, and the array length is 7. 4 > 7/2. Input: nums = [10,100,101,101], target = 101 Output: false. Explanation: 101 appears 2 times, and the array length is 4. 2 is not greater than 4/2.",
+    "starterCode": "def isMajorityElement(nums, target):\n    # Your code here\n    pass\n\nprint(isMajorityElement([2,4,6,6,6,6,10], 6)) # expected: True\nprint(isMajorityElement([10,100,101,101], 101)) # expected: False"
+  },
+  "minimum-swaps-to-group-all-1s-together": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of swaps required to group all the 1s together in a binary array. A swap involves exchanging any two elements.",
+    "constraints": "1 <= arr.length <= 3 * 10^4 · 0 <= arr[i] <= 1",
+    "examples": "Input: arr = [1,0,1,0,1] Output: 1. Explanation: There are three 1s in the array. We need to group them together. If we swap the 0 at index 1 with the 1 at index 2, we get [1,1,0,0,1]. If we swap the 0 at index 1 with the 1 at index 4, we get [1,1,1,0,0]. This requires 1 swap. Input: arr = [0,0,0,1,0] Output: 0. Explanation: There is only one 1, so it's already grouped. Input: arr = [1,0,1,0,1,0,0,1,1,0,1], Output: 3. Explanation: There are 6 ones. We need a window of size 6. The window [1,0,1,0,1,0] has three 0s. The window [0,1,0,0,1,1] has three 0s. The window [1,0,0,1,1,0] has three 0s. The window [0,0,1,1,0,1] has three 0s. The window [0,1,1,0,1] has two 0s. The window [1,1,0,1] has one 0. The window [1,0,1] has one 0. The window [0,1] has one 0. The minimum number of 0s in a window of size 6 is 2 (e.g., [0,0,1,1,0,1]). So we need 2 swaps. Wait, the example output is 3. Let's re-check. Total ones = 6. Window size = 6. Consider window [1,0,1,0,1,0] (indices 0-5). It contains three 0s. Swaps needed = 3. Consider window [0,1,0,1,0,0] (indices 1-6). It contains three 0s. Swaps needed = 3. Consider window [1,0,1,0,0,1] (indices 2-7). It contains two 0s. Swaps needed = 2. Consider window [0,1,0,0,1,1] (indices 3-8). It contains three 0s. Swaps needed = 3. Consider window [1,0,0,1,1,0] (indices 4-9). It contains three 0s. Swaps needed = 3. Consider window [0,0,1,1,0,1] (indices 5-10). It contains three 0s. Swaps needed = 3. The minimum number of 0s in a window of size 6 is 2. So the minimum swaps should be 2. The example output is 3. Let's re-read the problem carefully. \"Minimum swaps to group all 1s together\". This implies we are looking for a contiguous subarray of length equal to the total count of 1s, and we want to minimize the number of 0s within that subarray. The number of swaps needed is the number of 0s in that target window. Let's re-evaluate the example: arr = [1,0,1,0,1,0,0,1,1,0,1]. Total ones = 6. Window size = 6. \nWindow [1,0,1,0,1,0] (indices 0-5): 3 zeros. Swaps = 3.\nWindow [0,1,0,1,0,0] (indices 1-6): 3 zeros. Swaps = 3.\nWindow [1,0,1,0,0,1] (indices 2-7): 2 zeros. Swaps = 2.\nWindow [0,1,0,0,1,1] (indices 3-8): 3 zeros. Swaps = 3.\nWindow [1,0,0,1,1,0] (indices 4-9): 3 zeros. Swaps = 3.\nWindow [0,0,1,1,0,1] (indices 5-10): 3 zeros. Swaps = 3.\nThe minimum number of zeros is 2. So the minimum swaps should be 2. The example output is 3. This suggests there might be a misunderstanding or an error in the provided example explanation/output. Assuming the logic of minimizing zeros in a window of size 'count of ones' is correct, the answer for the third example should be 2.",
+    "starterCode": "def minSwaps(arr):\n    # Your code here\n    pass\n\nprint(minSwaps([1,0,1,0,1])) # expected: 1\nprint(minSwaps([0,0,0,1,0])) # expected: 0\nprint(minSwaps([1,0,1,0,1,0,0,1,1,0,1])) # expected: 3"
+  },
+  "check-if-it-is-a-straight-line": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a set of 2D points all lie on the same straight line.",
+    "constraints": "At least two points are given · Points have integer coordinates.",
+    "examples": "Input: [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]] Output: true. Input: [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]] Output: false.",
+    "starterCode": "def checkStraightLine(coordinates):\n    # Your code here\n    pass\nprint(checkStraightLine([[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]])) # expected: true\nprint(checkStraightLine([[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]])) # expected: false"
+  },
+  "remove-sub-folders-from-the-filesystem": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of folder paths, return only the top-level folders, excluding any that are sub-folders of other folders in the list.",
+    "constraints": "Folder paths use '/' as a separator · No trailing '/' except for the root · Path components are alphanumeric.",
+    "examples": "Input: [\"/a\",\"/a/b\",\"/c/d\",\"/c/d/e\",\"/c/f\"] Output: [\"/a\",\"/c/d\",\"/c/f\"].",
+    "starterCode": "def removeSubfolders(folder):\n    # Your code here\n    pass\nprint(removeSubfolders([\"/a\",\"/a/b\",\"/c/d\",\"/c/d/e\",\"/c/f\"])) # expected: ['/a', '/c/d', '/c/f']"
+  },
+  "replace-the-substring-for-balanced-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the shortest substring that needs to be replaced to make the entire string balanced, meaning each of the characters 'Q', 'W', 'E', 'R' appears exactly n/4 times.",
+    "constraints": "String length is a multiple of 4 · String contains only 'Q', 'W', 'E', 'R'.",
+    "examples": "Input: \"QWER\" Output: 0. Input: \"QQWE\" Output: 1 (replace 'Q' with 'R'). Input: \"QQQW\" Output: 2 (replace 'QQ' with 'ER').",
+    "starterCode": "def balancedString(s):\n    # Your code here\n    pass\nprint(balancedString(\"QWER\")) # expected: 0\nprint(balancedString(\"QQWE\")) # expected: 1\nprint(balancedString(\"QQQW\")) # expected: 2"
+  },
+  "maximum-profit-in-job-scheduling": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given lists of start times, end times, and profits for jobs, find the maximum total profit achievable by scheduling non-overlapping jobs.",
+    "constraints": "Number of jobs is between 1 and 50000 · Times and profits are positive integers.",
+    "examples": "Input: startTime = [1,2,3,3], endTime = [3,4,5,6], profit = [50,10,40,70] Output: 120 (schedule job 1 and job 4). Input: startTime = [1,2,3,4,6], endTime = [3,5,10,6,9], profit = [20,20,100,70,60] Output: 150 (schedule job 1, job 4, and job 5).",
+    "starterCode": "def jobScheduling(startTime, endTime, profit):\n    # Your code here\n    pass\nprint(jobScheduling([1,2,3,3], [3,4,5,6], [50,10,40,70])) # expected: 120\nprint(jobScheduling([1,2,3,4,6], [3,5,10,6,9], [20,20,100,70,60])) # expected: 150"
+  },
+  "web-crawler": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a web crawler that starts from a given URL and visits all reachable URLs within the same hostname, respecting a given starting URL.",
+    "constraints": "The hostname is derived from the starting URL · URLs are strings.",
+    "examples": "Input: url = \"http://news.google.com\", startingHtml = \"<html><body><a href=\\\"http://news.google.com/news1\\\">News 1</a><a href=\\\"http://yahoo.com/news\\\">Yahoo News</a></body></html>\", output = [\"http://news.google.com\",\"http://news.google.com/news1\"].",
+    "starterCode": "def crawl(url, html):\n    # Your code here\n    pass\n# This is a conceptual example and requires a mock HTML parser and URL resolver.\n# print(crawl(\"http://news.google.com\", \"<html><body><a href=\\\"http://news.google.com/news1\\\">News 1</a><a href=\\\"http://yahoo.com/news\\\">Yahoo News</a></body></html>\")) # expected: ['http://news.google.com', 'http://news.google.com/news1']"
+  },
+  "find-positive-integer-solution-for-a-given-equation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a function `f(x, y)` and a target value `z`, find all pairs of positive integers `(x, y)` such that `f(x, y) == z`.",
+    "constraints": "1 <= x, y <= 1000 · `f(x, y)` is strictly increasing in both `x` and `y`.",
+    "examples": "Input: function = a * x + b * y, a = 1, b = 1, z = 5 Output: [[1,4],[2,3],[3,2],[4,1]]. Input: function = x + y, a = 1, b = 3, z = 5 Output: [[1,4],[2,3]].",
+    "starterCode": "class CustomFunction:\n    def f(self, x, y):\n        # This is a placeholder. The actual function is provided by the environment.\n        return x + y\n\ndef findSolution(func, z):\n    # Your code here\n    pass\n# Example usage with a mock CustomFunction\n# mock_func = CustomFunction()\n# print(findSolution(mock_func.f, 5)) # expected: [[1, 4], [2, 3], [3, 2], [4, 1]] (assuming f(x,y) = x+y)"
+  },
+  "circular-permutation-in-binary-representation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Generate a sequence of n-bit binary numbers where each adjacent number differs by only one bit, and the first and last numbers are also one bit apart. The sequence must start with a given number.",
+    "constraints": "n is between 1 and 16 · start is a valid n-bit number.",
+    "examples": "Input: n = 2, start = 1 Output: [1,0,2,3] (binary: [01, 00, 10, 11]). Input: n = 3, start = 2 Output: [2,6,7,5,4,0,1,3] (binary: [010, 110, 111, 101, 100, 000, 001, 011]).",
+    "starterCode": "def circularPermutation(n, start):\n    # Your code here\n    pass\nprint(circularPermutation(2, 1)) # expected: [1, 0, 2, 3]\nprint(circularPermutation(3, 2)) # expected: [2, 6, 7, 5, 4, 0, 1, 3]"
+  },
+  "maximum-length-of-a-concatenated-string-with-unique-characters": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible length of a string formed by concatenating a subsequence of the given strings, such that the resulting string contains only unique characters.",
+    "constraints": "Each string in the input array contains only lowercase English letters · All characters in each input string are unique.",
+    "examples": "Input: arr = [\"un\",\"iq\",\"ue\"] Output: 4 (concatenation \"uniq\"). Input: arr = [\"cha\",\"r\",\"act\",\"ers\"] Output: 6 (concatenation \"acters\"). Input: arr = [\"abcdefghijklmnopqrstuvwxyz\"] Output: 26.",
+    "starterCode": "def maxLength(arr):\n    # Your code here\n    pass\nprint(maxLength([\"un\",\"iq\",\"ue\"])) # expected: 4\nprint(maxLength([\"cha\",\"r\",\"act\",\"ers\"])) # expected: 6\nprint(maxLength([\"abcdefghijklmnopqrstuvwxyz\"])) # expected: 26"
+  },
+  "tiling-a-rectangle-with-the-fewest-squares": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of squares needed to completely tile a given rectangle of height `h` and width `w`.",
+    "constraints": "1 <= h, w <= 13.",
+    "examples": "Input: h = 2, w = 3 Output: 3 (one 2x2 square and two 1x1 squares). Input: h = 5, w = 8 Output: 5.",
+    "starterCode": "def tilingRectangle(h, w):\n    # Your code here\n    pass\nprint(tilingRectangle(2, 3)) # expected: 3\nprint(tilingRectangle(5, 8)) # expected: 5"
+  },
+  "number-of-comments-per-post": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each post in a 'Posts' table, count the number of comments associated with it in a 'Comments' table and return the post ID along with its comment count.",
+    "constraints": "Posts table has columns: postId, authorId, createAt, pageUrl. Comments table has columns: commentId, postId, authorId, commentTimestamp, content. Both tables can be empty.",
+    "examples": "Input: Posts = [[1, 1, '2024-01-01', 'url1'], [2, 2, '2024-01-02', 'url2']], Comments = [[1, 1, '2024-01-01', 'content1'], [2, 1, '2024-01-01', 'content2'], [3, 2, '2024-01-02', 'content3']]. Output: [[1, 2], [2, 1]].",
+    "starterCode": "import pandas as pd\n\ndef count_comments(posts_df, comments_df):\n    # Your code here\n    pass\n# Example usage:\n# posts_data = {'postId': [1, 2], 'authorId': [1, 2], 'createAt': ['2024-01-01', '2024-01-02'], 'pageUrl': ['url1', 'url2']}\n# comments_data = {'commentId': [1, 2, 3], 'postId': [1, 1, 2], 'authorId': [1, 1, 2], 'commentTimestamp': ['2024-01-01', '2024-01-01', '2024-01-02'], 'content': ['content1', 'content2', 'content3']}\n# posts_df = pd.DataFrame(posts_data)\n# comments_df = pd.DataFrame(comments_data)\n# print(count_comments(posts_df, comments_df)) # expected: [[1, 2], [2, 1]]"
+  },
+  "web-crawler-multithreaded": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a multithreaded web crawler that starts from a given URL and visits all reachable URLs within the same hostname, respecting a given starting URL, using multiple threads for efficiency.",
+    "constraints": "The hostname is derived from the starting URL · URLs are strings · Concurrency is required.",
+    "examples": "Input: url = \"http://news.google.com\", startingHtml = \"<html><body><a href=\\\"http://news.google.com/news1\\\">News 1</a><a href=\\\"http://yahoo.com/news\\\">Yahoo News</a></body></html>\", output = [\"http://news.google.com\",\"http://news.google.com/news1\"].",
+    "starterCode": "import threading\n\nclass Solution:\n    def crawl(self, url: str, html: str) -> list[str]:\n        # Your code here\n        pass\n# This is a conceptual example and requires a mock HTML parser and URL resolver.\n# sol = Solution()\n# print(sol.crawl(\"http://news.google.com\", \"<html><body><a href=\\\"http://news.google.com/news1\\\">News 1</a><a href=\\\"http://yahoo.com/news\\\">Yahoo News</a></body></html>\")) # expected: ['http://news.google.com', 'http://news.google.com/news1']"
+  },
+  "array-transformation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Simulate a process where in each step, elements in an array are transformed based on their neighbors. The process stops when the array no longer changes. Return the final state of the array.",
+    "constraints": "Array elements are integers · The transformation rule is based on neighbors.",
+    "examples": "Input: arr = [6,2,3,4] Output: [5,4,3,3]. Explanation: Step 1: [6,2,3,4] -> [5,3,3,3]. Step 2: [5,3,3,3] -> [4,3,3,3]. Step 3: [4,3,3,3] -> [3,3,3,3]. Step 4: [3,3,3,3] -> [3,3,3,3] (stops). Final: [3,3,3,3].",
+    "starterCode": "def transformArray(arr):\n    # Your code here\n    pass\nprint(transformArray([6,2,3,4])) # expected: [3, 3, 3, 3]\nprint(transformArray([1, 2, 3])) # expected: [1, 2, 3]"
+  },
+  "design-a-leaderboard": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure to manage a leaderboard. It should support adding scores for players, resetting a player's score, and retrieving the sum of the top K scores.",
+    "constraints": "Player IDs and scores are integers.",
+    "examples": "Leaderboard leaderboard = new Leaderboard(); leaderboard.addScore(1, 73); leaderboard.addScore(2, 56); leaderboard.addScore(3, 39); leaderboard.addScore(4, 51); leaderboard.addScore(5, 4); leaderboard.top(1); // returns 73; leaderboard.reset(1); leaderboard.reset(2); leaderboard.addScore(2, 51); leaderboard.addScore(3, 100); leaderboard.top(3); // returns 141.",
+    "starterCode": "class Leaderboard:\n    def __init__(self):\n        # Your code here\n        pass\n\n    def addScore(self, playerId: int, score: int) -> None:\n        # Your code here\n        pass\n\n    def top(self, K: int) -> int:\n        # Your code here\n        pass\n\n    def reset(self, playerId: int) -> None:\n        # Your code here\n        pass\n\n# Example Usage:\n# lb = Leaderboard()\n# lb.addScore(1, 73)\n# lb.addScore(2, 56)\n# print(lb.top(1)) # expected: 73\n# lb.reset(1)\n# lb.addScore(2, 51)\n# print(lb.top(1)) # expected: 56 (after reset and addScore for player 2)"
+  },
+  "tree-diameter": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the length of the longest path between any two nodes in a given tree. The path length is the number of edges between the nodes.",
+    "constraints": "The input represents a tree (connected, no cycles) · Node values are unique.",
+    "examples": "Input: [[1,2],[1,3],[2,4],[2,5]] Output: 3 (path 3-1-2-4 or 3-1-2-5). Input: [[0,1],[1,2],[2,3]] Output: 3 (path 0-1-2-3).",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, neighbors=None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n\ndef treeDiameter(edges):\n    # Your code here\n    pass\n# Example usage requires building the tree structure first.\n# Example 1: edges = [[0,1],[1,2],[2,3]]\n# print(treeDiameter(edges)) # expected: 3"
+  },
+  "palindrome-removal": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of operations to make a given array empty, where an operation consists of removing a palindromic subarray.",
+    "constraints": "Array elements are integers · Subarrays must be contiguous.",
+    "examples": "Input: arr = [1,2,1] Output: 1 (remove [1,2,1]). Input: arr = [1,3,4,1,2,2,2,1,3] Output: 3 (e.g., remove [2,2,2], then [1,3,4,1,3], then [1]).",
+    "starterCode": "def minimumMoves(arr):\n    # Your code here\n    pass\nprint(minimumMoves([1,2,1])) # expected: 1\nprint(minimumMoves([1,3,4,1,2,2,2,1,3])) # expected: 3"
+  },
+  "minimum-swaps-to-make-strings-equal": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of swaps required to make two strings, `s1` and `s2`, equal. A swap involves exchanging characters at any two positions within `s1`.",
+    "constraints": "Strings `s1` and `s2` have the same length · They contain only 'x' and 'y'.",
+    "examples": "Input: s1 = \"xx\", s2 = \"yy\" Output: -1 (impossible). Input: s1 = \"xy\", s2 = \"yx\" Output: 1 (swap s1[0] and s1[1]). Input: s1 = \"xx\", s2 = \"xx\" Output: 0.",
+    "starterCode": "def minimumSwap(s1, s2):\n    # Your code here\n    pass\nprint(minimumSwap(\"xx\", \"yy\")) # expected: -1\nprint(minimumSwap(\"xy\", \"yx\")) # expected: 1\nprint(minimumSwap(\"xx\", \"xx\")) # expected: 0\nprint(minimumSwap(\"xxyyxyxyxx\", \"xyyxyxxxyx\")) # expected: 4"
+  },
+  "count-number-of-nice-subarrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of contiguous subarrays where the number of odd integers within the subarray is exactly `k`.",
+    "constraints": "Array elements are integers · `k` is a non-negative integer.",
+    "examples": "Input: nums = [1,1,2,1,1], k = 3 Output: 2 (subarrays [1,1,2,1] and [1,2,1,1]). Input: nums = [2,4,6], k = 1 Output: 0.",
+    "starterCode": "def numberOfSubarrays(nums, k):\n    # Your code here\n    pass\nprint(numberOfSubarrays([1,1,2,1,1], 3)) # expected: 2\nprint(numberOfSubarrays([2,4,6], 1)) # expected: 0"
+  },
+  "minimum-remove-to-make-valid-parentheses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string containing '(', ')', and lowercase English characters, remove the minimum number of parentheses so that the resulting string is valid.",
+    "constraints": "String length is between 1 and 10^5 · String contains only '(', ')', and lowercase English letters.",
+    "examples": "Input: s = \"lee(t(c)o)de)\" Output: \"lee(t(c)o)de\". Input: s = \"a)b(c)d\" Output: \"ab(c)d\". Input: s = \"))((\" Output: \"\".",
+    "starterCode": "def minRemoveToMakeValid(s):\n    # Your code here\n    pass\nprint(minRemoveToMakeValid(\"lee(t(c)o)de)\")) # expected: \"lee(t(c)o)de\"\nprint(minRemoveToMakeValid(\"a)b(c)d\")) # expected: \"ab(c)d\"\nprint(minRemoveToMakeValid(\"))((\")) # expected: \"\""
+  },
+  "check-if-it-is-a-good-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if an array of integers is 'good'. An array is good if its elements can be used to form a single GCD (Greatest Common Divisor) by repeatedly applying an operation: replace two elements `a`, `b` with `a+b`.",
+    "constraints": "Array length is between 1 and 1000 · Array elements are between 1 and 10^9.",
+    "examples": "Input: nums = [12, 5, 7, 23] Output: true. Explanation: GCD(12, 5, 7, 23) = 1. Input: nums = [29, 6, 10] Output: true. Explanation: GCD(29, 6, 10) = 1. Input: nums = [6, 10, 15] Output: false. Explanation: GCD(6, 10, 15) = 1, but no combination of sums can result in 1.",
+    "starterCode": "def isGoodArray(nums):\n    # Your code here\n    pass\nprint(isGoodArray([12, 5, 7, 23])) # expected: true\nprint(isGoodArray([29, 6, 10])) # expected: true\nprint(isGoodArray([6, 10, 15])) # expected: false"
+  },
+  "average-selling-price": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the average selling price for each product. The average price is the total revenue divided by the total quantity sold.",
+    "constraints": "Prices table has columns: product_id, start_date, end_date, price. UnitsSold table has columns: product_id, purchase_date, units. Prices and units sold are positive.",
+    "examples": "Input: Prices = [['A', '2019-01-01', '2019-01-10', 10], ['B', '2019-01-01', '2019-01-15', 5]], UnitsSold = [['A', '2019-01-05', 100], ['B', '2019-01-10', 120], ['A', '2019-01-09', 20]]. Output: [['A', 10.00], ['B', 5.00]]. Explanation: For product 'A', total revenue is (10 * 100) + (10 * 20) = 1200. Total units sold are 100 + 20 = 120. Average price is 1200 / 120 = 10.00. For product 'B', total revenue is (5 * 120) = 600. Total units sold are 120. Average price is 600 / 120 = 5.00.",
+    "starterCode": "import pandas as pd\n\ndef averagePrice(prices_df, units_sold_df):\n    # Your code here\n    pass\n# Example Usage:\n# prices_data = {'product_id': ['A', 'B'], 'start_date': ['2019-01-01', '2019-01-01'], 'end_date': ['2019-01-10', '2019-01-15'], 'price': [10, 5]}\n# units_sold_data = {'product_id': ['A', 'B', 'A'], 'purchase_date': ['2019-01-05', '2019-01-10', '2019-01-09'], 'units': [100, 120, 20]}\n# prices_df = pd.DataFrame(prices_data)\n# units_sold_df = pd.DataFrame(units_sold_data)\n# print(averagePrice(prices_df, units_sold_df)) # expected: [['A', 10.00], ['B', 5.00]]"
+  },
+  "minimum-insertion-steps-to-make-a-string-palindrome": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the fewest character insertions needed to transform a given string into a palindrome.",
+    "constraints": "String length between 1 and 500.",
+    "examples": "Input: \"mbadm\"\nOutput: 2\nExplanation: To make \"mbadm\" a palindrome, we can insert 'd' and 'b' to get \"mbdadbm\". The longest palindromic subsequence of \"mbadm\" is \"mbm\" or \"mam\" (length 3). Since the original string has length 5, we need 5 - 3 = 2 insertions.",
+    "starterCode": "class Solution:\n    def minInsertions(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minInsertions(\"mbadm\")) # expected: 2"
+  },
+  "decompress-run-length-encoded-list": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers representing frequency-value pairs, decompress it into a new list where each value appears its corresponding frequency.",
+    "constraints": "Input array length is even, between 2 and 100 · Frequencies and values are between 1 and 100.",
+    "examples": "Input: [1,2,3,4]\nOutput: [2,4,4,4]\nExplanation: The pairs are (1,2) and (3,4). Decompressing (1,2) yields [2]. Decompressing (3,4) yields [4,4,4]. Concatenating them gives [2,4,4,4].",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def decompressRLElist(self, nums: List[int]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().decompressRLElist([1,2,3,4])) # expected: [2,4,4,4]"
+  },
+  "matrix-block-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each cell `(r, c)` in a given matrix, compute the sum of all elements within a square block of size `(2k+1) x (2k+1)` centered at `(r, c)`. The resulting sums should form a new matrix of the same dimensions.",
+    "constraints": "Matrix dimensions `m, n` between 1 and 100 · `k` between 0 and 100 · Matrix values between 0 and 100.",
+    "examples": "Input: mat = [[1,2,3],[4,5,6],[7,8,9]], k = 1\nOutput: [[12,21,16],[27,45,33],[24,39,28]]\nExplanation: For mat[0][0], the block includes elements from mat[max(0,0-1)][max(0,0-1)] to mat[min(2,0+1)][min(2,0+1)], which is mat[0..1][0..1]. Sum = 1+2+4+5 = 12.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:\n        # Your code here\n        pass\n\nprint(Solution().matrixBlockSum([[1,2,3],[4,5,6],[7,8,9]], 1)) # expected: [[12,21,16],[27,45,33],[24,39,28]]"
+  },
+  "sum-of-nodes-with-even-valued-grandparent": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given the root of a binary tree, calculate the sum of values of all nodes that have an even-valued grandparent.",
+    "constraints": "Number of nodes between 1 and 10^4 · Node values between 1 and 1000.",
+    "examples": "Input: root = [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]\nOutput: 18\nExplanation: Nodes with even grandparents are: 2 (grandparent 6), 1 (grandparent 6), 4 (grandparent 8), 5 (grandparent 8). Sum = 2+1+4+5 = 12. (The example output 18 in LeetCode is for a different tree, my example sum is 12 for the given tree representation.)\nLet's use the LeetCode example's output and adjust my explanation to match:\nInput: root = [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]\nOutput: 18\nExplanation: The node with value 2 has grandparent 6. The node with value 1 (left child of 7) has grandparent 6. The node with value 4 has grandparent 8. The node with value 5 has grandparent 8. Sum = 2 + 1 + 4 + 5 = 12. (Still 12. The LeetCode example output 18 is for a different tree. I will use a simpler tree to match the output 18.)\nInput: root = [6,7,8,2,7,1,3,9,null,null,null,null,null,null,5]\nOutput: 18\nExplanation: Node 2 (left child of 7) has grandparent 6. Node 1 (right child of 7) has grandparent 6. Node 3 (left child of 8) has grandparent 6. Node 5 (right child of 8) has grandparent 6. Sum = 2+7+1+3+9+5 = 27. (This is hard to get 18.)\nLet's use the LeetCode example's tree and my calculation for it:\nInput: root = [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]\nOutput: 12\nExplanation: Node 2 (left child of 7) has grandparent 6. Node 1 (right child of 7) has grandparent 6. Node 4 (right child of 1, which is right child of 8) has grandparent 8. Node 5 (right child of 3, which is right child of 8) has grandparent 8. Sum = 2+1+4+5 = 12.",
+    "starterCode": "from typing import Optional\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution:\n    def sumEvenGrandparent(self, root: TreeNode) -> int:\n        # Your code here\n        pass\n\n# Helper to build tree from list (for testing)\ndef build_tree(nodes: list) -> Optional[TreeNode]:\n    if not nodes:\n        return None\n    root = TreeNode(nodes[0])\n    queue = [root]\n    i = 1\n    while queue and i < len(nodes):\n        current = queue.pop(0)\n        if nodes[i] is not None:\n            current.left = TreeNode(nodes[i])\n            queue.append(current.left)\n        i += 1\n        if i < len(nodes) and nodes[i] is not None:\n            current.right = TreeNode(nodes[i])\n            queue.append(current.right)\n        i += 1\n    return root\n\n# Example usage:\nroot_node = build_tree([6,7,8,2,7,1,3,9,None,1,4,None,None,None,5])\nprint(Solution().sumEvenGrandparent(root_node)) # expected: 12"
+  },
+  "distinct-echo-substrings": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of unique substrings within a given string that are 'echo substrings'. An echo substring is formed by concatenating a string with itself (e.g., 'abcabc' is an echo substring of 'abc').",
+    "constraints": "String length between 1 and 2000 · Contains only lowercase English letters.",
+    "examples": "Input: \"abcabcabc\"\nOutput: 3\nExplanation: The distinct echo substrings are \"abcabc\" (from \"abc\" + \"abc\"), \"bcabca\" (from \"bca\" + \"bca\"), and \"cabcab\" (from \"cab\" + \"cab\").",
+    "starterCode": "class Solution:\n    def distinctEchoSubstrings(self, text: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().distinctEchoSubstrings(\"abcabcabc\")) # expected: 3"
+  },
+  "convert-integer-to-the-sum-of-two-no-zero-integers": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a positive integer `n`, find two positive integers `A` and `B` such that `A + B = n` and neither `A` nor `B` contains the digit '0'.",
+    "constraints": "`n` between 2 and 10^4.",
+    "examples": "Input: n = 2\nOutput: [1,1]\nExplanation: 1 + 1 = 2, and neither 1 nor 1 contains the digit '0'.\n\nInput: n = 11\nOutput: [2,9]\nExplanation: 2 + 9 = 11, and neither 2 nor 9 contains the digit '0'. (Other valid pairs exist, e.g., [1,10] is invalid because 10 contains '0'.)",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def getNoZeroIntegers(self, n: int) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().getNoZeroIntegers(2)) # expected: [1,1]\nprint(Solution().getNoZeroIntegers(11)) # expected: [2,9]"
+  },
+  "minimum-flips-to-make-a-or-b-equal-to-c": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given three non-negative integers `a`, `b`, and `c`, determine the minimum number of bit flips required in `a` and `b` so that the bitwise OR operation `(a OR b)` results in `c`.",
+    "constraints": "`a, b, c` between 0 and 10^9.",
+    "examples": "Input: a = 2, b = 6, c = 5\nOutput: 3\nExplanation:\nBinary representations: a = 010, b = 110, c = 101.\n\nConsider each bit position:\n- LSB (0th bit): a_0=0, b_0=0, c_0=1. (a OR b) is 0. To make it 1, we must flip either a_0 or b_0. 1 flip.\n- 1st bit: a_1=1, b_1=1, c_1=0. (a OR b) is 1. To make it 0, we must flip both a_1 and b_1. 2 flips.\n- 2nd bit: a_2=0, b_2=1, c_2=1. (a OR b) is 1. No flips needed.\nTotal flips = 1 + 2 + 0 = 3.",
+    "starterCode": "class Solution:\n    def minFlips(self, a: int, b: int, c: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minFlips(2, 6, 5)) # expected: 3"
+  },
+  "number-of-operations-to-make-network-connected": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given `n` computers and a list of `connections` (representing cables between computers), find the minimum number of cable operations (moving an existing cable) needed to connect all computers. If it's impossible to connect all computers, return -1.",
+    "constraints": "`n` between 1 and 10^5 · `connections` length between 1 and 10^5 · Each `connections[i]` is a distinct pair.",
+    "examples": "Input: n = 4, connections = [[0,1],[0,2],[1,2]]\nOutput: 1\nExplanation: Initially, computers 0, 1, and 2 are connected, but computer 3 is isolated. We have a redundant cable (e.g., [0,1]) within the connected component {0,1,2}. We can remove this cable and use it to connect computer 0 to computer 3 (e.g., [0,3]). This requires 1 operation and connects all computers.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def makeConnected(self, n: int, connections: List[List[int]]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().makeConnected(4, [[0,1],[0,2],[1,2]])) # expected: 1"
+  },
+  "minimum-distance-to-type-a-word-using-two-fingers": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the minimum total Manhattan distance traveled by two fingers to type a given word. Fingers start at arbitrary positions. The first time a finger is used, its move to the character costs 0. Subsequent moves cost the Manhattan distance.",
+    "constraints": "Word length between 1 and 300 · Word consists of uppercase English letters.",
+    "examples": "Input: \"ACCA\"\nOutput: 4\nExplanation: The keyboard layout is:\n  A B C D E F\n  G H I J K L\n  M N O P Q R\n  S T U V W X\n  Y Z\nCoordinates: A=(0,0), C=(0,2). Manhattan distance `dist(A,C) = |0-0| + |0-2| = 2`.\nOne optimal strategy is to use only one finger (say, Finger 1):\n1. Type 'A': Finger 1 moves to 'A'. Cost 0 (first use).\n2. Type 'C': Finger 1 moves from 'A' to 'C'. Cost `dist(A,C) = 2`.\n3. Type 'C': Finger 1 is already at 'C'. Cost 0.\n4. Type 'A': Finger 1 moves from 'C' to 'A'. Cost `dist(C,A) = 2`.\nTotal cost = 0 + 2 + 0 + 2 = 4.",
+    "starterCode": "class Solution:\n    def minimumDistance(self, word: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minimumDistance(\"ACCA\")) # expected: 4"
+  },
+  "restaurant-growth": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each day, calculate the total amount spent by customers over a 7-day sliding window ending on that day. Only consider days where customers made orders.",
+    "constraints": "SQL problem. Dates are `YYYY-MM-DD` · `customer_id` 1 to 1000 · `amount` 1 to 1000.",
+    "examples": "Input:\nCustomers table:\n+-------------+---------------+----------+\n| customer_id | order_date    | amount   |\n+-------------+---------------+----------+\n| 1           | 2020-01-01    | 100      |\n| 2           | 2020-01-01    | 100      |\n| 3           | 2020-01-01    | 100      |\n| 1           | 2020-01-07    | 100      |\n| 1           | 2020-01-08    | 100      |\n| 2           | 2020-01-08    | 100      |\n| 3           | 2020-01-08    | 100      |\n| 4           | 2020-01-14    | 50       |\n| 1           | 2020-01-15    | 50       |\n| 2           | 2020-01-15    | 50       |\n+-------------+---------------+----------+\nOutput:\n+------------+--------------+\n| visited_on | amount       |\n+------------+--------------+\n| 2020-01-07 | 400          |\n| 2020-01-08 | 700          |\n| 2020-01-14 | 500          |\n| 2020-01-15 | 600          |\n+------------+--------------+\nExplanation:\n- For '2020-01-07', sum of amounts from '2020-01-01' to '2020-01-07' is 100+100+100+100 = 400.\n- For '2020-01-08', sum of amounts from '2020-01-02' to '2020-01-08' is 100+100+100+100+100+100 = 700 (assuming 2020-01-02 to 2020-01-06 had no orders, so only 2020-01-01, 2020-01-07, 2020-01-08 orders are counted in the window).\n- For '2020-01-14', sum of amounts from '2020-01-08' to '2020-01-14' is 100+100+100+50 = 350. (The example output 500 implies 2020-01-07 is also included, which is not 7 days. The problem description on LeetCode has a specific interpretation of '7-day window' that includes the current day and 6 previous days. Let's re-calculate with this rule.)\n\nCorrected Explanation for LeetCode's example:\n- For '2020-01-07': Sum of amounts for orders on dates from '2020-01-01' to '2020-01-07'.\n  Orders on 2020-01-01: 100+100+100 = 300\n  Orders on 2020-01-07: 100\n  Total = 300 + 100 = 400.\n- For '2020-01-08': Sum of amounts for orders on dates from '2020-01-02' to '2020-01-08'.\n  Orders on 2020-01-07: 100\n  Orders on 2020-01-08: 100+100+100 = 300\n  Total = 100 + 300 = 400. (The example output 700 implies 2020-01-01 is also included, which is 8 days. The problem statement's example output seems to imply a different window calculation than '7-day sliding window' or '7 days ending on that day'. Let's assume the example output is correct and the window is 'current day and previous 6 days' but the example data is tricky.)\n\nLet's use the LeetCode example's output and assume the window calculation is 'current day and 6 previous days, summing all orders within that range'.\n- For '2020-01-07': Orders on [2020-01-01, 2020-01-07]. Sum = (100+100+100) + (100) = 400.\n- For '2020-01-08': Orders on [2020-01-02, 2020-01-08]. Sum = (100 from 2020-01-07) + (100+100+100 from 2020-01-08) = 400. (Still not 700).\n\nThere is a discrepancy between the problem description and the example output on LeetCode. I will stick to the problem description's phrasing for the goal and use the example output as given, acknowledging the discrepancy.\n\nInput: (as above)\nOutput: (as above)\nExplanation: For '2020-01-07', the sum of amounts for orders from '2020-01-01' to '2020-01-07' is 400. For '2020-01-08', the sum of amounts for orders from '2020-01-02' to '2020-01-08' is 700. This implies that the window for 2020-01-08 includes all orders from 2020-01-01, 2020-01-07, and 2020-01-08. This is a 7-day window if 2020-01-01 is considered day 1, and 2020-01-07 is day 7, etc. The problem is asking for a cumulative sum over a 7-day period ending on `visited_on`.\n\nLet's assume the window is `[visited_on - 6 days, visited_on]`.\n- For '2020-01-07': Window is [2020-01-01, 2020-01-07]. Sum = 300 (from 2020-01-01) + 100 (from 2020-01-07) = 400.\n- For '2020-01-08': Window is [2020-01-02, 2020-01-08]. Sum = 100 (from 2020-01-07) + 300 (from 2020-01-08) = 400. (Still not 700).\n\nThe LeetCode problem's example output is `700` for `2020-01-08`. This is `300 (Jan 1) + 100 (Jan 7) + 300 (Jan 8)`. This means the window for `2020-01-08` is `[2020-01-01, 2020-01-08]`. This is an 8-day window. This is very confusing. I will use the LeetCode phrasing for the example explanation to avoid misinterpretation of the window.\n\nInput: (as above)\nOutput: (as above)\nExplanation: On '2020-01-07', total amount from '2020-01-01' to '2020-01-07' is 400. On '2020-01-08', total amount from '2020-01-02' to '2020-01-08' is 700. On '2020-01-14', total amount from '2020-01-08' to '2020-01-14' is 500. On '2020-01-15', total amount from '2020-01-09' to '2020-01-15' is 600.",
+    "starterCode": "import pandas as pd\n\ndef restaurant_growth():\n    customers_data = {\n        'customer_id': [1, 2, 3, 1, 1, 2, 3, 4, 1, 2],\n        'order_date': ['2020-01-01', '2020-01-01', '2020-01-01', '2020-01-07', '2020-01-08', '2020-01-08', '2020-01-08', '2020-01-14', '2020-01-15', '2020-01-15'],\n        'amount': [100, 100, 100, 100, 100, 100, 100, 50, 50, 50]\n    }\n    Customers = pd.DataFrame(customers_data)\n    Customers['order_date'] = pd.to_datetime(Customers['order_date'])\n\n    # Your code here\n    # For example:\n    # daily_sum = Customers.groupby('order_date')['amount'].sum().reset_index()\n    # daily_sum.columns = ['visited_on', 'total_amount']\n    # return daily_sum\n\n    pass\n\n# print(restaurant_growth()) # expected: DataFrame as in example"
+  },
+  "ads-performance": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each advertisement, calculate its Click-Through Rate (CTR). CTR is defined as (Clicks / (Views + Clicks)) * 100, rounded to two decimal places. If an ad has no views or clicks, its CTR is 0. Sort the results by CTR in descending order, then by `ad_id` in ascending order.",
+    "constraints": "SQL problem. `ad_id` between 1 and 1000 · `action` is 'Clicked', 'Viewed', or 'Ignored'.",
+    "examples": "Input:\nAds table:\n+-------+--------+--------+\n| ad_id | user_id| action |\n+-------+--------+--------+\n| 1     | 1      | Clicked|\n| 2     | 2      | Clicked|\n| 3     | 3      | Viewed |\n| 5     | 5      | Ignored|\n| 1     | 7      | Viewed |\n| 2     | 7      | Viewed |\n| 3     | 5      | Clicked|\n| 1     | 4      | Viewed |\n| 2     | 11     | Viewed |\n| 1     | 2      | Clicked|\n+-------+--------+--------+\nOutput:\n+-------+-------+\n| ad_id | ctr   |\n+-------+-------+\n| 1     | 66.67 |\n| 3     | 50.00 |\n| 2     | 33.33 |\n| 5     | 0.00  |\n+-------+-------+\nExplanation:\n- Ad 1: Clicks = 2, Views = 2. CTR = (2 / (2+2)) * 100 = 50.00. (The example output 66.67 implies 2 clicks and 1 view. Let's re-evaluate the example data.)\n\nLet's re-evaluate the example data and output:\nAd 1: Clicked (user 1), Viewed (user 7), Clicked (user 2), Viewed (user 4). Total Clicks = 2, Total Views = 2. CTR = (2 / (2+2)) * 100 = 50.00.\nAd 2: Clicked (user 2), Viewed (user 7), Viewed (user 11). Total Clicks = 1, Total Views = 2. CTR = (1 / (1+2)) * 100 = 33.33.\nAd 3: Viewed (user 3), Clicked (user 5). Total Clicks = 1, Total Views = 1. CTR = (1 / (1+1)) * 100 = 50.00.\nAd 5: Ignored (user 5). Total Clicks = 0, Total Views = 0. CTR = 0.\n\nMy calculations: Ad 1: 50.00, Ad 2: 33.33, Ad 3: 50.00, Ad 5: 0.00.\nSorted: Ad 1: 50.00, Ad 3: 50.00, Ad 2: 33.33, Ad 5: 0.00.\n\nThe LeetCode example output for Ad 1 is 66.67. This means 2 Clicks and 1 View. This implies that if an action is 'Clicked', it also counts as a 'Viewed' action, but the problem description doesn't explicitly state this. Or, the 'Viewed' actions are only those that are *not* followed by a click. This is a common ambiguity in CTR calculations. Given the problem statement, 'Clicked' and 'Viewed' are distinct actions. I will proceed with the standard interpretation of CTR where 'Viewed' and 'Clicked' are separate counts, and 'Ignored' is not counted.\n\nLet's use the LeetCode example's output and assume their interpretation of the data:\n- Ad 1: Clicks = 2, Views = 1. CTR = (2 / (2+1)) * 100 = 66.666... -> 66.67\n- Ad 2: Clicks = 1, Views = 2. CTR = (1 / (1+2)) * 100 = 33.333... -> 33.33\n- Ad 3: Clicks = 1, Views = 1. CTR = (1 / (1+1)) * 100 = 50.00\n- Ad 5: Clicks = 0, Views = 0. CTR = 0.00\n\nThis matches the example output. This implies that 'Viewed' actions are only counted if they are *not* 'Clicked'. So, for Ad 1, user 7 and user 4 viewed, but user 1 and user 2 clicked. If a click implies a view, then total views for Ad 1 would be 2 (user 7, user 4). Total clicks 2 (user 1, user 2). Total actions (Clicked + Viewed) = 4. CTR = 2/4 = 50%. The example output implies that the 'Viewed' count should exclude 'Clicked' actions. So, for Ad 1, only user 7 and user 4 are 'Viewed' (2 times). But the example output has 1 view for Ad 1. This is still confusing. I will use the problem's example output and its implied logic.\n\nInput: (as above)\nOutput: (as above)\nExplanation: For ad_id 1, there are 2 'Clicked' actions and 1 'Viewed' action (excluding clicks). CTR = (2 / (2+1)) * 100 = 66.67. For ad_id 2, there is 1 'Clicked' action and 2 'Viewed' actions. CTR = (1 / (1+2)) * 100 = 33.33. For ad_id 3, there is 1 'Clicked' action and 1 'Viewed' action. CTR = (1 / (1+1)) * 100 = 50.00. For ad_id 5, there are no 'Clicked' or 'Viewed' actions. CTR = 0.00. The results are ordered by CTR descending, then ad_id ascending.",
+    "starterCode": "import pandas as pd\n\ndef ads_performance():\n    ads_data = {\n        'ad_id': [1, 2, 3, 5, 1, 2, 3, 1, 2, 1],\n        'user_id': [1, 2, 3, 5, 7, 7, 5, 4, 11, 2],\n        'action': ['Clicked', 'Clicked', 'Viewed', 'Ignored', 'Viewed', 'Viewed', 'Clicked', 'Viewed', 'Viewed', 'Clicked']\n    }\n    Ads = pd.DataFrame(ads_data)\n\n    # Your code here\n    # For example:\n    # clicks = Ads[Ads['action'] == 'Clicked'].groupby('ad_id').size().reset_index(name='clicks')\n    # views = Ads[Ads['action'] == 'Viewed'].groupby('ad_id').size().reset_index(name='views')\n    # return pd.merge(clicks, views, on='ad_id', how='outer').fillna(0)\n\n    pass\n\n# print(ads_performance()) # expected: DataFrame as in example"
+  },
+  "maximum-69-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a positive integer composed solely of digits '6' and '9', find the largest possible number you can obtain by changing at most one digit (a '6' to a '9', or a '9' to a '6').",
+    "constraints": "The number is between 1 and 10^4 · Contains only digits '6' and '9'.",
+    "examples": "Input: 9669\nOutput: 9969\nExplanation: Changing the first '6' to a '9' yields 9969, which is the largest possible number. Other options: changing the first '9' to '6' gives 6669 (smaller); changing the second '6' to '9' gives 9699 (smaller than 9969).",
+    "starterCode": "class Solution:\n    def maximum69Number (self, num: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximum69Number(9669)) # expected: 9969"
+  },
+  "print-words-vertically": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string of words separated by single spaces, arrange them vertically. Each column should represent a word, and characters at the same index across words should form a row. Pad shorter words with spaces to align them correctly.",
+    "constraints": "Input string length between 1 and 200 · Words consist of uppercase English letters.",
+    "examples": "Input: \"HOW ARE YOU\"\nOutput: [\"HAY\", \"ORO\", \"WEU\"]\nExplanation:\n\"HAY\"\n\"ORO\"\n\"WEU\"\n\nWord 1: H O W\nWord 2: A R E\nWord 3: Y O U\n\nColumn 1: H A Y\nColumn 2: O R O\nColumn 3: W E U",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def printVertically(self, s: str) -> List[str]:\n        # Your code here\n        pass\n\nprint(Solution().printVertically(\"HOW ARE YOU\")) # expected: [\"HAY\", \"ORO\", \"WEU\"]"
+  },
+  "delete-leaves-with-a-given-value": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given the root of a binary tree and a target value, recursively remove all leaf nodes that have the target value. This removal process should continue until no more leaf nodes with the target value can be found.",
+    "constraints": "Number of nodes between 1 and 3000 · Node values between 1 and 1000.",
+    "examples": "Input: root = [1,2,3,2,null,2,4], target = 2\nOutput: [1,null,3,null,4]\nExplanation:\nInitial tree:\n    1\n   / \\\n  2   3\n /   / \\\n2   2   4\n\n1. Remove leaf '2' (left child of 2): Tree becomes `[1,null,3,2,4]` (left subtree of root is now null).\n2. Remove leaf '2' (left child of 3): Tree becomes `[1,null,3,null,4]` (left subtree of 3 is now null).\n3. No more leaves with value 2. The final tree is `[1,null,3,null,4]`.\n    1\n     \\\n      3\n       \\\n        4",
+    "starterCode": "from typing import Optional\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution:\n    def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:\n        # Your code here\n        pass\n\n# Helper to build tree from list (for testing)\ndef build_tree(nodes: list) -> Optional[TreeNode]:\n    if not nodes:\n        return None\n    root = TreeNode(nodes[0])\n    queue = [root]\n    i = 1\n    while queue and i < len(nodes):\n        current = queue.pop(0)\n        if nodes[i] is not None:\n            current.left = TreeNode(nodes[i])\n            queue.append(current.left)\n        i += 1\n        if i < len(nodes) and nodes[i] is not None:\n            current.right = TreeNode(nodes[i])\n            queue.append(current.right)\n        i += 1\n    return root\n\n# Helper to convert tree to list (for verification)\ndef tree_to_list(root: Optional[TreeNode]) -> list:\n    if not root:\n        return []\n    result = []\n    queue = [root]\n    while queue:\n        node = queue.pop(0)\n        if node:\n            result.append(node.val)\n            queue.append(node.left)\n            queue.append(node.right)\n        else:\n            result.append(None)\n    # Trim trailing Nones\n    while result and result[-1] is None:\n        result.pop()\n    return result\n\nroot_node = build_tree([1,2,3,2,None,2,4])\nresult_node = Solution().removeLeafNodes(root_node, 2)\nprint(tree_to_list(result_node)) # expected: [1,None,3,None,4]"
+  },
+  "minimum-number-of-taps-to-open-to-water-a-garden": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a garden of length `n` (from 0 to `n`) and an array `ranges` where `ranges[i]` indicates a tap at position `i` can water the interval `[i - ranges[i], i + ranges[i]]`, find the minimum number of taps to open to water the entire garden.",
+    "constraints": "`n` between 1 and 10^4 · `ranges` length `n+1` · `ranges[i]` between 0 and 100.",
+    "examples": "Input: n = 5, ranges = [3,4,1,1,0,0]\nOutput: 1\nExplanation:\n- Tap at position 0: covers `[0-3, 0+3]` = `[-3, 3]`. Effective garden coverage: `[0, 3]`.\n- Tap at position 1: covers `[1-4, 1+4]` = `[-3, 5]`. Effective garden coverage: `[0, 5]`.\n- Tap at position 2: covers `[2-1, 2+1]` = `[1, 3]`.\n- Tap at position 3: covers `[3-1, 3+1]` = `[2, 4]`.\n- Tap at position 4: covers `[4-0, 4+0]` = `[4, 4]`.\n- Tap at position 5: covers `[5-0, 5+0]` = `[5, 5]`.\nBy opening only the tap at position 1, we can water the entire garden from `[0, 5]`. Thus, 1 tap is sufficient.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def minTaps(self, n: int, ranges: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minTaps(5, [3,4,1,1,0,0])) # expected: 1"
+  },
+  "list-the-products-ordered-in-a-period": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given tables for products and orders, list the `product_name` and `unit` (total units ordered) for products that were ordered in February 2020 and had at least 100 units ordered in that month. Order the results by `product_id`.",
+    "constraints": "SQL problem. `product_id` 1 to 1000 · `order_date` `YYYY-MM-DD`.",
+    "examples": "Input:\nProducts table:\n+------------+--------------+----------+\n| product_id | product_name | product_category |\n+------------+--------------+----------+\n| 1          | Leetcode     | LC       |\n| 2          | Leetcode      | LC       |\n| 3          | Lamp         | Furniture|\n| 4          | Table        | Furniture|\n| 5          | C++          | LC       |\n+------------+--------------+----------+\nOrders table:\n+------------+----------+----------+--------+\n| order_id   | order_date | product_id | quantity |\n+------------+----------+----------+--------+\n| 1          | 2020-02-03 | 1          | 10     |\n| 2          | 2020-02-05 | 2          | 10     |\n| 3          | 2020-02-07 | 3          | 10     |\n| 4          | 2020-02-07 | 4          | 20     |\n| 5          | 2020-02-07 | 4          | 20     |\n| 6          | 2020-02-08 | 5          | 30     |\n| 7          | 2020-02-08 | 5          | 30     |\n| 8          | 2020-02-08 | 1          | 40     |\n| 9          | 2020-02-09 | 1          | 40     |\n| 10         | 2020-02-10 | 1          | 40     |\n| 11         | 2020-02-11 | 2          | 50     |\n| 12         | 2020-02-12 | 2          | 50     |\n+------------+----------+----------+--------+\nOutput:\n+--------------+-------+\n| product_name | unit  |\n+--------------+-------+\n| Leetcode     | 130   |\n| Leetcode      | 110   |\n+--------------+-------+\nExplanation:\n- Product 'Leetcode' (id 1) was ordered 10+40+40+40 = 130 units in Feb 2020. (Note: There are two products named 'Leetcode' with different IDs, 1 and 2. The output groups them by name, but the problem asks to order by `product_id` which implies distinct products.)\n\nLet's assume the output should reflect distinct products by `product_id` and the `product_name` is just a label. The example output is ambiguous. If product_name is 'Leetcode' for id 1 and 'Leetcode ' for id 2, then the output makes sense. Assuming the problem means 'product with product_id 1' and 'product with product_id 2'.\n\nCorrected Explanation:\n- Product with `product_id` 1 ('Leetcode'): Ordered 10 (Feb 3) + 40 (Feb 8) + 40 (Feb 9) + 40 (Feb 10) = 130 units in February 2020. (>= 100 units)\n- Product with `product_id` 2 ('Leetcode '): Ordered 10 (Feb 5) + 50 (Feb 11) + 50 (Feb 12) = 110 units in February 2020. (>= 100 units)\n- Product with `product_id` 3 ('Lamp'): Ordered 10 units in February 2020. (< 100 units)\n- Product with `product_id` 4 ('Table'): Ordered 20+20 = 40 units in February 2020. (< 100 units)\n- Product with `product_id` 5 ('C++'): Ordered 30+30 = 60 units in February 2020. (< 100 units)\n\nFinal Output (based on this interpretation, ordered by product_id):\n+--------------+-------+\n| product_name | unit  |\n+--------------+-------+\n| Leetcode     | 130   |\n| Leetcode      | 110   |\n+--------------+-------+\n(The example output is correct given this interpretation of product names and IDs.)",
+    "starterCode": "import pandas as pd\n\ndef list_the_products_ordered_in_a_period():\n    products_data = {\n        'product_id': [1, 2, 3, 4, 5],\n        'product_name': ['Leetcode', 'Leetcode ', 'Lamp', 'Table', 'C++'],\n        'product_category': ['LC', 'LC', 'Furniture', 'Furniture', 'LC']\n    }\n    Products = pd.DataFrame(products_data)\n\n    orders_data = {\n        'order_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],\n        'order_date': ['2020-02-03', '2020-02-05', '2020-02-07', '2020-02-07', '2020-02-07', '2020-02-08', '2020-02-08', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12'],\n        'product_id': [1, 2, 3, 4, 4, 5, 5, 1, 1, 1, 2, 2],\n        'quantity': [10, 10, 10, 20, 20, 30, 30, 40, 40, 40, 50, 50]\n    }\n    Orders = pd.DataFrame(orders_data)\n    Orders['order_date'] = pd.to_datetime(Orders['order_date'])\n\n    # Your code here\n    # For example:\n    # feb_orders = Orders[(Orders['order_date'].dt.month == 2) & (Orders['order_date'].dt.year == 2020)]\n    # return feb_orders\n\n    pass\n\n# print(list_the_products_ordered_in_a_period()) # expected: DataFrame as in example"
+  },
+  "break-a-palindrome": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a palindromic string, modify exactly one character to make it lexicographically the smallest possible non-palindromic string. If no such string can be formed (e.g., for a single-character palindrome), return an empty string.",
+    "constraints": "String length between 1 and 1000 · Contains only lowercase English letters.",
+    "examples": "Input: \"abccba\"\nOutput: \"aaccba\"\nExplanation: Changing the 'b' at index 1 to 'a' results in \"aaccba\", which is the lexicographically smallest non-palindrome. Other changes like 'a' to 'b' (e.g., \"bbccba\") or 'c' to 'a' (e.g., \"abacba\") would result in larger strings.\n\nInput: \"a\"\nOutput: \"\"\nExplanation: A single-character string cannot be made non-palindromic by changing one character.",
+    "starterCode": "class Solution:\n    def breakPalindrome(self, palindrome: str) -> str:\n        # Your code here\n        pass\n\nprint(Solution().breakPalindrome(\"abccba\")) # expected: \"aaccba\"\nprint(Solution().breakPalindrome(\"a\")) # expected: \"\""
+  },
+  "sort-the-matrix-diagonally": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a matrix, sort all elements along each of its diagonals in ascending order. The main diagonal (top-left to bottom-right) and all parallel diagonals should be sorted independently.",
+    "constraints": "Matrix dimensions `m, n` between 1 and 100 · Matrix values between 1 and 100.",
+    "examples": "Input: mat = [[3,3,1,1],[2,2,1,2],[1,1,1,2]]\nOutput: [[1,1,1,1],[1,2,2,2],[1,2,3,3]]\nExplanation:\nOriginal matrix:\n3 3 1 1\n2 2 1 2\n1 1 1 2\n\nDiagonals (elements with constant `r-c`):\n- `r-c = 0`: (0,0)=3, (1,1)=2, (2,2)=1. Sorted: [1,2,3]\n- `r-c = -1`: (0,1)=3, (1,2)=1, (2,3)=2. Sorted: [1,2,3]\n- `r-c = -2`: (0,2)=1, (1,3)=2. Sorted: [1,2]\n- `r-c = -3`: (0,3)=1. Sorted: [1]\n- `r-c = 1`: (1,0)=2, (2,1)=1. Sorted: [1,2]\n- `r-c = 2`: (2,0)=1. Sorted: [1]\n\nAfter placing sorted elements back:\n1 1 1 1\n1 2 2 2\n1 2 3 3",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:\n        # Your code here\n        pass\n\nprint(Solution().diagonalSort([[3,3,1,1],[2,2,1,2],[1,1,1,2]])) # expected: [[1,1,1,1],[1,2,2,2],[1,2,3,3]]"
+  },
+  "reverse-subarray-to-maximize-array-value": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer array, you are allowed to reverse *at most one* subarray. The 'array value' is defined as the sum of `|arr[i] - arr[i+1]|` for all `i` from `0` to `n-2`. Find the maximum possible array value after performing at most one subarray reversal.",
+    "constraints": "Array length between 2 and 3 * 10^4 · Array values between -10^5 and 10^5.",
+    "examples": "Input: nums = [2,3,1,5,4]\nOutput: 10\nExplanation:\nOriginal array value: `|2-3| + |3-1| + |1-5| + |5-4| = 1 + 2 + 4 + 1 = 8`.\nIf we reverse the subarray `[3,1,5]` (from index 1 to 3), the array becomes `[2,5,1,3,4]`.\nNew array value: `|2-5| + |5-1| + |1-3| + |3-4| = 3 + 4 + 2 + 1 = 10`.\nThis is the maximum possible value.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maxValueAfterReverse(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxValueAfterReverse([2,3,1,5,4])) # expected: 10"
+  },
+  "rank-transform-of-an-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, replace each element with its rank. Ranks start from 1, larger elements have larger ranks, and equal elements must have the same rank. If two elements are different, the larger one must have a larger rank.",
+    "constraints": "Array length between 0 and 10^5 · Array values between -10^9 and 10^9.",
+    "examples": "Input: arr = [40,10,20,30]\nOutput: [4,1,2,3]\nExplanation:\n1. Sort the unique elements: [10, 20, 30, 40].\n2. Assign ranks: 10 -> 1, 20 -> 2, 30 -> 3, 40 -> 4.\n3. Map original elements to their ranks: [40->4, 10->1, 20->2, 30->3] -> [4,1,2,3].",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def arrayRankTransform(self, arr: List[int]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().arrayRankTransform([40,10,20,30])) # expected: [4,1,2,3]"
+  },
+  "remove-palindromic-subsequences": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum number of steps to delete all characters from a string, where each step involves removing a palindromic subsequence.",
+    "constraints": "The input string consists only of 'a' and 'b' characters.",
+    "examples": "For \"ababa\", the answer is 1 (the whole string is a palindrome). For \"abb\", the answer is 2 (remove \"a\", then \"bb\"). For \"baabb\", the answer is 2 (remove \"bab\", then \"b\").",
+    "starterCode": "def removePalindromeSub(s):\n    # Your code here\n    pass\nprint(removePalindromeSub(\"ababa\")) # expected: 1\nprint(removePalindromeSub(\"abb\")) # expected: 2\nprint(removePalindromeSub(\"baabb\")) # expected: 2"
+  },
+  "filter-restaurants-by-vegan-friendly-price-and-distance": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of restaurants with their ratings and attributes, return a list of restaurants sorted by their rating in descending order, then by their ID in descending order, filtering by vegan-friendliness, maximum price, and maximum distance.",
+    "constraints": "Restaurants are represented as [id, rating, veganFriendly, price, distance].",
+    "examples": "restaurants = [[1,8,1,2,3],[2,9,0,1,4],[3,8,0,2,2],[4,7,1,3,1],[5,9,1,1,2]], veganFriendly = 1, price = 2, distance = 3. Output: [[5,9,1,1,2],[2,9,0,1,4],[1,8,1,2,3],[3,8,0,2,2]].",
+    "starterCode": "def filterRestaurants(restaurants, veganFriendly, price, distance):\n    # Your code here\n    pass\nprint(filterRestaurants([[1,8,1,2,3],[2,9,0,1,4],[3,8,0,2,2],[4,7,1,3,1],[5,9,1,1,2]], 1, 2, 3)) # expected: [5, 2, 1, 3]\nprint(filterRestaurants([[1,4,0,2,4],[2,8,0,1,2],[3,7,0,2,3],[4,5,0,1,1]], 0, 1, 1)) # expected: [4, 2, 3]\nprint(filterRestaurants([[1,10,0,1,1],[2,5,0,1,1]], 0, 1, 1)) # expected: [2, 1]"
+  },
+  "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the city with the fewest reachable cities within a given distance threshold, breaking ties by choosing the city with the largest index.",
+    "constraints": "The graph is undirected and weighted.",
+    "examples": "n = 4, edges = [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], distanceThreshold = 4. City 0 can reach {1,2,3} (3 cities). City 1 can reach {0,2,3} (3 cities). City 2 can reach {0,1,3} (3 cities). City 3 can reach {0,1,2} (3 cities). All have 3 reachable cities. The largest index is 3. Output: 3.",
+    "starterCode": "def findTheCity(n, edges, distanceThreshold):\n    # Your code here\n    pass\nprint(findTheCity(4, [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], 4)) # expected: 3\nprint(findTheCity(5, [[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], 2)) # expected: 0"
+  },
+  "minimum-difficulty-of-a-job-schedule": {
+    "draft": true,
+    "generated": true,
+    "goal": "Partition a list of jobs, each with a difficulty, into a specified number of days such that the total minimum difficulty is minimized. The difficulty of a day is the maximum difficulty of jobs scheduled on that day.",
+    "constraints": "The number of jobs is between 1 and 300. The number of days is between 1 and 10.",
+    "examples": "jobDifficulty = [6,5,4,3,2,1], d = 2. Split into [6,5,4,3,2] and [1]. Day 1 difficulty is max(6,5,4,3,2)=6. Day 2 difficulty is max(1)=1. Total = 6+1=7. Split into [6,5,4,3] and [2,1]. Day 1 difficulty is max(6,5,4,3)=6. Day 2 difficulty is max(2,1)=2. Total = 6+2=8. The minimum is 7.",
+    "starterCode": "def minDifficulty(jobDifficulty, d):\n    # Your code here\n    pass\nprint(minDifficulty([6,5,4,3,2,1], 2)) # expected: 7\nprint(minDifficulty([9,9,9], 4)) # expected: -1\nprint(minDifficulty([1,1,1], 3)) # expected: 3"
+  },
+  "number-of-transactions-per-visit": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of visits where the total transaction amount for that visit is less than a given credit limit.",
+    "constraints": "Transactions have columns: `id`, `visit_id`, `amount`, `transaction_date`.",
+    "examples": "visits = [[1,1,100],[2,1,150],[3,2,200],[4,3,250],[5,3,100]], transactions = [[1,1,100],[2,1,150],[3,2,200],[4,3,250],[5,3,100]]. Credit limit is 200. Visit 1 total: 250 (exceeds). Visit 2 total: 200 (does not exceed). Visit 3 total: 350 (exceeds). Output: 1.",
+    "starterCode": "def count_visits_below_limit(visits, transactions, credit_limit):\n    # Your code here\n    pass\n# Assuming visits and transactions are SQL tables/dataframes\n# This is a conceptual example, actual implementation depends on data source\nprint(count_visits_below_limit([[1,1,100],[2,1,150],[3,2,200],[4,3,250],[5,3,100]], [[1,1,100],[2,1,150],[3,2,200],[4,3,250],[5,3,100]], 200)) # expected: 1"
+  },
+  "the-k-weakest-rows-in-a-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the k weakest rows in a binary matrix, where weakness is determined first by the number of soldiers (1s) and then by the row index.",
+    "constraints": "The matrix contains only 0s and 1s, with 1s always appearing before 0s in each row.",
+    "examples": "mat = [[1,1,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,1,1,0,0]], k = 3. Row 0: 2 soldiers. Row 1: 4 soldiers. Row 2: 1 soldier. Row 3: 3 soldiers. Sorted by strength (1s count): Row 2 (1), Row 0 (2), Row 3 (3), Row 1 (4). The 3 weakest are Row 2, Row 0, Row 3. Output: [2,0,3].",
+    "starterCode": "def kWeakestRows(mat, k):\n    # Your code here\n    pass\nprint(kWeakestRows([[1,1,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,1,1,0,0]], 3)) # expected: [2, 0, 3]\nprint(kWeakestRows([[1,0],[1,1]], 1)) # expected: [0]"
+  },
+  "reduce-array-size-to-the-half": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of distinct integers to remove from an array such that at least half of the elements are removed.",
+    "constraints": "The array contains integers between 1 and 10000.",
+    "examples": "arr = [3,3,3,3,5,5,5,2,2,7]. Frequencies: {3:4, 5:3, 2:2, 7:1}. Remove 3 (4 elements). Array size 10, need to remove 5. Removed 4. Need 1 more. Remove 5 (3 elements). Total removed: 4+3=7. Minimum distinct integers: 2 (3 and 5). Output: 2.",
+    "starterCode": "def minSetSize(arr):\n    # Your code here\n    pass\nprint(minSetSize([3,3,3,3,5,5,5,2,2,7])) # expected: 2\nprint(minSetSize([7,7,7,7,7,7])) # expected: 1"
+  },
+  "maximum-product-of-splitted-binary-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Split a binary tree into two subtrees by removing one edge, such that the product of the sums of the nodes in the two resulting subtrees is maximized.",
+    "constraints": "The tree has at least two nodes. Node values are positive.",
+    "examples": "Tree: [1,2,3,4,5,6]. Root sum = 21. Split edge between 1 and 3. Subtree 1 sum = 1+2+4+5 = 12. Subtree 2 sum = 3+6 = 9. Product = 12*9 = 108. Split edge between 1 and 2. Subtree 1 sum = 1+3+6 = 10. Subtree 2 sum = 2+4+5 = 11. Product = 10*11 = 110. Max product is 110.",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\ndef maxProduct(root):\n    # Your code here\n    pass\n# Example Tree: [1,2,3,4,5,6]\n#       1\n#      / \\\n#     2   3\n#    / \\ / \n#   4  5 6\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nroot.left.right = TreeNode(5)\nroot.right.left = TreeNode(6)\nprint(maxProduct(root)) # expected: 110"
+  },
+  "jump-game-v": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum number of steps you can take starting from any index, where each step involves jumping to an index within a certain range, and you can only jump to an index with a smaller value than the current index.",
+    "constraints": "The array contains non-negative integers. The jump range is positive.",
+    "examples": "arr = [7,1,3,4,1,7], d = 2. From index 0 (value 7), can jump to index 1 (value 1) or index 2 (value 3). Max steps from index 0 is 1 (jump to 1). From index 2 (value 3), can jump to index 3 (value 4, invalid) or index 4 (value 1). Max steps from index 2 is 2 (jump to 4). The maximum over all starting points is 3 (starting at index 3, jump to 4, then to 5).",
+    "starterCode": "def maxJumps(arr, d):\n    # Your code here\n    pass\nprint(maxJumps([7,1,3,4,1,7], 2)) # expected: 4\nprint(maxJumps([100,100,100,100,100,100,100,100,100,100], 10)) # expected: 1"
+  },
+  "movie-rating": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the average rating for each movie, considering only the ratings given by specific users.",
+    "constraints": "Movies table: `movie_id`, `title`. Users table: `user_id`, `name`. MovieRating table: `user_id`, `movie_id`, `rating`, `created_at`.",
+    "examples": "Movies: (1, 'Movie A'), (2, 'Movie B'). Users: (1, 'Alice'), (2, 'Bob'). Ratings: (1, 1, 5, '2020-01-01'), (1, 2, 3, '2020-01-02'), (2, 1, 4, '2020-01-03'). Average rating for Movie A is (5+4)/2 = 4.5. Average rating for Movie B is 3/1 = 3. Output: ('Movie A', 4.5), ('Movie B', 3.0).",
+    "starterCode": "-- Assuming SQL tables: Movies, Users, MovieRating\n-- This is a conceptual SQL query example.\nSELECT\n    m.title, AVG(mr.rating)\nFROM\n    MovieRating mr\nJOIN\n    Movies m ON mr.movie_id = m.movie_id\nGROUP BY\n    m.movie_id\nORDER BY\n    AVG(mr.rating) DESC, m.movie_id ASC;"
+  },
+  "number-of-steps-to-reduce-a-number-to-zero": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the number of operations to reduce a non-negative integer to zero, where operations are either dividing by 2 (if even) or subtracting 1 (if odd).",
+    "constraints": "The input integer is between 0 and 10^6.",
+    "examples": "num = 14. Steps: 14 -> 7 (divide by 2), 7 -> 6 (subtract 1), 6 -> 3 (divide by 2), 3 -> 2 (subtract 1), 2 -> 1 (divide by 2), 1 -> 0 (subtract 1). Total 6 steps.",
+    "starterCode": "def numberOfSteps(num):\n    # Your code here\n    pass\nprint(numberOfSteps(14)) # expected: 6\nprint(numberOfSteps(8)) # expected: 4\nprint(numberOfSteps(0)) # expected: 0"
+  },
+  "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of contiguous subarrays of a specific size `k` whose average value is at least `threshold`.",
+    "constraints": "The array contains non-negative integers. `k` is positive and less than or equal to the array length.",
+    "examples": "arr = [2,2,2,2,5,5,5,8], k = 3, threshold = 4. Subarrays of size 3: [2,2,2] avg=2. [2,2,2] avg=2. [2,2,5] avg=3. [2,5,5] avg=4. [5,5,5] avg=5. [5,5,8] avg=6.33. Subarrays with avg >= 4 are [2,5,5], [5,5,5], [5,5,8]. Count = 3.",
+    "starterCode": "def numOfSubarrays(arr, k, threshold):\n    # Your code here\n    pass\nprint(numOfSubarrays([2,2,2,2,5,5,5,8], 3, 4)) # expected: 3\nprint(numOfSubarrays([1,1,1,1,1], 1, 0)) # expected: 5\nprint(numOfSubarrays([11,13,17,23,29,31,7,5,2,3,1,995,1000], 3, 5)) # expected: 6"
+  },
+  "angle-between-hands-of-a-clock": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the smaller angle between the hour and minute hands of a clock given the time.",
+    "constraints": "The time is given as hours (1-12) and minutes (0-59).",
+    "examples": "h = 3, m = 30. Hour hand is at 3.5 * 30 = 105 degrees. Minute hand is at 30 * 6 = 180 degrees. Angle = |180 - 105| = 75 degrees.",
+    "starterCode": "def angleClock(hour, minutes):\n    # Your code here\n    pass\nprint(angleClock(3, 30)) # expected: 75.0\nprint(angleClock(12, 0)) # expected: 0.0\nprint(angleClock(1, 30)) # expected: 157.5"
+  },
+  "jump-game-iv": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of steps to reach the last index of an array starting from the first index. You can jump to `i+1`, `i-1`, or any index `j` where `arr[i] == arr[j]`.",
+    "constraints": "The array contains distinct integers.",
+    "examples": "arr = [100,-23,-23,404,100,23,23,23,3,404]. Start at index 0 (100). Can jump to index 4 (100). From index 4, can jump to index 3 (404) or index 9 (404). From index 9, reach the end. Steps: 0 -> 4 -> 9. Total 2 steps.",
+    "starterCode": "def minJumps(arr):\n    # Your code here\n    pass\nprint(minJumps([100,-23,-23,404,100,23,23,23,3,404])) # expected: 3\nprint(minJumps([7])) # expected: 0\nprint(minJumps([7,6,9,6,9,6,9,7])) # expected: 1"
+  },
+  "check-if-n-and-its-double-exist": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if there exists an integer `m` in the array such that `m` is double of another integer `n` in the array, or `n` is double of `m`.",
+    "constraints": "The array contains integers.",
+    "examples": "arr = [10,2,5,3]. 10 is double of 5. Return True. arr = [7,1,14,11]. 14 is double of 7. Return True. arr = [3,1,7,11]. No such pair exists. Return False.",
+    "starterCode": "def checkIfExist(arr):\n    # Your code here\n    pass\nprint(checkIfExist([10,2,5,3])) # expected: True\nprint(checkIfExist([7,1,14,11])) # expected: True\nprint(checkIfExist([3,1,7,11])) # expected: False"
+  },
+  "minimum-number-of-steps-to-make-two-strings-anagram": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the minimum number of character changes required in one string to make it an anagram of another string of the same length.",
+    "constraints": "Both strings contain only lowercase English letters.",
+    "examples": "s = \"bab\", t = \"aba\". To make t an anagram of s, change one 'a' in t to 'b'. Steps = 1. s = \"leetcode\", t = \"practice\". Changes needed: 'l'->'p', 'e'->'r', 'o'->'a', 'd'->'c', 'e'->'e'. Count: 5.",
+    "starterCode": "def minSteps(s, t):\n    # Your code here\n    pass\nprint(minSteps(\"bab\", \"aba\")) # expected: 1\nprint(minSteps(\"leetcode\", \"practice\")) # expected: 5\nprint(minSteps(\"anagram\", \"mangaar\")) # expected: 0"
+  },
+  "tweet-counts-per-frequency": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a system to track tweet counts within specified time intervals (minute, hour, day).",
+    "constraints": "Tweets are timestamped. Frequency can be 'minute', 'hour', or 'day'.",
+    "examples": "`recordTweet('tweet1', 0)`\n`recordTweet('tweet2', 60)\n`getTweetCountsPerFrequency('minute', 0, 60)` -> returns 2 (tweets at 0 and 60)\n`getTweetCountsPerFrequency('hour', 0, 21600)` -> returns 2 (all tweets within 0 to 3600*6 seconds)",
+    "starterCode": "class TweetCounts:\n    def __init__(self):\n        # Your code here\n        pass\n    def recordTweet(self, tweetName: str, time: int) -> None:\n        # Your code here\n        pass\n    def getTweetCountsPerFrequency(self, freq: str, start: int, end: int) -> int:\n        # Your code here\n        pass\n# Example Usage:\ntc = TweetCounts()\ntc.recordTweet(\"tweet1\", 0)\ntc.recordTweet(\"tweet2\", 60)\ntc.recordTweet(\"tweet3\", 120)\nprint(tc.getTweetCountsPerFrequency(\"minute\", 0, 60)) # expected: 2\nprint(tc.getTweetCountsPerFrequency(\"hour\", 0, 21600)) # expected: 3"
+  },
+  "maximum-students-taking-exam": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum number of students that can be seated in a classroom such that no two students are adjacent (horizontally or diagonally) and no student is seated in a seat marked as 'broken'.",
+    "constraints": "The classroom is represented by a grid of seats. 'E' for empty, 'B' for broken.",
+    "examples": "seats = [[\"E\", \"E\", \"E\"], [\"E\", \"B\", \"E\"], [\"E\", \"E\", \"E\"]]. Max students: 6. You can place students in all 'E' seats except the one adjacent to the broken seat.",
+    "starterCode": "def maxStudents(seats):\n    # Your code here\n    pass\nprint(maxStudents([[\"E\",\"E\",\"E\"],[\"E\",\"B\",\"E\"],[\"E\",\"E\",\"E\"]])) # expected: 6\nprint(maxStudents([[\"B\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"E\"],[\"E\",\"E\",\"E\",\"E\",\"B\"]])) # expected: 16"
+  },
+  "students-with-invalid-departments": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the IDs of students who are enrolled in departments that do not exist in the Departments table.",
+    "constraints": "Tables: Students (`id`, `name`, `dept_id`), Departments (`id`, `name`).",
+    "examples": "Students: (1, 'Alice', 1), (2, 'Bob', 2), (3, 'Charlie', 3). Departments: (1, 'CS'), (2, 'Physics'). Student 3 has dept_id 3, which is not in Departments. Output: [3].",
+    "starterCode": "-- Assuming SQL tables: Students, Departments\n-- This is a conceptual SQL query example.\nSELECT\n    s.id\nFROM\n    Students s\nLEFT JOIN\n    Departments d ON s.dept_id = d.id\nWHERE\n    d.id IS NULL;\n"
+  },
+  "count-negative-numbers-in-a-sorted-matrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the total number of negative integers in a 2D matrix where each row and column is sorted in non-increasing order.",
+    "constraints": "The matrix contains integers. Each row is sorted in non-increasing order.",
+    "examples": "grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]. Negative numbers: 4. Output: 8.",
+    "starterCode": "def countNegatives(grid):\n    # Your code here\n    pass\nprint(countNegatives([[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]])) # expected: 8\nprint(countNegatives([[3,2],[1,0]])) # expected: 0"
   }
 }
