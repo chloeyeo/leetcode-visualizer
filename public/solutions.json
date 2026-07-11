@@ -15306,5 +15306,196 @@
         "k": 1
       }
     }
+  },
+  "dinner-plate-stacks": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a data structure that simulates a stack of plates, where each stack has a fixed capacity. Implement methods to push a plate onto the leftmost non-full stack, pop a plate from the rightmost non-empty stack, and pop a plate from a specific stack by index.",
+    "constraints": "1 <= capacity <= 10^4 · All values for push are 1 <= val <= 10^5 · 0 <= index < 10^5 · At most 2 * 10^5 calls will be made to push, pop, and popAtStack.",
+    "examples": "Initialize with capacity 2: `DinnerPlates(2)`\nPush plates 1, 2, 3, 4, 5:\n`push(1)`, `push(2)`, `push(3)`, `push(4)`, `push(5)`\nStacks state: `[1,2]`, `[3,4]`, `[5]`\nPop from stack at index 1: `popAtStack(1)` -> 4\nStacks state: `[1,2]`, `[3]`, `[5]`\nPush plate 6: `push(6)` (goes to stack 1, as it's leftmost non-full)\nStacks state: `[1,2]`, `[3,6]`, `[5]`\nPop from rightmost non-empty stack: `pop()` -> 5\nStacks state: `[1,2]`, `[3,6]`\nPop from rightmost non-empty stack: `pop()` -> 6\nStacks state: `[1,2]`, `[3]`\nPop from rightmost non-empty stack: `pop()` -> 3\nStacks state: `[1,2]`\nPop from rightmost non-empty stack: `pop()` -> 2\nStacks state: `[1]`\nPop from rightmost non-empty stack: `pop()` -> 1\nStacks state: `[]`\nPop from rightmost non-empty stack (empty): `pop()` -> -1",
+    "starterCode": "class DinnerPlates:\n    def __init__(self, capacity: int):\n        # Your code here\n        pass\n\n    def push(self, val: int) -> None:\n        # Your code here\n        pass\n\n    def pop(self) -> int:\n        # Your code here\n        pass\n\n    def popAtStack(self, index: int) -> int:\n        # Your code here\n        pass\n\n# Example usage:\n# obj = DinnerPlates(capacity)\n# obj.push(val)\n# param_2 = obj.pop()\n# param_3 = obj.popAtStack(index)\n\n# For a runnable example, we can't easily capture the full sequence of state changes without a more complex test harness.\n# The problem is about designing the class.\nprint(\"Class design problem. See comments for structure.\")\n# expected: (output depends on sequence of calls)"
+  },
+  "immediate-food-delivery-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the percentage of customer orders that were delivered on the same day they were placed, rounded to two decimal places.",
+    "constraints": "delivery_id is the primary key for this table · order_date and customer_pref_delivery_date are dates.",
+    "examples": "Delivery table:\n+-------------+-------------+------------+----------------------------+\n| delivery_id | customer_id | order_date | customer_pref_delivery_date|\n+-------------+-------------+------------+----------------------------+\n| 1           | 1           | 2019-08-01 | 2019-08-02                 |\n| 2           | 2           | 2019-08-02 | 2019-08-02                 |\n| 3           | 3           | 2019-08-03 | 2019-08-03                 |\n| 4           | 3           | 2019-08-04 | 2019-08-04                 |\n+-------------+-------------+------------+----------------------------+\nOrders 2, 3, and 4 were delivered immediately (order_date = customer_pref_delivery_date). There are 4 total orders. The percentage of immediate orders is (3 / 4) * 100 = 75.00.",
+    "starterCode": "# This is a SQL problem. The solution requires a SQL query.\n# Write your MySQL query statement below\n# SELECT\n#     ROUND(SUM(CASE WHEN order_date = customer_pref_delivery_date THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS immediate_percentage\n# FROM\n#     Delivery;\nprint(\"SQL problem, see comments for solution structure.\")\n# expected: 75.00"
+  },
+  "immediate-food-delivery-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the percentage of customers whose *very first* order was delivered immediately (on the same day it was placed), rounded to two decimal places.",
+    "constraints": "delivery_id is the primary key for this table · order_date and customer_pref_delivery_date are dates.",
+    "examples": "Delivery table:\n+-------------+-------------+------------+----------------------------+\n| delivery_id | customer_id | order_date | customer_pref_delivery_date|\n+-------------+-------------+------------+----------------------------+\n| 1           | 1           | 2019-08-01 | 2019-08-02                 |\n| 2           | 2           | 2019-08-02 | 2019-08-02                 |\n| 3           | 1           | 2019-08-03 | 2019-08-03                 |\n| 4           | 3           | 2019-08-04 | 2019-08-04                 |\n| 5           | 3           | 2019-08-05 | 2019-08-06                 |\n+-------------+-------------+------------+----------------------------+\nCustomer 1's first order is delivery_id 1 (2019-08-01, 2019-08-02) - NOT immediate.\nCustomer 2's first order is delivery_id 2 (2019-08-02, 2019-08-02) - IMMEDIATE.\nCustomer 3's first order is delivery_id 4 (2019-08-04, 2019-08-04) - IMMEDIATE.\nOut of 3 distinct customers, 2 had their first order delivered immediately. The percentage is (2 / 3) * 100 = 66.67.",
+    "starterCode": "# This is a SQL problem. The solution requires a SQL query.\n# Write your MySQL query statement below\n# SELECT\n#     ROUND(SUM(CASE WHEN d.order_date = d.customer_pref_delivery_date THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS immediate_percentage\n# FROM\n#     Delivery d\n# JOIN (\n#     SELECT\n#         customer_id,\n#         MIN(order_date) AS first_order_date\n#     FROM\n#         Delivery\n#     GROUP BY\n#         customer_id\n# ) AS first_orders\n# ON\n#     d.customer_id = first_orders.customer_id AND d.order_date = first_orders.first_order_date;\nprint(\"SQL problem, see comments for solution structure.\")\n# expected: 66.67"
+  },
+  "prime-arrangements": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer `n`, find the number of permutations of integers from 1 to `n` such that all prime numbers are placed at indices that are also prime (1-indexed), and all non-prime numbers are placed at non-prime indices. Return the result modulo 10^9 + 7.",
+    "constraints": "1 <= n <= 100",
+    "examples": "For `n = 5`:\nPrime numbers up to 5 are 2, 3, 5 (count = 3).\nNon-prime numbers up to 5 are 1, 4 (count = 2).\nPrime indices (1-indexed) up to 5 are 2, 3, 5 (count = 3).\nNon-prime indices up to 5 are 1, 4 (count = 2).\nWe can arrange the 3 prime numbers in the 3 prime indices in 3! ways.\nWe can arrange the 2 non-prime numbers in the 2 non-prime indices in 2! ways.\nTotal arrangements = 3! * 2! = 6 * 2 = 12.\n\nFor `n = 10`:\nPrime numbers up to 10 are 2, 3, 5, 7 (count = 4).\nNon-prime numbers up to 10 are 1, 4, 6, 8, 9, 10 (count = 6).\nTotal arrangements = 4! * 6! = 24 * 720 = 17280.",
+    "starterCode": "class Solution:\n    def numPrimeArrangements(self, n: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().numPrimeArrangements(5))\n# expected: 12"
+  },
+  "diet-plan-performance": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate a total score based on a daily calorie intake array. For every sliding window of `k` consecutive days, if the sum of calories is less than `lower`, subtract 1 point. If the sum is greater than `upper`, add 1 point. Otherwise, the score remains unchanged.",
+    "constraints": "1 <= k <= days.length <= 10^5 · 0 <= days[i] <= 20000 · 0 <= lower <= upper <= 10^9",
+    "examples": "days = [1,2,3,4,5], k = 1, lower = 3, upper = 3\n- Day 1: [1]. Sum = 1. 1 < 3, score = -1.\n- Day 2: [2]. Sum = 2. 2 < 3, score = -2.\n- Day 3: [3]. Sum = 3. 3 == 3, score = -2.\n- Day 4: [4]. Sum = 4. 4 > 3, score = -1.\n- Day 5: [5]. Sum = 5. 5 > 3, score = 0.\nTotal score: 0.\n\ndays = [6,5,0,0], k = 2, lower = 1, upper = 5\n- Window [6,5]. Sum = 11. 11 > 5, score = 1.\n- Window [5,0]. Sum = 5. 5 == 5, score = 1.\n- Window [0,0]. Sum = 0. 0 < 1, score = 0.\nTotal score: 0.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def dietPlanPerformance(self, days: List[int], k: int, lower: int, upper: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().dietPlanPerformance([1,2,3,4,5], 1, 3, 3))\n# expected: 0",
+    "viz": {
+      "key": "two-pointers",
+      "input": {
+        "mode": "window",
+        "array": [
+          6,
+          5,
+          0,
+          0
+        ],
+        "k": 2
+      }
+    }
+  },
+  "can-make-palindrome-from-substring": {
+    "draft": true,
+    "generated": true,
+    "goal": "For a given string `s` and a list of queries, each query `[left, right, k]` asks if the substring `s[left...right]` can be rearranged into a palindrome by changing at most `k` characters.",
+    "constraints": "1 <= s.length <= 10^5 · s consists of lowercase English letters · 1 <= queries.length <= 10^5 · 0 <= left <= right < s.length · 0 <= k <= s.length",
+    "examples": "s = \"abcda\", queries = [[3,3,0],[1,2,0],[0,3,1],[0,3,2],[0,4,1]]\n- Query [3,3,0]: Substring \"d\". Length 1. Already a palindrome. 0 changes needed. 0 <= 0 is True.\n- Query [1,2,0]: Substring \"bc\". Length 2. 'b':1, 'c':1. One pair of odd counts. 0 changes needed. 0 <= 0 is True.\n- Query [0,3,1]: Substring \"abcd\". Length 4. 'a':1, 'b':1, 'c':1, 'd':1. Four odd counts. Needs floor(4/2) = 2 changes. 2 <= 1 is False.\n- Query [0,3,2]: Substring \"abcd\". Needs 2 changes. 2 <= 2 is True.\n- Query [0,4,1]: Substring \"abcda\". Length 5. 'a':2, 'b':1, 'c':1, 'd':1. Three odd counts. Needs floor(3/2) = 1 change. 1 <= 1 is True.\nResult: [True, True, False, True, True]",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:\n        # Your code here\n        pass\n\nprint(Solution().canMakePaliQueries(\"abcda\", [[3,3,0],[1,2,0],[0,3,1],[0,3,2],[0,4,1]]))\n# expected: [True, True, False, True, True]"
+  },
+  "number-of-valid-words-for-each-puzzle": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each puzzle string, count how many words from a given list are considered 'valid'. A word is valid if it contains the first letter of the puzzle and every letter in the word is also present in the puzzle.",
+    "constraints": "1 <= words.length <= 10^5 · 1 <= puzzles.length <= 10^4 · 1 <= words[i].length, puzzles[i].length <= 7 · All letters are lowercase English letters.",
+    "examples": "words = [\"aaaa\",\"asas\",\"able\",\"ability\",\"actt\",\"actor\",\"access\"]\npuzzles = [\"aboveyz\",\"abrodyz\",\"abacaba\",\"babbles\",\"babblez\"]\n\nLet's check for puzzle \"aboveyz\" (first letter 'a'):\n- \"aaaa\": Contains 'a', all letters ('a') are in \"aboveyz\". Valid.\n- \"asas\": Contains 'a', all letters ('a', 's') are in \"aboveyz\". Valid.\n- \"able\": Contains 'a', all letters ('a', 'b', 'l', 'e') are in \"aboveyz\". Valid.\n- \"ability\": Contains 'a', but 'i' is not in \"aboveyz\". Invalid.\n- \"actt\": Contains 'a', but 'c' is not in \"aboveyz\". Invalid.\n- \"actor\": Contains 'a', but 'c' and 'r' are not in \"aboveyz\". Invalid.\n- \"access\": Contains 'a', all letters ('a', 'c', 'e', 's') are in \"aboveyz\". Valid.\nFor \"aboveyz\", there are 4 valid words.\n\nApplying this logic for all puzzles, the result is [4,5,2,1,1].",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def findNumOfValidWords(self, words: List[str], puzzles: List[str]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().findNumOfValidWords([\"aaaa\",\"asas\",\"able\",\"ability\",\"actt\",\"actor\",\"access\"], [\"aboveyz\",\"abrodyz\",\"abacaba\",\"babbles\",\"babblez\"]))\n# expected: [4,5,2,1,1]"
+  },
+  "reformat-department-table": {
+    "draft": true,
+    "generated": true,
+    "goal": "Transform a `Department` table, which stores monthly revenue for departments in a vertical format, into a horizontal format. The new table should have one row per department `id`, with separate columns for `Jan_Revenue`, `Feb_Revenue`, ..., `Dec_Revenue`. If a department has no revenue for a specific month, that column should be `NULL`.",
+    "constraints": "id is the primary key for this table · revenue is a non-negative integer · month is a string of 3 letters representing the month.",
+    "examples": "Department table:\n+----+---------+-------+\n| id | revenue | month |\n+----+---------+-------+\n| 1  | 8000    | Jan   |\n| 1  | 9000    | Feb   |\n| 1  | 15000   | Mar   |\n| 2  | 7000    | Jan   |\n| 2  | 6000    | Feb   |\n| 3  | 10000   | Jan   |\n+----+---------+-------+\n\nExpected output:\n+----+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+\n| id | Jan_Revenue | Feb_Revenue | Mar_Revenue | Apr_Revenue | May_Revenue | Jun_Revenue | Jul_Revenue | Aug_Revenue | Sep_Revenue | Oct_Revenue | Nov_Revenue | Dec_Revenue |\n+----+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+\n| 1  | 8000        | 9000        | 15000       | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        |\n| 2  | 7000        | 6000        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        |\n| 3  | 10000       | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        | NULL        |\n+----+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+",
+    "starterCode": "# This is a SQL problem. The solution requires a SQL query.\n# Write your MySQL query statement below\n# SELECT\n#     id,\n#     SUM(CASE WHEN month = 'Jan' THEN revenue ELSE NULL END) AS Jan_Revenue,\n#     SUM(CASE WHEN month = 'Feb' THEN revenue ELSE NULL END) AS Feb_Revenue,\n#     SUM(CASE WHEN month = 'Mar' THEN revenue ELSE NULL END) AS Mar_Revenue,\n#     SUM(CASE WHEN month = 'Apr' THEN revenue ELSE NULL END) AS Apr_Revenue,\n#     SUM(CASE WHEN month = 'May' THEN revenue ELSE NULL END) AS May_Revenue,\n#     SUM(CASE WHEN month = 'Jun' THEN revenue ELSE NULL END) AS Jun_Revenue,\n#     SUM(CASE WHEN month = 'Jul' THEN revenue ELSE NULL END) AS Jul_Revenue,\n#     SUM(CASE WHEN month = 'Aug' THEN revenue ELSE NULL END) AS Aug_Revenue,\n#     SUM(CASE WHEN month = 'Sep' THEN revenue ELSE NULL END) AS Sep_Revenue,\n#     SUM(CASE WHEN month = 'Oct' THEN revenue ELSE NULL END) AS Oct_Revenue,\n#     SUM(CASE WHEN month = 'Nov' THEN revenue ELSE NULL END) AS Nov_Revenue,\n#     SUM(CASE WHEN month = 'Dec' THEN revenue ELSE NULL END) AS Dec_Revenue\n# FROM\n#     Department\n# GROUP BY\n#     id;\nprint(\"SQL problem, see comments for solution structure.\")\n# expected: Table with reformatted department data"
+  },
+  "count-substrings-with-only-one-distinct-letter": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `s`, calculate the total number of substrings that consist of only one unique character.",
+    "constraints": "1 <= s.length <= 500 · s consists of lowercase English letters.",
+    "examples": "s = \"aaaba\"\n- Substrings of 'a': \"a\" (at index 0), \"a\" (at index 1), \"a\" (at index 2), \"aa\" (at 0-1), \"aa\" (at 1-2), \"aaa\" (at 0-2) -> 6 substrings.\n- Substrings of 'b': \"b\" (at index 3) -> 1 substring.\n- Substrings of 'a': \"a\" (at index 4) -> 1 substring.\nTotal count = 6 + 1 + 1 = 8.\n\ns = \"aaaaaaaaaa\"\nThis string has length 10. The number of substrings consisting of only 'a' is 10 + 9 + 8 + ... + 1 = 55.",
+    "starterCode": "class Solution:\n    def countLetters(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().countLetters(\"aaaba\"))\n# expected: 8"
+  },
+  "before-and-after-puzzle": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of phrases, find all unique 'before and after' puzzles. A puzzle is formed by concatenating two distinct phrases `phrase1` and `phrase2` if the last word of `phrase1` is identical to the first word of `phrase2`. The resulting puzzle is `phrase1` followed by the remainder of `phrase2` (excluding its first word). Return the unique puzzles sorted alphabetically.",
+    "constraints": "1 <= phrases.length <= 100 · 1 <= phrases[i].length <= 100 · Each phrase consists of lowercase English letters and spaces · Each phrase contains at least one word.",
+    "examples": "phrases = [\"great job\", \"job done\", \"amazing job\", \"done well\"]\n- \"great job\" and \"job done\": last word \"job\" matches first word \"job\". Puzzle: \"great job done\".\n- \"amazing job\" and \"job done\": last word \"job\" matches first word \"job\". Puzzle: \"amazing job done\".\n- \"job done\" and \"done well\": last word \"done\" matches first word \"done\". Puzzle: \"job done well\".\nResult (sorted alphabetically): [\"amazing job done\", \"great job done\", \"job done well\"]\n\nphrases = [\"a\", \"b\", \"a\"]\n- phrases[0] = \"a\", phrases[2] = \"a\": last word \"a\" matches first word \"a\". Puzzle: \"a\".\n- phrases[2] = \"a\", phrases[0] = \"a\": last word \"a\" matches first word \"a\". Puzzle: \"a\".\nResult (unique and sorted): [\"a\"]",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def beforeAndAfterPuzzles(self, phrases: List[str]) -> List[str]:\n        # Your code here\n        pass\n\nprint(Solution().beforeAndAfterPuzzles([\"great job\", \"job done\", \"amazing job\", \"done well\"]))\n# expected: [\"amazing job done\", \"great job done\", \"job done well\"]"
+  },
+  "shortest-distance-to-target-color": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of colors and a list of queries, for each query `[index, targetColor]`, find the shortest distance from `index` to an occurrence of `targetColor` in the array. If `targetColor` is not found, return -1.",
+    "constraints": "1 <= colors.length <= 10^5 · 1 <= colors[i] <= 3 (colors are 1, 2, or 3) · 1 <= queries.length <= 10^5 · 0 <= index < colors.length · 1 <= targetColor <= 3",
+    "examples": "colors = [1,1,2,1,3,2,2,3,3], queries = [[1,3],[2,2],[6,1]]\n- Query [1,3]: Find shortest distance from index 1 to color 3.\n  - Left: `colors[4]` is 3. Distance = `abs(4-1) = 3`.\n  - Right: `colors[7]` is 3. Distance = `abs(7-1) = 6`.\n  - Shortest distance: 3.\n- Query [2,2]: Find shortest distance from index 2 to color 2.\n  - `colors[2]` is already 2. Distance = 0.\n- Query [6,1]: Find shortest distance from index 6 to color 1.\n  - Left: `colors[3]` is 1. Distance = `abs(3-6) = 3`.\n  - Right: No color 1 to the right.\n  - Shortest distance: 3.\nResult: [3,0,3]",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().shortestDistanceColor([1,1,2,1,3,2,2,3,3], [[1,3],[2,2],[6,1]]))\n# expected: [3,0,3]"
+  },
+  "maximum-number-of-ones": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given a `gridSize x gridSize` grid. You can place at most `maxOnes` ones in this grid. Your objective is to maximize the number of ones that appear within the top-left `rowLen x colLen` subgrid.",
+    "constraints": "1 <= gridSize, rowLen, colLen <= 100 · 1 <= maxOnes <= gridSize * gridSize",
+    "examples": "gridSize = 3, rowLen = 2, colLen = 2, maxOnes = 4\n- The target subgrid is 2x2. It has 4 cells.\n- We have 4 ones to place in the 3x3 grid.\n- To maximize ones in the 2x2 subgrid, we place all 4 ones within it.\n- Maximum ones in subgrid: 4.\n\ngridSize = 4, rowLen = 2, colLen = 3, maxOnes = 10\n- The target subgrid is 2x3. The full grid is 4x4.\n- We can place 10 ones.\n- The problem can be thought of as identifying 'types' of cells based on their coordinates modulo `rowLen` and `colLen` (e.g., (row % 2, col % 3)). Each type of cell appears a certain number of times in the full 4x4 grid. We greedily place ones in the cell types that appear most frequently, prioritizing those that also fall within the target 2x3 subgrid.\n- For this example, the maximum number of ones in the subgrid is 10.",
+    "starterCode": "class Solution:\n    def maximumNumberOfOnes(self, gridSize: int, rowLen: int, colLen: int, maxOnes: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximumNumberOfOnes(3, 2, 2, 4))\n# expected: 4"
+  },
+  "distance-between-bus-stops": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a circular route of bus stops represented by an array of distances between adjacent stops, and a starting and ending stop, find the shortest distance between the start and end stops.",
+    "constraints": "2 <= distance.length <= 10^5 · 0 <= distance[i] <= 10^4 · 0 <= start, destination < distance.length · start != destination",
+    "examples": "distance = [1,2,3,4], start = 0, destination = 1\n- Clockwise distance from stop 0 to 1: `distance[0] = 1`.\n- Counter-clockwise distance from stop 0 to 1: `distance[1] + distance[2] + distance[3] = 2 + 3 + 4 = 9`.\n- Shortest distance: `min(1, 9) = 1`.\n\ndistance = [1,2,3,4], start = 0, destination = 2\n- Clockwise distance from stop 0 to 2: `distance[0] + distance[1] = 1 + 2 = 3`.\n- Counter-clockwise distance from stop 0 to 2: `distance[2] + distance[3] = 3 + 4 = 7`.\n- Shortest distance: `min(3, 7) = 3`.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().distanceBetweenBusStops([1,2,3,4], 0, 1))\n# expected: 1",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "array": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    }
+  },
+  "day-of-the-week": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a specific date (day, month, year), determine and return the corresponding day of the week as a string.",
+    "constraints": "The given date is between 1971 and 2100.",
+    "examples": "day = 31, month = 8, year = 2019 -> \"Saturday\"\nday = 18, month = 7, year = 1999 -> \"Sunday\"\nday = 15, month = 8, year = 1993 -> \"Sunday\"",
+    "starterCode": "class Solution:\n    def dayOfTheWeek(self, day: int, month: int, year: int) -> str:\n        # Your code here\n        pass\n\nprint(Solution().dayOfTheWeek(31, 8, 2019))\n# expected: \"Saturday\""
+  },
+  "maximum-subarray-sum-with-one-deletion": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible sum of a non-empty subarray, with the option to delete at most one element from that subarray.",
+    "constraints": "1 <= arr.length <= 10^5 · -10^4 <= arr[i] <= 10^4",
+    "examples": "arr = [1,-2,0,3]\n- Subarray [1,-2,0,3] with deletion of -2 becomes [1,0,3], sum = 4.\n- Subarray [0,3] (no deletion) sum = 3.\n- Subarray [3] (no deletion) sum = 3.\nMaximum sum: 4.\n\narr = [1,-2,-2,3]\n- Subarray [1,-2,-2,3] with deletion of one -2 becomes [1,-2,3], sum = 2.\n- Subarray [3] (no deletion) sum = 3.\nMaximum sum: 3.\n\narr = [-1,-1,-1,-1]\n- The maximum sum of a non-empty subarray is -1 (e.g., subarray [-1]). Deleting an element would make the sum 0 or less, so no deletion is optimal here.\nMaximum sum: -1.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maximumSum(self, arr: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximumSum([1,-2,0,3]))\n# expected: 4"
+  },
+  "make-array-strictly-increasing": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two integer arrays `arr1` and `arr2`, find the minimum number of replacements needed to make `arr1` strictly increasing. You can replace elements of `arr1` with elements from `arr2`, using each element from `arr2` at most once. If it's impossible, return -1.",
+    "constraints": "1 <= arr1.length, arr2.length <= 2000 · 0 <= arr1[i], arr2[i] <= 10^9",
+    "examples": "arr1 = [1,5,3,6,7], arr2 = [1,2,3,4,5,6,7]\n- To make `arr1` strictly increasing, we can replace `arr1[1]=5` with `2` from `arr2`.\n- `arr1` becomes `[1,2,3,6,7]`, which is strictly increasing.\n- This required 1 replacement.\nResult: 1.\n\narr1 = [1,5,3,6,7], arr2 = [4,3,1]\n- It's impossible to make `arr1` strictly increasing using elements from `arr2`.\nResult: -1.\n\narr1 = [1,8,9,10], arr2 = [2,3,4,5,6,7]\n- `arr1` is already strictly increasing.\n- This requires 0 replacements.\nResult: 0.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().makeArrayIncreasing([1,5,3,6,7], [1,2,3,4,5,6,7]))\n# expected: 1"
+  },
+  "design-bounded-blocking-queue": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a thread-safe queue with a fixed `capacity`. The `enqueue` method should block if the queue is full, and the `dequeue` method should block if the queue is empty. Implement `enqueue`, `dequeue`, and `size` methods.",
+    "constraints": "1 <= capacity <= 1000 · 1 <= calls <= 1000 · 0 <= value <= 10^9 · enqueue and dequeue are called by multiple threads.",
+    "examples": "Initialize with capacity 2: `BoundedBlockingQueue queue = new BoundedBlockingQueue(2);`\n`queue.enqueue(1);` // Queue: `[1]`\n`queue.dequeue();` // Returns 1. Queue: `[]`\n`queue.enqueue(0);` // Queue: `[0]`\n`queue.enqueue(2);` // Queue: `[0,2]`\n`queue.enqueue(3);` // This call blocks because the queue is full.\n`queue.dequeue();` // Returns 0. Queue: `[2]`. The `enqueue(3)` call unblocks.\n`queue.enqueue(3);` // Queue: `[2,3]`\n`queue.dequeue();` // Returns 2.\n`queue.dequeue();` // Returns 3.\n`queue.dequeue();` // This call blocks because the queue is empty.",
+    "starterCode": "import threading\nimport collections\n\nclass BoundedBlockingQueue:\n    def __init__(self, capacity: int):\n        # Your code here\n        pass\n\n    def enqueue(self, element: int) -> None:\n        # Your code here\n        pass\n\n    def dequeue(self) -> int:\n        # Your code here\n        pass\n\n    def size(self) -> int:\n        # Your code here\n        pass\n\n# Example usage (simplified for single-threaded execution):\nqueue_test = BoundedBlockingQueue(2)\nqueue_test.enqueue(1)\nqueue_test.enqueue(2)\nprint(queue_test.size())\nprint(queue_test.dequeue())\nprint(queue_test.size())\n# expected: 2\n1\n1"
+  },
+  "maximum-number-of-balloons": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `text`, determine the maximum number of times you can form the word \"balloon\" using the characters from `text`. Each character in `text` can be used only once.",
+    "constraints": "1 <= text.length <= 10^4 · text consists of lowercase English letters.",
+    "examples": "text = \"nlaebolko\"\n- We have one 'b', one 'a', one 'l', one 'o', one 'n'.\n- We can form \"balloon\" once.\nResult: 1.\n\ntext = \"loonbalxballpoon\"\n- We need: 'b':1, 'a':1, 'l':2, 'o':2, 'n':1.\n- Available: 'b':2, 'a':2, 'l':4, 'o':4, 'n':2, 'x':1, 'p':2.\n- Limited by 'b', 'a', 'n' (can form 2 times) and 'l', 'o' (can form 2 times).\n- We can form \"balloon\" twice.\nResult: 2.\n\ntext = \"leetcode\"\n- Not enough characters to form \"balloon\".\nResult: 0.",
+    "starterCode": "class Solution:\n    def maxNumberOfBalloons(self, text: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxNumberOfBalloons(\"nlaebolko\"))\n# expected: 1"
+  },
+  "reverse-substrings-between-each-pair-of-parentheses": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string containing lowercase English letters and parentheses, reverse the substrings enclosed within each pair of matching parentheses, starting from the innermost ones. The final result should not contain any parentheses.",
+    "constraints": "1 <= s.length <= 2000 · s consists of lowercase English letters and '(', ')' · Parentheses are balanced.",
+    "examples": "s = \"(abcd)\"\n- Reverse \"abcd\" -> \"dcba\".\nResult: \"dcba\".\n\ns = \"(u(love)i)\"\n- Innermost: \"(love)\" reverses to \"evol\". String becomes \"(uevoli)\".\n- Next: \"uevoli\" reverses to \"iloveu\".\nResult: \"iloveu\".\n\ns = \"(ed(et(oc))el)\"\n- Innermost: \"(oc)\" reverses to \"co\". String becomes \"(ed(etco)el)\".\n- Next innermost: \"(etco)\" reverses to \"octe\". String becomes \"(edocteel)\".\n- Next: \"edocteel\" reverses to \"leetcodo\".\nResult: \"leetcodo\".",
+    "starterCode": "class Solution:\n    def reverseParentheses(self, s: str) -> str:\n        # Your code here\n        pass\n\nprint(Solution().reverseParentheses(\"(u(love)i)\"))\n# expected: \"iloveu\"",
+    "viz": {
+      "key": "stack",
+      "input": {
+        "mode": "brackets",
+        "string": "(u(love)i)"
+      }
+    }
+  },
+  "k-concatenation-maximum-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer array `arr` and an integer `k`, find the maximum subarray sum of the array formed by concatenating `arr` `k` times. Return the result modulo 10^9 + 7.",
+    "constraints": "1 <= arr.length <= 10^5 · 1 <= k <= 10^5 · -10^4 <= arr[i] <= 10^4",
+    "examples": "arr = [1,2], k = 3\n- Concatenated array: `[1,2,1,2,1,2]`.\n- The maximum subarray sum is the sum of all elements: `1+2+1+2+1+2 = 9`.\nResult: 9.\n\narr = [1,-2,1], k = 5\n- Concatenated array: `[1,-2,1, 1,-2,1, 1,-2,1, 1,-2,1, 1,-2,1]`.\n- The maximum subarray sum is 1 (from any single '1'). A longer subarray like `[1,-2,1,1]` sums to 1, but `[1,-2,1]` sums to 0. The best is just `[1]`.\nResult: 1.\n\narr = [-1,-2], k = 7\n- Concatenated array: `[-1,-2,-1,-2,...]`.\n- The maximum subarray sum is -1 (from any single '-1').\nResult: -1.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def kConcatenationMaxSum(self, arr: List[int], k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().kConcatenationMaxSum([1,2], 3))\n# expected: 9"
   }
 }
