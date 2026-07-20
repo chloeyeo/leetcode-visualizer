@@ -23051,5 +23051,325 @@
         "string": "abacaba"
       }
     }
+  },
+  "valid-arrangement-of-pairs": {
+    "draft": true,
+    "generated": true,
+    "goal": "Arrange pairs of numbers such that each adjacent pair shares a common element, forming a single continuous sequence.",
+    "constraints": "Each number appears in exactly two pairs. · The total number of elements is even.",
+    "examples": "Given pairs [[5,3],[3,1],[1,5]], a valid arrangement is [5,3,1,5].",
+    "starterCode": "def validArrangement(pairs):\n    # Your code here\n    pass\nprint(validArrangement([[5,3],[3,1],[1,5]])) # expected: [5,3,1,5]"
+  },
+  "finding-the-topic-of-each-post": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the primary topic for each post based on the most frequent word it contains.",
+    "constraints": "Posts and words are case-insensitive. · A single word can be the topic.",
+    "examples": "Posts: [1, 'This is a great post'], [2, 'Another post about great things']. Topic for post 1 is 'great', topic for post 2 is 'post'.",
+    "starterCode": "def findTopic(posts):\n    # Your code here\n    pass\nprint(findTopic([[1, 'This is a great post'], [2, 'Another post about great things']])) # expected: [[1, 'great'], [2, 'post']]"
+  },
+  "the-number-of-users-that-are-eligible-for-discount": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many distinct users have made at least one purchase.",
+    "constraints": "User IDs are unique. · Purchases have a timestamp.",
+    "examples": "Purchases: [user=1, time=100], [user=2, time=101], [user=1, time=102]. Two users are eligible.",
+    "starterCode": "def eligibleUsers(purchases):\n    # Your code here\n    pass\nprint(eligibleUsers([[1, 100], [2, 101], [1, 102]])) # expected: 2"
+  },
+  "users-with-two-purchases-within-seven-days": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify users who made at least two purchases within a seven-day period.",
+    "constraints": "Purchase dates are given. · The seven-day period is inclusive.",
+    "examples": "Purchases: [user=1, date=10], [user=1, date=15], [user=2, date=12]. User 1 made two purchases within 7 days (10th to 17th).",
+    "starterCode": "def usersWithTwoPurchases(purchases):\n    # Your code here\n    pass\nprint(usersWithTwoPurchases([[1, 10], [1, 15], [2, 12]])) # expected: [1]"
+  },
+  "the-users-that-are-eligible-for-discount": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find all users who qualify for a discount based on their purchase history.",
+    "constraints": "Discount eligibility criteria are based on purchase amounts and dates. · User data is provided.",
+    "examples": "Users: [user=1, purchase=50, date=100], [user=1, purchase=60, date=105], [user=2, purchase=100, date=110]. User 1 is eligible.",
+    "starterCode": "def usersEligibleForDiscount(users):\n    # Your code here\n    pass\nprint(usersEligibleForDiscount([[1, 50, 100], [1, 60, 105], [2, 100, 110]])) # expected: [1]"
+  },
+  "number-of-times-a-driver-was-a-passenger": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many times each person acted as a passenger when another person was the driver.",
+    "constraints": "Ride data includes driver, passenger, and duration. · A person can be both a driver and a passenger.",
+    "examples": "Rides: [driver=1, passenger=2, duration=10], [driver=1, passenger=3, duration=5], [driver=2, passenger=1, duration=8]. Driver 1 had 2 passengers. Passenger 1 had 1 driver.",
+    "starterCode": "def countDriverPassenger(rides):\n    # Your code here\n    pass\nprint(countDriverPassenger([[1, 2, 10], [1, 3, 5], [2, 1, 8]])) # expected: [[1, 2], [2, 1]]"
+  },
+  "find-closest-number-to-zero": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of integers, find the number that is closest to zero. If there's a tie (e.g., -2 and 2), return the positive one.",
+    "constraints": "The input list contains distinct integers. · The list is not empty.",
+    "examples": "Input: [-4, -2, 1, 4, 8]. Output: 1. Input: [-2, 2]. Output: 2.",
+    "starterCode": "def findClosestNumber(nums):\n    # Your code here\n    pass\nprint(findClosestNumber([-4, -2, 1, 4, 8])) # expected: 1\nprint(findClosestNumber([-2, 2])) # expected: 2"
+  },
+  "number-of-ways-to-buy-pens-and-pencils": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total number of distinct ways to buy a certain number of pens and pencils, given their prices and a budget.",
+    "constraints": "Prices and budget are positive integers. · You can buy zero of an item.",
+    "examples": "Pen price = 10, Pencil price = 5, Budget = 20. Ways: (0 pens, 0-4 pencils), (1 pen, 0-2 pencils), (2 pens, 0 pencils). Total: 4 + 3 + 1 = 8 ways.",
+    "starterCode": "def waysToBuy(pen_price, pencil_price, budget):\n    # Your code here\n    pass\nprint(waysToBuy(10, 5, 20)) # expected: 8"
+  },
+  "design-an-atm-machine": {
+    "draft": true,
+    "generated": true,
+    "goal": "Simulate an ATM that can dispense cash in specific denominations and accept deposits.",
+    "constraints": "The ATM has a fixed set of available banknote denominations. · Transactions have limits.",
+    "examples": "ATM has denominations [10, 20, 50, 100, 200]. Withdraw 300: returns [1, 1, 1, 1, 1] (one of each). Deposit 100: adds 100 to available cash.",
+    "starterCode": "class ATM:\n    def __init__(self):\n        # Your code here\n        pass\n    def deposit(self, banknotesCount, balance):\n        # Your code here\n        pass\n    def withdraw(self, amount):\n        # Your code here\n        pass\n# Example Usage:\n# atm = ATM()\n# atm.deposit([0,0,1,2,1], 370)\n# print(atm.withdraw(700)) # expected: [-1]\n# print(atm.withdraw(30)) # expected: [0,0,0,1,0]"
+  },
+  "maximum-score-of-a-node-sequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible score of a valid node sequence in a graph, where a sequence consists of three distinct nodes and each adjacent pair must have an edge between them. The score is the sum of the node values.",
+    "constraints": "The graph is undirected and weighted. · Nodes in the sequence must be distinct.",
+    "examples": "Graph nodes [10, 20, 30, 40], Edges: (0,1), (1,2), (2,3). Max score sequence 0-1-2: 10+20+30=60.",
+    "starterCode": "def maxScore(scores, edges):\n    # Your code here\n    pass\nprint(maxScore([10, 20, 30, 40], [[0,1],[1,2],[2,3]])) # expected: 60"
+  },
+  "calculate-digit-sum-of-a-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Repeatedly replace a string of digits with the sum of its digits in groups until the string has a single digit.",
+    "constraints": "The input string contains only digits. · The grouping size changes in each step.",
+    "examples": "Input: \"11111222\", Group size = 2. Step 1: \"222246\". Group size = 3. Step 2: \"6810\". Group size = 2. Step 3: \"1410\". Group size = 3. Step 4: \"51\". Group size = 2. Step 5: \"6\". Output: \"6\".",
+    "starterCode": "def digitSum(s, k):\n    # Your code here\n    pass\nprint(digitSum(\"11111222\", 2)) # expected: \"000\""
+  },
+  "minimum-rounds-to-complete-all-tasks": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum number of rounds required to complete all tasks, where in each round you can complete either 2 or 3 tasks of the same type.",
+    "constraints": "Tasks are represented by integers. · You must complete all tasks.",
+    "examples": "Tasks: [2,2,3,3,2,4,4,4]. Counts: {2:3, 3:2, 4:3}. Rounds: (3 tasks of type 2 in 1 round), (2 tasks of type 3 in 1 round), (3 tasks of type 4 in 1 round). Total: 3 rounds.",
+    "starterCode": "def minimumRounds(tasks):\n    # Your code here\n    pass\nprint(minimumRounds([2,2,3,3,2,4,4,4])) # expected: 3"
+  },
+  "maximum-trailing-zeros-in-a-cornered-path": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum number of trailing zeros in the product of numbers along any path from the top-left to the bottom-right corner of a grid, moving only right or down. Trailing zeros are determined by factors of 2 and 5.",
+    "constraints": "Grid dimensions are at least 2x2. · Numbers in the grid are positive.",
+    "examples": "Grid: [[10, 25], [1, 10]]. Path 10->25->10: product 2500 (2 trailing zeros). Path 10->1->10: product 100 (2 trailing zeros). Max is 2.",
+    "starterCode": "def maxTrailingZeros(grid):\n    # Your code here\n    pass\nprint(maxTrailingZeros([[10, 25], [1, 10]])) # expected: 2"
+  },
+  "longest-path-with-different-adjacent-characters": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the length of the longest path in a tree where no two adjacent nodes have the same character.",
+    "constraints": "The tree is rooted. · Node characters are uppercase English letters.",
+    "examples": "Tree: root 'A', children 'B', 'C'. 'B' has child 'D'. Path A-B-D (length 3) has different adjacent characters.",
+    "starterCode": "def longestPath(parent, s):\n    # Your code here\n    pass\nprint(longestPath([-1,0,0,1,1,2], \"abacde\")) # expected: 3"
+  },
+  "maximum-cost-of-trip-with-k-highways": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the maximum cost of a trip that visits at most K cities, starting from city 0 and ending at city N-1, passing through intermediate cities.",
+    "constraints": "The graph is directed and weighted. · K is the maximum number of cities to visit.",
+    "examples": "Cities: 3, K=2. Edges: (0,1,cost=10), (1,2,cost=20), (0,2,cost=50). Max cost trip 0->2 (K=2) is 50.",
+    "starterCode": "def maxCost(n, highways, k):\n    # Your code here\n    pass\nprint(maxCost(3, [[0,1,10],[1,2,20],[0,2,50]], 2)) # expected: 50"
+  },
+  "intersection-of-multiple-arrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the common elements present in all the given arrays.",
+    "constraints": "Arrays contain distinct positive integers. · The result should be sorted.",
+    "examples": "Arrays: [[2,5,1], [1,2,3], [1,2,4]]. Intersection: [1,2].",
+    "starterCode": "def intersection(nums):\n    # Your code here\n    pass\nprint(intersection([[2,5,1], [1,2,3], [1,2,4]])) # expected: [1,2]"
+  },
+  "count-lattice-points-inside-a-circle": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the total number of integer coordinate points (lattice points) that lie inside or on the boundary of any of the given circles.",
+    "constraints": "Circles are defined by their center (x, y) and radius r. · Points must have integer coordinates.",
+    "examples": "Circles: [(2,2,1), (3,3,2)]. Points inside or on circle 1: (2,2), (1,2), (3,2), (2,1), (2,3). Points inside or on circle 2: (3,3), (1,3), (5,3), (3,1), (3,5), (2,2), (4,2), (2,4), (4,4). Unique points: 13.",
+    "starterCode": "def countLatticePoints(circles):\n    # Your code here\n    pass\nprint(countLatticePoints([[2,2,1], [3,3,2]])) # expected: 13"
+  },
+  "count-number-of-rectangles-containing-each-point": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each given point, count how many rectangles contain it. A point is contained if it lies on the boundary or inside the rectangle.",
+    "constraints": "Rectangle coordinates are positive integers. · Point coordinates are positive integers.",
+    "examples": "Rectangles: [[1,1],[2,2]], [[1,2],[2,3]]. Points: (1,1), (2,2). Point (1,1) is in 1 rectangle. Point (2,2) is in 2 rectangles.",
+    "starterCode": "def countRectangles(rectangles, points):\n    # Your code here\n    pass\nprint(countRectangles([[1,1],[2,2]], [[1,1],[2,2]])) # expected: [1,2]"
+  },
+  "number-of-flowers-in-full-bloom": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each person, determine how many flowers are in full bloom at the exact time they arrive to water them. A flower is in bloom from its start time to its end time, inclusive.",
+    "constraints": "Arrival times, bloom start, and bloom end times are integers. · A flower is in bloom if arrival_time >= start_time and arrival_time <= end_time.",
+    "examples": "Flowers bloom from [1,6], [2,8], [3,10]. People arrive at [1,3,7]. At time 1: 1 flower. At time 3: 3 flowers. At time 7: 2 flowers. Output: [1,3,2].",
+    "starterCode": "def fullBloom(flowers, people):\n    # Your code here\n    pass\nprint(fullBloom([[1,6],[2,8],[3,10]], [1,3,7])) # expected: [1,3,2]"
+  },
+  "dynamic-pivoting-of-a-table": {
+    "draft": true,
+    "generated": true,
+    "goal": "Pivot a table dynamically, meaning you transform rows into columns based on a specified column's values, while aggregating other columns.",
+    "constraints": "Table has at least two columns. · Pivot column values are unique.",
+    "examples": "Table: [ID:1, Name:'A', Value:10], [ID:2, Name:'B', Value:20], [ID:3, Name:'A', Value:30]. Pivot on 'Name', aggregate 'Value'. Result: [A:40, B:20].",
+    "starterCode": "def pivotTable(table):\n    # Your code here\n    pass\nprint(pivotTable([['ID', 'Name', 'Value'], [1, 'A', 10], [2, 'B', 20], [3, 'A', 30]])) # expected: [['Name', 'A', 'B'], ['Value', 40, 20]]"
+  },
+  "find-resultant-array-after-removing-anagrams": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of words, construct a new list by iterating through the original words. For each word, add it to the new list only if it is not an anagram of the last word already added to the new list.",
+    "constraints": "1 <= words.length <= 100 · 1 <= words[i].length <= 10 · words[i] consists of lowercase English letters.",
+    "examples": "Input: words = [\"abba\",\"baba\",\"bbaa\",\"cd\",\"cd\"]\nOutput: [\"abba\",\"cd\"]\nExplanation: \"abba\" is added. \"baba\" is an anagram of \"abba\", skipped. \"bbaa\" is an anagram of \"abba\", skipped. \"cd\" is not an anagram of \"abba\", added. The second \"cd\" is an anagram of the first \"cd\", skipped. Final list: [\"abba\", \"cd\"].",
+    "starterCode": "def removeAnagrams(words: list[str]) -> list[str]:\n    # Your code here\n    pass\n\nprint(removeAnagrams([\"abba\",\"baba\",\"bbaa\",\"cd\",\"cd\"]))\n# expected: [\"abba\", \"cd\"]"
+  },
+  "maximum-consecutive-floors-without-special-floors": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given a range of floors from `bottom` to `top` (inclusive) and a list of `special` floors. Determine the maximum number of consecutive floors that do not include any special floors.",
+    "constraints": "2 <= bottom <= top <= 10^9 · 1 <= special.length <= 10^5 · bottom <= special[i] <= top · All special[i] are unique.",
+    "examples": "Input: bottom = 2, top = 9, special = [4,6]\nOutput: 3\nExplanation: The floors are 2,3,4,5,6,7,8,9. Special floors are 4 and 6.\nConsecutive non-special floors are:\n- (2,3) length 2\n- (5) length 1\n- (7,8,9) length 3\nThe maximum length is 3.",
+    "starterCode": "def maxConsecutive(bottom: int, top: int, special: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(maxConsecutive(bottom = 2, top = 9, special = [4,6]))\n# expected: 3"
+  },
+  "largest-combination-with-bitwise-and-greater-than-zero": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of positive integers, find the largest possible count of numbers from this array such that their bitwise AND operation results in a value strictly greater than zero.",
+    "constraints": "1 <= candidates.length <= 10^5 · 1 <= candidates[i] <= 10^7.",
+    "examples": "Input: candidates = [16,17,18,19,20,21,22,23,24,25,26,27,28,29]\nOutput: 14\nExplanation: The numbers 16 through 29 all have their 4th bit (16's place) set. If we take all 14 of these numbers, their bitwise AND will have the 4th bit set, resulting in a value greater than zero. No other bit position is set in more than 14 numbers.",
+    "starterCode": "def largestCombination(candidates: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(largestCombination([16,17,18,19,20,21,22,23,24,25,26,27,28,29]))\n# expected: 14"
+  },
+  "count-integers-in-intervals": {
+    "draft": true,
+    "generated": true,
+    "goal": "Implement a data structure that can store a collection of integer intervals and efficiently report the total count of unique integers covered by all currently stored intervals.",
+    "constraints": "0 <= left <= right <= 10^9 · At most 10^5 calls to add and count.",
+    "examples": "Initialize:\n  CountIntervals()\nAdd intervals:\n  add(2,3)   // Intervals: [2,3]. Total unique integers: 2 (2, 3)\n  add(7,10)  // Intervals: [2,3], [7,10]. Total unique integers: 2 + 4 = 6\nQuery count:\n  count()    // Returns 6\nAdd another interval:\n  add(5,8)   // Intervals: [2,3], [5,8], [7,10]. These merge to [2,3], [5,10]. Total unique integers: 2 + 6 = 8\nQuery count again:\n  count()    // Returns 8",
+    "starterCode": "class CountIntervals:\n    def __init__(self):\n        # Your code here\n        pass\n\n    def add(self, left: int, right: int) -> None:\n        pass\n\n    def count(self) -> int:\n        pass\n\nobj = CountIntervals()\nobj.add(2,3)\nobj.add(7,10)\nobj.add(5,8)\nprint(obj.count())\n# expected: 8"
+  },
+  "closest-node-to-path-in-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a tree, a starting node, an ending node, and a list of queries (each with a query node), determine for each query node its minimum distance to any node on the unique path connecting the start and end nodes.",
+    "constraints": "n nodes, n queries. 2 <= n <= 1000 · 0 <= start_node, end_node, query_node <= n-1.",
+    "examples": "Input: n = 6, edges = [[0,1],[1,2],[1,3],[3,4],[3,5]], queries = [[0,5,2],[0,5,4],[0,5,0]]\nOutput: [1,1,0]\nExplanation: The unique path from node 0 to node 5 is 0-1-3-5.\n- For query node 2: Its closest node on path (0-1-3-5) is 1. Distance is 1.\n- For query node 4: Its closest node on path (0-1-3-5) is 3. Distance is 1.\n- For query node 0: It is on the path. Distance is 0.",
+    "starterCode": "def closestNode(n: int, edges: list[list[int]], query: list[list[int]]) -> list[int]:\n    # Your code here\n    pass\n\nprint(closestNode(n = 6, edges = [[0,1],[1,2],[1,3],[3,4],[3,5]], query = [[0,5,2],[0,5,4],[0,5,0]]))\n# expected: [1,1,0]"
+  },
+  "percentage-of-letter-in-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the percentage of occurrences of a specific character within a given string, rounding the result down to the nearest whole number.",
+    "constraints": "1 <= s.length <= 500 · s consists of lowercase English letters · letter is a lowercase English letter.",
+    "examples": "Input: s = \"foobar\", letter = \"o\"\nOutput: 33\nExplanation: The string \"foobar\" has length 6. The letter 'o' appears 2 times.\nPercentage = (2 / 6) * 100 = 33.333... which rounds down to 33.",
+    "starterCode": "def percentageLetter(s: str, letter: str) -> int:\n    # Your code here\n    pass\n\nprint(percentageLetter(s = \"foobar\", letter = \"o\"))\n# expected: 33"
+  },
+  "maximum-bags-with-full-capacity-of-rocks": {
+    "draft": true,
+    "generated": true,
+    "goal": "You have several bags, each with a maximum `capacity` and a current number of `rocks`. You are also given `additionalRocks` that can be distributed among the bags. Determine the maximum number of bags that can be filled to their full capacity.",
+    "constraints": "n bags. 1 <= n <= 10^5 · 1 <= capacity[i], rocks[i] <= 10^9 · 0 <= additionalRocks <= 10^9.",
+    "examples": "Input: capacity = [2,3,4,5], rocks = [1,2,4,4], additionalRocks = 2\nOutput: 3\nExplanation: \n- Bag 0 needs 2-1 = 1 rock.\n- Bag 1 needs 3-2 = 1 rock.\n- Bag 2 needs 4-4 = 0 rocks (already full).\n- Bag 3 needs 5-4 = 1 rock.\nRocks needed: [1,1,0,1]. Sorted: [0,1,1,1].\nWith 2 additional rocks:\n1. Fill bag 2 (needs 0 rocks). additionalRocks = 2. Full bags = 1.\n2. Fill bag 0 (needs 1 rock). additionalRocks = 2-1 = 1. Full bags = 2.\n3. Fill bag 1 (needs 1 rock). additionalRocks = 1-1 = 0. Full bags = 3.\n4. Bag 3 needs 1 rock, but no additional rocks left. Cannot fill.\nMaximum full bags: 3.",
+    "starterCode": "def maximumBags(capacity: list[int], rocks: list[int], additionalRocks: int) -> int:\n    # Your code here\n    pass\n\nprint(maximumBags(capacity = [2,3,4,5], rocks = [1,2,4,4], additionalRocks = 2))\n# expected: 3"
+  },
+  "minimum-lines-to-represent-a-line-chart": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of stock prices where each entry `[day, price]` represents the price on a specific day, find the minimum number of straight lines required to connect all consecutive points in a line chart.",
+    "constraints": "1 <= prices.length <= 10^5 · prices[i] = [day_i, price_i] · 1 <= day_i, price_i <= 10^9 · day_i are strictly increasing.",
+    "examples": "Input: prices = [[1,7],[2,6],[3,5],[4,4],[5,4]]\nOutput: 2\nExplanation:\nThe points are (1,7), (2,6), (3,5), (4,4), (5,4).\n- Points (1,7), (2,6), (3,5), (4,4) are collinear with a slope of -1. This forms one line.\n- Point (5,4) has a different slope (0) when connected to (4,4). This forms a second line.\nThus, 2 lines are needed.",
+    "starterCode": "def minimumLines(prices: list[list[int]]) -> int:\n    # Your code here\n    pass\n\nprint(minimumLines([[1,7],[2,6],[3,5],[4,4],[5,4]]))\n# expected: 2"
+  },
+  "sum-of-total-strength-of-wizards": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array `strength` representing wizard strengths, calculate the 'total strength' for every possible contiguous subarray. The strength of a subarray is defined as `min(subarray) * sum(subarray)`. Return the sum of all such subarray strengths, modulo 10^9 + 7.",
+    "constraints": "1 <= strength.length <= 10^5 · 1 <= strength[i] <= 10^9.",
+    "examples": "Input: strength = [1,3,1]\nOutput: 24\nExplanation:\nSubarrays and their strengths:\n- [1]: min=1, sum=1 → 1*1 = 1\n- [3]: min=3, sum=3 → 3*3 = 9\n- [1]: min=1, sum=1 → 1*1 = 1\n- [1,3]: min=1, sum=4 → 1*4 = 4\n- [3,1]: min=1, sum=4 → 1*4 = 4\n- [1,3,1]: min=1, sum=5 → 1*5 = 5\nTotal strength = 1 + 9 + 1 + 4 + 4 + 5 = 24.",
+    "starterCode": "def totalStrength(strength: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(totalStrength([1,3,1]))\n# expected: 24"
+  },
+  "number-of-people-that-can-be-seen-in-a-grid": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a 2D grid where each cell represents a person's height, determine for each person how many other people they can see in their row and column. A person can see another person if there are no taller people between them in that line of sight.",
+    "constraints": "m, n dimensions. 1 <= m, n <= 500 · 1 <= grid[i][j] <= 10^5.",
+    "examples": "Input: grid = [[3,1],[2,4]]\nOutput: [[2,2],[2,2]]\nExplanation:\n- For person at (0,0) with height 3:\n  - Sees 1 to the right.\n  - Sees 2 downwards.\n  - Total: 2.\n- For person at (0,1) with height 1:\n  - Sees 3 to the left.\n  - Sees 4 downwards.\n  - Total: 2.\n- For person at (1,0) with height 2:\n  - Sees 3 upwards.\n  - Sees 4 to the right.\n  - Total: 2.\n- For person at (1,1) with height 4:\n  - Sees 1 to the left (3 is not blocking 1 from 4's perspective).\n  - Sees 3 upwards.\n  - Total: 2.",
+    "starterCode": "def seePeople(grid: list[list[int]]) -> list[list[int]]:\n    # Your code here\n    pass\n\nprint(seePeople([[3,1],[2,4]]))\n# expected: [[2,2],[2,2]]"
+  },
+  "check-if-number-has-equal-digit-count-and-digit-value": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `num` representing a number, verify if for every digit `i` from 0 to 9, the digit `i` appears exactly `num[i]` times in the string `num`.",
+    "constraints": "n is 1 <= n <= 10 · num[i] is a digit from 0 to 9.",
+    "examples": "Input: num = \"1210\"\nOutput: True\nExplanation:\n- num[0] is '1'. The digit '0' appears 1 time in \"1210\". Match.\n- num[1] is '2'. The digit '1' appears 2 times in \"1210\". Match.\n- num[2] is '1'. The digit '2' appears 1 time in \"1210\". Match.\n- num[3] is '0'. The digit '3' appears 0 times in \"1210\". Match.\nAll conditions are met, so return True.",
+    "starterCode": "def digitCount(num: str) -> bool:\n    # Your code here\n    pass\n\nprint(digitCount(\"1210\"))\n# expected: True"
+  },
+  "sender-with-largest-word-count": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of messages and their corresponding senders, find the sender who has sent the most words in total. If multiple senders have the same maximum word count, return the sender whose name is lexicographically largest.",
+    "constraints": "n messages. 1 <= n <= 10^4 · 1 <= messages[i].length <= 100 · 1 <= senders[i].length <= 100 · messages[i] contains lowercase English letters and spaces. senders[i] consists of lowercase and uppercase English letters.",
+    "examples": "Input: messages = [\"Hello userTwo from userOne\", \"Hi userOne from userTwo\"], senders = [\"userOne\", \"userTwo\"]\nOutput: \"userTwo\"\nExplanation:\n- userOne sent 1 message with 5 words. Total words for userOne: 5.\n- userTwo sent 1 message with 5 words. Total words for userTwo: 5.\nBoth senders have 5 words. \"userTwo\" is lexicographically greater than \"userOne\", so \"userTwo\" is returned.",
+    "starterCode": "def largestWordCount(messages: list[str], senders: list[str]) -> str:\n    # Your code here\n    pass\n\nprint(largestWordCount(messages = [\"Hello userTwo from userOne\", \"Hi userOne from userTwo\"], senders = [\"userOne\", \"userTwo\"]))\n# expected: \"userTwo\""
+  },
+  "maximum-total-importance-of-roads": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a network of `n` cities connected by `roads`, assign an importance value from 1 to `n` to each city such that the total importance of all roads is maximized. The importance of a road is the sum of the importance values of the two cities it connects.",
+    "constraints": "n cities. 2 <= n <= 5 * 10^4 · 1 <= roads.length <= 5 * 10^4 · roads[i] is [cityA, cityB] · 0 <= cityA, cityB < n · No self-loops or multiple roads between same two cities.",
+    "examples": "Input: n = 5, roads = [[0,1],[1,2],[2,3],[0,2],[1,3],[2,4]]\nOutput: 43\nExplanation:\nCity degrees:\n- City 0: 2 roads\n- City 1: 3 roads\n- City 2: 4 roads\n- City 3: 2 roads\n- City 4: 1 road\nTo maximize total importance, assign higher importance values to cities with more connections.\nAssign values 1 to 5 based on degree (1 to city 4, 2 to city 0, 3 to city 3, 4 to city 1, 5 to city 2).\nImportance mapping: {0:2, 1:4, 2:5, 3:3, 4:1}\nTotal importance = (2+4) + (4+5) + (5+3) + (2+5) + (4+3) + (5+1) = 6 + 9 + 8 + 7 + 7 + 6 = 43.",
+    "starterCode": "def maximumImportance(n: int, roads: list[list[int]]) -> int:\n    # Your code here\n    pass\n\nprint(maximumImportance(n = 5, roads = [[0,1],[1,2],[2,3],[0,2],[1,3],[2,4]]))\n# expected: 43"
+  },
+  "booking-concert-tickets-in-groups": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a system for booking concert tickets in a venue with `n` rows and `m` seats per row. Support booking `k` seats in a single row (`gather`), booking `k` seats across multiple rows (`scatter`), and querying the number of seats booked in a specific row (`row`).",
+    "constraints": "1 <= n, m <= 10^5 · 1 <= k <= m · 0 <= maxRow <= n-1 · At most 10^5 calls to gather, scatter, row.",
+    "examples": "Initialize:\n  BookMyShow(2, 5) // 2 rows, 5 seats per row. All seats initially empty.\nGather operation:\n  gather(4, 0)     // Book 4 seats in row 0. Returns [0, 0] (row 0, first seat 0).\n                   // Row 0: [X,X,X,X,_,_]\n  gather(2, 0)     // Try to book 2 seats in row 0. Only 1 left. Returns [] (failure).\nScatter operation:\n  scatter(5, 1)    // Book 5 seats across rows up to row 1.\n                   // Row 0 has 1 seat left (index 4). Row 1 has 5 seats left.\n                   // Books 1 seat in row 0 at index 4. Books 4 seats in row 1 from index 0.\n                   // Returns [0, 4] (first seat booked was in row 0, index 4).\nQuery row:\n  row(0)           // Returns 4 (seats booked in row 0).",
+    "starterCode": "class BookMyShow:\n    def __init__(self, n: int, m: int):\n        # Your code here\n        pass\n\n    def gather(self, k: int, maxRow: int) -> list[int]:\n        pass\n\n    def scatter(self, k: int, maxRow: int) -> list[int]:\n        pass\n\n    def row(self, r: int) -> int:\n        pass\n\nobj = BookMyShow(2, 5)\nresult1 = obj.gather(4, 0)\nresult2 = obj.gather(2, 0)\nresult3 = obj.scatter(5, 1)\nresult4 = obj.row(0)\n\nprint(f\"gather(4,0): {result1}\")\n# expected: [0,0]\nprint(f\"gather(2,0): {result2}\")\n# expected: []\nprint(f\"scatter(5,1): {result3}\")\n# expected: [0,4]\nprint(f\"row(0): {result4}\")\n# expected: 4"
+  },
+  "rearrange-characters-to-make-target-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two strings, `s` and `target`, determine the maximum number of times the `target` string can be constructed by rearranging characters available in `s`.",
+    "constraints": "1 <= s.length, target.length <= 100 · s and target consist of lowercase English letters.",
+    "examples": "Input: s = \"ilovecoding\", target = \"code\"\nOutput: 1\nExplanation:\nCharacter counts in `s`: i:2, l:1, o:2, v:1, e:1, c:1, d:1, n:1, g:1.\nCharacter counts in `target`: c:1, o:1, d:1, e:1.\nTo form \"code\" once, we need one 'c', one 'o', one 'd', and one 'e'.\n- 'c': s has 1, target needs 1 → 1/1 = 1 time.\n- 'o': s has 2, target needs 1 → 2/1 = 2 times.\n- 'd': s has 1, target needs 1 → 1/1 = 1 time.\n- 'e': s has 1, target needs 1 → 1/1 = 1 time.\nThe limiting factor is the characters 'c', 'd', and 'e', each allowing only 1 instance of \"code\". Thus, the maximum is 1.",
+    "starterCode": "def rearrangeCharacters(s: str, target: str) -> int:\n    # Your code here\n    pass\n\nprint(rearrangeCharacters(s = \"ilovecoding\", target = \"code\"))\n# expected: 1"
+  },
+  "arrange-table-by-gender": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of dictionaries representing user records (with `user_id`, `name`, `gender`), reorder the list such that all female users appear first, sorted by `user_id`, followed by all male users, also sorted by `user_id`.",
+    "constraints": "user_id is primary key. name is string. gender is enum ('Female', 'Male').",
+    "examples": "Input:\n[\n  {\"user_id\": 1, \"name\": \"Alice\", \"gender\": \"Female\"},\n  {\"user_id\": 2, \"name\": \"Bob\", \"gender\": \"Male\"},\n  {\"user_id\": 3, \"name\": \"Charlie\", \"gender\": \"Male\"},\n  {\"user_id\": 4, \"name\": \"David\", \"gender\": \"Male\"},\n  {\"user_id\": 5, \"name\": \"Eve\", \"gender\": \"Female\"}\n]\nOutput:\n[\n  {\"user_id\": 1, \"name\": \"Alice\", \"gender\": \"Female\"},\n  {\"user_id\": 5, \"name\": \"Eve\", \"gender\": \"Female\"},\n  {\"user_id\": 2, \"name\": \"Bob\", \"gender\": \"Male\"},\n  {\"user_id\": 3, \"name\": \"Charlie\", \"gender\": \"Male\"},\n  {\"user_id\": 4, \"name\": \"David\", \"gender\": \"Male\"}\n]",
+    "starterCode": "def arrangeTableByGender(users: list[dict]) -> list[dict]:\n    # Your code here\n    pass\n\nusers_data = [\n    {\"user_id\": 1, \"name\": \"Alice\", \"gender\": \"Female\"},\n    {\"user_id\": 2, \"name\": \"Bob\", \"gender\": \"Male\"},\n    {\"user_id\": 3, \"name\": \"Charlie\", \"gender\": \"Male\"},\n    {\"user_id\": 4, \"name\": \"David\", \"gender\": \"Male\"},\n    {\"user_id\": 5, \"name\": \"Eve\", \"gender\": \"Female\"}\n]\nprint(arrangeTableByGender(users_data))\n# expected: [{'user_id': 1, 'name': 'Alice', 'gender': 'Female'}, {'user_id': 5, 'name': 'Eve', 'gender': 'Female'}, {'user_id': 2, 'name': 'Bob', 'gender': 'Male'}, {'user_id': 3, 'name': 'Charlie', 'gender': 'Male'}, {'user_id': 4, 'name': 'David', 'gender': 'Male'}]"
+  },
+  "greatest-english-letter-in-upper-and-lower-case": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `s`, find the largest English letter (closest to 'Z') that appears in `s` in both its uppercase and lowercase forms. If no such letter exists, return an empty string.",
+    "constraints": "1 <= s.length <= 1000 · s consists of English letters.",
+    "examples": "Input: s = \"lEeTcOdE\"\nOutput: \"L\"\nExplanation:\n- 'l' and 'L' are both present. Candidate: 'L'.\n- 'e' and 'E' are both present. Candidate: 'E'.\n- 'c' and 'C' are both present. Candidate: 'C'.\nComparing 'L', 'E', 'C', the largest (closest to 'Z') is 'L'.",
+    "starterCode": "def greatestLetter(s: str) -> str:\n    # Your code here\n    pass\n\nprint(greatestLetter(\"lEeTcOdE\"))\n# expected: \"L\""
+  },
+  "sum-of-numbers-with-units-digit-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer `num` and a digit `k`, find the minimum number of positive integers, each having `k` as its units digit, that sum up to `num`. If it's impossible to form `num` this way, return -1.",
+    "constraints": "0 <= num <= 1000 · 0 <= k <= 9.",
+    "examples": "Input: num = 58, k = 6\nOutput: 3\nExplanation: We need to find `x` positive integers ending in 6 that sum to 58. The units digit of `x * k` must match the units digit of `num`.\nFor `k=6` and `num=58` (units digit 8):\n- `x=1`: `1*6 = 6` (units digit 6)\n- `x=2`: `2*6 = 12` (units digit 2)\n- `x=3`: `3*6 = 18` (units digit 8). This matches!\nNow check if `num - (x*k)` is a multiple of 10. `58 - (3*6) = 58 - 18 = 40`. Since 40 is a multiple of 10, it's possible to form 58 using 3 numbers ending in 6 (e.g., 6, 6, 46). The minimum count is 3.",
+    "starterCode": "def minimumNumbers(num: int, k: int) -> int:\n    # Your code here\n    pass\n\nprint(minimumNumbers(num = 58, k = 6))\n# expected: 3"
+  },
+  "longest-binary-subsequence-less-than-or-equal-to-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary string `s` and an integer `k`, find the length of the longest subsequence of `s` whose decimal value is less than or equal to `k`.",
+    "constraints": "1 <= s.length <= 10^5 · s[i] is '0' or '1' · 1 <= k <= 10^9.",
+    "examples": "Input: s = \"100011\", k = 13\nOutput: 5\nExplanation: \nWe want to form the longest subsequence. A greedy approach is to include all '0's, as they increase length without increasing value (unless they are leading zeros in a non-zero number). Then, from the rightmost '1's (least significant bits), add them to the subsequence as long as the resulting decimal value does not exceed `k`.\n1. Count all '0's in `s`: 3.\n2. Iterate `s` from right to left, building a binary number and its length:\n   - `s[5] = '1'`: Current value = 1, length = 1. (1 ≤ 13)\n   - `s[4] = '1'`: Current value = 1 + (1 « 1) = 3, length = 2. (3 ≤ 13)\n   - `s[3] = '0'`: Length = 3.\n   - `s[2] = '0'`: Length = 4.\n   - `s[1] = '0'`: Length = 5.\n   - `s[0] = '1'`: Current value = 3 + (1 « 5) = 3 + 32 = 35. (35 > 13). Cannot add this '1'.\nThe longest subsequence is formed by taking the '0's at indices 1,2,3 and '1's at indices 4,5 (from right to left). This forms \"00011\", which has a value of 3 and length 5.",
+    "starterCode": "def longestSubsequence(s: str, k: int) -> int:\n    # Your code here\n    pass\n\nprint(longestSubsequence(s = \"100011\", k = 13))\n# expected: 5"
+  },
+  "selling-pieces-of-wood": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a large rectangular piece of wood of dimensions `m x n` and a list of prices for various smaller rectangular pieces, find the maximum profit you can achieve by cutting the original wood into smaller pieces and selling them. You can make any number of horizontal or vertical cuts.",
+    "constraints": "1 <= m, n <= 200 · 1 <= prices.length <= 2 * 10^4 · prices[i] = [h_i, w_i, price_i] · 1 <= h_i <= m · 1 <= w_i <= n.",
+    "examples": "Input: m = 3, n = 5, prices = [[1,4,2],[2,2,7],[2,1,3]]\nOutput: 19\nExplanation:\nThe original wood is 3x5. Available pieces for sale are 1x4 (price 2), 2x2 (price 7), 2x1 (price 3).\nTo achieve a profit of 19:\n1. Cut the 3x5 wood horizontally into a 1x5 piece and a 2x5 piece.\n2. For the 1x5 piece: Cut it into a 1x4 piece (price 2) and a 1x1 piece (which cannot be sold).\n3. For the 2x5 piece: Cut it into a 2x2 piece (price 7) and a 2x3 piece.\n4. For the 2x3 piece: Cut it into a 2x1 piece (price 3) and a 2x2 piece (price 7).\nTotal profit = 2 + 7 + 3 + 7 = 19.",
+    "starterCode": "def sellingWood(m: int, n: int, prices: list[list[int]]) -> int:\n    # Your code here\n    pass\n\nprint(sellingWood(m = 3, n = 5, prices = [[1,4,2],[2,2,7],[2,1,3]]))\n# expected: 19"
   }
 }
