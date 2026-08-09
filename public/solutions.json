@@ -34020,5 +34020,165 @@
     "constraints": "Tree nodes: 1 to 1000. · Node IDs: 1 to 1000. · node1, node2 are distinct and exist in the tree. · Tree is a valid binary tree.",
     "examples": "Tree structure:\n    1\n   / \\\n  2   3\n     / \\\n    4   5\n\nNode1 = 2, Node2 = 4\n\n1. Construct the graph: Each node is connected to its parent, children, and sibling(s).\n   - Node 1: Neighbors [2, 3]\n   - Node 2: Neighbors [1, 3] (1 is parent, 3 is sibling)\n   - Node 3: Neighbors [1, 2, 4, 5] (1 is parent, 2 is sibling, 4,5 are children)\n   - Node 4: Neighbors [3, 5] (3 is parent, 5 is sibling)\n   - Node 5: Neighbors [3, 4] (3 is parent, 4 is sibling)\n\n2. Find LCA(2, 4): The lowest common ancestor of 2 and 4 is 1.\n\n3. Count distinct simple paths from Node1 (2) to LCA (1):\n   - Path 1: 2 -> 1\n   - Path 2: 2 -> 3 -> 1\n   Total paths: 2.\n\n4. Count distinct simple paths from LCA (1) to Node2 (4):\n   - Path 1: 1 -> 3 -> 4\n   - Path 2: 1 -> 3 -> 5 -> 4\n   - Path 3: 1 -> 2 -> 3 -> 4\n   - Path 4: 1 -> 2 -> 3 -> 5 -> 4\n   Total paths: 4.\n\n5. The total number of distinct gate paths from node1 to node2 passing through LCA is the product of paths from node1 to LCA and LCA to node2 (since the paths are simple and only intersect at LCA).\n   Total = 2 * 4 = 8.\n\nResult: 8.",
     "starterCode": "import collections\n\n# Definition for a binary tree node.\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\nclass Solution:\n    def distinctGatePathsToLCA(self, root: TreeNode, node1: int, node2: int) -> int:\n        # Your code here\n        pass\n\n# Helper to build tree from list (for example)\ndef build_tree(nodes):\n    if not nodes:\n        return None\n    root = TreeNode(nodes[0])\n    queue = collections.deque([root])\n    i = 1\n    while queue and i < len(nodes):\n        current = queue.popleft()\n        if nodes[i] is not None:\n            current.left = TreeNode(nodes[i])\n            queue.append(current.left)\n        i += 1\n        if i < len(nodes) and nodes[i] is not None:\n            current.right = TreeNode(nodes[i])\n            queue.append(current.right)\n        i += 1\n    return root\n\n# Example usage:\n# tree = build_tree([1,2,3,None,None,4,5])\n# print(Solution().distinctGatePathsToLCA(tree, 2, 4))\n# expected: 8"
+  },
+  "maximum-enemy-forts-that-can-be-captured": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array representing forts and empty spaces, find the maximum number of enemy forts you can capture by placing your own fort strategically.",
+    "constraints": "The array contains only 1 (your fort), -1 (enemy fort), or 0 (empty space). · The array length is between 1 and 1000.",
+    "examples": "If forts = [1,0,0,0,-1,0,1], you can capture 2 enemy forts by placing your fort at index 3. If forts = [-1,0,0,1], you can capture 1 enemy fort.",
+    "starterCode": "def maximumEnemyForts(forts):\n    # Your code here\n    pass\nprint(maximumEnemyForts([1,0,0,0,-1,0,1])) # expected: 2\nprint(maximumEnemyForts([-1,0,0,1])) # expected: 1"
+  },
+  "reward-top-k-students": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the total score of the top K students after applying bonus or penalty points based on their feedback, then return the adjusted total score.",
+    "constraints": "Number of students (n) is between 1 and 1000. · K is between 1 and n. · Feedback strings are non-empty and contain only letters and spaces.",
+    "examples": "If positive feedback is ['good', 'great'] and negative feedback is ['bad', 'poor'], and student feedback is ['good great', 'bad poor', 'good bad'], with K=2, the top 2 students get scores of 3 and -1 respectively, resulting in a total score of 2.",
+    "starterCode": "def topStudents(positive_feedback, negative_feedback, report, student_id, k):\n    # Your code here\n    pass\nprint(topStudents(['good', 'great'], ['bad', 'poor'], ['good great', 'bad poor', 'good bad'], [1, 2, 3], 2)) # expected: 2"
+  },
+  "minimize-the-maximum-of-two-arrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the smallest possible value for the maximum element between two arrays, given that you can move elements from one array to the other.",
+    "constraints": "The lengths of the two arrays are between 1 and 10^5. · The elements in the arrays are positive integers.",
+    "examples": "If nums1 = [1, 2, 3] and nums2 = [4, 5, 6], and you can move elements, the minimum possible maximum is 4. If nums1 = [10] and nums2 = [1], you can move 10 to nums2, making the max 1.",
+    "starterCode": "def minimizeMax(n1, n2, a1, a2):\n    # Your code here\n    pass\nprint(minimizeMax(3, 3, [1, 2, 3], [4, 5, 6])) # expected: 4\nprint(minimizeMax(1, 1, [10], [1])) # expected: 1"
+  },
+  "count-anagrams": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many substrings in a given string are anagrams of each other.",
+    "constraints": "The input string consists of lowercase English letters. · The string length is between 1 and 1000.",
+    "examples": "For the string 'aabb', the anagram pairs are ('a', 'a'), ('b', 'b'), ('ab', 'ba'), ('aab', 'aba'), ('abb', 'bab'). The count is 5.",
+    "starterCode": "def countAnagrams(s):\n    # Your code here\n    pass\nprint(countAnagrams('aabb')) # expected: 5\nprint(countAnagrams('abc')) # expected: 0"
+  },
+  "shortest-distance-to-target-string-in-a-circular-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum number of steps to reach a target string from a starting index in a circular array of strings, moving left or right.",
+    "constraints": "The array length is between 1 and 100. · The target string exists in the array.",
+    "examples": "If words = ['a', 'b', 'c', 'd', 'a'], start = 0, and target = 'a', the shortest distance is 0 (already at 'a'). If target = 'c', the shortest distance is 2 (move right twice).",
+    "starterCode": "def shortestDistance(words, start, target):\n    # Your code here\n    pass\nprint(shortestDistance(['a', 'b', 'c', 'd', 'a'], 0, 'a')) # expected: 0\nprint(shortestDistance(['a', 'b', 'c', 'd', 'a'], 0, 'c')) # expected: 2"
+  },
+  "take-k-of-each-character-from-left-and-right": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the maximum number of characters you can take from both ends of a string such that you have at least K instances of each character present in the original string.",
+    "constraints": "The string contains only lowercase English letters. · K is between 1 and the string length.",
+    "examples": "If s = 'aabcbaa' and K = 2, you can take 'aa' from the left and 'aa' from the right, resulting in 4 characters. If s = 'abacaba' and K = 3, you can take 'aba' from left and 'aba' from right, total 6.",
+    "starterCode": "def takeCharacters(s, k):\n    # Your code here\n    pass\nprint(takeCharacters('aabcbaa', 2)) # expected: 4\nprint(takeCharacters('abacaba', 3)) # expected: 6"
+  },
+  "maximum-tastiness-of-candy-basket": {
+    "draft": true,
+    "generated": true,
+    "goal": "Select candies from a basket to maximize the minimum tastiness among the chosen candies, given you must pick at least two.",
+    "constraints": "The number of candies is between 2 and 10^5. · Candy tastiness values are between 1 and 10^9.",
+    "examples": "If tastiness = [3, 1, 2, 5, 4] and you must pick 2 candies, the maximum minimum tastiness is 4 (by picking 4 and 5). If you must pick 3, the max min is 3 (by picking 3, 4, 5).",
+    "starterCode": "def maximumTastiness(candies, k):\n    # Your code here\n    pass\nprint(maximumTastiness([3, 1, 2, 5, 4], 2)) # expected: 4\nprint(maximumTastiness([3, 1, 2, 5, 4], 3)) # expected: 3"
+  },
+  "number-of-great-partitions": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of ways to split an array into three contiguous subarrays such that the sum of the first subarray is less than or equal to the sum of the second, and the sum of the second is less than or equal to the sum of the third.",
+    "constraints": "The array contains positive integers. · The array length is between 3 and 1000.",
+    "examples": "If nums = [1, 2, 3, 4, 5], the great partitions are ([1], [2, 3], [4, 5]) and ([1, 2], [3], [4, 5]). The count is 2.",
+    "starterCode": "def countGreatPartitions(nums):\n    # Your code here\n    pass\nprint(countGreatPartitions([1, 2, 3, 4, 5])) # expected: 2\nprint(countGreatPartitions([1, 1, 1])) # expected: 0"
+  },
+  "count-the-number-of-k-big-indices": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many indices `i` exist such that the element at `i` is strictly greater than the `k` elements before it and strictly greater than the `k` elements after it.",
+    "constraints": "The array length is between 1 and 10^5. · `k` is between 1 and `n/2`.",
+    "examples": "If nums = [2, 6, 4, 1, 5, 9, 3] and k = 2, index 3 (value 1) is not k-big. Index 1 (value 6) is k-big because 6 > 2 and 6 > 4. Index 5 (value 9) is k-big because 9 > 5 and 9 > 3. The count is 2.",
+    "starterCode": "def kBigIndices(nums, k):\n    # Your code here\n    pass\nprint(kBigIndices([2, 6, 4, 1, 5, 9, 3], 2)) # expected: 2\nprint(kBigIndices([1, 1, 1, 1], 1)) # expected: 0"
+  },
+  "count-the-digits-that-divide-a-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count how many digits in a given integer evenly divide the integer itself.",
+    "constraints": "The integer is between 1 and 1000.",
+    "examples": "For the number 128, the digits are 1, 2, and 8. 1 divides 128, 2 divides 128, and 8 divides 128. So the count is 3. For 1012, the digits are 1, 0, 1, 2. Only 1 and 2 divide 1012. The count is 3 (1, 1, 2).",
+    "starterCode": "def countDigits(num):\n    # Your code here\n    pass\nprint(countDigits(128)) # expected: 3\nprint(countDigits(1012)) # expected: 3"
+  },
+  "distinct-prime-factors-of-product-of-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the total number of unique prime factors across all numbers in a given array.",
+    "constraints": "The array length is between 1 and 1000. · Each number is between 1 and 1000.",
+    "examples": "If nums = [2, 4, 8, 16], the prime factors are {2}. The count is 1. If nums = [2, 3, 5], the prime factors are {2, 3, 5}. The count is 3.",
+    "starterCode": "def distinctPrimeFactors(nums):\n    # Your code here\n    pass\nprint(distinctPrimeFactors([2, 4, 8, 16])) # expected: 1\nprint(distinctPrimeFactors([2, 3, 5])) # expected: 3"
+  },
+  "partition-string-into-substrings-with-values-at-most-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Partition a string into the minimum number of substrings such that the numeric value of each substring is at most K.",
+    "constraints": "The string contains only digits. · K is between 1 and 10^9. · The string length is between 1 and 10^5.",
+    "examples": "If s = '12345' and K = 200, you can partition it as ['1', '2', '34', '5'], which is 4 substrings. If K = 30, you can partition it as ['12', '3', '4', '5'], which is 4 substrings.",
+    "starterCode": "def minimumPartition(s, k):\n    # Your code here\n    pass\nprint(minimumPartition('12345', 200)) # expected: 4\nprint(minimumPartition('12345', 30)) # expected: 4"
+  },
+  "closest-prime-numbers-in-range": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the two closest prime numbers within a given range [left, right]. Return -1 if no two primes exist in the range.",
+    "constraints": "The range [left, right] is between 1 and 10^6.",
+    "examples": "If left = 10, right = 15, the primes are 11 and 13. The closest pair is (11, 13) with a difference of 2. If left = 1, right = 1, there are no primes, return -1.",
+    "starterCode": "def closestPrimes(left, right):\n    # Your code here\n    pass\nprint(closestPrimes(10, 15)) # expected: [11, 13]\nprint(closestPrimes(1, 1)) # expected: [-1, -1]"
+  },
+  "maximum-frequency-score-of-a-subarray": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum frequency score of any subarray, where the score is calculated by summing the frequencies of each element in the subarray multiplied by its value.",
+    "constraints": "The array length is between 1 and 10^5. · Element values are between 1 and 10^5.",
+    "examples": "If nums = [1, 2, 1, 3, 2, 1] and k = 2, the subarray [1, 2, 1] has frequencies {1: 2, 2: 1}. Score = (2*1) + (1*2) = 4. The subarray [2, 1, 3, 2, 1] has frequencies {1: 2, 2: 2, 3: 1}. Score = (2*1) + (2*2) + (1*3) = 9. The maximum score is 9.",
+    "starterCode": "def maximumFrequencyScore(nums, k):\n    # Your code here\n    pass\nprint(maximumFrequencyScore([1, 2, 1, 3, 2, 1], 2)) # expected: 9\nprint(maximumFrequencyScore([1, 1, 1], 1)) # expected: 3"
+  },
+  "categorize-box-according-to-criteria": {
+    "draft": true,
+    "generated": true,
+    "goal": "Categorize a box based on its dimensions (length, width, height) and weight. A box is 'Bulky' if any dimension is > 100 or the volume > 10^9. It's 'Heavy' if weight > 100. If both, it's 'Both'. Otherwise, it's 'Light'.",
+    "constraints": "Dimensions and weight are non-negative integers.",
+    "examples": "If length=10, width=5, height=100, weight=150, it's 'Both' (volume is 5000, weight is 150). If length=10, width=10, height=10, weight=50, it's 'Light'.",
+    "starterCode": "def categorizeBox(length, width, height, mass):\n    # Your code here\n    pass\nprint(categorizeBox(10, 5, 100, 150)) # expected: 'Both'\nprint(categorizeBox(10, 10, 10, 50)) # expected: 'Light'"
+  },
+  "find-consecutive-integers-from-a-data-stream": {
+    "draft": true,
+    "generated": true,
+    "goal": "Design a system that receives integers and allows you to check if there are `k` consecutive integers equal to `value` that have been seen recently.",
+    "constraints": "`value` and `k` are positive integers.",
+    "examples": "If value = 2 and k = 3, and the stream is [1, 2, 2, 1, 2, 2, 2, 3], the first time you can confirm 3 consecutive 2s is after seeing the fifth '2'.",
+    "starterCode": "class DataStream:\n    def __init__(self, value: int, k: int):\n        # Your code here\n        pass\n    def consec(self, num: int) -> bool:\n        # Your code here\n        pass\n\ndataStream = DataStream(2, 3)\nprint(dataStream.consec(1)) # False\nprint(dataStream.consec(2)) # False\nprint(dataStream.consec(2)) # False\nprint(dataStream.consec(1)) # False\nprint(dataStream.consec(2)) # False\nprint(dataStream.consec(2)) # False\nprint(dataStream.consec(2)) # True"
+  },
+  "find-xor-beauty-of-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the XOR sum of all possible XOR combinations of subarrays of a given array.",
+    "constraints": "The array length is between 1 and 10^5. · Element values are between 0 and 10^9.",
+    "examples": "If nums = [1, 3, 5], the subarrays are [1], [3], [5], [1, 3], [3, 5], [1, 3, 5]. Their XOR sums are 1, 3, 5, 1^3=2, 3^5=6, 1^3^5=7. The XOR sum of these is 1^3^5^2^6^7 = 4.",
+    "starterCode": "def xorBeauty(nums):\n    # Your code here\n    pass\nprint(xorBeauty([1, 3, 5])) # expected: 4\nprint(xorBeauty([1, 2])) # expected: 3"
+  },
+  "maximize-the-minimum-powered-city": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible minimum power among all cities after distributing a total power `p` among them, where each city's power must be at least its base power.",
+    "constraints": "Number of cities `n` is between 1 and 10^5. · Base powers are positive integers. · Total power `p` is positive.",
+    "examples": "If basePowers = [1, 2, 3] and p = 4, you can distribute power to get [2, 3, 4]. The minimum power is 2. If you distribute as [1, 2, 6], the minimum is 1. The maximum minimum power is 2.",
+    "starterCode": "def maxPower(stations, r, k, p):\n    # Your code here\n    pass\nprint(maxPower([1, 2, 3], 1, 1, 4)) # expected: 2\nprint(maxPower([1, 2, 6], 1, 1, 4)) # expected: 1"
+  },
+  "maximum-count-of-positive-integer-and-negative-integer": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a sorted array of integers, find the maximum count between positive integers and negative integers.",
+    "constraints": "The array is sorted in non-decreasing order. · The array length is between 1 and 1000.",
+    "examples": "If nums = [-2, -1, 0, 1, 2, 3], there are 3 negative numbers and 3 positive numbers. The maximum count is 3. If nums = [-5, -4, -3, -2, -1], there are 5 negative numbers and 0 positive numbers. The maximum count is 5.",
+    "starterCode": "def maximumCount(nums):\n    # Your code here\n    pass\nprint(maximumCount([-2, -1, 0, 1, 2, 3])) # expected: 3\nprint(maximumCount([-5, -4, -3, -2, -1])) # expected: 5"
+  },
+  "maximal-score-after-applying-k-operations": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the maximum possible score after performing `k` operations. In each operation, you select the largest number, add it to your score, and replace it with its ceiling division by 3.",
+    "constraints": "The array length is between 1 and 10^5. · `k` is between 1 and 10^5. · Numbers are between 1 and 10^9.",
+    "examples": "If nums = [10, 100, 1000] and k = 3, operations: 1. Pick 1000, score=1000, nums=[10, 100, 334]. 2. Pick 334, score=1000+334=1334, nums=[10, 100, 112]. 3. Pick 112, score=1334+112=1446, nums=[10, 100, 38]. Final score: 1446.",
+    "starterCode": "def maxKelements(nums, k):\n    # Your code here\n    pass\nprint(maxKelements([10, 100, 1000], 3)) # expected: 1446\nprint(maxKelements([1, 2, 3], 2)) # expected: 5"
   }
 }
