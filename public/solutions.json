@@ -35036,5 +35036,730 @@
     "constraints": "The input string consists only of '0's and '1's. · The string length is between 1 and 1000.",
     "examples": "For s = \"10110\", we can flip the last '0' to '1' to get \"10111\", then flip the second '0' to '1' to get \"11111\", which is a palindrome. This takes 2 operations.",
     "starterCode": "def minimum_operations_to_make_binary_palindrome(s):\n    # Your code here\n    pass\nprint(minimum_operations_to_make_binary_palindrome(\"10110\")) # expected: 2"
+  },
+  "find-the-longest-equal-subarray": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the length of the longest subarray in `nums` such that, after removing at most `k` elements, all remaining elements in that subarray are identical.",
+    "constraints": "1 <= nums.length <= 10^5 · 1 <= nums[i] <= nums.length · 0 <= k <= nums.length",
+    "examples": "Input: nums = [1,3,2,2,1,3,2,2,2], k = 2\nOutput: 4\nExplanation: The subarray [2,2,1,3,2,2,2] (indices 2 to 8) has 7 elements. If we remove '1' and '3' (2 deletions <= k), we are left with [2,2,2,2], which has 4 equal elements. This is the longest possible.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def longestEqualSubarray(self, nums: List[int], k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().longestEqualSubarray([1,3,2,2,1,3,2,2,2], 2)) # expected: 4"
+  },
+  "maximal-range-that-each-element-is-maximum-in-it": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each element in the input array, determine the size of the largest continuous subarray where that element is the maximum value. Return an array of these sizes.",
+    "constraints": "1 <= nums.length <= 10^5 · 1 <= nums[i] <= 10^9 · All elements are unique.",
+    "examples": "Input: nums = [2,5,3,4,1]\nOutput: [1,5,1,2,1]\nExplanation:\n- For 2: The range is [2] (size 1).\n- For 5: The range is [2,5,3,4,1] (size 5).\n- For 3: The range is [3] (size 1).\n- For 4: The range is [3,4] (size 2).\n- For 1: The range is [1] (size 1).",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maximalRange(self, nums: List[int]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().maximalRange([2,5,3,4,1])) # expected: [1,5,1,2,1]"
+  },
+  "market-analysis-iii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the IDs of users who have placed at least two orders, and whose second order occurred within 7 days (inclusive) of their first order.",
+    "constraints": "Users table: user_id (PK), join_date. Orders table: order_id (PK), order_date, item_id, buyer_id.",
+    "examples": "Users table:\nuser_id | join_date\n--------|----------\n1       | 2023-01-01\n2       | 2023-01-05\n3       | 2023-01-10\n\nOrders table:\norder_id | order_date | item_id | buyer_id\n---------|------------|---------|----------\n101      | 2023-01-02 | 1       | 1\n102      | 2023-01-03 | 2       | 1\n103      | 2023-01-06 | 3       | 2\n104      | 2023-01-12 | 4       | 3\n105      | 2023-01-15 | 5       | 3\n106      | 2023-01-08 | 6       | 2\n\nOutput:\nuser_id\n-------\n1\n2\n3\nExplanation: User 1: Orders on 2023-01-02, 2023-01-03. Second order is 1 day after first (1 <= 7). User 2: Orders on 2023-01-06, 2023-01-08. Second order is 2 days after first (2 <= 7). User 3: Orders on 2023-01-12, 2023-01-15. Second order is 3 days after first (3 <= 7). All three users satisfy the condition.",
+    "starterCode": "from typing import List\n\n# This problem requires a SQL solution. The Python function is a placeholder.\nclass Solution:\n    def marketAnalysisIII(self) -> List[int]:\n        # Your SQL query would go here if this were a database environment.\n        pass\n\n# Example usage for a Python environment would involve mock data structures.\n# print(Solution().marketAnalysisIII()) # expected: [1,2,3]"
+  },
+  "maximum-score-after-applying-operations-on-a-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a tree with values at each node, find the maximum total score achievable. When visiting a node, you can either take its value (and skip all its descendants) or skip its value (allowing its children to be considered). Every leaf node must either be taken or have an ancestor that was taken.",
+    "constraints": "1 <= n <= 10^5 · 0 <= values[i] <= 10^9 · edges.length == n - 1 · edges[i] is a valid edge.",
+    "examples": "Input: values = [20,10,9,7,4,3,5], edges = [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]]\nOutput: 20\nExplanation: The tree is:\n      0(20)\n     /   \\\n   1(10)  2(9)\n  / \\    / \\\n3(7) 4(4) 5(3) 6(5)\n\nOption 1: Take node 0 (score 20). All descendants (1,2,3,4,5,6) are skipped. All leaves (3,4,5,6) are covered by node 0.\nTotal score = 20.\n\nOption 2: Skip node 0. Now consider children 1 and 2.\n  For subtree at 1:\n    Take node 1 (score 10). Leaves 3,4 covered.\n    Skip node 1. Take node 3 (score 7) and node 4 (score 4). Leaves 3,4 covered. Total score = 7+4=11.\n    Max for subtree 1 is 11.\n  For subtree at 2:\n    Take node 2 (score 9). Leaves 5,6 covered.\n    Skip node 2. Take node 5 (score 3) and node 6 (score 5). Leaves 5,6 covered. Total score = 3+5=8.\n    Max for subtree 2 is 9.\nTotal score = (Max for subtree 1) + (Max for subtree 2) = 11 + 9 = 20.\n\nMaximum overall score is 20.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maxScoreAfterOperations(self, values: List[int], edges: List[List[int]]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxScoreAfterOperations([20,10,9,7,4,3,5], [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]])) # expected: 20"
+  },
+  "high-access-employees": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of employee access times, identify and return the names of all employees who are considered \"high-access\". An employee is high-access if they log in at least three times within any 60-minute interval.",
+    "constraints": "1 <= accessTimes.length <= 100 · accessTimes[i].length == 2 · employeeName is 1-10 chars, lowercase English · accessTime is \"HHMM\" format.",
+    "examples": "Input: accessTimes = [[\"a\",\"0549\"],[\"b\",\"0457\"],[\"a\",\"0532\"],[\"a\",\"0621\"],[\"b\",\"0510\"]]\nOutput: [\"a\"]\nExplanation:\n- Employee 'a' has access times: \"0532\", \"0549\", \"0621\".\n  The interval from \"0532\" to \"0621\" is 49 minutes (06:21 - 05:32 = 49 min). \n  Since 49 <= 60, 'a' has 3 accesses within a 60-minute window and is high-access.\n- Employee 'b' has access times: \"0457\", \"0510\". Only 2 accesses, so not high-access.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def highAccessEmployees(self, accessTimes: List[List[str]]) -> List[str]:\n        # Your code here\n        pass\n\nprint(Solution().highAccessEmployees([[\"a\",\"0549\"],[\"b\",\"0457\"],[\"a\",\"0532\"],[\"a\",\"0621\"],[\"b\",\"0510\"]])) # expected: [\"a\"]"
+  },
+  "minimum-operations-to-maximize-last-elements-in-arrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two arrays `nums1` and `nums2` of equal length, you can swap `nums1[i]` and `nums2[i]` for any index `i`. Determine the minimum number of swaps required to make both `nums1` and `nums2` non-decreasing. Return -1 if it's impossible.",
+    "constraints": "1 <= n == nums1.length == nums2.length <= 10^5 · 1 <= nums1[i], nums2[i] <= 10^9",
+    "examples": "Input: nums1 = [1,2,7,8], nums2 = [3,4,5,6]\nOutput: 0\nExplanation: Both arrays are already non-decreasing without any swaps. \nnums1: [1,2,7,8] (1<=2<=7<=8)\nnums2: [3,4,5,6] (3<=4<=5<=6)\n\nInput: nums1 = [1,3,2], nums2 = [2,1,3]\nOutput: 1\nExplanation: \nInitial: nums1=[1,3,2], nums2=[2,1,3]\nIf we swap at index 1: nums1=[1,1,2], nums2=[2,3,3]. Both are non-decreasing. Cost: 1 swap.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def minOperations(self, nums1: List[int], nums2: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minOperations([1,2,7,8], [3,4,5,6])) # expected: 0"
+  },
+  "maximum-strong-pair-xor-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers, find the maximum XOR value `x ^ y` such that `x` and `y` are elements from the array, and they form a \"strong pair\" (i.e., `|x - y| <= min(x, y)`).",
+    "constraints": "1 <= nums.length <= 5 * 10^4 · 1 <= nums[i] <= 2 * 10^9",
+    "examples": "Input: nums = [1,2,3,4,5]\nOutput: 7\nExplanation: We need to find pairs (x,y) where |x-y| <= min(x,y).\n- (1,1): |1-1|=0 <= min(1,1)=1. XOR: 0.\n- (1,2): |1-2|=1 <= min(1,2)=1. XOR: 1^2 = 3.\n- (2,3): |2-3|=1 <= min(2,3)=2. XOR: 2^3 = 1.\n- (2,4): |2-4|=2 <= min(2,4)=2. XOR: 2^4 = 6.\n- (3,4): |3-4|=1 <= min(3,4)=3. XOR: 3^4 = 7.\n- (3,5): |3-5|=2 <= min(3,5)=3. XOR: 3^5 = 6.\n- (4,5): |4-5|=1 <= min(4,5)=4. XOR: 4^5 = 1.\nThe maximum XOR value among these strong pairs is 7.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maximumStrongPairXor(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximumStrongPairXor([1,2,3,4,5])) # expected: 7"
+  },
+  "number-of-equal-numbers-blocks": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given an array `nums` of length `n` containing only 0s and 1s, accessible via an `ArrayReader` object. The array is structured as contiguous blocks of equal numbers (e.g., `[0,0,1,1,1,0,0]`). Your task is to count the total number of such blocks.",
+    "constraints": "1 <= n <= 10^5 · ArrayReader.get(i) returns nums[i].",
+    "examples": "Input: nums (via ArrayReader) = [0,0,1,1,1,0,0]\nOutput: 3\nExplanation: The array consists of three blocks: [0,0], [1,1,1], and [0,0].",
+    "starterCode": "# This is an interactive problem. The ArrayReader class is provided by the system.\nclass ArrayReader:\n    def __init__(self, arr: list):\n        self.arr = arr\n        self.n = len(arr)\n\n    def get(self, index: int) -> int:\n        if 0 <= index < self.n:\n            return self.arr[index]\n        raise IndexError(\"Index out of bounds\")\n\nclass Solution:\n    def numberOfBlocks(self, reader: 'ArrayReader') -> int:\n        # Your code here\n        pass\n\n# Example usage:\nreader_instance = ArrayReader([0,0,1,1,1,0,0])\nprint(Solution().numberOfBlocks(reader_instance)) # expected: 3"
+  },
+  "make-three-strings-equal": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given three strings `s1`, `s2`, and `s3`, find the minimum total number of characters that must be deleted from their ends to make all three strings identical. If no common non-empty string can be formed, return -1.",
+    "constraints": "1 <= s1.length, s2.length, s3.length <= 100 · Strings consist of lowercase English letters.",
+    "examples": "Input: s1 = \"abc\", s2 = \"abce\", s3 = \"abcde\"\nOutput: 3\nExplanation: The longest common prefix is \"abc\" (length 3).\nTo make all strings \"abc\":\n- From \"abc\": 0 deletions.\n- From \"abce\": delete 'e' (1 deletion).\n- From \"abcde\": delete 'd', 'e' (2 deletions).\nTotal deletions = 0 + 1 + 2 = 3.",
+    "starterCode": "class Solution:\n    def findMinimumDeletions(self, s1: str, s2: str, s3: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().findMinimumDeletions(\"abc\", \"abce\", \"abcde\")) # expected: 3"
+  },
+  "separate-black-and-white-balls": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary string composed of '0's (black balls) and '1's (white balls), determine the minimum number of adjacent swaps required to arrange all '0's to the left and all '1's to the right.",
+    "constraints": "1 <= s.length <= 10^5 · s[i] is '0' or '1'.",
+    "examples": "Input: s = \"1010\"\nOutput: 3\nExplanation: The target arrangement is \"0011\".\n\"1010\" -> \"0110\" (swap s[0], s[1]) - cost 1\n\"0110\" -> \"0101\" (swap s[2], s[3]) - cost 1\n\"0101\" -> \"0011\" (swap s[1], s[2]) - cost 1\nTotal cost = 3.",
+    "starterCode": "class Solution:\n    def minimumSwaps(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minimumSwaps(\"1010\")) # expected: 3"
+  },
+  "maximum-xor-product": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two non-negative integers `a` and `b`, and an integer `n`, find the maximum possible value of `(a XOR x) * (b XOR x)` where `x` is an integer such that `0 <= x < 2^n`.",
+    "constraints": "0 <= a, b < 2^30 · 1 <= n <= 30",
+    "examples": "Input: a = 1, b = 2, n = 3\nOutput: 30\nExplanation: `x` can be any integer from 0 to 2^3 - 1 = 7.\n- If x = 0: (1^0) * (2^0) = 1 * 2 = 2\n- If x = 1: (1^1) * (2^1) = 0 * 3 = 0\n- If x = 2: (1^2) * (2^2) = 3 * 0 = 0\n- If x = 3: (1^3) * (2^3) = 2 * 1 = 2\n- If x = 4: (1^4) * (2^4) = 5 * 6 = 30\n- If x = 5: (1^5) * (2^5) = 4 * 7 = 28\n- If x = 6: (1^6) * (2^6) = 7 * 4 = 28\n- If x = 7: (1^7) * (2^7) = 6 * 5 = 30\nThe maximum product is 30.",
+    "starterCode": "class Solution:\n    def maximumXorProduct(self, a: int, b: int, n: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximumXorProduct(1, 2, 3)) # expected: 30"
+  },
+  "find-building-where-alice-and-bob-can-meet": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of building heights and a list of queries (Alice's and Bob's starting building indices), find the index of the leftmost building (starting from the rightmost of their current positions) where they can meet. They can meet if the building's height is greater than or equal to both their starting building heights. If no such building exists, return -1.",
+    "constraints": "1 <= heights.length <= 5 * 10^4 · 1 <= heights[i] <= 10^9 · 1 <= queries.length <= 5 * 10^4 · 0 <= queries[i][0], queries[i][1] < heights.length",
+    "examples": "Input: heights = [6,4,8,5,2,7], queries = [[0,1],[0,4],[2,5]]\nOutput: [2,5,-1]\nExplanation:\n- Query [0,1]: Alice at index 0 (height 6), Bob at index 1 (height 4). Required height >= max(6,4) = 6. Search from index max(0,1)=1 to the right.\n  - Index 1 (height 4): 4 < 6. No.\n  - Index 2 (height 8): 8 >= 6. Yes. Meet at index 2.\n- Query [0,4]: Alice at index 0 (height 6), Bob at index 4 (height 2). Required height >= max(6,2) = 6. Search from index max(0,4)=4 to the right.\n  - Index 4 (height 2): 2 < 6. No.\n  - Index 5 (height 7): 7 >= 6. Yes. Meet at index 5.\n- Query [2,5]: Alice at index 2 (height 8), Bob at index 5 (height 7). Required height >= max(8,7) = 8. Search from index max(2,5)=5 to the right.\n  - Index 5 (height 7): 7 < 8. No.\n  - End of array. No building. Return -1.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def findBuildings(self, heights: List[int], queries: List[List[int]]) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().findBuildings([6,4,8,5,2,7], [[0,1],[0,4],[2,5]])) # expected: [2,5,-1]"
+  },
+  "maximum-gcd-sum-of-a-subarray": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of positive integers, find the maximum possible value of `GCD(subarray) + SUM(subarray)` over all non-empty subarrays.",
+    "constraints": "1 <= nums.length <= 10^5 · 1 <= nums[i] <= 10^9",
+    "examples": "Input: nums = [6,2,4,10]\nOutput: 24\nExplanation: Let's evaluate some subarrays:\n- [6]: GCD=6, SUM=6. Total = 12.\n- [10]: GCD=10, SUM=10. Total = 20.\n- [6,2,4,10]: GCD=2, SUM=22. Total = 24.\nThe maximum value found is 24.",
+    "starterCode": "from typing import List\nimport math\n\nclass Solution:\n    def maxGcdSum(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxGcdSum([6,2,4,10])) # expected: 24"
+  },
+  "find-words-containing-character": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings `words` and a character `x`, return a list of all 0-indexed positions of words in `words` that contain the character `x`. The order of indices in the result should be preserved.",
+    "constraints": "1 <= words.length <= 50 · 1 <= words[i].length <= 50 · x is a lowercase English letter · words[i] consists of lowercase English letters.",
+    "examples": "Input: words = [\"leet\",\"code\",\"love\",\"you\"], x = \"e\"\nOutput: [0,1,2]\nExplanation:\n- \"leet\" contains 'e' (index 0).\n- \"code\" contains 'e' (index 1).\n- \"love\" contains 'e' (index 2).\n- \"you\" does not contain 'e'.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def findWordsContaining(self, words: List[str], x: str) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().findWordsContaining([\"leet\",\"code\",\"love\",\"you\"], \"e\")) # expected: [0,1,2]"
+  },
+  "maximize-area-of-square-hole-in-grid": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given a grid formed by `(n+2)` horizontal and `(m+2)` vertical bars. Some horizontal bars (`hBars`) and vertical bars (`vBars`) have been removed. Find the maximum area of a square hole that can be formed. A square hole is defined by two unremoved horizontal bars and two unremoved vertical bars, such that all bars between them (both horizontal and vertical) are removed.",
+    "constraints": "1 <= n, m <= 10^9 · 1 <= hBars.length, vBars.length <= 100 · 1 <= hBars[i] <= n+1 · 1 <= vBars[i] <= m+1",
+    "examples": "Input: n = 2, m = 1, hBars = [2,3], vBars = [2]\nOutput: 4\nExplanation:\nTotal horizontal bars are 1, 2, 3, 4. Removed: 2, 3. Unremoved: 1, 4.\nTotal vertical bars are 1, 2, 3. Removed: 2. Unremoved: 1, 3.\n\nFor horizontal bars:\n- The longest sequence of consecutive *removed* bars is [2,3], which has length 2. This allows a horizontal span of (2+1) = 3 units.\n  (e.g., between unremoved bar 1 and unremoved bar 4, there are 2 removed bars: 2, 3. The span is 4-1 = 3 units).\n\nFor vertical bars:\n- The longest sequence of consecutive *removed* bars is [2], which has length 1. This allows a vertical span of (1+1) = 2 units.\n  (e.g., between unremoved bar 1 and unremoved bar 3, there is 1 removed bar: 2. The span is 3-1 = 2 units).\n\nThe side length of the largest square hole is min(3, 2) = 2.\nThe maximum area is 2 * 2 = 4.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maximizeSquareHoleArea(self, n: int, m: int, hBars: List[int], vBars: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximizeSquareHoleArea(2, 1, [2,3], [2])) # expected: 4"
+  },
+  "minimum-number-of-coins-for-fruits": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the minimum total cost to acquire all fruits from index `0` to `n-1`. When you purchase fruit `i`, you pay its `price[i]` and automatically receive the next `i` fruits (indices `i+1` through `2*i`) for free.",
+    "constraints": "1 <= n <= 1000 · 1 <= prices[i] <= 10^5",
+    "examples": "Input: prices = [3,1,2] (n=3)\nOutput: 3\nExplanation:\nLet dp[k] be the minimum cost to acquire fruits 0 through k-1.\ndp array is initialized to [0, inf, inf, inf].\n\n- For i = 0 (price[0]=3):\n  - Update dp[1] = min(inf, dp[0]) = 0.\n  - Buying fruit 0 costs dp[0] + prices[0] = 0 + 3 = 3.\n  - This covers fruits 0 to 2*0=0. So, it updates dp[k] for k from 0+1=1 to min(3, 2*0+1=1).\n  - dp[1] = min(dp[1], 3) = 3.\n  - dp state: [0, 3, inf, inf]\n\n- For i = 1 (price[1]=1):\n  - Update dp[2] = min(inf, dp[1]) = 3.\n  - Buying fruit 1 costs dp[1] + prices[1] = 3 + 1 = 4.\n  - This covers fruits 1 to 2*1=2. So, it updates dp[k] for k from 1+1=2 to min(3, 2*1+1=3).\n  - dp[2] = min(dp[2], 4) = 3.\n  - dp[3] = min(inf, 4) = 4.\n  - dp state: [0, 3, 3, 4]\n\n- For i = 2 (price[2]=2):\n  - Update dp[3] = min(4, dp[2]) = min(4, 3) = 3.\n  - Buying fruit 2 costs dp[2] + prices[2] = 3 + 2 = 5.\n  - This covers fruits 2 to 2*2=4. So, it updates dp[k] for k from 2+1=3 to min(3, 2*2+1=5).\n  - dp[3] = min(dp[3], 5) = 3.\n  - dp state: [0, 3, 3, 3]\n\nThe minimum cost to acquire all fruits (0 to n-1) is dp[n] = dp[3] = 3.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def minimumCoins(self, prices: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minimumCoins([3,1,2])) # expected: 3"
+  },
+  "find-maximum-non-decreasing-array-length": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array `nums`, you can partition it into one or more contiguous subarrays. Each subarray is then replaced by its sum. The objective is to maximize the number of resulting sums (the length of the new array) such that this new array is non-decreasing.",
+    "constraints": "1 <= nums.length <= 10^5 · 1 <= nums[i] <= 10^9",
+    "examples": "Input: nums = [1,2,3,4]\nOutput: 4\nExplanation: We can partition it as [[1],[2],[3],[4]]. The sums are [1,2,3,4], which is non-decreasing. This gives a length of 4.\n\nInput: nums = [5,2,2]\nOutput: 1\nExplanation: \n- Partition [[5],[2],[2]] gives sums [5,2,2], which is not non-decreasing.\n- Partition [[5,2],[2]] gives sums [7,2], which is not non-decreasing.\n- Partition [[5],[2,2]] gives sums [5,4], which is not non-decreasing.\n- Partition [[5,2,2]] gives sum [9], which is non-decreasing. This gives a length of 1. This is the maximum possible.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def findMaximumNonDecreasingSubarrayLength(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().findMaximumNonDecreasingSubarrayLength([1,2,3,4])) # expected: 4\nprint(Solution().findMaximumNonDecreasingSubarrayLength([5,2,2])) # expected: 1"
+  },
+  "matrix-similarity-after-cyclic-shifts": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an `m x n` integer matrix `mat` and an integer `k`, determine if the matrix remains identical to its original state after applying `k` cyclic shifts to its rows. Even-indexed rows are shifted right, and odd-indexed rows are shifted left.",
+    "constraints": "1 <= m, n <= 50 · 1 <= mat[i][j] <= 1000 · 1 <= k <= 10^9",
+    "examples": "Input: mat = [[1,2,1,2],[5,5,5,5],[6,3,6,3]], k = 2\nOutput: True\nExplanation:\nOriginal matrix:\n1 2 1 2\n5 5 5 5\n6 3 6 3\n\nAfter k=2 shifts:\n- Row 0 (even): [1,2,1,2] shifted right by 2 becomes [1,2,1,2].\n- Row 1 (odd): [5,5,5,5] shifted left by 2 becomes [5,5,5,5].\n- Row 2 (even): [6,3,6,3] shifted right by 2 becomes [6,3,6,3].\n\nThe matrix is identical to the original, so return True.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def areSimilar(self, mat: List[List[int]], k: int) -> bool:\n        # Your code here\n        pass\n\nprint(Solution().areSimilar([[1,2,1,2],[5,5,5,5],[6,3,6,3]], 2)) # expected: True"
+  },
+  "count-beautiful-substrings-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string `s` and an integer `k`, count the number of substrings of `s` that are \"beautiful\". A substring is beautiful if the count of vowels equals the count of consonants within it, and the product of these counts is divisible by `k`.",
+    "constraints": "1 <= s.length <= 20 · 1 <= k <= 1000 · s consists of lowercase English letters.",
+    "examples": "Input: s = \"baeyh\", k = 2\nOutput: 2\nExplanation: Vowels are 'a', 'e', 'i', 'o', 'u'.\n- Substring \"ba\": v=1, c=1. Equal counts. Product 1*1=1. 1 % 2 != 0. Not beautiful.\n- Substring \"ey\": v=1, c=1. Equal counts. Product 1*1=1. 1 % 2 != 0. Not beautiful.\n- Substring \"baey\": v=2, c=2. Equal counts. Product 2*2=4. 4 % 2 == 0. Beautiful!\n- Substring \"aeyh\": v=2, c=2. Equal counts. Product 2*2=4. 4 % 2 == 0. Beautiful!\nThere are 2 beautiful substrings.",
+    "starterCode": "class Solution:\n    def countBeautifulSubstrings(self, s: str, k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().countBeautifulSubstrings(\"baeyh\", 2)) # expected: 2"
+  },
+  "make-lexicographically-smallest-array-by-swapping-elements": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array `nums` and an integer `limit`, you can swap any two elements `nums[i]` and `nums[j]` if the absolute difference between their values `|nums[i] - nums[j]|` is less than or equal to `limit`. Find the lexicographically smallest array that can be formed by applying these swaps any number of times.",
+    "constraints": "1 <= nums.length <= 10^5 · 1 <= nums[i] <= 10^9 · 0 <= limit <= 10^9",
+    "examples": "Input: nums = [1,5,3,9,8], limit = 2\nOutput: [1,3,5,8,9]\nExplanation:\nElements can be swapped if their difference is <= 2.\n- 1 can swap with 3 (|1-3|=2 <= 2).\n- 3 can swap with 1, 5 (|3-5|=2 <= 2).\n- 5 can swap with 3.\n- 8 can swap with 9 (|8-9|=1 <= 2).\n\nThis forms two connected components of indices:\n1. Indices {0, 1, 2} corresponding to values {1, 5, 3}.\n   - Sorted values: {1, 3, 5}.\n   - Sorted indices: {0, 1, 2}.\n   - Assigning sorted values to sorted indices: nums[0]=1, nums[1]=3, nums[2]=5.\n2. Indices {3, 4} corresponding to values {9, 8}.\n   - Sorted values: {8, 9}.\n   - Sorted indices: {3, 4}.\n   - Assigning sorted values to sorted indices: nums[3]=8, nums[4]=9.\n\nThe resulting array is [1,3,5,8,9].",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def lexicographicallySmallestArray(self, nums: List[int], limit: int) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().lexicographicallySmallestArray([1,5,3,9,8], 2)) # expected: [1,3,5,8,9]"
+  },
+  "find-most-frequent-vowel-and-consonant": {
+    "draft": true,
+    "generated": true,
+    "goal": "Identify the vowel and the consonant that appear most frequently in a given string.",
+    "constraints": "String contains only lowercase English letters · String length between 1 and 1000.",
+    "examples": "Input: \"banana\"\nOutput: Vowel: 'a', Consonant: 'n'\nExplanation: 'a' appears 3 times, 'n' appears 2 times.",
+    "starterCode": "def find_most_frequent(s: str) -> tuple[str, str]:\n    # Your code here\n    pass\n\nprint(find_most_frequent(\"banana\"))\n# expected: ('a', 'n')"
+  },
+  "minimum-operations-to-convert-all-elements-to-zero": {
+    "draft": true,
+    "generated": true,
+    "goal": "Calculate the minimum number of operations required to make all elements in an array equal to zero. An operation involves selecting a positive element 'x' and subtracting 'x' from all other positive elements in the array.",
+    "constraints": "Array length between 1 and 100 · Elements between 0 and 1000.",
+    "examples": "Input: [1, 5, 0, 3, 5]\nOperation 1: Pick 1. Array becomes [0, 4, 0, 2, 4].\nOperation 2: Pick 2. Array becomes [0, 2, 0, 0, 2].\nOperation 3: Pick 2. Array becomes [0, 0, 0, 0, 0].\nOutput: 3",
+    "starterCode": "def min_operations(nums: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(min_operations([1, 5, 0, 3, 5]))\n# expected: 3"
+  },
+  "maximum-weighted-k-edge-path": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum total weight of a path that starts at a specified source node and traverses exactly 'k' edges in a directed graph with weighted edges.",
+    "constraints": "n nodes (1 to 100) · k edges (1 to 100) · Edge weights between -1000 and 1000 · Graph can have cycles.",
+    "examples": "Input: n=3, edges=[(0,1,10), (1,2,5), (0,2,100), (2,1,-1)], start=0, k=2\nPaths of 2 edges from node 0:\n0 -> 1 -> 2 (weight: 10 + 5 = 15)\n0 -> 2 -> 1 (weight: 100 + (-1) = 99)\nOutput: 99",
+    "starterCode": "def max_weighted_k_edge_path(n: int, edges: list[tuple[int, int, int]], start: int, k: int) -> int:\n    # Your code here\n    pass\n\n# Example usage:\n# Represent edges as (from_node, to_node, weight)\nprint(max_weighted_k_edge_path(3, [(0,1,10), (1,2,5), (0,2,100), (2,1,-1)], 0, 2))\n# expected: 99"
+  },
+  "subtree-inversion-sum": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each node in a given binary tree, compute its 'inversion sum', defined as the count of pairs of nodes (u, v) within its subtree where 'u' is an ancestor of 'v' and 'u.val > v.val'. Return these sums, mapped by node value.",
+    "constraints": "Tree nodes between 1 and 1000 · Node values between 0 and 1000.",
+    "examples": "Input Tree:\n      5\n     / \\\n    2   8\n   / \\\n  1   3\n\nNode 1 (subtree {1}): 0 inversions.\nNode 3 (subtree {3}): 0 inversions.\nNode 2 (subtree {2,1,3}): (2,1) is an inversion (2>1). Total 1 inversion.\nNode 8 (subtree {8}): 0 inversions.\nNode 5 (subtree {5,2,8,1,3}): (5,2) is an inversion (5>2), (5,1) is an inversion (5>1), (5,3) is an inversion (5>3). Plus 1 from node 2's subtree. Total 3+1=4 inversions.\nOutput: {1:0, 2:1, 3:0, 5:4, 8:0}",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef subtree_inversion_sum(root: TreeNode) -> dict[int, int]:\n    # Your code here\n    pass\n\n# Example usage:\n# Tree: 5 -> (2, 8), 2 -> (1, 3)\nroot = TreeNode(5, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(8))\nprint(subtree_inversion_sum(root))\n# expected: {1:0, 2:1, 3:0, 5:4, 8:0}",
+    "viz": {
+      "key": "tree-traversal",
+      "input": {
+        "mode": "traverse",
+        "tree": [
+          5,
+          2,
+          8,
+          1,
+          3,
+          null,
+          null
+        ],
+        "order": "postorder"
+      }
+    }
+  },
+  "minimum-deletions-for-at-most-k-distinct-characters": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string and an integer 'k', determine the fewest characters that must be removed from the string so that the remaining string contains no more than 'k' unique character types.",
+    "constraints": "String length between 1 and 10^5 · k between 0 and 26 · String contains only lowercase English letters.",
+    "examples": "Input: s = \"aabbcc\", k = 1\nFrequencies: a:2, b:2, c:2. To have at most 1 distinct character, we must remove characters corresponding to two of the types. Removing all 'b's (2) and all 'c's (2) leaves only 'a's. Total deletions: 2 + 2 = 4.\nOutput: 4",
+    "starterCode": "import collections\n\ndef min_deletions(s: str, k: int) -> int:\n    # Your code here\n    pass\n\nprint(min_deletions(\"aabbcc\", 1))\n# expected: 4",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "mode": "scan",
+        "array": [
+          2,
+          2,
+          2
+        ]
+      }
+    }
+  },
+  "equal-sum-grid-partition-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a 2D grid of integers can be divided into two non-empty sub-grids, either by a horizontal or a vertical cut, such that the sum of elements in both resulting sub-grids is identical.",
+    "constraints": "Grid dimensions m x n (1 to 50) · Elements between -1000 and 1000.",
+    "examples": "Input: grid = [[1,1,1],[1,1,1]]\nTotal sum is 6. We need two sub-grids, each summing to 3.\nA horizontal cut after the first row yields [[1,1,1]] (sum 3) and [[1,1,1]] (sum 3).\nOutput: True\n\nInput: grid = [[1,2,3],[4,5,6]]\nTotal sum is 21. It's impossible to partition into two sub-grids with equal integer sums.\nOutput: False",
+    "starterCode": "def can_partition_grid(grid: list[list[int]]) -> bool:\n    # Your code here\n    pass\n\nprint(can_partition_grid([[1,1,1],[1,1,1]]))\n# expected: True"
+  },
+  "minimum-absolute-difference-in-sliding-submatrix": {
+    "draft": true,
+    "generated": true,
+    "goal": "For a given 2D grid and a specified submatrix size (r, c), compute a new grid where each cell (i, j) contains the minimum absolute difference between any two elements within the (r, c) submatrix whose top-left corner is at (i, j).",
+    "constraints": "Grid m x n (1 to 100) · Submatrix r x c (1 to m, 1 to n) · Elements between -10^9 and 10^9.",
+    "examples": "Input: grid = [[1,2,3],[4,5,6],[7,8,9]], r=2, c=2\n\nTop-left 2x2 submatrix: [[1,2],[4,5]]. Elements: {1,2,4,5}. Min diff = |2-1|=1.\nTop-right 2x2 submatrix: [[2,3],[5,6]]. Elements: {2,3,5,6}. Min diff = |3-2|=1.\nBottom-left 2x2 submatrix: [[4,5],[7,8]]. Elements: {4,5,7,8}. Min diff = |5-4|=1.\nBottom-right 2x2 submatrix: [[5,6],[8,9]]. Elements: {5,6,8,9}. Min diff = |6-5|=1.\nOutput: [[1,1],[1,1]]",
+    "starterCode": "def min_abs_diff_submatrix(grid: list[list[int]], r: int, c: int) -> list[list[int]]:\n    # Your code here\n    pass\n\nprint(min_abs_diff_submatrix([[1,2,3],[4,5,6],[7,8,9]], 2, 2))\n# expected: [[1, 1], [1, 1]]"
+  },
+  "minimum-moves-to-clean-the-classroom": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a grid representing a classroom with dirty cells ('1') and clean cells ('0'), find the minimum number of moves required to clean all dirty cells. You start at (0,0), can move in four cardinal directions, and have a broom with 'k' uses, each cleaning a single cell. Return -1 if it's impossible.",
+    "constraints": "Grid m x n (1 to 10) · k (0 to m*n) · Grid cells are '0' (clean) or '1' (dirty).",
+    "examples": "Input: grid = [\"101\", \"010\", \"101\"], k = 2\nDirty cells are at (0,0), (0,2), (1,1), (2,0), (2,2). There are 5 dirty cells.\nWith k=2 broom uses, it's impossible to clean all 5 dirty cells.\nOutput: -1\n\nInput: grid = [\"11\", \"11\"], k = 4\nOutput: (some positive integer, e.g., 6)",
+    "starterCode": "def min_moves_to_clean(grid: list[str], k: int) -> int:\n    # Your code here\n    pass\n\nprint(min_moves_to_clean([\"101\", \"010\", \"101\"], 2))\n# expected: -1"
+  },
+  "maximize-count-of-distinct-primes-after-split": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, split it into two non-empty contiguous subarrays. The objective is to maximize the total count of distinct prime numbers found across both subarrays combined.",
+    "constraints": "Array length between 2 and 10^5 · Elements between 1 and 10^6.",
+    "examples": "Input: nums = [2,3,5,7,11]\nIf split as [2] | [3,5,7,11]: Distinct primes are {2} ∪ {3,5,7,11} = {2,3,5,7,11}. Count = 5.\nIf split as [2,3] | [5,7,11]: Distinct primes are {2,3} ∪ {5,7,11} = {2,3,5,7,11}. Count = 5.\nOutput: 5",
+    "starterCode": "def max_distinct_primes_after_split(nums: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(max_distinct_primes_after_split([2,3,5,7,11]))\n# expected: 5",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "mode": "scan",
+        "array": [
+          2,
+          3,
+          5,
+          7,
+          11
+        ]
+      }
+    }
+  },
+  "find-books-with-no-available-copies": {
+    "draft": true,
+    "generated": true,
+    "goal": "From a database containing `Books` and `Copies` tables, retrieve the titles of all books that currently have no available copies. A copy is considered available if its 'available' status is 'Y'.",
+    "constraints": "Standard SQL database problem.",
+    "examples": "Books Table:\n| book_id | title   |\n|---------|---------|\n| 1       | TitleA  |\n| 2       | TitleB  |\n| 3       | TitleC  |\n\nCopies Table:\n| copy_id | book_id | available |\n|---------|---------|-----------|\n| 101     | 1       | Y         |\n| 102     | 1       | N         |\n| 103     | 2       | N         |\n| 104     | 3       | Y         |\n\nBook 'TitleA' (id 1) has an available copy (101).\nBook 'TitleB' (id 2) has no available copies.\nBook 'TitleC' (id 3) has an available copy (104).\nOutput: ['TitleB']",
+    "starterCode": "# This problem is intended to be solved using SQL.\n# Here's a conceptual Python representation for testing purposes:\n\ndef find_books_with_no_available_copies(books_data: list[tuple[int, str]], copies_data: list[tuple[int, int, str]]) -> list[str]:\n    # Your SQL query equivalent logic here\n    pass\n\n# Example usage:\nbooks = [(1, 'TitleA'), (2, 'TitleB'), (3, 'TitleC')]\ncopies = [(101, 1, 'Y'), (102, 1, 'N'), (103, 2, 'N'), (104, 3, 'Y')]\nprint(find_books_with_no_available_copies(books, copies))\n# expected: ['TitleB']"
+  },
+  "find-the-shortest-superstring-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of strings, construct the shortest possible string that contains all of the input strings as substrings. If multiple such shortest strings exist, any one is acceptable.",
+    "constraints": "Number of words between 1 and 12 · Word length between 1 and 20 · Total length of all words up to 240.",
+    "examples": "Input: [\"a\", \"b\", \"c\"]\nOutput: \"abc\"\n\nInput: [\"cat\", \"atg\", \"tgc\"]\nPossible superstrings:\n\"catgc\" (from \"cat\" + \"tgc\" with overlap \"t\"; then \"catg\" + \"tgc\" with overlap \"tg\")\n\"atgc\" (from \"atg\" + \"tgc\" with overlap \"tg\")\nOutput: \"atgc\"",
+    "starterCode": "def shortest_superstring(words: list[str]) -> str:\n    # Your code here\n    pass\n\nprint(shortest_superstring([\"a\", \"b\", \"c\"]))\n# expected: \"abc\"",
+    "viz": {
+      "key": "backtracking",
+      "input": {
+        "elems": [
+          "a",
+          "b",
+          "c"
+        ]
+      }
+    }
+  },
+  "maximize-ysum-by-picking-a-triplet-of-distinct-xvalues": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of points (x, y), find three distinct points (x1, y1), (x2, y2), (x3, y3) such that x1 < x2 < x3, and their corresponding y-values (y1 + y2 + y3) yield the maximum possible sum. Return this maximum sum.",
+    "constraints": "Number of points between 3 and 10^5 · x and y values between 1 and 10^9 · All x values are unique.",
+    "examples": "Input: points = [(1,10), (2,5), (3,12), (4,8)]\nPoints sorted by x-value:\n(1,10), (2,5), (3,12), (4,8)\n\nPossible triplets (x1 < x2 < x3):\n(1,10), (2,5), (3,12) → sum = 10+5+12 = 27\n(1,10), (2,5), (4,8) → sum = 10+5+8 = 23\n(1,10), (3,12), (4,8) → sum = 10+12+8 = 30\n(2,5), (3,12), (4,8) → sum = 5+12+8 = 25\n\nMaximum sum is 30.\nOutput: 30",
+    "starterCode": "def maximize_ysum(points: list[tuple[int, int]]) -> int:\n    # Your code here\n    pass\n\nprint(maximize_ysum([(1,10), (2,5), (3,12), (4,8)]))\n# expected: 30",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "mode": "scan",
+        "array": [
+          10,
+          5,
+          12,
+          8
+        ]
+      }
+    }
+  },
+  "best-time-to-buy-and-sell-stock-v": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of stock prices, determine the maximum profit achievable by completing at most 'k' transactions. Each transaction consists of one buy and one sell, and you must sell a stock before buying another.",
+    "constraints": "Array length between 1 and 1000 · k between 1 and 100 · Prices between 0 and 1000.",
+    "examples": "Input: prices = [3,2,6,5,0,3], k = 2\nTransaction 1: Buy at price 2, sell at price 6. Profit = 6 - 2 = 4.\nTransaction 2: Buy at price 0, sell at price 3. Profit = 3 - 0 = 3.\nTotal maximum profit = 4 + 3 = 7.\nOutput: 7",
+    "starterCode": "def max_profit(prices: list[int], k: int) -> int:\n    # Your code here\n    pass\n\nprint(max_profit([3,2,6,5,0,3], 2))\n# expected: 7"
+  },
+  "maximize-subarray-gcd-score": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of positive integers, find the largest possible greatest common divisor (GCD) among all its non-empty contiguous subarrays.",
+    "constraints": "Array length between 1 and 10^5 · Elements between 1 and 10^9.",
+    "examples": "Input: nums = [6, 10, 15]\nSubarrays and their GCDs:\n[6] → GCD(6) = 6\n[10] → GCD(10) = 10\n[15] → GCD(15) = 15\n[6, 10] → GCD(6, 10) = 2\n[10, 15] → GCD(10, 15) = 5\n[6, 10, 15] → GCD(6, 10, 15) = 1\nMaximum GCD found is 15.\nOutput: 15",
+    "starterCode": "import math\n\ndef max_subarray_gcd_score(nums: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(max_subarray_gcd_score([6, 10, 15]))\n# expected: 15",
+    "viz": {
+      "key": "scan",
+      "input": {
+        "mode": "scan",
+        "array": [
+          6,
+          10,
+          15
+        ]
+      }
+    }
+  },
+  "maximum-good-subtree-score": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each node in a binary tree, calculate a 'good subtree score': the count of nodes in its subtree whose values have their 'k'-th bit set, minus the count of nodes whose values have their 'k'-th bit unset. Return the maximum good subtree score found across all nodes.",
+    "constraints": "Tree nodes between 1 and 1000 · Node values between 0 and 1000 · k between 0 and 9.",
+    "examples": "Input Tree (node values), k=0:\n      5  (binary 101)\n     / \\\n    2   3 (binary 010, 011)\n\nNode 2 subtree: {2}. 0th bit of 2 is 0. Score = 0 - 1 = -1.\nNode 3 subtree: {3}. 0th bit of 3 is 1. Score = 1 - 0 = 1.\nNode 5 subtree: {5,2,3}. \n  5 (0th bit 1)\n  2 (0th bit 0)\n  3 (0th bit 1)\nNodes with 0th bit set: {5,3} (count 2).\nNodes with 0th bit unset: {2} (count 1).\nScore = 2 - 1 = 1.\nMaximum score is 1.\nOutput: 1",
+    "starterCode": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef max_good_subtree_score(root: TreeNode, k: int) -> int:\n    # Your code here\n    pass\n\n# Example usage:\n# Tree: 5 -> (2, 3)\nroot = TreeNode(5, TreeNode(2), TreeNode(3))\nprint(max_good_subtree_score(root, 0))\n# expected: 1",
+    "viz": {
+      "key": "tree-traversal",
+      "input": {
+        "mode": "traverse",
+        "tree": [
+          5,
+          2,
+          3
+        ],
+        "order": "postorder"
+      }
+    }
+  },
+  "transform-array-to-all-equal-elements": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find the minimum number of operations needed to make all elements in the array equal. An operation consists of changing an element's value to any other value that is already present in the array.",
+    "constraints": "Array length between 1 and 10^5 · Elements between 1 and 10^9.",
+    "examples": "Input: nums = [1,2,3,2,1]\nTo make all elements 1: change 3 to 1 (1 op), change 2s to 1s (2 ops). Total 3 ops.\nTo make all elements 2: change 1s to 2s (2 ops), change 3 to 2 (1 op). Total 3 ops.\nTo make all elements 3: change 1s to 3s (2 ops), change 2s to 3s (2 ops). Total 4 ops.\nMinimum operations is 3.\nOutput: 3",
+    "starterCode": "import collections\n\ndef min_operations_to_equal(nums: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(min_operations_to_equal([1,2,3,2,1]))\n# expected: 3"
+  },
+  "count-the-number-of-computer-unlocking-permutations": {
+    "draft": true,
+    "generated": true,
+    "goal": "A computer requires an unlocking sequence of 'N' distinct digits. Given 'M' distinct digits available, calculate how many unique unlocking sequences are possible if each sequence must contain at least one even digit and at least one odd digit.",
+    "constraints": "N between 1 and 10 · M between N and 10.",
+    "examples": "Input: N=2, M=3, available_digits = [1,2,3]\nAvailable even digits: [2] (count=1)\nAvailable odd digits: [1,3] (count=2)\nTotal permutations of 2 digits from 3: P(3,2) = 3 * 2 = 6. (1,2), (1,3), (2,1), (2,3), (3,1), (3,2).\nPermutations with only even digits: 0.\nPermutations with only odd digits: P(2,2) = 2 * 1 = 2. (1,3), (3,1).\nValid sequences = Total - (only even) - (only odd) = 6 - 0 - 2 = 4.\nOutput: 4",
+    "starterCode": "import math\n\ndef count_unlocking_permutations(n: int, m: int, available_digits: list[int]) -> int:\n    # Your code here\n    pass\n\nprint(count_unlocking_permutations(2, 3, [1,2,3]))\n# expected: 4"
+  },
+  "count-partitions-with-max-min-difference-at-most-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers and an integer 'k', determine the number of distinct ways to partition the array into one or more contiguous subarrays such that the difference between the maximum and minimum element within each subarray is at most 'k'.",
+    "constraints": "Array length between 1 and 10^5 · Elements between 0 and 10^9 · k between 0 and 10^9.",
+    "examples": "Input: nums = [1,3,2,4], k = 1\nValid contiguous subarrays (max-min ≤ 1):\n[1], [3], [2], [4], [3,2]\n\nPossible partitions:\n1. [1] | [3] | [2] | [4] (All subarrays are valid)\n2. [1] | [3,2] | [4] (All subarrays are valid)\nOutput: 2",
+    "starterCode": "import collections\n\ndef count_partitions(nums: list[int], k: int) -> int:\n    # Your code here\n    pass\n\nprint(count_partitions([1,3,2,4], 1))\n# expected: 2"
+  },
+  "minimum-steps-to-convert-string-with-operations": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two strings, 's' and 't', find the minimum number of operations required to transform string 's' into string 't'. The allowed operations are: inserting a character, deleting a character, replacing a character, or swapping two adjacent characters.",
+    "constraints": "String lengths between 1 and 500 · Strings contain lowercase English letters.",
+    "examples": "Input: s = \"abc\", t = \"bac\"\nOperation: Swap 'a' and 'b' in \"abc\" to get \"bac\". Cost = 1.\nOutput: 1\n\nInput: s = \"horse\", t = \"ros\"\nOutput: 3 (e.g., delete 'h', replace 'o' with 'r', delete 'e')",
+    "starterCode": "def min_steps_to_convert(s: str, t: str) -> int:\n    # Your code here\n    pass\n\nprint(min_steps_to_convert(\"abc\", \"bac\"))\n# expected: 1"
+  },
+  "find-consistently-improving-employees": {
+    "draft": true,
+    "generated": true,
+    "goal": "From `Employees` and `Salaries` tables, identify the IDs of employees whose monthly salary has strictly increased for each of the last three consecutive months for which salary data is recorded.",
+    "constraints": "Standard SQL database problem.",
+    "examples": "Salaries Table:\n| id | employee_id | amount | pay_date   |\n|----|-------------|--------|------------|\n| 1  | 101         | 5000   | 2023-01-31 |\n| 2  | 101         | 5500   | 2023-02-28 |\n| 3  | 101         | 6000   | 2023-03-31 |\n| 4  | 102         | 4000   | 2023-01-31 |\n| 5  | 102         | 4500   | 2023-02-28 |\n| 6  | 102         | 4500   | 2023-03-31 |\n| 7  | 103         | 7000   | 2023-03-31 |\n\nEmployee 101: 5000 → 5500 → 6000 (strictly increasing for 3 months).\nEmployee 102: 4000 → 4500 → 4500 (not strictly increasing).\nEmployee 103: Only one month of data.\nOutput: [101]",
+    "starterCode": "# This problem is intended to be solved using SQL.\n# Here's a conceptual Python representation for testing purposes:\n\ndef find_consistently_improving_employees(salaries_data: list[tuple[int, int, int, str]]) -> list[int]:\n    # Your SQL query equivalent logic here\n    pass\n\n# Example usage:\nsalaries = [\n    (1, 101, 5000, '2023-01-31'),\n    (2, 101, 5500, '2023-02-28'),\n    (3, 101, 6000, '2023-03-31'),\n    (4, 102, 4000, '2023-01-31'),\n    (5, 102, 4500, '2023-02-28'),\n    (6, 102, 4500, '2023-03-31'),\n    (7, 103, 7000, '2023-03-31')\n]\nprint(find_consistently_improving_employees(salaries))\n# expected: [101]"
+  },
+  "count-odd-letters-from-number": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a number represented as a string, count how many of its digits are odd.",
+    "constraints": "Input `num` is a string of digits · `1 <= len(num) <= 1000` · `num` contains only digits.",
+    "examples": "For `num = \"12345\"`, the odd digits are '1', '3', '5', so the count is 3.\nFor `num = \"2468\"`, there are no odd digits, so the count is 0.",
+    "starterCode": "def count_odd_letters_from_number(num: str) -> int:\n    # Your code here\n    pass\n\nprint(count_odd_letters_from_number(\"12345\")) # expected: 3"
+  },
+  "generate-tag-for-video-caption": {
+    "draft": true,
+    "generated": true,
+    "goal": "Create a tag for a video caption by taking the first letter of each word, converting it to uppercase, and joining them.",
+    "constraints": "`caption` is a string of words separated by spaces · `1 <= len(caption) <= 100` · Words consist of English letters.",
+    "examples": "For `caption = \"hello world\"`, the tag is \"HW\".\nFor `caption = \"coding interview prep\"`, the tag is \"CIP\".",
+    "starterCode": "def generate_tag_for_video_caption(caption: str) -> str:\n    # Your code here\n    pass\n\nprint(generate_tag_for_video_caption(\"hello world\")) # expected: HW"
+  },
+  "count-special-triplets": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, count the number of \"special\" triplets `(nums[i], nums[j], nums[k])` such that `nums[i] + nums[j] == nums[k]` and `i < j < k`.",
+    "constraints": "`1 <= len(nums) <= 100` · `1 <= nums[i] <= 1000` · All elements are positive.",
+    "examples": "For `nums = [1, 2, 3, 4, 5]`, the special triplets are `(1,2,3)`, `(1,3,4)`, `(1,4,5)`, `(2,3,5)`. The count is 4.\nFor `nums = [1, 1, 2]`, the only special triplet is `(1,1,2)`. The count is 1.",
+    "starterCode": "from typing import List\n\ndef count_special_triplets(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(count_special_triplets([1, 2, 3, 4, 5])) # expected: 4"
+  },
+  "maximum-product-of-first-and-last-elements-of-a-subsequence": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible product of `nums[i] * nums[j]` where `nums[i]` and `nums[j]` are the first and last elements of some subsequence, meaning `i < j`.",
+    "constraints": "`2 <= len(nums) <= 1000` · `-1000 <= nums[i] <= 1000`.",
+    "examples": "For `nums = [1, 2, 3, 4]`, the maximum product is `3 * 4 = 12` (from subsequence `[3, 4]`).\nFor `nums = [5, 1, 2, 4]`, the maximum product is `5 * 4 = 20` (from subsequence `[5, 1, 2, 4]`).",
+    "starterCode": "from typing import List\n\ndef maximum_product_of_first_and_last_elements_of_a_subsequence(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(maximum_product_of_first_and_last_elements_of_a_subsequence([1, 2, 3, 4])) # expected: 12"
+  },
+  "find-weighted-median-node-in-tree": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a tree where each node has a positive integer weight, find a node `u` such that if `u` is removed, the maximum total weight of any resulting connected component is minimized. Return the label of this node.",
+    "constraints": "`1 <= n <= 1000` nodes · `1 <= weight[i] <= 100` · Tree is connected and acyclic.",
+    "examples": "For `n=3`, `edges=[[0,1],[1,2]]`, `weights=[10,1,10]`:\n- Removing node 0 leaves component `[1,2]` (weight 11).\n- Removing node 1 leaves components `[0]` (weight 10) and `[2]` (weight 10). Max component weight: 10.\n- Removing node 2 leaves component `[0,1]` (weight 11).\nNode 1 minimizes the maximum component weight (10), so return 1.",
+    "starterCode": "from typing import List\n\ndef find_weighted_median_node_in_tree(n: int, edges: List[List[int]], weights: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(find_weighted_median_node_in_tree(3, [[0,1],[1,2]], [10,1,10])) # expected: 1"
+  },
+  "find-covid-recovery-patients": {
+    "draft": true,
+    "generated": true,
+    "goal": "From a `Patients` table with `patient_id`, `name`, `condition` columns, identify and return the `patient_id` and `name` of all patients whose `condition` does not contain 'COVID' (case-insensitive).",
+    "constraints": "`Patients` table exists with `patient_id` (int), `name` (varchar), `condition` (varchar) · `patient_id` is primary key · `condition` can be NULL or empty.",
+    "examples": "Given `Patients` table:\npatient_id | name    | condition\n-----------|---------|-------------------\n1          | Alice   | Diabetes\n2          | Bob     | COVID Positive\n3          | Charlie | Recovered from COVID\n4          | David   | Flu\n\nOutput should be:\npatient_id | name\n-----------|---------\n1          | Alice\n3          | Charlie\n4          | David",
+    "starterCode": "def find_covid_recovery_patients() -> str:\n    # Your code here\n    return \"SELECT patient_id, name FROM Patients WHERE condition NOT LIKE '%COVID%' AND condition NOT LIKE '%covid%';\"\n\nprint(find_covid_recovery_patients()) # expected: SELECT patient_id, name FROM Patients WHERE condition NOT LIKE '%COVID%' AND condition NOT LIKE '%covid%';"
+  },
+  "maximum-median-sum-of-subsequences-of-size-3": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find three elements `nums[i], nums[j], nums[k]` such that `i < j < k`, `nums[j]` is the median of the three values `(nums[i], nums[j], nums[k])`, and their sum `nums[i] + nums[j] + nums[k]` is maximized. Return this maximum sum.",
+    "constraints": "`3 <= len(nums) <= 1000` · `1 <= nums[i] <= 10^9`.",
+    "examples": "For `nums = [1, 5, 2, 8, 3]`:\n- Consider `nums[j]=5` (at index 1): `nums[0]=1` and `nums[3]=8` form `(1,5,8)`. Sum `1+5+8=14`.\n- Consider `nums[j]=2` (at index 2): `nums[0]=1` and `nums[3]=8` form `(1,2,8)`. Sum `1+2+8=11`.\nThe maximum sum is 14.\n\nFor `nums = [10, 1, 2, 100, 3, 4]`:\n- Consider `nums[j]=2` (at index 2): `nums[1]=1` and `nums[3]=100` form `(1,2,100)`. Sum `1+2+100=103`.\nThe maximum sum is 103.",
+    "starterCode": "from typing import List\n\ndef maximum_median_sum_of_subsequences_of_size_3(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(maximum_median_sum_of_subsequences_of_size_3([1, 5, 2, 8, 3])) # expected: 14"
+  },
+  "maximum-number-of-subsequences-after-one-inserting": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a `text` string and a `pattern` string of length 2, insert one character (either `pattern[0]` or `pattern[1]`) into `text` at any position to maximize the total count of `pattern` as a subsequence. Return this maximum count.",
+    "constraints": "`1 <= len(text) <= 10^5` · `pattern` has length 2 · `text` and `pattern` consist of lowercase English letters.",
+    "examples": "For `text = \"abacaba\"`, `pattern = \"ab\"`:\n- Original count of \"ab\" subsequences is 8.\n- Inserting 'a' (pattern[0]) at the beginning adds 3 new \"ab\" subsequences (one for each 'b' in original text), total `8+3=11`.\n- Inserting 'b' (pattern[1]) at the end adds 4 new \"ab\" subsequences (one for each 'a' in original text), total `8+4=12`.\nThe maximum count is 12.",
+    "starterCode": "def maximum_number_of_subsequences_after_one_inserting(text: str, pattern: str) -> int:\n    # Your code here\n    pass\n\nprint(maximum_number_of_subsequences_after_one_inserting(\"abacaba\", \"ab\")) # expected: 12"
+  },
+  "minimum-jumps-to-reach-end-via-prime-teleportation": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of distinct positive integers, find the minimum number of jumps required to travel from the first element (`nums[0]`) to the last element (`nums[len(nums)-1]`). A jump from `nums[i]` to `nums[j]` is allowed if the absolute difference `abs(nums[i] - nums[j])` is a prime number. If no path exists, return -1.",
+    "constraints": "`2 <= len(nums) <= 100` · `1 <= nums[i] <= 1000` · All `nums[i]` are distinct.",
+    "examples": "For `nums = [1, 2, 3, 4, 5]`:\n- Start at 1, target 5.\n- Jump from 1 to 3 (`abs(1-3)=2`, which is prime).\n- Jump from 3 to 5 (`abs(3-5)=2`, which is prime).\nTotal 2 jumps: `1 -> 3 -> 5`.\n\nFor `nums = [1, 4, 6, 10]`:\n- Start at 1, target 10.\n- Possible prime difference jumps: `(1,4)` diff 3, `(1,6)` diff 5, `(4,6)` diff 2.\n- No path exists from any of these to 10. Return -1.",
+    "starterCode": "from typing import List\nfrom collections import deque\n\ndef minimum_jumps_to_reach_end_via_prime_teleportation(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(minimum_jumps_to_reach_end_via_prime_teleportation([1, 2, 3, 4, 5])) # expected: 2"
+  },
+  "partition-array-for-maximum-xor-and-and": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers, partition it into two non-empty contiguous subarrays. Calculate the XOR sum of the first subarray and the XOR sum of the second subarray. Return the maximum possible bitwise AND of these two XOR sums.",
+    "constraints": "`2 <= len(nums) <= 1000` · `0 <= nums[i] < 2^20`.",
+    "examples": "For `nums = [1, 2, 3, 4]`:\n- Partition `[1]` | `[2, 3, 4]`: XOR_A1=1, XOR_A2=(2^3^4)=5. AND = `1 & 5 = 1`.\n- Partition `[1, 2]` | `[3, 4]`: XOR_A1=(1^2)=3, XOR_A2=(3^4)=7. AND = `3 & 7 = 3`.\n- Partition `[1, 2, 3]` | `[4]`: XOR_A1=(1^2^3)=0, XOR_A2=4. AND = `0 & 4 = 0`.\nThe maximum AND result is 3.",
+    "starterCode": "from typing import List\n\ndef partition_array_for_maximum_xor_and_and(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(partition_array_for_maximum_xor_and_and([1, 2, 3, 4])) # expected: 3"
+  },
+  "sort-threats-by-severity-and-exploitability": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a list of threats, where each threat is represented by a pair `[severity, exploitability]`, sort the threats. Threats should be primarily sorted in descending order of severity. If severities are equal, they should be secondarily sorted in descending order of exploitability.",
+    "constraints": "`1 <= num_threats <= 1000` · `1 <= severity, exploitability <= 100`.",
+    "examples": "For `threats = [[5, 10], [8, 5], [5, 12], [3, 15]]`,\nthe sorted list should be `[[8, 5], [5, 12], [5, 10], [3, 15]]`.",
+    "starterCode": "from typing import List\n\ndef sort_threats_by_severity_and_exploitability(threats: List[List[int]]) -> List[List[int]]:\n    # Your code here\n    pass\n\nprint(sort_threats_by_severity_and_exploitability([[5, 10], [8, 5], [5, 12], [3, 15]])) # expected: [[8, 5], [5, 12], [5, 10], [3, 15]]"
+  },
+  "subarrays-with-xor-at-least-k": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of non-negative integers `nums` and an integer `k`, count the number of subarrays whose XOR sum is at least `k`.",
+    "constraints": "`1 <= len(nums) <= 2 * 10^4` · `0 <= nums[i] < 2^20` · `0 <= k < 2^20`.",
+    "examples": "For `nums = [1, 2, 3]`, `k = 3`:\n- Subarrays with XOR sum ≥ 3: `[3]` (XOR=3), `[1, 2]` (XOR=3).\nTotal count is 2.\n\nFor `nums = [2, 5, 8]`, `k = 7`:\n- Subarrays with XOR sum ≥ 7: `[8]` (XOR=8), `[2, 5]` (XOR=7), `[5, 8]` (XOR=13), `[2, 5, 8]` (XOR=15).\nTotal count is 4.",
+    "starterCode": "from typing import List\n\n# You might need a Trie data structure here.\n# class TrieNode:\n#     def __init__(self):\n#         self.children = [None, None]\n#         self.count = 0\n# class Trie:\n#     ...\n\ndef subarrays_with_xor_at_least_k(nums: List[int], k: int) -> int:\n    # Your code here\n    pass\n\nprint(subarrays_with_xor_at_least_k([2, 5, 8], 7)) # expected: 4"
+  },
+  "earliest-finish-time-for-land-and-water-rides-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given two arrays, `land_times` and `water_times`, each representing the duration of `N` land rides and `N` water rides, respectively. Each person must complete exactly one land ride and one water ride. Assign each land ride to a unique water ride such that the maximum total time any person spends (land ride time + water ride time) is minimized. Return this minimum possible maximum total time.",
+    "constraints": "`1 <= N <= 10^5` · `1 <= land_times[i], water_times[i] <= 10^9`.",
+    "examples": "For `land_times = [1, 2, 3]`, `water_times = [4, 5, 6]`:\n- Sort `land_times` ascending: `[1, 2, 3]`.\n- Sort `water_times` descending: `[6, 5, 4]`.\n- Form pairs: `(1+6)=7`, `(2+5)=7`, `(3+4)=7`.\n- The maximum sum among these pairs is 7.",
+    "starterCode": "from typing import List\n\ndef earliest_finish_time_for_land_and_water_rides_i(land_times: List[int], water_times: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(earliest_finish_time_for_land_and_water_rides_i([1, 2, 3], [4, 5, 6])) # expected: 7"
+  },
+  "minimum-removals-to-balance-array": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find the minimum number of elements to remove such that for the remaining elements, the maximum value is no more than twice the minimum value. If fewer than two elements remain, the condition is considered true.",
+    "constraints": "`1 <= len(nums) <= 10^5` · `1 <= nums[i] <= 10^9`.",
+    "examples": "For `nums = [1, 3, 4, 9, 10]`:\n- First, sort the array: `[1, 3, 4, 9, 10]`.\n- The longest subarray `[nums[i]...nums[j]]` satisfying `nums[j] <= 2 * nums[i]` is `[3, 4]` (length 2) or `[9, 10]` (length 2).\n- The maximum length is 2. So, `5 - 2 = 3` elements must be removed.\n\nFor `nums = [4, 5, 10, 15]`:\n- Sorted: `[4, 5, 10, 15]`.\n- Longest subarray satisfying `nums[j] <= 2 * nums[i]` is `[4, 5]` (length 2) or `[5, 10]` (length 2).\n- The maximum length is 2. So, `4 - 2 = 2` elements must be removed.",
+    "starterCode": "from typing import List\n\ndef minimum_removals_to_balance_array(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(minimum_removals_to_balance_array([1, 3, 4, 9, 10])) # expected: 3"
+  },
+  "earliest-finish-time-for-land-and-water-rides-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "You are given two arrays, `land_times` and `water_times`, representing the durations of land rides and water rides. You also have `P` people. Each person must complete exactly one land ride and one water ride. You need to select `P` unique land rides and `P` unique water rides, and assign them to the `P` people, such that the maximum total time any person spends (land ride time + water ride time) is minimized. Return this minimum possible maximum total time.",
+    "constraints": "`1 <= len(land_times), len(water_times) <= 10^5` · `1 <= P <= min(len(land_times), len(water_times))` · `1 <= land_times[i], water_times[i] <= 10^9`.",
+    "examples": "For `land_times = [1, 2, 3]`, `water_times = [4, 5, 6]`, `P = 2`:\n- We need to find the minimum `T` such that at least 2 pairs `(l, w)` can be formed with `l+w <= T`.\n- If `T=5`: Only `(1,4)` works. Count = 1. Not enough for `P=2`.\n- If `T=6`: Pairs `(1,4)`, `(1,5)`, `(2,4)` satisfy `l+w <= 6`. We can pick any two, e.g., `(1,4)` and `(2,5)`. Count = 3, which is ≥ `P=2`. So `T=6` is possible.\nThe minimum possible maximum total time is 6.",
+    "starterCode": "from typing import List\nimport bisect\n\ndef earliest_finish_time_for_land_and_water_rides_ii(land_times: List[int], water_times: List[int], p: int) -> int:\n    # Your code here\n    pass\n\nprint(earliest_finish_time_for_land_and_water_rides_ii([1, 2, 3], [4, 5, 6], 2)) # expected: 6"
+  },
+  "threshold-majority-queries": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers `nums` and a list of queries, where each query `[left, right, threshold]` asks to find an element `x` within the subarray `nums[left...right]` (inclusive) that appears strictly more than `threshold` times. If multiple such elements exist, return any one; otherwise, return -1.",
+    "constraints": "`1 <= len(nums) <= 10^5` · `1 <= nums[i] <= 10^9` · `1 <= num_queries <= 10^5` · `0 <= left <= right < len(nums)` · `0 <= threshold < (right - left + 1)`.",
+    "examples": "For `nums = [1, 2, 1, 3, 1, 2]`, `queries = [[0, 4, 1], [1, 5, 2]]`:\n- Query `[0, 4, 1]`: Subarray `[1, 2, 1, 3, 1]`. Element `1` appears 3 times. Since `3 > 1`, `1` is a threshold majority. Return 1.\n- Query `[1, 5, 2]`: Subarray `[2, 1, 3, 1, 2]`. Elements `1` and `2` both appear 2 times. Since `2 ≢ 2`, neither is a threshold majority. Return -1.\nOutput: `[1, -1]`",
+    "starterCode": "from typing import List\n\ndef threshold_majority_queries(nums: List[int], queries: List[List[int]]) -> List[int]:\n    # Your code here\n    pass\n\nprint(threshold_majority_queries([1, 2, 1, 3, 1, 2], [[0, 4, 1], [1, 5, 2]])) # expected: [1, -1]"
+  },
+  "trionic-array-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine if a given array of integers is a \"trionic array\". A trionic array is defined as an array that can be partitioned into three non-empty contiguous subarrays `A1, A2, A3` such that `A1` is strictly increasing, `A2` is strictly decreasing, and `A3` is strictly increasing.",
+    "constraints": "`3 <= len(nums) <= 1000` · `1 <= nums[i] <= 1000`.",
+    "examples": "For `nums = [1, 2, 5, 4, 3, 6, 7]`:\n- `A1=[1,2,5]` (strictly increasing)\n- `A2=[5,4,3]` (strictly decreasing)\n- `A3=[3,6,7]` (strictly increasing)\nThis array is trionic. Return `True`.\n\nFor `nums = [1, 2, 3, 4, 5]`:\n- It cannot be partitioned into three such parts. Return `False`.",
+    "starterCode": "from typing import List\n\ndef trionic_array_i(nums: List[int]) -> bool:\n    # Your code here\n    pass\n\nprint(trionic_array_i([1, 2, 5, 4, 3, 6, 7])) # expected: True"
+  },
+  "maximum-balanced-shipments": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find the maximum number of non-overlapping contiguous subarrays `nums[i...j]` such that the first and last elements of the subarray are equal (`nums[i] == nums[j]`). Each subarray must have a length of at least 2.",
+    "constraints": "`1 <= len(nums) <= 10^5` · `1 <= nums[i] <= 10^9`.",
+    "examples": "For `nums = [1, 2, 1, 3, 4, 3]`:\n- `[1, 2, 1]` (indices 0 to 2) and `[3, 4, 3]` (indices 3 to 5) are two non-overlapping subarrays where first and last elements are equal. The maximum count is 2.\n\nFor `nums = [1, 2, 3, 1]`:\n- Only `[1, 2, 3, 1]` (indices 0 to 3) satisfies the condition. The maximum count is 1.",
+    "starterCode": "from typing import List\n\ndef maximum_balanced_shipments(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(maximum_balanced_shipments([1, 2, 1, 3, 4, 3])) # expected: 2"
+  },
+  "minimum-time-to-activate-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers `nums` and an integer `K`, find the minimum non-negative integer `T` such that you can select at most `K` elements from `nums` to \"activate\" the entire array. When an element `nums[i]` is activated, it covers all elements `nums[j]` such that `abs(nums[i] - nums[j]) <= T`.",
+    "constraints": "`1 <= len(nums) <= 10^5` · `1 <= nums[i] <= 10^9` · `1 <= K <= len(nums)`.",
+    "examples": "For `nums = [1, 5, 10]`, `K = 1`:\n- If `T=4`: Activating `5` covers values in `[1, 9]`. This covers `1` and `5`, but not `10`. We would need another activator for `10`.\n- If `T=5`: Activating `5` covers values in `[0, 10]`. This covers `1`, `5`, and `10`. Only 1 activator is needed, which is ≤ `K`. So `T=5` is the minimum.\n\nFor `nums = [1, 2, 3, 10, 11, 12]`, `K = 2`:\n- If `T=1`: Activating `1` covers `[1,2]`. Activating `3` covers `[2,3]`. Activating `10` covers `[10,11]`. Activating `12` covers `[11,12]`. We need 4 activators. Not ≤ `K`.\n- If `T=2`: Activating `2` covers `[1,2,3]`. Activating `11` covers `[10,11,12]`. We need 2 activators, which is ≤ `K`. So `T=2` is the minimum.",
+    "starterCode": "from typing import List\n\ndef minimum_time_to_activate_string(nums: List[int], k: int) -> int:\n    # Your code here\n    pass\n\nprint(minimum_time_to_activate_string([1, 2, 3, 10, 11, 12], 2)) # expected: 2"
+  },
+  "trionic-array-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find the maximum length of a \"trionic subsequence\". A trionic subsequence is defined as a subsequence `nums[i_1], nums[i_2], ..., nums[i_k]` such that there exist indices `p` and `q` (`1 <= p < q < k`) where `nums[i_1] < ... < nums[i_p]` (strictly increasing), `nums[i_p] > ... > nums[i_q]` (strictly decreasing), and `nums[i_q] < ... < nums[i_k]` (strictly increasing). Each of the three parts must be non-empty.",
+    "constraints": "`3 <= len(nums) <= 1000` · `1 <= nums[i] <= 10^9`.",
+    "examples": "For `nums = [1, 2, 5, 4, 3, 6, 7]`:\n- The subsequence `[1, 2, 5, 4, 3, 6, 7]` is trionic. It can be split into `[1,2,5]` (inc), `[5,4,3]` (dec), `[3,6,7]` (inc). Its length is 7.\n- This is the maximum possible length. Return 7.\n\nFor `nums = [1, 10, 2, 9, 3, 8]`:\n- The subsequence `[1, 10, 2, 3, 8]` is trionic: `[1,10]` (inc), `[10,2]` (dec), `[2,3,8]` (inc). Its length is 5.\n- The subsequence `[1, 10, 9, 3, 8]` is trionic: `[1,10]` (inc), `[10,9,3]` (dec), `[3,8]` (inc). Its length is 5.\n- The maximum length is 5.",
+    "starterCode": "from typing import List\n\ndef trionic_array_ii(nums: List[int]) -> int:\n    # Your code here\n    pass\n\nprint(trionic_array_ii([1, 2, 5, 4, 3, 6, 7])) # expected: 7"
+  },
+  "minimum-distance-between-three-equal-elements-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the minimum distance between any three occurrences of the same number in a given array. The distance is defined as the difference between the largest and smallest index among the three occurrences. If no number appears at least three times, return -1.",
+    "constraints": "3 <= nums.length <= 1000 · 1 <= nums[i] <= 10^9",
+    "examples": "nums = [1, 2, 1, 3, 1]\nThe number 1 appears at indices 0, 2, 4.\nThe only set of three occurrences is at (0, 2, 4).\nThe distance is 4 - 0 = 4.\nThe minimum distance is 4.\n\nnums = [1, 2, 3]\nNo number appears three times. Return -1.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def minimumDistance(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minimumDistance([1, 2, 1, 3, 1]))\n# expected: 4"
+  },
+  "minimum-distance-between-three-equal-elements-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Determine the smallest possible span (difference between the largest and smallest index) among any three occurrences of the same value within the input array. If no value appears at least three times, return -1.",
+    "constraints": "3 <= nums.length <= 10^5 · 1 <= nums[i] <= 10^9",
+    "examples": "nums = [5, 1, 5, 2, 5, 3]\nThe number 5 appears at indices 0, 2, 4.\nThe only set of three occurrences is at (0, 2, 4).\nThe span is 4 - 0 = 4.\n\nnums = [7, 7, 7, 7]\nThe number 7 appears at indices 0, 1, 2, 3.\nPossible spans for three occurrences:\n(0, 1, 2) -> 2 - 0 = 2\n(1, 2, 3) -> 3 - 1 = 2\nThe minimum span is 2.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def minimumDistance(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minimumDistance([5, 1, 5, 2, 5, 3]))\n# expected: 4"
+  },
+  "maximum-path-score-in-a-grid": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum \"path score\" from the top-left cell (0,0) to the bottom-right cell (rows-1, cols-1) of a grid. You can only move right or down. The path score is defined as the minimum value encountered along any path from start to end.",
+    "constraints": "1 <= rows, cols <= 100 · 0 <= grid[i][j] <= 10^9",
+    "examples": "grid = [[5, 1], [4, 8]]\nPaths from (0,0) to (1,1):\n1. (0,0) -> (0,1) -> (1,1): Values 5, 1, 8. Minimum is 1. Score: 1.\n2. (0,0) -> (1,0) -> (1,1): Values 5, 4, 8. Minimum is 4. Score: 4.\nThe maximum path score is 4.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maxPathScore(self, grid: List[List[int]]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxPathScore([[5, 1], [4, 8]]))\n# expected: 4"
+  },
+  "maximize-cyclic-partition-score": {
+    "draft": true,
+    "generated": true,
+    "goal": "Find the maximum possible sum of a contiguous subarray within a given array, where the subarray is allowed to wrap around (i.e., the array is considered circular).",
+    "constraints": "1 <= nums.length <= 3 * 10^4 · -3 * 10^4 <= nums[i] <= 3 * 10^4",
+    "examples": "nums = [5, -3, 5]\nSubarrays and their sums:\n- [5] (index 0): 5\n- [-3] (index 1): -3\n- [5] (index 2): 5\n- [5, -3] (indices 0,1): 2\n- [-3, 5] (indices 1,2): 2\n- [5, -3, 5] (indices 0,1,2): 7\n- [5, 5] (wrapping, indices 2,0): 10\nThe maximum sum is 10.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maxCyclicPartitionScore(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maxCyclicPartitionScore([5, -3, 5]))\n# expected: 10"
+  },
+  "find-kth-character-in-expanded-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a compressed string where a character followed by a digit N means the character is repeated N times, find the k-th character in the fully expanded string.",
+    "constraints": "1 <= s.length <= 100 · s consists of lowercase English letters and digits 1-9 · 1 <= k <= 10^9",
+    "examples": "s = \"a2b3c1\", k = 3\nExpanded string: 'a' (2 times), 'b' (3 times), 'c' (1 time) = \"aabBbc\".\nThe 3rd character is 'b'.\n\ns = \"z10\", k = 7\nExpanded string: 'z' (10 times) = \"zzzzzzzzzz\".\nThe 7th character is 'z'.",
+    "starterCode": "class Solution:\n    def findKthCharacter(self, s: str, k: int) -> str:\n        # Your code here\n        pass\n\nprint(Solution().findKthCharacter(\"a2b3c1\", 3))\n# expected: b"
+  },
+  "maximize-expression-of-three-elements": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, find three indices i, j, and k such that i < j < k, and the expression nums[i] - nums[j] + nums[k] is maximized. Return this maximum value.",
+    "constraints": "3 <= nums.length <= 10^5 · -10^9 <= nums[i] <= 10^9",
+    "examples": "nums = [1, 2, 3, 4, 5]\nPossible triplets (i, j, k) with i < j < k:\n(0, 1, 4): nums[0] - nums[1] + nums[4] = 1 - 2 + 5 = 4\n(1, 2, 4): nums[1] - nums[2] + nums[4] = 2 - 3 + 5 = 4\n(2, 3, 4): nums[2] - nums[3] + nums[4] = 3 - 4 + 5 = 4\nThe maximum value is 4.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def maximizeExpression(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().maximizeExpression([1, 2, 3, 4, 5]))\n# expected: 4"
+  },
+  "minimum-string-length-after-balanced-removals": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string consisting only of '(' and ')', determine the minimum possible length of the string after repeatedly removing any adjacent valid pair of parentheses \"()\".",
+    "constraints": "1 <= s.length <= 10^5 · s consists only of '(' and ')'",
+    "examples": "s = \"(()())\"\n1. Remove '()' at index 1,2: \"()()\"\n2. Remove '()' at index 0,1: \"()\"\n3. Remove '()' at index 0,1: \"\"\nThe minimum length is 0.\n\ns = \"())(\"\nNo adjacent '()' pairs can be removed.\nThe minimum length is 2.",
+    "starterCode": "class Solution:\n    def minLengthAfterRemovals(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minLengthAfterRemovals(\"(()())\"))\n# expected: 0"
+  },
+  "count-distinct-integers-after-removing-zeros": {
+    "draft": true,
+    "generated": true,
+    "goal": "For each number in a given array, construct a new number by removing all zero digits. Then, determine the total count of unique numbers among these newly constructed values.",
+    "constraints": "1 <= nums.length <= 1000 · 1 <= nums[i] <= 10^9",
+    "examples": "nums = [102, 20, 120, 100]\n- 102 becomes 12\n- 20 becomes 2\n- 120 becomes 12\n- 100 becomes 1\nThe unique new numbers are {12, 2, 1}.\nThe count of distinct integers is 3.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def countDistinctIntegers(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().countDistinctIntegers([102, 20, 120, 100]))\n# expected: 3"
+  },
+  "count-stable-subarrays": {
+    "draft": true,
+    "generated": true,
+    "goal": "Count the number of contiguous subarrays within a given array whose sum is non-negative (greater than or equal to zero).",
+    "constraints": "1 <= nums.length <= 10^5 · -10^9 <= nums[i] <= 10^9",
+    "examples": "nums = [1, -1, 2]\nSubarrays and their sums:\n[1] -> 1 (stable)\n[-1] -> -1 (not stable)\n[2] -> 2 (stable)\n[1, -1] -> 0 (stable)\n[-1, 2] -> 1 (stable)\n[1, -1, 2] -> 2 (stable)\nTotal stable subarrays: 5.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def countStableSubarrays(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().countStableSubarrays([1, -1, 2]))\n# expected: 5"
+  },
+  "evaluate-valid-expressions": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string representing a valid arithmetic expression, compute and return its numerical value. The expression can contain integers, '+', '-', '*', '/' operators, and parentheses '()'.",
+    "constraints": "1 <= s.length <= 10^4 · s contains only digits, '+', '-', '*', '/', '(', ')', and ' ' · Division is integer division (truncates towards zero) · The expression is always valid.",
+    "examples": "s = \"3 + 5 * (2 - 1)\"\nEvaluate (2 - 1) first: 1.\nThen 5 * 1: 5.\nThen 3 + 5: 8.\nThe result is 8.\n\ns = \" 7 / 3 + 2 * 4 \"\n7 / 3 is 2 (integer division).\n2 * 4 is 8.\n2 + 8 is 10.\nThe result is 10.",
+    "starterCode": "class Solution:\n    def evaluateExpression(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().evaluateExpression(\"3 + 5 * (2 - 1)\"))\n# expected: 8"
+  },
+  "minimum-number-of-flips-to-reverse-binary-string": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary string, determine the minimum number of character flips (changing '0' to '1' or '1' to '0') required to transform it into an alternating binary string (e.g., \"01010\" or \"10101\").",
+    "constraints": "1 <= s.length <= 10^5 · s consists only of '0' or '1'",
+    "examples": "s = \"0100\"\nTarget 1: \"0101\"\nDifferences: s[3] ('0') vs T1[3] ('1'). 1 flip.\nTarget 2: \"1010\"\nDifferences: s[0] ('0') vs T2[0] ('1'), s[2] ('0') vs T2[2] ('1'). 2 flips.\nThe minimum number of flips is 1.",
+    "starterCode": "class Solution:\n    def minFlipsToReverse(self, s: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().minFlipsToReverse(\"0100\"))\n# expected: 1"
+  },
+  "total-waviness-of-numbers-in-range-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two integers L and R, count how many integers X in the inclusive range [L, R] have digits that form a \"wavy\" sequence. A sequence of digits d_1, d_2, ..., d_m is wavy if for every 1 < i < m, either d_{i-1} < d_i > d_{i+1} or d_{i-1} > d_i < d_{i+1}. Numbers with fewer than 3 digits are not considered wavy.",
+    "constraints": "1 <= L <= R <= 10^5",
+    "examples": "L = 100, R = 125\nThe numbers whose digits form a wavy sequence are:\n101 (1 > 0 < 1)\n102 (1 > 0 < 2)\n103 (1 > 0 < 3)\n104 (1 > 0 < 4)\n105 (1 > 0 < 5)\n106 (1 > 0 < 6)\n107 (1 > 0 < 7)\n108 (1 > 0 < 8)\n109 (1 > 0 < 9)\n121 (1 < 2 > 1)\nThe total count is 10.",
+    "starterCode": "class Solution:\n    def totalWaviness(self, L: int, R: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().totalWaviness(100, 125))\n# expected: 10"
+  },
+  "lexicographically-smallest-negated-permutation-that-sums-to-target": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of distinct integers nums and a target sum, find a permutation of nums where each element can optionally be negated (multiplied by -1), such that the sum of the elements in the modified permutation equals target. Among all such valid permutations, return the one that is lexicographically smallest. If no such permutation exists, return an empty array.",
+    "constraints": "1 <= nums.length <= 15 · -100 <= nums[i] <= 100 · -1000 <= target <= 1000",
+    "examples": "nums = [1, 2, 3], target = 0\nPossible permutations with negations summing to 0:\n- [1, 2, -3] (sum 1+2-3=0)\n- [-1, -2, 3] (sum -1-2+3=0)\n- [1, -3, 2] (sum 1-3+2=0)\nComparing these, [-1, -2, 3] is lexicographically smaller than [1, 2, -3] because -1 < 1.\nThe lexicographically smallest valid permutation is [-1, -2, 3].",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def smallestNegatedPermutation(self, nums: List[int], target: int) -> List[int]:\n        # Your code here\n        pass\n\nprint(Solution().smallestNegatedPermutation([1, 2, 3], 0))\n# expected: [-1, -2, 3]"
+  },
+  "total-waviness-of-numbers-in-range-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given two integers L and R, count how many integers X in the inclusive range [L, R] have digits that form a \"wavy\" sequence. A sequence of digits d_1, d_2, ..., d_m is wavy if for every 1 < i < m, either d_{i-1} < d_i > d_{i+1} or d_{i-1} > d_i < d_{i+1}. Numbers with fewer than 3 digits are not considered wavy.",
+    "constraints": "1 <= L <= R <= 10^18",
+    "examples": "L = 100, R = 125\nThe numbers whose digits form a wavy sequence are:\n101, 102, 103, 104, 105, 106, 107, 108, 109, 121.\nThe total count is 10.",
+    "starterCode": "class Solution:\n    def totalWaviness(self, L: int, R: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().totalWaviness(100, 125))\n# expected: 10"
+  },
+  "concatenate-non-zero-digits-and-multiply-by-sum-i": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an integer, first form a new number by concatenating all its non-zero digits in their original order. Then, calculate the sum of all digits (including zeros) of the original number. Finally, return the product of these two calculated values.",
+    "constraints": "1 <= num <= 10^5",
+    "examples": "num = 10203\nNon-zero digits are 1, 2, 3. Concatenated, they form the number 123.\nThe sum of all digits is 1 + 0 + 2 + 0 + 3 = 6.\nThe result is 123 * 6 = 738.\n\nnum = 500\nNon-zero digits: 5. Concatenated, 5.\nSum of all digits: 5 + 0 + 0 = 5.\nResult: 5 * 5 = 25.",
+    "starterCode": "class Solution:\n    def concatenateAndMultiply(self, num: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().concatenateAndMultiply(10203))\n# expected: 738"
+  },
+  "find-maximum-balanced-xor-subarray-length": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a binary array (containing only 0s and 1s), find the maximum length of a contiguous subarray that contains an equal number of 0s and 1s.",
+    "constraints": "1 <= nums.length <= 10^5 · nums[i] is either 0 or 1",
+    "examples": "nums = [0, 1, 0, 0, 1, 1]\nSubarrays with equal 0s and 1s:\n- [0, 1] (length 2)\n- [1, 0] (length 2)\n- [0, 1, 0, 0, 1, 1] (3 zeros, 3 ones) (length 6)\n- [0, 0, 1, 1] (2 zeros, 2 ones) (length 4)\nThe maximum length is 6.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def findMaxBalancedXORSubarrayLength(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().findMaxBalancedXORSubarrayLength([0, 1, 0, 0, 1, 1]))\n# expected: 6"
+  },
+  "concatenate-non-zero-digits-and-multiply-by-sum-ii": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a number represented as a string, first form a new number by concatenating all its non-zero digits in their original order. Then, calculate the sum of all digits (including zeros) of the original number. Finally, return the product of these two calculated values, modulo 10^9 + 7.",
+    "constraints": "1 <= num.length <= 10^5 · num consists of digits 0-9 · num does not have leading zeros (unless num is \"0\" itself)",
+    "examples": "num = \"10203\"\nNon-zero digits are 1, 2, 3. Concatenated, they form the number 123.\nThe sum of all digits is 1 + 0 + 2 + 0 + 3 = 6.\nThe result is (123 * 6) % (10^9 + 7) = 738.\n\nnum = \"12345\"\nNon-zero digits: 1, 2, 3, 4, 5. Concatenated: 12345.\nSum of all digits: 1+2+3+4+5 = 15.\nResult: (12345 * 15) % (10^9 + 7) = 185175.",
+    "starterCode": "class Solution:\n    def concatenateAndMultiply(self, num_str: str) -> int:\n        # Your code here\n        pass\n\nprint(Solution().concatenateAndMultiply(\"10203\"))\n# expected: 738"
+  },
+  "number-of-effective-subsequences": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers, count the total number of non-empty subsequences such that the bitwise XOR sum of all elements in the subsequence is equal to zero.",
+    "constraints": "1 <= nums.length <= 1000 · 0 <= nums[i] < 2^10",
+    "examples": "nums = [0, 1, 1]\nNon-empty subsequences with XOR sum 0:\n- [0]\n- [1, 1] (using the two 1s)\n- [0, 1, 1] (using 0 and the two 1s)\nThe total number of effective subsequences is 3.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def numberOfEffectiveSubsequences(self, nums: List[int]) -> int:\n        # Your code here\n        pass\n\nprint(Solution().numberOfEffectiveSubsequences([0, 1, 1]))\n# expected: 3"
+  },
+  "convert-number-words-to-digits": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given a string containing English number words for digits (e.g., \"one\", \"two\", \"zero\"), separated by spaces, convert this sequence of words into a single string of digits.",
+    "constraints": "1 <= s.length <= 100 · s contains only lowercase English letters and spaces · Each word in s is a valid number word for a single digit (\"zero\" to \"nine\").",
+    "examples": "s = \"one two three\"\n\"one\" -> 1\n\"two\" -> 2\n\"three\" -> 3\nResult: \"123\".\n\ns = \"five zero eight\"\n\"five\" -> 5\n\"zero\" -> 0\n\"eight\" -> 8\nResult: \"508\".",
+    "starterCode": "class Solution:\n    def convertWordsToDigits(self, s: str) -> str:\n        # Your code here\n        pass\n\nprint(Solution().convertWordsToDigits(\"one two three\"))\n# expected: \"123\""
+  },
+  "count-elements-with-at-least-k-greater-values": {
+    "draft": true,
+    "generated": true,
+    "goal": "Given an array of integers and an integer k, count how many elements in the array have at least k values strictly greater than themselves within the same array.",
+    "constraints": "1 <= nums.length <= 10^5 · -10^9 <= nums[i] <= 10^9 · 0 <= k < nums.length",
+    "examples": "nums = [1, 5, 2, 8, 3], k = 2\n- For 1: 5, 2, 8, 3 are greater (4 values). 4 >= 2, so count 1.\n- For 5: 8 is greater (1 value). 1 < 2, so don't count.\n- For 2: 5, 8, 3 are greater (3 values). 3 >= 2, so count 1.\n- For 8: No values are greater (0 values). 0 < 2, so don't count.\n- For 3: 5, 8 are greater (2 values). 2 >= 2, so count 1.\nTotal count is 3.",
+    "starterCode": "from typing import List\n\nclass Solution:\n    def countElementsWithKGreaterValues(self, nums: List[int], k: int) -> int:\n        # Your code here\n        pass\n\nprint(Solution().countElementsWithKGreaterValues([1, 5, 2, 8, 3], 2))\n# expected: 3"
   }
 }
